@@ -1,0 +1,6 @@
+connectorId: "default"
+generate:
+
+  dartSdk:
+    outputDir: ../../lib/src/database/generated
+    package: default_connector
