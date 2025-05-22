@@ -48,4 +48,4 @@ node_modules/
 .dataconnect/
 .genkit/
 web/
-*firebase_options"
+*firebase_options*
