@@ -49,3 +49,6 @@ node_modules/
 .genkit/
 web/
 *firebase_options*
+*.js
+*.js.map
+*.metadata*
