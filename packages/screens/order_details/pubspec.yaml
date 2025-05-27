@@ -1,7 +1,7 @@
-name: home_screen
+name: order_details
 description: "A new Flutter package project."
-version: 0.0.0
-resolution: workspace
+version: 0.0.1
+homepage:
 
 environment:
   sdk: ^3.8.0
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  component_library: ^0.0.0
 
 dev_dependencies:
   flutter_test:

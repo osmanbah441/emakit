@@ -1,4 +1,4 @@
-name: home_screen
+name: category_details
 description: "A new Flutter package project."
 version: 0.0.0
 resolution: workspace
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  component_library: ^0.0.0
 
 dev_dependencies:
   flutter_test:
