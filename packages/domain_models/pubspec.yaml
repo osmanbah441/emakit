@@ -1,6 +1,6 @@
 name: domain_models
 description: A starting point for Dart libraries or applications.
-version: 0.0.0+dev
+version: 0.0.0
 resolution: workspace
 
 environment:

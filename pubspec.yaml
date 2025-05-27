@@ -1,7 +1,7 @@
 name: emakit
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.0.0+dev
+version: 0.0.0
 
 workspace:
   - packages/domain_models
@@ -9,6 +9,12 @@ workspace:
   - packages/component_library
 
   - packages/screens/home_screen
+  - packages/screens/category_screen
+  - packages/screens/category_details
+  - packages/screens/cart
+  - packages/screens/checkout
+  - packages/screens/profile
+  - packages/screens/product_details
 
 environment:
   sdk: ^3.8.0
@@ -17,11 +23,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-  backend: ^0.0.0+dev
-  domain_models: ^0.0.0+dev
-  component_library: ^0.0.0+dev
-  home_screen: ^0.0.0+dev
   firebase_core: ^3.13.1
+
+  backend: ^0.0.0
+  domain_models: ^0.0.0
+  component_library: ^0.0.0
+
+  home_screen: ^0.0.0
+  category_screen: ^0.0.0
+  cart: ^0.0.0
+  checkout: ^0.0.0
+  profile: ^0.0.0
+  product_details: ^0.0.0
+  category_details: ^0.0.0
 
 dev_dependencies:
   flutter_test:

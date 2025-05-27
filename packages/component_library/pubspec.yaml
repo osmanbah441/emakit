@@ -1,6 +1,6 @@
 name: component_library
 description: "A new Flutter package project."
-version: 0.0.0+dev
+version: 0.0.0
 resolution: workspace
 
 environment:
@@ -8,8 +8,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  badges: ^3.1.2
   flutter:
     sdk: flutter
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
+  permission_handler: ^12.0.0+1
+  speech_to_text: ^7.0.0
+
 
 dev_dependencies:
   flutter_test:

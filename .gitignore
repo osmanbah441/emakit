@@ -52,3 +52,4 @@ web/
 *.js
 *.js.map
 *.metadata*
+windows/
