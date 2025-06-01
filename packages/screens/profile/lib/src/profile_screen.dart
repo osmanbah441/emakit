@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
               phoneNumber: _profileMemberSince,
             ),
 
-            SectionHeaderText(title: 'Account'),
+            SectionTitle(title: 'Account'),
             ListTile(
               leading: Icon(Icons.location_on_outlined),
               title: Text('Saved Addresses'),
@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             // Orders Section
-            SectionHeaderText(title: 'Orders'),
+            SectionTitle(title: 'Orders'),
             ListTile(
               leading: Icon(Icons.archive_outlined),
               title: Text('Order #789012'),

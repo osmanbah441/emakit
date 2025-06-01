@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
 class CachedProductImage extends StatelessWidget {
@@ -24,13 +25,7 @@ class CachedProductImage extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: imageUrl,
           fit: fit,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
+          placeholder: (context, url) => CenteredProgressIndicator(),
           errorWidget: (context, url, error) => Center(
             child: Icon(Icons.broken_image, size: 50, color: Colors.grey[400]),
           ),

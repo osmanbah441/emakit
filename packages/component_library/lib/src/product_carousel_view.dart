@@ -13,7 +13,7 @@ class ProductCarouselView extends StatelessWidget {
       height: 320,
       child: CarouselView.weighted(
         consumeMaxWeight: true,
-        flexWeights: [1],
+        flexWeights: [1, 10, 1],
         itemSnapping: true,
         children: imageUrls.map((image) {
           return CachedProductImage(imageUrl: image);

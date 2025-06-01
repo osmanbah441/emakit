@@ -9,6 +9,7 @@ environment:
 dependencies:
   firebase_data_connect: ^0.1.5
   cloud_functions: ^5.5.1
+  domain_models: ^0.0.0
 
 dev_dependencies:
   lints: ^5.0.0

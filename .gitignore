@@ -53,3 +53,5 @@ web/
 *.js.map
 *.metadata*
 windows/
+*.firebase*
+pubspec.lock

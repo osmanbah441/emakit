@@ -3,28 +3,19 @@ import 'package:flutter/services.dart'; // For SystemUiOverlayStyle
 
 // --- Reusable Components (previous ones + new HorizontalOrderTracker) ---
 
-/// A reusable title for sections within the Order Details screen.
 class SectionTitle extends StatelessWidget {
   final String title;
-  final EdgeInsetsGeometry padding;
 
-  const SectionTitle({
-    Key? key,
-    required this.title,
-    this.padding = const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
-  }) : super(key: key);
+  const SectionTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding,
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
       ),
     );
   }
@@ -389,37 +380,6 @@ class HorizontalOrderTracker extends StatelessWidget {
 // --- End of Reusable Components ---
 
 // --- Start of the Order Details Screen Example ---
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Order Details Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle.dark, // For status bar icons
-        ),
-        scaffoldBackgroundColor: Colors.white, // Default background for screens
-      ),
-      home: OrderDetailsScreen(),
-    );
-  }
-}
 
 class OrderDetailsScreen extends StatelessWidget {
   // Dummy Data for Order Details

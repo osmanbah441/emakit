@@ -26,17 +26,15 @@ class _AppSearchBarState extends State<AppSearchBar> {
       _searchTerm = _searchController.text.toLowerCase();
     });
 
-    widget.onSearchchanged?.call(_searchTerm);
+    widget.onSearchchanged.call(_searchTerm);
   }
 
   void _handleVoiceSearch(String result) {
     _searchController.text = result;
-    // _onSearchChanged will be called by the listener
   }
 
   void _clearSearch() {
     _searchController.clear();
-    // _onSearchChanged will be called by the listener
   }
 
   @override

@@ -1,4 +1,4 @@
-import 'package:component_library/src/section_header_text.dart';
+import 'package:component_library/src/section_title.dart';
 import 'package:flutter/material.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -49,7 +49,7 @@ class OrderSummarySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeaderText(title: 'Order Summary'),
+          const SectionTitle(title: 'Order Summary'),
           const SizedBox(height: 16.0),
           _buildSummaryRow('Subtotal', subtotal),
           _buildSummaryRow('Shipping', shippingCost),

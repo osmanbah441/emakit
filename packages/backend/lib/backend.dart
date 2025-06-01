@@ -1,2 +1,3 @@
-export 'src/database/dataconnect_service.dart';
-export 'src/functions/function_service.dart';
+export 'src/dataconnect_service.dart';
+export 'src/function_service.dart';
+export 'src/models/product.dart';

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:home_screen/home_screen.dart';
+import 'package:order_details/order_details.dart';
 import 'package:product_details/product_details.dart';
 import 'package:profile/profile.dart';
 import 'firebase_options.dart';
@@ -65,6 +66,7 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       home: Scaffold(
         body: _pages[_selectedIndex],
+        // body: OrderDetailsScreen(),
         bottomNavigationBar: BottomNavBar(
           onDestinationSelected: _onDestinationSelected,
           selectedIndex: _selectedIndex,

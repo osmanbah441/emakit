@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PrimaryActionButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
 
   const PrimaryActionButton({

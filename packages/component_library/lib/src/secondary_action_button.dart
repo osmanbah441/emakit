@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class SecondaryActionButton extends StatelessWidget {
   const SecondaryActionButton({
     super.key,
-    required this.onAddToFavorites,
+    required this.onPressed,
     required this.label,
   });
 
-  final VoidCallback onAddToFavorites;
+  final VoidCallback? onPressed;
   final String label;
 
   @override
@@ -15,7 +15,7 @@ class SecondaryActionButton extends StatelessWidget {
     return SizedBox(
       height: 50.0,
       child: OutlinedButton(
-        onPressed: onAddToFavorites,
+        onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.black, // Text color
           side: BorderSide(
