@@ -1,84 +1,88 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-class CartItemRow extends StatelessWidget {
+class CartItemCard extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final String quantityText; // e.g., "Quantity: 1"
+  final double totalPrice;
   final int currentQuantity;
+  final Map<String, dynamic> attributes;
   final VoidCallback onDecrement;
   final VoidCallback onIncrement;
 
-  const CartItemRow({
-    Key? key,
+  const CartItemCard({
+    super.key,
     required this.imageUrl,
     required this.title,
-    required this.quantityText,
+    required this.totalPrice,
     required this.currentQuantity,
     required this.onDecrement,
     required this.onIncrement,
-  }) : super(key: key);
+    this.attributes = const {},
+  });
+
+  String formatAttributes() {
+    if (attributes.isEmpty) return '';
+
+    StringBuffer formattedText = StringBuffer();
+    attributes.forEach((key, value) {
+      // You can add more sophisticated formatting based on the key or value type
+      // For example, if 'color' is a hex code, you might want to display the name
+      // or if 'size' is in bytes, convert it to KB/MB.
+
+      if (formattedText.isNotEmpty) {
+        formattedText.write(", "); // Separate attributes with a comma and space
+      }
+      formattedText.write("${_capitalize(key)}: $value");
+    });
+
+    return formattedText.toString();
+  }
+
+  // Helper function to capitalize the first letter of a string
+  String _capitalize(String s) =>
+      (s.isEmpty) ? s : s[0].toUpperCase() + s.substring(1);
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Item Image
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
+          SizedBox(
+            height: 80.0,
+            width: 80.0,
+            child: CachedProductImage(
+              imageUrl: imageUrl,
               borderRadius: BorderRadius.circular(8.0),
-              color: Colors.grey[200], // Placeholder background
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover, // Adjust fit as needed
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                          : null,
-                      strokeWidth: 2,
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.broken_image,
-                    size: 40,
-                    color: Colors.grey,
-                  );
-                },
-              ),
             ),
           ),
           const SizedBox(width: 16.0),
 
-          // Item Details (Title and Quantity Text)
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16.0,
+                  style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  quantityText,
-                  style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
+                  '\$${totalPrice.toStringAsFixed(2)}',
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                Text(
+                  formatAttributes(),
+                  style: textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -110,16 +114,14 @@ class CartItemRow extends StatelessWidget {
   Widget _buildQuantityButton(IconData icon, VoidCallback onPressed) {
     return InkWell(
       onTap: onPressed,
-      borderRadius: BorderRadius.circular(
-        12.0,
-      ), // Half of width/height for circular
+      borderRadius: BorderRadius.circular(12.0),
       child: Container(
-        width: 28, // Smaller button size
+        width: 28,
         height: 28,
         decoration: BoxDecoration(
-          color: const Color(0xFFF0F0F0), // Light grey background
+          color: const Color(0xFFF0F0F0),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: Colors.grey.shade300), // Subtle border
+          border: Border.all(color: Colors.grey.shade300),
         ),
         child: Icon(icon, size: 18, color: Colors.black),
       ),

@@ -1,0 +1,49 @@
+type Category @table {
+  name: String! @unique# Name of the category (e.g., "Electronics", "Apparel")
+  description: String # Optional description for the category
+  parent: Category  
+
+}
+
+# Represents a base product.
+# This might be a general product like "iPhone 15" or "Men's Classic T-Shirt".
+type Product @table {
+  name: String! # Name of the product 
+  description: String! # Detailed description of the product
+  brand: String # Brand of the product (e.g., "Apple", "Nike")
+  category: Category! # subCategory
+  specifications: Any!
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt:  Timestamp! @default(expr: "request.time")
+}
+
+# Represents a specific variation of a product.
+# For example, "iPhone 15, 256GB, Blue" or "Men's Classic T-Shirt, Large, Red".
+type ProductVariation @table { 
+  product: Product!  # Each variation belongs to one product.
+  price: Float! # Price of this product variation
+  stockQuantity: Int! # Current stock quantity for this variation
+  
+  # Flexible field to store variation-specific attributes like color, size, material, etc.
+  # Example: { "color": "Red", "size": "M", "material": "Cotton" }
+  attributes: Any! 
+  
+  imageUrls:[ String!]!
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt:  Timestamp! @default(expr: "request.time")
+}
+
+type Cart @table {
+  totalPrice: Float! @default(value: 0.0)
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type CartItem @table {
+  cart: Cart!
+  variation: ProductVariation! 
+  quantity: Int! 
+  price: Float! 
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}

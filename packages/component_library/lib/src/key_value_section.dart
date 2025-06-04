@@ -30,7 +30,7 @@ class KeyValueSection extends StatelessWidget {
             value: entry.value,
             valueStyle: shouldHighlight ? highlightValueStyle : null,
           );
-        }).toList(),
+        }),
         const SizedBox(height: 16.0), // Padding after each section
       ],
     );

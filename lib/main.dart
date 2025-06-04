@@ -1,15 +1,16 @@
-import 'package:backend/backend.dart';
 import 'package:cart/cart.dart';
-import 'package:category_screen/category_screen.dart';
+import 'package:category/category.dart';
 import 'package:checkout/checkout.dart';
+
 import 'package:component_library/component_library.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:home_screen/home_screen.dart';
-import 'package:order_details/order_details.dart';
+import 'package:home/home.dart';
 import 'package:product_details/product_details.dart';
 import 'package:profile/profile.dart';
+
 import 'firebase_options.dart';
 
 const _debugging = bool.fromEnvironment('DEBUG', defaultValue: true);
@@ -21,7 +22,6 @@ void main() async {
 
   if (_debugging) {
     DataconnectService.useEmulator('localhost', 9399);
-    CloudFunctionService.useEmulator('localhost', 5001);
   }
   runApp(const MainApp());
 }
