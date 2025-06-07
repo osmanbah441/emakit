@@ -317,150 +317,162 @@ mutation mockSubcategories @auth(level: NO_ACCESS) {
 }
 
 mutation mockProducts @auth(level: NO_ACCESS) {
-    product_insertMany(data:  [
+    product_insertMany(data:[
   {
     categoryId: "2d1c0b9a8f7e46d5c4b3a2e1d0c9b8a7",
     description: "Affordable smartphone with long battery life, popular among students and small business owners in Freetown for daily communication and entertainment.",
     id: "25dc716b8fcb4b21b956d7ac01c358b7",
-    name: "Itel P38 Pro",
+    name: "Itel P38 Pro Smartphone",
     specifications: {
-      operatingSystem: "Android 11 (Go Edition)",
-      batteryCapacity: "5000 mAh",
-      displaySize: "6.6 inches",
-      Camera: "8MP Rear, 5MP Front"
-    }
+      OS: "Android 11",
+      Battery: "5000 mAh",
+      Display: "6.6 inches",
+      Camera: "8MP/5MP"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "2d1c0b9a8f7e46d5c4b3a2e1d0c9b8a7",
     description: "Reliable Samsung smartphone with a clear display, frequently purchased for its camera quality and robust performance in the local market.",
     id: "df073d6e55384b359c27eadc4fd8ebde",
-    name: "Samsung Galaxy A05s",
+    name: "Samsung Galaxy A05s Phone",
     specifications: {
-      operatingSystem: "Android 13",
-      displayType: "PLS LCD",
-      processor: "Snapdragon 680",
-      mainCamera: "50MP Triple"
-    }
+      OS: "Android 13",
+      Display: "PLS LCD",
+      Processor: "Snapdragon 680",
+      Camera: "50MP Triple"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "2d1c0b9a8f7e46d5c4b3a2e1d0c9b8a7",
     description: "A popular Tecno model known for its balance of features and cost-effectiveness, widely used across Sierra Leone for mobile internet access.",
     id: "65d72411ca4e48f0a58b89c57c98df6a",
-    name: "Tecno Spark 10C",
+    name: "Tecno Spark 10C Smartphone",
     specifications: {
-      operatingSystem: "Android 12",
-      displayResolution: "720 x 1612 pixels",
-      batteryCapacity: "5000 mAh",
-      chargingSpeed: "18W Fast Charging"
-    }
+      OS: "Android 12",
+      Resolution: "720x1612",
+      Battery: "5000 mAh",
+      Charging: "18W Fast"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "6c4b3a2e1f0d49c8b7a6f5e4d3c2b1a0",
     description: "Authentic West African Dashiki, hand-sewn with vibrant local prints, ideal for special occasions and cultural events in Freetown.",
     id: "d87e1cef18754747bd52fb03ba63d771",
-    name: "Men's Traditional Dashiki",
+    name: "Men's Traditional Dashiki Shirt",
     specifications: {
-      Material: "100% Cotton Ankara Fabric",
-      SleeveType: "Short Sleeve",
-      Neckline: "Round Neck",
-      CareInstructions: "Hand Wash Cold"
-    }
+      Material: "Ankara Cotton",
+      Sleeve: "Short",
+      Neck: "Round",
+      Care: "Hand Wash Cold"
+    },
+    mainCategoryId: "b4598f0d8c164cffa11ebf4e7111b400"
   },
   {
     categoryId: "6c4b3a2e1f0d49c8b7a6f5e4d3c2b1a0",
     description: "Comfortable cotton polo shirt, suitable for the tropical climate, a staple for everyday wear in offices and casual outings.",
     id: "213e9301a1244b5789fbb46bceb38cef",
-    name: "Casual Polo Shirt",
+    name: "Men's Casual Polo Shirt",
     specifications: {
-      Material: "Pique Cotton Blend",
-      CollarStyle: "Fold-down Collar",
-      ClosureType: "Button Placket",
-      FitType: "Regular Fit"
-    }
+      Material: "Pique Cotton",
+      Collar: "Fold-down",
+      Closure: "Button",
+      Fit: "Regular"
+    },
+    mainCategoryId: "b4598f0d8c164cffa11ebf4e7111b400"
   },
   {
     categoryId: "f3e2d1c0b9a848f7e6d5c4b3a2e1f0d9",
     description: "Freshly harvested cassava leaves, a primary ingredient for the beloved 'Plasas' stew, a staple in Sierra Leonean households.",
     id: "113e87be30f546779fcc602215a086ba",
-    name: "Local Cassava Leaves (Bundle)",
+    name: "Fresh Cassava Leaves Bundle",
     specifications: {
-      weight: "Approx. 500g per bundle",
-      freshness: "Harvested within 24 hours",
-      source: "Local Farms in Freetown",
-      packaging: "Tied Bundle"
-    }
+      Weight: "500g",
+      Freshness: "24 hrs harvest",
+      Source: "Local Farms",
+      Packaging: "Tied Bundle"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "f3e2d1c0b9a848f7e6d5c4b3a2e1f0d9",
     description: "Ripe, sweet plantains, perfect for frying or boiling, a common side dish or snack across Freetown.",
     id: "6440ae01290a4b679446d3a32493a357",
-    name: "Sweet Plantains (Bunch)",
+    name: "Sweet Plantains Bunch",
     specifications: {
-      ripeness: "Ripe (Yellow with black spots)",
-      quantity: "Approx. 5-7 plantains per bunch",
-      source: "Locally Sourced",
-      storage: "Cool, Dry Place"
-    }
+      Ripeness: "Ripe",
+      Quantity: "5-7 plantains",
+      Source: "Local",
+      Storage: "Cool, Dry"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "f3e2d1c0b9a848f7e6d5c4b3a2e1f0d9",
     description: "Essential for almost every Sierra Leonean meal, these fresh red onions are a fundamental cooking ingredient.",
     id: "d6aed59f3d874d789535aae03e70e000",
-    name: "Red Onions (1kg)",
+    name: "Red Onions, 1kg",
     specifications: {
       Weight: "1 kg",
-      Type: "Red Onion",
-      Freshness: "Daily Delivered",
-      Origin: "Local Produce"
-    }
+      Type: "Red",
+      Freshness: "Daily",
+      Origin: "Local"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "b3c2d1e0f9a84b7c6d5e4f3a2b1c0d9e",
     description: "Durable, large-capacity aluminium pot, widely used in Sierra Leonean homes for cooking family-sized portions of rice and stews.",
     id: "5400f4f8cf98426395cb9c91eba428a8",
-    name: "Large Aluminium Pot (Heavy-Duty)",
+    name: "Large Aluminium Cooking Pot",
     specifications: {
-      Material: "Heavy-Gauge Aluminium",
-      Capacity: "Approx. 10 Liters",
-      HandleMaterial: "Heat-Resistant",
-      LidIncluded: "Yes"
-    }
+      Material: "Heavy Aluminium",
+      Capacity: "10 Liters",
+      Handle: "Heat-Resistant",
+      Lid: "Yes"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "b3c2d1e0f9a84b7c6d5e4f3a2b1c0d9e",
     description: "Versatile frying pan, ideal for preparing fried fish, eggs, or light stir-fries, a practical addition to any kitchen.",
     id: "a9ed8226f1e04214ac4463e3772223a8",
-    name: "Non-Stick Frying Pan (28cm)",
+    name: "Non-Stick Frying Pan, 28cm",
     specifications: {
-      Material: "Aluminium with Non-Stick Coating",
+      Material: "Aluminium, Non-Stick",
       Diameter: "28 cm",
-      HandleMaterial: "Ergonomic, Heat-Resistant",
-      Compatibility: "Gas, Electric, Ceramic Hobs"
-    }
+      Handle: "Ergonomic",
+      Compatibility: "Gas, Electric"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "1f0d9c8b7a6f44e3d2c1b0a9f8e7d6c5",
     description: "Trusted petroleum jelly, a household essential for moisturizing skin, protecting from harsh weather, and minor cuts.",
     id: "2c818c131b994e4d88b29222c64e46b7",
-    name: "Vaseline Pure Petroleum Jelly",
+    name: "Vaseline Pure Petroleum Jelly, 250ml",
     specifications: {
       Volume: "250 ml",
-      Ingredients: "100% Pure Petroleum Jelly",
-      SkinType: "All Skin Types",
+      Ingredients: "Petroleum Jelly",
+      SkinType: "All",
       Hypoallergenic: "Yes"
-    }
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "1f0d9c8b7a6f44e3d2c1b0a9f8e7d6c5",
     description: "Popular hydrating body lotion, deeply nourishing for dry skin, commonly used across Sierra Leone for daily moisturization.",
     id: "cdd51b95158740ffb00738569a51204a",
-    name: "Nivea Body Lotion (Nourishing Milk)",
+    name: "Nivea Nourishing Body Lotion, 400ml",
     specifications: {
       Volume: "400 ml",
-      KeyIngredients: "Almond Oil, Vitamin E",
-      SkinType: "Dry to Very Dry Skin",
-      Absorption: "Fast Absorbing"
-    }
+      Ingredients: "Almond Oil, Vit E",
+      SkinType: "Dry",
+      Absorption: "Fast"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "f1a2e3b4d5c64b7a8e9f0c1d2a3b4e5f",
@@ -468,23 +480,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "28bc0b5e594b492ba4528af2b622098e",
     name: "Official Size 5 Football",
     specifications: {
-      Size: "Size 5 (Official)",
-      Material: "Durable Synthetic Leather",
-      Construction: "Machine-Stitched Panels",
-      Usage: "Outdoor Play, Training"
-    }
+      Size: "Size 5",
+      Material: "Synthetic Leather",
+      Construction: "Machine-Stitched",
+      Usage: "Outdoor, Training"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "f1a2e3b4d5c64b7a8e9f0c1d2a3b4e5f",
     description: "Portable basketball hoop for schools and community centers, encouraging participation in a growing sport.",
     id: "85c6533a590643d0a3fdf40f013caf4d",
-    name: "Basketball Hoop (Portable)",
+    name: "Portable Basketball Hoop",
     specifications: {
-      BackboardMaterial: "Shatterproof Polycarbonate",
-      RimDiameter: "Standard 18 inches",
-      BaseCapacity: "Water/Sand Fillable (Approx. 30 Liters)",
-      Portability: "Built-in Wheels"
-    }
+      Backboard: "Polycarbonate",
+      Rim: "Standard 18in",
+      Base: "Water/Sand Fill",
+      Wheels: "Yes"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "1c0b9a8f7e6d45c4b3a2e1d0c9b8a7f6",
@@ -492,11 +506,12 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "9eba46e499bb49c484c1b1b09a23a371",
     name: "HP Pavilion 15 Laptop",
     specifications: {
-      Processor: "Intel Core i5 (11th Gen)",
-      ScreenSize: "15.6-inch Full HD",
-      OperatingSystem: "Windows 11 Home",
-      StorageType: "SSD"
-    }
+      Processor: "Intel i5 (11th Gen)",
+      Screen: "15.6in Full HD",
+      OS: "Windows 11 Home",
+      Storage: "SSD"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "1c0b9a8f7e6d45c4b3a2e1d0c9b8a7f6",
@@ -505,22 +520,24 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     name: "Dell Inspiron Desktop PC",
     specifications: {
       Processor: "AMD Ryzen 5",
-      StorageType: "HDD + SSD",
-      OperatingSystem: "Windows 10 Pro",
-      GraphicsCard: "Integrated AMD Radeon Graphics"
-    }
+      Storage: "HDD + SSD",
+      OS: "Windows 10 Pro",
+      Graphics: "Integrated AMD"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "f9a8f7e6d5c443b2a1e0d9c8b7a6f5e4",
     description: "High-definition smart television, popular for family viewing and accessing local and international content in Freetown homes.",
     id: "ff311ac09a3c400fae8614a9c9116713",
-    name: "LG 43-inch Smart TV",
+    name: "LG 43-inch Smart LED TV",
     specifications: {
-      ScreenSize: "43 inches",
-      DisplayTechnology: "LED",
-      Resolution: "Full HD (1920 x 1080)",
-      SmartTVPlatform: "WebOS"
-    }
+      Size: "43 inches",
+      Display: "LED",
+      Resolution: "Full HD",
+      Platform: "WebOS"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "f9a8f7e6d5c443b2a1e0d9c8b7a6f5e4",
@@ -528,11 +545,12 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "e1b14a4112ce486bb6f4fa318365122c",
     name: "Multi-Region DVD Player",
     specifications: {
-      RegionCompatibility: "Region Free (0-9)",
-      PlaybackFormats: "DVD, CD, MP3, JPEG",
-      Connectivity: "HDMI, Composite Video",
-      RemoteControl: "Included"
-    }
+      Region: "Region Free",
+      Formats: "DVD, CD, MP3",
+      Connectivity: "HDMI, Composite",
+      Remote: "Yes"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "5b3a2e1f0d9c48b7a6f5e4d3c2b1a0f9",
@@ -540,11 +558,12 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "3290e11348124dae82bdb66097bdb778",
     name: "Ankara Print Maxi Dress",
     specifications: {
-      Material: "100% Cotton Ankara Fabric",
-      DressStyle: "Maxi, Sleeveless",
-      Occasion: "Casual, Cultural Events",
+      Material: "Ankara Cotton",
+      Style: "Maxi, Sleeveless",
+      Occasion: "Casual/Cultural",
       Closure: "Zipper"
-    }
+    },
+    mainCategoryId: "b4598f0d8c164cffa11ebf4e7111b400"
   },
   {
     categoryId: "5b3a2e1f0d9c48b7a6f5e4d3c2b1a0f9",
@@ -552,107 +571,116 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "c2f233802d3b4937b79a4ab4dcfd712c",
     name: "Women's Comfort Sandals",
     specifications: {
-      Material: "Synthetic Leather Upper, Rubber Sole",
-      StrapType: "Adjustable Ankle Strap",
-      SoleType: "Cushioned, Non-Slip",
-      HeelHeight: "Flat"
-    }
+      Material: "Synthetic Leather, Rubber",
+      Strap: "Adjustable Ankle",
+      Sole: "Cushioned, Non-Slip",
+      Heel: "Flat"
+    },
+    mainCategoryId: "b4598f0d8c164cffa11ebf4e7111b400"
   },
   {
     categoryId: "e2d1c0b9a8f747e6d5c4b3a2e1f0d9c8",
     description: "High-quality, locally sourced African rice, the cornerstone of almost every meal in Sierra Leonean households.",
     id: "330c48f29fd64ee984022880494fdc82",
-    name: "African Rice (50kg Bag)",
+    name: "African Parboiled Rice, 50kg",
     specifications: {
       Weight: "50 kg",
-      Type: "Parboiled Rice",
-      GrainType: "Long Grain",
-      Source: "Locally Sourced"
-    }
+      Type: "Parboiled",
+      Grain: "Long",
+      Source: "Local"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "e2d1c0b9a8f747e6d5c4b3a2e1f0d9c8",
     description: "Rich, unadulterated palm oil, essential for preparing traditional Sierra Leonean stews and sauces.",
     id: "57d1448bdf9e4723ba1853383cca67c3",
-    name: "Pure Palm Oil (5 Litres)",
+    name: "Pure Palm Oil, 5 Litres",
     specifications: {
       Volume: "5 Litres",
       Purity: "100% Pure",
-      Source: "Sustainable Palm Plantations",
-      Packaging: "Sealed Jerry Can"
-    }
+      Source: "Sustainable",
+      Packaging: "Jerry Can"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "e2d1c0b9a8f747e6d5c4b3a2e1f0d9c8",
     description: "Popular seasoning cubes, universally used to enhance the flavor of diverse Sierra Leonean dishes.",
     id: "69df85eedb764c7298a82728cc7afcd9",
-    name: "Maggi Seasoning Cubes (Pack of 100)",
+    name: "Maggi Seasoning Cubes, 100-Pack",
     specifications: {
-      Quantity: "100 Cubes per pack",
-      FlavorProfile: "Rich Chicken Flavor",
-      Ingredients: "Iodized Salt, Flavor Enhancers, Starch",
-      Usage: "Cooking, Soups, Stews"
-    }
+      Quantity: "100 Cubes",
+      Flavor: "Chicken",
+      Ingredients: "Salt, Enhancers",
+      Usage: "Cooking"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "f9c8b7a6f5e442d1c0b9a8f7e6d5c4b3",
     description: "Widely used antiseptic liquid for personal hygiene, wound care, and household disinfection in Freetown homes.",
     id: "fecf99f94548472d87e40f4e15702041",
-    name: "Dettol Antiseptic Liquid (750ml)",
+    name: "Dettol Antiseptic Liquid, 750ml",
     specifications: {
       Volume: "750 ml",
-      ActiveIngredient: "Chloroxylenol",
-      Usage: "First Aid, Personal Hygiene, Household Disinfection",
+      Ingredient: "Chloroxylenol",
+      Usage: "First Aid, Disinfect",
       Scent: "Pine"
-    }
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "f9c8b7a6f5e442d1c0b9a8f7e6d5c4b3",
     description: "Traditional African black soap, known for its natural cleansing and moisturizing properties, popular for bathing.",
     id: "9a0940055729496ea6183c4ec632d85c",
-    name: "African Black Soap (Bar)",
+    name: "African Black Soap Bar",
     specifications: {
-      Weight: "Approx. 150g per bar",
-      Ingredients: "Cocoa Pods, Palm Kernel Oil, Shea Butter",
-      SkinBenefits: "Cleansing, Moisturizing, Acne Treatment",
-      Fragrance: "Natural, Earthy Scent"
-    }
+      Weight: "150g",
+      Ingredients: "Cocoa, Palm Oil",
+      Benefits: "Cleansing, Moisturizing",
+      Fragrance: "Natural"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "d7c6b5a4f3e241d0c9b8a7f6e5d4c3b2",
     description: "Replacement air filter for common car models like Toyota Corolla, crucial for engine performance in dusty local conditions.",
     id: "87d5ffb09d7e430c9c2f76c87fe0017f",
-    name: "Vehicle Air Filter (Toyota Corolla)",
+    name: "Toyota Corolla Air Filter",
     specifications: {
-      Compatibility: "Toyota Corolla (Specific Years/Models)",
-      Material: "High-Flow Cotton Gauze",
-      FiltrationEfficiency: "99% Dust Filtration",
-      Installation: "Direct Replacement"
-    }
+      Compatibility: "Toyota Corolla",
+      Material: "Cotton Gauze",
+      Efficiency: "99% Filtration",
+      Installation: "Direct Replace"
+    },
+    mainCategoryId: "49ad8bdb18b34abc9389a27c99320da1"
   },
   {
     categoryId: "d7c6b5a4f3e241d0c9b8a7f6e5d4c3b2",
     description: "Essential spare parts for vehicle ignition systems, frequently replaced for optimal engine function.",
     id: "7e06559c9c39424f9bf6671e79f97195",
-    name: "Spark Plugs (Set of 4)",
+    name: "Vehicle Spark Plugs, Set of 4",
     specifications: {
-      Quantity: "Set of 4",
-      Material: "Copper Core",
-      ThreadSize: "M14x1.25",
-      ElectrodeGap: "Pre-Gapped (Adjustable)"
-    }
+      Quantity: "4",
+      Material: "Copper",
+      Thread: "M14x1.25",
+      Gap: "Pre-Gapped"
+    },
+    mainCategoryId: "49ad8bdb18b34abc9389a27c99320da1"
   },
   {
     categoryId: "9f7e6d5c4b3a42e1f0d9c8b7a6f5e4d3",
     description: "Standard English language textbook for primary school students, supporting education across Sierra Leone.",
     id: "f7428eb87a324d67a97432b4856b4c56",
-    name: "Primary School English Textbook (Grade 5)",
+    name: "Grade 5 English Textbook",
     specifications: {
-      TargetAge: "Grade 5 (Approx. 9-10 years old)",
-      Curriculum: "National Primary School Curriculum",
+      Age: "9-10 yrs",
+      Curriculum: "National PS",
       Format: "Paperback",
-      ContentFocus: "Grammar, Vocabulary, Reading Comprehension"
-    }
+      Content: "Grammar, Vocab"
+    },
+    mainCategoryId: "9e9547d21b834be19375463da89167cb"
   },
   {
     categoryId: "9f7e6d5c4b3a42e1f0d9c8b7a6f5e4d3",
@@ -661,10 +689,11 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     name: "Krio Language Dictionary",
     specifications: {
       Format: "Paperback",
-      Scope: "English-Krio, Krio-English",
-      Features: "Pronunciation Guide, Common Phrases",
-      TargetAudience: "Learners, Scholars, General Public"
-    }
+      Scope: "Eng-Krio, Krio-Eng",
+      Features: "Pronunciation Guide",
+      Audience: "Learners"
+    },
+    mainCategoryId: "9e9547d21b834be19375463da89167cb"
   },
   {
     categoryId: "6b5a4f3e2d1c4b0a9e8d7c6b5a4f3e2d",
@@ -672,23 +701,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "7a3dbf516ebf4312b76a01495cb1d24f",
     name: "Ludo Board Game Set",
     specifications: {
-      Components: "Foldable Board, 16 Pawns, 1 Die",
-      PlayerCount: "2-4 Players",
+      Components: "Board, Pawns, Die",
+      Players: "2-4",
       Material: "Cardboard, Plastic",
-      AgeRecommendation: "6+"
-    }
+      Age: "6+"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "6b5a4f3e2d1c4b0a9e8d7c6b5a4f3e2d",
     description: "Traditional checkers set, popular for strategic two-player games, often seen in community centers and homes.",
     id: "bb80a8cd9fb84e41a54ea53b3bab1e50",
-    name: "Checkers/Draughts Set",
+    name: "Checkers / Draughts Set",
     specifications: {
-      Components: "Folding Board, 24 Playing Discs",
-      PlayerCount: "2 Players",
+      Components: "Board, 24 Discs",
+      Players: "2",
       Material: "Wood/Plastic",
-      BoardSize: "Standard Tournament Size"
-    }
+      BoardSize: "Standard"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "c2b1a0f9d8e74f6a5b4c3d2e1f0a9b8c",
@@ -696,83 +727,90 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "1424e715592f42d8a3d9f275074913a4",
     name: "Foldable Beach Chair",
     specifications: {
-      Material: "Steel Frame, Polyester Fabric",
-      WeightCapacity: "Up to 100 kg",
-      Portability: "Foldable, Carry Strap",
+      Material: "Steel, Polyester",
+      Capacity: "100 kg",
+      Portability: "Foldable",
       Features: "Armrests, Cup Holder"
-    }
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "c2b1a0f9d8e74f6a5b4c3d2e1f0a9b8c",
     description: "Water-resistant picnic blanket, essential for family outings and gatherings in public parks or along the coast.",
     id: "1e42ee4c462845119280fb33e1607424",
-    name: "Large Picnic Blanket",
+    name: "Large Water-Resistant Picnic Blanket",
     specifications: {
-      Material: "Water-Resistant PEVA Backing, Fleece Top",
-      Dimensions: "Approx. 200 x 150 cm",
-      Portability: "Foldable, Carry Handle",
-      Usage: "Outdoor Picnics, Beach, Camping"
-    }
+      Material: "PEVA, Fleece",
+      Dimensions: "200x150 cm",
+      Portability: "Foldable",
+      Usage: "Outdoor"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "a4b3c2d1e0f94a8b7c6d5e4f3a2b1c0d",
     description: "Fast-boiling electric kettle, a convenient appliance for quick hot water for tea, coffee, or instant meals in any Freetown home.",
     id: "7e59acdb91e5418881594bbd1d681650",
-    name: "Electric Kettle (1.7L)",
+    name: "Electric Kettle, 1.7L",
     specifications: {
       Capacity: "1.7 Liters",
       Material: "Stainless Steel",
       Power: "1500W",
-      SafetyFeatures: "Auto Shut-off, Boil-Dry Protection"
-    }
+      Safety: "Auto Shut-off"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "a4b3c2d1e0f94a8b7c6d5e4f3a2b1c0d",
     description: "Versatile blender, essential for preparing traditional sauces and smoothies, with a grinding attachment for spices and nuts.",
     id: "2e0da0dce29a4ed3a1679d869f55d8e4",
-    name: "Blender with Grinder (2-in-1)",
+    name: "Blender with Grinder, 2-in-1",
     specifications: {
-      MotorPower: "500W",
-      BlenderJarCapacity: "1.5 Liters",
-      GrinderAttachment: "Included",
+      Power: "500W",
+      Blender: "1.5 Liters",
+      Grinder: "Yes",
       Blades: "Stainless Steel"
-    }
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "9e8d7c6b5a4f4e3d2c1b0a9e8d7c6b5a",
     description: "Durable and lightweight plastic chairs, commonly used for outdoor seating in homes and small businesses.",
     id: "f3eaad3032304e009430462060de26aa",
-    name: "Plastic Garden Chair (Stackable)",
+    name: "Stackable Plastic Garden Chair",
     specifications: {
-      Material: "Durable UV-Resistant Plastic",
-      Dimensions: "Standard Chair Size",
-      Stackability: "Yes",
+      Material: "UV-Resistant Plastic",
+      Dimensions: "Standard",
+      Stackable: "Yes",
       Usage: "Indoor/Outdoor"
-    }
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "9e8d7c6b5a4f4e3d2c1b0a9e8d7c6b5a",
     description: "Compact wooden dining table, suitable for family meals in typical Sierra Leonean homes, offering practicality and warmth.",
     id: "0483a6a113294545a76fc10fecb003fc",
-    name: "Wooden Dining Table (4-Seater)",
+    name: "4-Seater Wooden Dining Table",
     specifications: {
-      Material: "Solid Wood (e.g., Mahogany)",
-      SeatingCapacity: "4 Persons",
-      Dimensions: "Approx. 120 x 80 x 75 cm (L x W x H)",
-      Assembly: "Minor Assembly Required"
-    }
+      Material: "Solid Wood",
+      Seating: "4 Persons",
+      Dimensions: "120x80x75 cm",
+      Assembly: "Minor"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "0b9a8f7e6d5c44b3a2e1d0c9b8a7f6e5",
     description: "Popular wireless earbuds, offering clear audio for music and calls, ideal for daily commutes and active lifestyles in Freetown.",
     id: "640f02c67bc54140a2d018cdf88be801",
-    name: "Oraimo FreePods 4 Wireless Earbuds",
+    name: "Oraimo FreePods 4 Earbuds",
     specifications: {
       Connectivity: "Bluetooth 5.2",
-      Playtime: "Up to 35 hours (with charging case)",
-      ChargingPort: "USB-C",
-      Features: "Environmental Noise Cancellation (ENC)"
-    }
+      Playtime: "35 hrs (case)",
+      Charging: "USB-C",
+      Features: "ENC"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "0b9a8f7e6d5c44b3a2e1d0c9b8a7f6e5",
@@ -781,94 +819,102 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     name: "JBL Portable Bluetooth Speaker",
     specifications: {
       Connectivity: "Bluetooth 5.1",
-      BatteryLife: "Up to 12 hours",
-      WaterResistance: "IPX7 (Waterproof)",
-      AudioOutput: "Stereo Sound"
-    }
+      Battery: "12 hrs",
+      WaterResistance: "IPX7",
+      Audio: "Stereo"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "a4f3e2d1c0b949a87f6e5d4c3b2a1f0e",
     description: "Essential safety gear for 'Okada' riders and passengers, meeting safety standards for protection on Sierra Leone's roads.",
     id: "044a3be5b3514f9d81b77040497f3c25",
-    name: "Motorcycle Helmet (DOT Certified)",
+    name: "DOT Certified Motorcycle Helmet",
     specifications: {
-      Certification: "DOT Approved",
-      ShellMaterial: "ABS Composite",
-      Ventilation: "Multiple Air Vents",
-      VisorType: "Anti-Scratch, Clear"
-    }
+      Certification: "DOT",
+      Shell: "ABS Composite",
+      Ventilation: "Multi-Vent",
+      Visor: "Anti-Scratch Clear"
+    },
+    mainCategoryId: "49ad8bdb18b34abc9389a27c99320da1"
   },
   {
     categoryId: "a4f3e2d1c0b949a87f6e5d4c3b2a1f0e",
     description: "Lubricant for motorcycle chains, vital for maintenance and extending the lifespan of the widely used two-wheelers.",
     id: "43d4bd84884d4cb2bc2565bb5e9b440b",
-    name: "Motorcycle Chain Lube",
+    name: "Motorcycle Chain Lube, 400ml",
     specifications: {
       Volume: "400 ml",
-      Formula: "Synthetic, Water-Resistant",
+      Formula: "Synthetic",
       Application: "Spray-on",
-      Benefits: "Reduces Friction, Prevents Rust"
-    }
+      Benefits: "Reduces Friction"
+    },
+    mainCategoryId: "49ad8bdb18b34abc9389a27c99320da1"
   },
   {
     categoryId: "d1c0b9a8f7e646d5c4b3a2e1f0d9c8b7",
     description: "Popular local lager, a refreshing choice for social gatherings and celebrations across Sierra Leone.",
     id: "759205856bfa41a890f5057233e774b5",
-    name: "Star Beer (Crate of 12)",
+    name: "Star Beer, 12-Pack",
     specifications: {
       Quantity: "12 Bottles",
-      VolumePerBottle: "600 ml",
-      AlcoholContent: "5%",
-      Type: "Lager Beer"
-    }
+      Volume: "600 ml/bottle",
+      ABV: "5%",
+      Type: "Lager"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "d1c0b9a8f7e646d5c4b3a2e1f0d9c8b7",
     description: "Nutritious chocolate malt drink powder, a favorite breakfast beverage for children and adults alike.",
     id: "3bb23d976d9641b3a6f22c9e0ea42ce7",
-    name: "Milo Drink Powder (400g)",
+    name: "Milo Drink Powder, 400g",
     specifications: {
       Weight: "400 g",
-      Ingredients: "Malt, Cocoa, Milk Solids, Vitamins, Minerals",
-      Preparation: "Mix with Hot or Cold Water/Milk",
-      NutritionalBenefits: "Energy, Iron, Vitamin C, Calcium"
-    }
+      Ingredients: "Malt, Cocoa, Milk",
+      Preparation: "Hot/Cold Mix",
+      Benefits: "Energy, Iron"
+    },
+    mainCategoryId: "7a121f1e22ea4d3394f9056fbdc74b3c"
   },
   {
     categoryId: "7d5c4b3a2e1f40d9c8b7a6f5e4d3c2b1",
     description: "Compilation CD featuring popular Sierra Leonean gospel artists, widely enjoyed for its uplifting messages.",
     id: "f004c2e551ed42a29265fe50642118a0",
-    name: "Local Gospel Music CD (Various Artists)",
+    name: "Local Gospel Music CD",
     specifications: {
       Format: "Audio CD",
-      Genre: "Gospel Music",
-      Artists: "Various Sierra Leonean Artists",
-      NumberOfTracks: "10-15 Tracks"
-    }
+      Genre: "Gospel",
+      Artists: "Various SL",
+      Tracks: "10-15"
+    },
+    mainCategoryId: "9e9547d21b834be19375463da89167cb"
   },
   {
     categoryId: "7d5c4b3a2e1f40d9c8b7a6f5e4d3c2b1",
     description: "USB drive pre-loaded with current Afrobeats hits from West Africa, a popular way to enjoy music on various devices.",
     id: "e39dbb8946e34ceaa5559d4ad09c2cc3",
-    name: "Afrobeats Hits USB Drive",
+    name: "Afrobeats Hits USB Drive, 16GB",
     specifications: {
-      StorageCapacity: "16GB",
-      MusicGenre: "Afrobeats",
-      Compatibility: "USB 2.0/3.0 Compatible Devices",
-      PreLoadedContent: "Latest Afrobeats Songs"
-    }
+      Capacity: "16GB",
+      Genre: "Afrobeats",
+      Compatibility: "USB 2.0/3.0",
+      Content: "Pre-Loaded Songs"
+    },
+    mainCategoryId: "9e9547d21b834be19375463da89167cb"
   },
   {
     categoryId: "d7a6f5e4d3c240b1a09f8e7d6c5b4a32",
     description: "Liquid foundation formulated for diverse skin tones, popular among women in Sierra Leone for a flawless complexion.",
     id: "3ed1e7f73b0540ba951b52f5c8e7ac7d",
-    name: "Black Radiance Liquid Foundation",
+    name: "Black Radiance Liquid Foundation, 30ml",
     specifications: {
       Volume: "30 ml",
-      FinishType: "Matte Finish",
-      SkinType: "Oily to Combination Skin",
+      Finish: "Matte",
+      SkinType: "Oily/Combo",
       Coverage: "Medium to Full"
-    }
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "d7a6f5e4d3c240b1a09f8e7d6c5b4a32",
@@ -877,22 +923,24 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     name: "Classic Red Lipstick",
     specifications: {
       Shade: "Classic Red",
-      FinishType: "Satin/Matte",
-      Formula: "Long-lasting, Hydrating",
-      Applicator: "Bullet Form"
-    }
+      Finish: "Satin/Matte",
+      Formula: "Long-lasting",
+      Applicator: "Bullet"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "e0d9c8b7a6f54e4d3c2b1a0f9d8c7b6a",
     description: "Versatile set of resistance bands for various exercises, popular for home workouts and personal fitness routines in Freetown.",
     id: "16bd26f5bfe94f0a933b08ce057f6f65",
-    name: "Resistance Band Set (5-piece)",
+    name: "5-Piece Resistance Band Set",
     specifications: {
       Quantity: "5 Bands",
-      Material: "Natural Latex",
-      ResistanceLevels: "Varying (Light to X-Heavy)",
-      Accessories: "Carry Bag, Door Anchor"
-    }
+      Material: "Latex",
+      Resistance: "Varying",
+      Accessories: "Carry Bag"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "e0d9c8b7a6f54e4d3c2b1a0f9d8c7b6a",
@@ -900,23 +948,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "9b9760f83d864dbc836d34ce6d691d40",
     name: "Adjustable Jump Rope",
     specifications: {
-      HandleMaterial: "Foam Grip",
-      RopeMaterial: "Steel Wire with PVC Coating",
-      Length: "Adjustable (up to 3 meters)",
-      BearingType: "Ball Bearings for Smooth Rotation"
-    }
+      Handle: "Foam Grip",
+      Rope: "Steel/PVC",
+      Length: "Up to 3m",
+      Bearings: "Ball Bearings"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "d1e2f3a4b5c64d7e8f9a0b1c2d3e4f5a",
     description: "Comfortable and spacious backpack, ideal for day trips and short hikes in Sierra Leone's natural landscapes.",
     id: "cc47536ec1694046a0543a8f79b9a6b2",
-    name: "Lightweight Hiking Backpack (40L)",
+    name: "Lightweight Hiking Backpack, 40L",
     specifications: {
       Capacity: "40 Liters",
       Material: "Water-Resistant Nylon",
-      Compartments: "Multiple Pockets, Hydration Sleeve",
-      ComfortFeatures: "Padded Shoulder Straps, Ventilated Back Panel"
-    }
+      Compartments: "Multiple, Hydration",
+      Comfort: "Padded Straps"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "d1e2f3a4b5c64d7e8f9a0b1c2d3e4f5a",
@@ -925,10 +975,11 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     name: "2-Person Camping Tent",
     specifications: {
       Occupancy: "2 Person",
-      SeasonRating: "3-Season",
-      SetupTime: "Quick Pitch (Approx. 5 mins)",
-      Weight: "Lightweight (Approx. 2.5 kg)"
-    }
+      Season: "3-Season",
+      Setup: "Quick Pitch",
+      Weight: "2.5 kg"
+    },
+    mainCategoryId: "0c320b13a12e4c7c9394d8c8a642dd7a"
   },
   {
     categoryId: "8d7c6b5a4f3e4d2c1b0a9e8d7c6b5a4f",
@@ -936,23 +987,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "81851030af334c2c8c6b639ca24fecb1",
     name: "King Size Mosquito Net",
     specifications: {
-      Size: "King Size Bed Compatible",
-      Material: "Fine Mesh Polyester",
-      HangingMethod: "Single Point Suspension",
-      InsectProtection: "Mosquitoes, Insects"
-    }
+      Size: "King Bed",
+      Material: "Fine Mesh",
+      Hanging: "Single Point",
+      Protection: "Mosquitoes, Insects"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "8d7c6b5a4f3e4d2c1b0a9e8d7c6b5a4f",
     description: "Soft and breathable cotton bedsheets, ensuring comfort in warm weather, commonly used in Sierra Leonean homes.",
     id: "4cddd7803b15455199ea18047fc5a09d",
-    name: "Cotton Bedsheet Set (Queen)",
+    name: "Queen Cotton Bedsheet Set",
     specifications: {
-      Size: "Queen Size",
+      Size: "Queen",
       Material: "100% Cotton",
       ThreadCount: "200 TC",
-      SetIncludes: "1 Fitted Sheet, 1 Flat Sheet, 2 Pillowcases"
-    }
+      Set: "Fitted, Flat, 2 Pillowcases"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "7c6b5a4f3e2d4c1b0a9e8d7c6b5a4f3e",
@@ -960,23 +1013,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "8c45c93b745c4930a85e6e0586414721",
     name: "African Print Throw Pillow",
     specifications: {
-      Dimensions: "45 x 45 cm",
-      CoverMaterial: "Ankara Fabric (Cotton)",
-      FillingMaterial: "Polyester Fiber",
-      CareInstructions: "Spot Clean/Hand Wash"
-    }
+      Dimensions: "45x45 cm",
+      Cover: "Ankara Cotton",
+      Filling: "Polyester",
+      Care: "Spot Clean"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "7c6b5a4f3e2d4c1b0a9e8d7c6b5a4f3e",
     description: "Handy baskets for organizing household items, ideal for decluttering living rooms and bedrooms.",
     id: "40824070cc304079a85fb69f928a117a",
-    name: "Multi-purpose Storage Baskets (Set of 3)",
+    name: "Multi-purpose Storage Baskets, Set of 3",
     specifications: {
-      Quantity: "Set of 3 (Small, Medium, Large)",
-      Material: "Woven Natural Fibers (e.g., Wicker, Rattan)",
-      Features: "Built-in Handles",
-      Usage: "Storage, Laundry, Decor"
-    }
+      Quantity: "3 (S, M, L)",
+      Material: "Woven Fibers",
+      Features: "Handles",
+      Usage: "Storage, Decor"
+    },
+    mainCategoryId: "19dd665b81ef414dbd7c19a3889d513b"
   },
   {
     categoryId: "5a4f3e2d1c0b4a9e8d7c6b5a4f3e2d1c",
@@ -984,11 +1039,12 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "90c3b11cd2714881abb08d96ffd17105",
     name: "Local Hero Action Figure",
     specifications: {
-      Material: "Durable Plastic",
-      Height: "Approx. 15 cm",
-      Articulation: "Multiple Points of Articulation",
-      AgeRecommendation: "4+"
-    }
+      Material: "Plastic",
+      Height: "15 cm",
+      Articulation: "Multi-point",
+      Age: "4+"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "5a4f3e2d1c0b4a9e8d7c6b5a4f3e2d1c",
@@ -996,107 +1052,116 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "813fcd134db44b2fa4628845b6295fbc",
     name: "Traditional African Doll",
     specifications: {
-      Material: "Fabric, Natural Fibers",
-      Height: "Approx. 25 cm",
-      Clothing: "Traditional African Attire",
+      Material: "Fabric",
+      Height: "25 cm",
+      Clothing: "African Attire",
       Craftsmanship: "Handmade"
-    }
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "e8d7c6b5a4f342e1d0c9b8a7f6e5d4c3",
     description: "High-capacity power bank, essential for charging mobile devices during power outages common in Freetown.",
     id: "130c397e657440c984fb3a5ecee21c5e",
-    name: "Portable Power Bank (10000mAh)",
+    name: "Portable Power Bank, 10000mAh",
     specifications: {
       Capacity: "10000 mAh",
-      OutputPorts: "2 USB-A Ports",
-      InputPort: "Micro USB, USB-C",
-      ChargingTechnology: "Fast Charging (Output)"
-    }
+      Output: "2 USB-A",
+      Input: "Micro USB, USB-C",
+      Charging: "Fast"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "e8d7c6b5a4f342e1d0c9b8a7f6e5d4c3",
     description: "Reliable small generator, providing essential backup power for homes and businesses during electricity cuts.",
     id: "a99776d8e7f94da3af16ce7c320fe16b",
-    name: "Petrol Generator (2.5KVA)",
+    name: "Petrol Generator, 2.5KVA",
     specifications: {
-      PowerOutput: "2.5 KVA",
-      EngineType: "4-Stroke Petrol Engine",
-      FuelTankCapacity: "15 Liters",
-      RunTime: "Approx. 8-10 hours at half load"
-    }
+      Output: "2.5 KVA",
+      Engine: "4-Stroke Petrol",
+      FuelTank: "15 Liters",
+      RunTime: "8-10 hrs"
+    },
+    mainCategoryId: "28df92689fe14b88b10b7057215ee677"
   },
   {
     categoryId: "0d9c8b7a6f5e43d2c1b0a9f8e7d6c5b4",
     description: "Popular hair relaxer kit for managing and styling African hair types, widely used for straightening and conditioning.",
     id: "1d856669af9e48528fab2e29c795d731",
-    name: "Dark & Lovely Relaxer Kit",
+    name: "Dark & Lovely Hair Relaxer Kit",
     specifications: {
-      HairType: "Coarse/Resistant Hair",
-      KitContents: "Relaxer Cream, Activator, Neutralizing Shampoo, Conditioner",
+      HairType: "Coarse/Resistant",
+      Contents: "Cream, Activator, Shampoo",
       Formula: "No-Lye",
-      Benefits: "Straightening, Conditioning"
-    }
+      Benefits: "Straightening"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "0d9c8b7a6f5e43d2c1b0a9f8e7d6c5b4",
     description: "Natural coconut oil, used for deep conditioning hair, moisturizing scalp, and promoting healthy growth.",
     id: "e7f72784737440b28d51e457bd7948fd",
-    name: "Coconut Oil (Pure, 250ml)",
+    name: "Pure Virgin Coconut Oil, 250ml",
     specifications: {
       Volume: "250 ml",
-      Type: "100% Pure, Virgin Coconut Oil",
+      Type: "100% Pure Virgin",
       Usage: "Hair, Skin, Cooking",
       Packaging: "Glass Jar"
-    }
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "e8b7a6f5e4d341c2b1a09f8e7d6c5b4a",
     description: "Daily multivitamin supplement supporting overall health and energy levels, commonly taken for nutritional balance.",
     id: "f898e6b433284e379b2f0a3dd9733c12",
-    name: "Multivitamin Tablets (60 Count)",
+    name: "Multivitamin Tablets, 60 Count",
     specifications: {
       Quantity: "60 Tablets",
-      KeyVitamins: "Vitamins A, C, D, E, B-complex",
+      Vitamins: "A, C, D, E, B-complex",
       Minerals: "Iron, Zinc, Calcium",
-      Dosage: "1 Tablet Daily"
-    }
+      Dosage: "1 Daily"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "e8b7a6f5e4d341c2b1a09f8e7d6c5b4a",
     description: "Dietary supplement for heart and brain health, popular for those seeking to enhance their nutritional intake.",
     id: "175c361555644542b1c115946f56fa32",
-    name: "Omega-3 Fish Oil Capsules",
+    name: "Omega-3 Fish Oil Capsules, 90 Count",
     specifications: {
-      Quantity: "90 Softgel Capsules",
-      KeyIngredients: "EPA, DHA (Omega-3 Fatty Acids)",
-      Source: "Wild-Caught Fish Oil",
-      Benefits: "Heart Health, Brain Function, Joint Support"
-    }
+      Quantity: "90 Softgels",
+      Ingredients: "EPA, DHA",
+      Source: "Wild-Caught Fish",
+      Benefits: "Heart, Brain, Joints"
+    },
+    mainCategoryId: "ebdd73fa47df49cd8af2bfe07d10d382"
   },
   {
     categoryId: "4f3e2d1c0b9a48e7d6c54b3a2e1d0c9b",
     description: "Classic wooden blocks promoting creativity and fine motor skills in young children, a staple for early learning.",
     id: "0a111e108db540669cd4b56fa2880bb6",
-    name: "Wooden Building Blocks (Set of 50)",
+    name: "Wooden Building Blocks, 50-Piece",
     specifications: {
       Quantity: "50 Blocks",
       Material: "Natural Wood",
-      Shapes: "Various (Cubes, Rectangles, Cylinders)",
-      AgeRecommendation: "18 Months+"
-    }
+      Shapes: "Various",
+      Age: "18 Months+"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "4f3e2d1c0b9a48e7d6c54b3a2e1d0c9b",
     description: "Educational toy helping toddlers recognize shapes and develop problem-solving abilities, popular in nurseries.",
     id: "2288b97a82994eed923259759054e325",
-    name: "Shape Sorter Toy",
+    name: "Toddler Shape Sorter Toy",
     specifications: {
       Material: "Durable Plastic",
-      ShapesIncluded: "Circles, Squares, Triangles, Stars",
-      EducationalBenefit: "Shape Recognition, Fine Motor Skills",
-      AgeRecommendation: "12 Months+"
-    }
+      Shapes: "Circles, Squares",
+      Benefit: "Shape Rec., Motor Skills",
+      Age: "12 Months+"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "4f3e2d1c0b9a48e7d6c54b3a2e1d0c9b",
@@ -1104,11 +1169,12 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "d2621ecac5f84098a54695f91cf8bd89",
     name: "Alphabet & Number Puzzle Mat",
     specifications: {
-      Material: "Soft EVA Foam",
-      Pieces: "26 Alphabet Letters, 10 Numbers",
-      DimensionsPerTile: "Approx. 30 x 30 cm",
-      CoverageArea: "Approx. 3.24 sq meters"
-    }
+      Material: "EVA Foam",
+      Pieces: "26 Letters, 10 Numbers",
+      TileSize: "30x30 cm",
+      Coverage: "3.24 sq meters"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "3e2d1c0b9a8f47e6d5c43b2a1e0d9c8b",
@@ -1116,371 +1182,25 @@ mutation mockProducts @auth(level: NO_ACCESS) {
     id: "dce49f3bdbd445f6a5a64d8f166b3b48",
     name: "Children's Tricycle",
     specifications: {
-      FrameMaterial: "Steel",
-      WheelMaterial: "Durable Plastic/Rubber",
-      Features: "Adjustable Seat, Parent Push Handle",
-      AgeRecommendation: "2-5 Years"
-    }
+      Frame: "Steel",
+      Wheels: "Plastic/Rubber",
+      Features: "Adjustable Seat",
+      Age: "2-5 Years"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   },
   {
     categoryId: "3e2d1c0b9a8f47e6d5c43b2a1e0d9c8b",
     description: "Easy-to-assemble small soccer goal, perfect for backyard play and budding young footballers.",
     id: "dd7082046e2a4a3ca2d03677cf7d589f",
-    name: "Portable Soccer Goal (Small)",
+    name: "Portable Kids Soccer Goal",
     specifications: {
-      Dimensions: "Approx. 120 x 80 x 60 cm",
-      FrameMaterial: "Lightweight PVC",
-      NetMaterial: "Weather-Resistant Polyester",
-      Assembly: "Tool-Free Setup"
-    }
-  },
-  {
-    categoryId: "3e2d1c0b9a8f47e6d5c43b2a1e0d9c8b",
-    description: "Colorful inflatable beach balls, ideal for casual fun on Freetown's beaches and outdoor play.",
-    id: "7dfb23816df74c558151d8b5f4d04e08",
-    name: "Beach Ball Set (3-pack)",
-    specifications: {
-      Quantity: "3 Beach Balls",
-      Diameter: "Approx. 40 cm (inflated)",
-      Material: "Durable PVC Plastic",
-      Design: "Multi-Color Panel Design"
-    }
-  },
-  {
-    categoryId: "c6b5a4f3e2d140c9b8a7f6e5d4c3b2a1",
-    description: "High-quality synthetic motor oil, essential for vehicle engine lubrication and maintaining performance in diverse conditions.",
-    id: "e3986e5dbb7a4035a20923c5b18518a9",
-    name: "Shell Helix 5W-30 Motor Oil (5L)",
-    specifications: {
-      Volume: "5 Liters",
-      ViscosityGrade: "5W-30",
-      OilType: "Fully Synthetic",
-      EngineTypeCompatibility: "Petrol and Diesel Engines"
-    }
-  },
-  {
-    categoryId: "c6b5a4f3e2d140c9b8a7f6e5d4c3b2a1",
-    description: "Effective car wash soap with added wax for a clean and shiny vehicle finish, suitable for frequent washing.",
-    id: "930a454fa7d84c56872991e2f2f5393c",
-    name: "Car Wash Soap & Wax (1L)",
-    specifications: {
-      Volume: "1 Liter",
-      Formula: "Concentrated, pH-Neutral",
-      Features: "Biodegradable, Spot-Free Rinse",
-      Application: "Hand Wash, Pressure Washer"
-    }
-  },
-  {
-    categoryId: "c6b5a4f3e2d140c9b8a7f6e5d4c3b2a1",
-    description: "Handy tool for checking tyre pressure, crucial for vehicle safety and fuel efficiency on Freetown's roads.",
-    id: "78bfff1dd2394946b8c6b1735d6953da",
-    name: "Tyre Pressure Gauge",
-    specifications: {
-      MeasurementRange: "0-100 PSI / 0-7 BAR",
-      DisplayType: "Analog/Digital",
-      Material: "Durable Plastic/Metal",
-      Features: "Bleeder Valve for Pressure Adjustment"
-    }
-  },
-  {
-    categoryId: "b5a4f3e2d1c04a9b8a7f6e5d4c3b2a1f",
-    description: "Standard replacement tyre size for many common passenger vehicles, balancing durability and performance.",
-    id: "2309686c87bd43d5b95cefbec1a1340f",
-    name: "Passenger Car Tyre (185/65R15)",
-    specifications: {
-      TyreSize: "185/65R15",
-      Season: "All-Season",
-      LoadIndex: "88",
-      SpeedRating: "H (Up to 210 km/h)"
-    }
-  },
-  {
-    categoryId: "b5a4f3e2d1c04a9b8a7f6e5d4c3b2a1f",
-    description: "Compact kit for emergency tyre repairs, a valuable tool for motorists navigating varied road conditions.",
-    id: "e7771c7d15464602bcbc5cf776cc4238",
-    name: "Puncture Repair Kit",
-    specifications: {
-      KitContents: "Tyre Plugs, Reamer, Insertion Tool, Rubber Cement",
-      TyreTypeCompatibility: "Tubeless Tyres",
-      Portability: "Compact Case",
-      Usage: "Emergency Puncture Repair"
-    }
-  },
-  {
-    categoryId: "b5a4f3e2d1c04a9b8a7f6e5d4c3b2a1f",
-    description: "Security wheel nuts to protect vehicle alloy wheels from theft, a practical accessory in urban areas.",
-    id: "606a910d2654417f860c8de51c3a4949",
-    name: "Wheel Lock Nuts (Set of 4)",
-    specifications: {
-      Quantity: "Set of 4 Wheel Locks",
-      Material: "Hardened Steel",
-      ThreadSize: "M12x1.5 (Common Size)",
-      SecurityFeature: "Unique Key Pattern"
-    }
-  },
-  {
-    categoryId: "c0b9a8f7e6d545c4b3a2e1f0d9c8b7a6",
-    description: "Popular fortified powdered milk, a staple for breakfast and baking in Sierra Leonean homes.",
-    id: "be2ee466a5234a2fafcf2d404647abee",
-    name: "Peak Milk Powder (900g tin)",
-    specifications: {
-      Weight: "900g",
-      Type: "Full Cream Milk Powder",
-      Fortification: "Vitamins A, D, E",
-      Preparation: "Mix with Water"
-    }
-  },
-  {
-    categoryId: "c0b9a8f7e6d545c4b3a2e1f0d9c8b7a6",
-    description: "Locally sourced fresh eggs, versatile for cooking and a common protein source for families.",
-    id: "76323f22f58144a39441a1af6f1fffaa",
-    name: "Farm Fresh Eggs (Tray of 30)",
-    specifications: {
-      Quantity: "30 Eggs",
-      Size: "Medium to Large",
-      Source: "Local Farms",
-      Packaging: "Egg Tray"
-    }
-  },
-  {
-    categoryId: "c0b9a8f7e6d545c4b3a2e1f0d9c8b7a6",
-    description: "Creamy evaporated milk, widely used in beverages, desserts, and traditional stews for added richness.",
-    id: "6c22713cdf754d20a57629f2be41b31e",
-    name: "Ideal Milk (Evaporated, Large Tin)",
-    specifications: {
-      Volume: "410g (Large Tin)",
-      Type: "Evaporated Milk",
-      FatContent: "Full Cream",
-      Usage: "Baking, Beverages, Cooking"
-    }
-  },
-  {
-    categoryId: "b9a8f7e6d5c444b3a2e1f0d9c8b7a6f5",
-    description: "Farm-raised fresh chicken, a popular choice for traditional stews like groundnut soup and cassava leaf soup.",
-    id: "7d0540b376a046c78f34b925e32dce4b",
-    name: "Whole Local Chicken (Fresh)",
-    specifications: {
-      Weight: "Approx. 1.5 - 2 kg",
-      Type: "Farm-Raised, Whole Chicken",
-      Freshness: "Freshly Slaughtered",
-      Packaging: "Vacuum-Sealed"
-    }
-  },
-  {
-    categoryId: "b9a8f7e6d5c444b3a2e1f0d9c8b7a6f5",
-    description: "Freshly caught Tilapia, a common and affordable fish consumed regularly, often fried or used in soups.",
-    id: "c8ddd0b5701a4d7f935f3f89b19c0444",
-    name: "Fresh Tilapia Fish (1kg)",
-    specifications: {
-      Weight: "1 kg (Approx. 2-3 fish)",
-      Type: "Freshwater Tilapia",
-      Source: "Local Fisheries",
-      Preparation: "Whole, Gutted"
-    }
-  },
-  {
-    categoryId: "b9a8f7e6d5c444b3a2e1f0d9c8b7a6f5",
-    description: "Conveniently portioned frozen beef cubes, suitable for various stews and curries.",
-    id: "baa72e25b82c407b907c59bb4e178c9b",
-    name: "Beef Cubes (Frozen, 500g)",
-    specifications: {
-      Weight: "500g",
-      Cut: "Diced Cubes",
-      Packaging: "Frozen, Resealable Bag",
-      Source: "Locally Sourced Beef"
-    }
-  },
-  {
-    categoryId: "a8f7e6d5c4b343a2e1f0d9c8b7a6f5e4",
-    description: "Classic novel by Amos Tutuola, a significant work of African literature, popular for its unique storytelling.",
-    id: "be91a4ae29bb4999b509dcfda322942e",
-    name: "The Palm-Wine Drinkard (Paperback)",
-    specifications: {
-      Author: "Amos Tutuola",
-      Genre: "Fantasy, African Literature",
-      PublicationYear: "1952",
-      PageCount: "Approx. 128 pages"
-    }
-  },
-  {
-    categoryId: "a8f7e6d5c4b343a2e1f0d9c8b7a6f5e4",
-    description: "Collection of poems by various Sierra Leonean poets, celebrating local culture and voices.",
-    id: "8815268943594acca2d8f52df6db4962",
-    name: "Anthology of Sierra Leonean Poetry",
-    specifications: {
-      Genre: "Poetry",
-      Authors: "Various Sierra Leonean Poets",
-      Format: "Paperback",
-      Themes: "Culture, History, Society"
-    }
-  },
-  {
-    categoryId: "a8f7e6d5c4b343a2e1f0d9c8b7a6f5e4",
-    description: "Iconic novel by Chinua Achebe, a foundational text in African literature, widely read in schools and homes.",
-    id: "c87583f6da18476fb7bc1c6370746006",
-    name: "Things Fall Apart (Paperback)",
-    specifications: {
-      Author: "Chinua Achebe",
-      Genre: "African Literature, Classic",
-      PublicationYear: "1958",
-      PageCount: "Approx. 209 pages"
-    }
-  },
-  {
-    categoryId: "8e6d5c4b3a2e41f0d9c8b7a6f5e4d3c2",
-    description: "Popular Nigerian film on DVD, providing family entertainment and reflecting contemporary African narratives.",
-    id: "1f4e89870f754b148e7536711a96a1db",
-    name: "Nollywood Blockbuster DVD (Latest Release)",
-    specifications: {
-      Format: "DVD",
-      Genre: "Drama/Comedy (Typical)",
-      Language: "English, Pidgin English",
-      RegionCode: "Region 0 (All Regions)"
-    }
-  },
-  {
-    categoryId: "8e6d5c4b3a2e41f0d9c8b7a6f5e4d3c2",
-    description: "Educational documentary series exploring the rich history and diverse cultures of Africa, suitable for home viewing.",
-    id: "996f1604e4a2441fa99cfc778cd8ca61",
-    name: "African Documentary Series (DVD Box Set)",
-    specifications: {
-      Format: "DVD Box Set",
-      NumberOfDiscs: "3-5 Discs",
-      TopicsCovered: "History, Wildlife, Culture, Geography",
-      Language: "English"
-    }
-  },
-  {
-    categoryId: "4a2e1f0d9c8b47a6f5e4d3c2b1a0f9e8",
-    description: "Hard-wearing leather sandals, ideal for daily wear in Freetown, offering comfort and longevity.",
-    id: "51d24839142c4caeb385a51a4c63826f",
-    name: "Men's Durable Leather Sandals",
-    specifications: {
-      Material: "Genuine Leather Upper, Rubber Sole",
-      StrapType: "Adjustable Straps",
-      SoleType: "Non-Slip, Cushioned",
-      Usage: "Casual, Everyday Wear"
-    }
-  },
-  {
-    categoryId: "4a2e1f0d9c8b47a6f5e4d3c2b1a0f9e8",
-    description: "Ubiquitous and practical rubber slippers, perfect for casual home wear and general comfort for kids.",
-    id: "f52c481dbac84c868eb84e8604dc05f7",
-    name: "Children's Rubber Slippers (Assorted Colors)",
-    specifications: {
-      Material: "Soft Rubber",
-      SoleType: "Non-Slip",
-      Sizing: "Kids' Sizes (EU 20-30)",
-      Usage: "Indoor/Outdoor Casual Wear"
-    }
-  },
-  {
-    categoryId: "4a2e1f0d9c8b47a6f5e4d3c2b1a0f9e8",
-    description: "Stylish and comfortable flat shoes, suitable for both casual and semi-formal occasions.",
-    id: "2e16bb7e00b84fad9fa4dd953d00e168",
-    name: "Women's Fashionable Flats",
-    specifications: {
-      Material: "Synthetic Leather/Fabric Upper, Rubber Sole",
-      ToeStyle: "Pointed/Round Toe",
-      HeelHeight: "Flat",
-      Occasion: "Casual, Semi-Formal"
-    }
-  },
-  {
-    categoryId: "3a1f0d9c8b7a46f5e4d3c2b1a0f9e8d7",
-    description: "Eco-friendly and fashionable tote bag featuring vibrant African patterns, perfect for shopping or daily use.",
-    id: "e8a6520d52ae4e9da6a9500ca49af205",
-    name: "African Print Tote Bag",
-    specifications: {
-      Material: "Ankara Fabric (Cotton)",
-      Dimensions: "Approx. 40 x 35 cm",
-      Closure: "Open Top",
-      Handles: "Fabric Shoulder Straps"
-    }
-  },
-  {
-    categoryId: "3a1f0d9c8b7a46f5e4d3c2b1a0f9e8d7",
-    description: "Elegant gold-plated hoop earrings, a popular accessory for adding a touch of glamour to any outfit.",
-    id: "7d356ba9094a44f2af17ddffa7034d9c",
-    name: "Gold-Plated Hoop Earrings",
-    specifications: {
-      Material: "Gold-Plated Brass",
-      Diameter: "Approx. 5 cm",
-      ClosureType: "Lever Back",
-      Style: "Classic Hoop"
-    }
-  },
-  {
-    categoryId: "3a1f0d9c8b7a46f5e4d3c2b1a0f9e8d7",
-    description: "Classic and durable leather wallet, essential for carrying cash and cards securely.",
-    id: "079a2ebadf084d42911f28d24e9a24fd",
-    name: "Leather Wallet (Men's)",
-    specifications: {
-      Material: "Genuine Leather",
-      Compartments: "Card Slots, Bill Compartment, Coin Pocket",
-      Closure: "Bi-Fold",
-      Dimensions: "Approx. 11 x 9 cm (Folded)"
-    }
-  },
-  {
-    categoryId: "2e0d9c8b7a6f45e4d3c2b1a0f9e8d7c6",
-    description: "Soft cotton bodysuits for infants, providing comfort and ease of wear in the tropical climate.",
-    id: "8f9681078e5d4b98bf969d1df7ac7871",
-    name: "Unisex Baby Bodysuits (3-pack)",
-    specifications: {
-      Quantity: "3 Bodysuits",
-      Material: "100% Cotton",
-      Closure: "Snap Closures at Crotch",
-      SleeveLength: "Short Sleeve"
-    }
-  },
-  {
-    categoryId: "2e0d9c8b7a6f45e4d3c2b1a0f9e8d7c6",
-    description: "Durable and breathable shorts for active children, perfect for school and outdoor play.",
-    id: "aee1d8c6d3f943f2874dceb35f0bc8cd",
-    name: "Children's Play Shorts (Assorted)",
-    specifications: {
-      Material: "Cotton Blend",
-      Waistband: "Elastic with Drawstring",
-      Pockets: "Side Pockets",
-      Usage: "Casual, Sports"
-    }
-  },
-  {
-    categoryId: "2e0d9c8b7a6f45e4d3c2b1a0f9e8d7c6",
-    description: "Adorable Ankara print dress for toddlers, showcasing traditional African fabric in children's fashion.",
-    id: "6281ad046700430bbf9f902ce0cd0894",
-    name: "Girls' Ankara Dress (Toddler)",
-    specifications: {
-      Material: "Ankara Fabric (Cotton)",
-      Style: "A-line Dress",
-      Closure: "Zipper/Button at Back",
-      AgeRecommendation: "1-3 Years"
-    }
-  },
-  {
-    categoryId: "2e0d9c8b7a6f45e4d3c2b1a0f9e8d7c6",
-    description: "Comfortable and colorful t-shirts for boys, suitable for everyday wear and various activities.",
-    id: "1015889dba20407c998c533e40945eda",
-    name: "Boys' Casual T-Shirts (2-pack)",
-    specifications: {
-      Quantity: "2 T-Shirts",
-      Material: "100% Cotton",
-      Neckline: "Crew Neck",
-      SleeveLength: "Short Sleeve"
-    }
-  },
-  {
-    categoryId: "2e0d9c8b7a6f45e4d3c2b1a0f9e8d7c6",
-    description: "Soft and breathable blanket for swaddling infants, providing warmth and comfort during sleep.",
-    id: "28f8f8c7ee854cefa820055a94449d8e",
-    name: "Baby Swaddle Blanket",
-    specifications: {
-      Material: "Soft Muslin Cotton",
-      Dimensions: "Approx. 120 x 120 cm",
-      Usage: "Swaddling, Receiving Blanket, Nursing Cover",
-      Pattern: "Assorted Baby-Friendly Prints"
-    }
+      Dimensions: "120x80x60 cm",
+      Frame: "PVC",
+      Net: "Polyester",
+      Assembly: "Tool-Free"
+    },
+    mainCategoryId: "25211f29c3d444c8b3d9091fe9ddba99"
   }
 ])
 
@@ -1495,8 +1215,8 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       storage: "64GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/10/300/300",
-      "https://picsum.photos/id/100/300/300"
+      "https://picsum.photos/id/20/300/300",
+      "https://picsum.photos/id/21/300/300"
     ],
     price: 95.00,
     stockQuantity: 50
@@ -1508,99 +1228,99 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       storage: "128GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/101/300/300",
-      "https://picsum.photos/id/102/300/300"
+      "https://picsum.photos/id/22/300/300",
+      "https://picsum.photos/id/23/300/300"
     ],
     price: 110.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "df073d6e55384b359c27eadc4fd8ebde",
-    attributes: {
-      color: "White",
-      storage: "128GB"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/103/300/300",
-      "https://picsum.photos/id/104/300/300"
-    ],
-    price: 180.00,
     stockQuantity: 40
   },
   {
     productId: "df073d6e55384b359c27eadc4fd8ebde",
     attributes: {
-      color: "Black",
-      storage: "256GB"
+      color: "Graphite Gray",
+      storage: "128GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/105/300/300",
-      "https://picsum.photos/id/106/300/300"
+      "https://picsum.photos/id/30/300/300",
+      "https://picsum.photos/id/31/300/300"
     ],
-    price: 220.00,
-    stockQuantity: 25
+    price: 150.00,
+    stockQuantity: 70
   },
   {
-    productId: "65d72411ca4e48f0a58b89c57c98df6a",
+    productId: "df073d6e55384b359c27eadc4fd8ebde",
     attributes: {
       color: "Green",
-      storage: "64GB"
+      storage: "128GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/107/300/300",
-      "https://picsum.photos/id/108/300/300"
+      "https://picsum.photos/id/32/300/300",
+      "https://picsum.photos/id/33/300/300"
     ],
-    price: 100.00,
+    price: 150.00,
     stockQuantity: 60
   },
   {
     productId: "65d72411ca4e48f0a58b89c57c98df6a",
     attributes: {
       color: "Black",
-      storage: "128GB"
+      storage: "64GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/109/300/300",
-      "https://picsum.photos/id/110/300/300"
+      "https://picsum.photos/id/40/300/300",
+      "https://picsum.photos/id/41/300/300"
     ],
-    price: 120.00,
-    stockQuantity: 35
+    price: 80.00,
+    stockQuantity: 90
+  },
+  {
+    productId: "65d72411ca4e48f0a58b89c57c98df6a",
+    attributes: {
+      color: "White",
+      storage: "64GB"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/42/300/300",
+      "https://picsum.photos/id/43/300/300"
+    ],
+    price: 80.00,
+    stockQuantity: 75
   },
   {
     productId: "d87e1cef18754747bd52fb03ba63d771",
     attributes: {
-      size: "M",
-      color: "Red Print"
+      color: "Blue",
+      size: "M"
     },
     imageUrls: [
-      "https://picsum.photos/id/111/300/300",
-      "https://picsum.photos/id/112/300/300"
+      "https://picsum.photos/id/50/300/300",
+      "https://picsum.photos/id/51/300/300"
     ],
-    price: 45.00,
-    stockQuantity: 20
+    price: 35.00,
+    stockQuantity: 30
   },
   {
     productId: "d87e1cef18754747bd52fb03ba63d771",
     attributes: {
-      size: "L",
-      color: "Blue Print"
+      color: "Red",
+      size: "L"
     },
     imageUrls: [
-      "https://picsum.photos/id/113/300/300",
-      "https://picsum.photos/id/114/300/300"
+      "https://picsum.photos/id/52/300/300",
+      "https://picsum.photos/id/53/300/300"
     ],
-    price: 48.00,
-    stockQuantity: 15
+    price: 35.00,
+    stockQuantity: 25
   },
   {
     productId: "213e9301a1244b5789fbb46bceb38cef",
     attributes: {
-      size: "M",
-      color: "White"
+      color: "White",
+      size: "S"
     },
     imageUrls: [
-      "https://picsum.photos/id/115/300/300",
-      "https://picsum.photos/id/116/300/300"
+      "https://picsum.photos/id/60/300/300",
+      "https://picsum.photos/id/61/300/300"
     ],
     price: 25.00,
     stockQuantity: 50
@@ -1608,15 +1328,15 @@ mutation mockVariation @auth(level: NO_ACCESS) {
   {
     productId: "213e9301a1244b5789fbb46bceb38cef",
     attributes: {
-      size: "XL",
-      color: "Navy Blue"
+      color: "Black",
+      size: "M"
     },
     imageUrls: [
-      "https://picsum.photos/id/117/300/300",
-      "https://picsum.photos/id/118/300/300"
+      "https://picsum.photos/id/62/300/300",
+      "https://picsum.photos/id/63/300/300"
     ],
-    price: 27.00,
-    stockQuantity: 30
+    price: 25.00,
+    stockQuantity: 45
   },
   {
     productId: "113e87be30f546779fcc602215a086ba",
@@ -1624,23 +1344,46 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       weight: "1kg"
     },
     imageUrls: [
-      "https://picsum.photos/id/119/300/300",
-      "https://picsum.photos/id/120/300/300"
+      "https://picsum.photos/id/110/300/300",
+      "https://picsum.photos/id/111/300/300"
     ],
-    price: 2.50,
+    price: 5.50,
     stockQuantity: 100
+  },
+  {
+    productId: "113e87be30f546779fcc602215a086ba",
+    attributes: {
+      weight: "500g"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/112/300/300"
+    ],
+    price: 3.00,
+    stockQuantity: 150
   },
   {
     productId: "6440ae01290a4b679446d3a32493a357",
     attributes: {
-      ripeness: "Ripe"
+      ripeness: "Green",
+      bunchSize: "Small"
     },
     imageUrls: [
-      "https://picsum.photos/id/121/300/300",
-      "https://picsum.photos/id/122/300/300"
+      "https://picsum.photos/id/120/300/300"
     ],
-    price: 1.80,
+    price: 7.00,
     stockQuantity: 80
+  },
+  {
+    productId: "6440ae01290a4b679446d3a32493a357",
+    attributes: {
+      ripeness: "Yellow",
+      bunchSize: "Large"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/121/300/300"
+    ],
+    price: 9.50,
+    stockQuantity: 60
   },
   {
     productId: "d6aed59f3d874d789535aae03e70e000",
@@ -1648,35 +1391,54 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       packaging: "Mesh Bag"
     },
     imageUrls: [
-      "https://picsum.photos/id/123/300/300",
-      "https://picsum.photos/id/124/300/300"
+      "https://picsum.photos/id/130/300/300"
     ],
-    price: 3.00,
-    stockQuantity: 70
+    price: 2.50,
+    stockQuantity: 200
+  },
+  {
+    productId: "d6aed59f3d874d789535aae03e70e000",
+    attributes: {
+      packaging: "Loose"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/131/300/300"
+    ],
+    price: 2.30,
+    stockQuantity: 180
   },
   {
     productId: "5400f4f8cf98426395cb9c91eba428a8",
     attributes: {
-      size: "20 Litre"
+      capacity: "10 Litres"
     },
     imageUrls: [
-      "https://picsum.photos/id/125/300/300",
-      "https://picsum.photos/id/126/300/300"
+      "https://picsum.photos/id/140/300/300"
     ],
-    price: 35.00,
+    price: 45.00,
+    stockQuantity: 25
+  },
+  {
+    productId: "5400f4f8cf98426395cb9c91eba428a8",
+    attributes: {
+      capacity: "15 Litres"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/141/300/300"
+    ],
+    price: 60.00,
     stockQuantity: 15
   },
   {
-    productId: "5400f4f8cf98426395cb9c91eba428a8",
+    productId: "a9ed8226f1e04214ac4463e3772223a8",
     attributes: {
-      size: "15 Litre"
+      size: "28cm"
     },
     imageUrls: [
-      "https://picsum.photos/id/127/300/300",
-      "https://picsum.photos/id/128/300/300"
+      "https://picsum.photos/id/150/300/300"
     ],
     price: 28.00,
-    stockQuantity: 20
+    stockQuantity: 40
   },
   {
     productId: "a9ed8226f1e04214ac4463e3772223a8",
@@ -1684,234 +1446,260 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       size: "24cm"
     },
     imageUrls: [
-      "https://picsum.photos/id/129/300/300",
-      "https://picsum.photos/id/130/300/300"
-    ],
-    price: 18.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "a9ed8226f1e04214ac4463e3772223a8",
-    attributes: {
-      size: "30cm"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/131/300/300",
-      "https://picsum.photos/id/132/300/300"
+      "https://picsum.photos/id/151/300/300"
     ],
     price: 22.00,
-    stockQuantity: 20
+    stockQuantity: 35
   },
   {
     productId: "2c818c131b994e4d88b29222c64e46b7",
     attributes: {
-      size: "250ml"
+      volume: "250ml"
     },
     imageUrls: [
-      "https://picsum.photos/id/133/300/300",
-      "https://picsum.photos/id/134/300/300"
+      "https://picsum.photos/id/160/300/300"
     ],
-    price: 5.00,
-    stockQuantity: 75
+    price: 8.00,
+    stockQuantity: 120
+  },
+  {
+    productId: "2c818c131b994e4d88b29222c64e46b7",
+    attributes: {
+      volume: "100ml"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/161/300/300"
+    ],
+    price: 4.00,
+    stockQuantity: 150
   },
   {
     productId: "cdd51b95158740ffb00738569a51204a",
     attributes: {
-      size: "400ml"
+      volume: "400ml"
     },
     imageUrls: [
-      "https://picsum.photos/id/135/300/300",
-      "https://picsum.photos/id/136/300/300"
+      "https://picsum.photos/id/170/300/300"
+    ],
+    price: 12.00,
+    stockQuantity: 90
+  },
+  {
+    productId: "cdd51b95158740ffb00738569a51204a",
+    attributes: {
+      volume: "250ml"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/171/300/300"
     ],
     price: 8.00,
+    stockQuantity: 110
+  },
+  {
+    productId: "28bc0b5e594b492ba4528af2b622098e",
+    attributes: {
+      size: "Official Size 5"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/180/300/300"
+    ],
+    price: 25.00,
     stockQuantity: 60
   },
   {
     productId: "28bc0b5e594b492ba4528af2b622098e",
     attributes: {
-      color: "White/Black"
+      size: "Size 4"
     },
     imageUrls: [
-      "https://picsum.photos/id/137/300/300",
-      "https://picsum.photos/id/138/300/300"
+      "https://picsum.photos/id/181/300/300"
     ],
-    price: 15.00,
-    stockQuantity: 40
+    price: 20.00,
+    stockQuantity: 50
   },
   {
     productId: "85c6533a590643d0a3fdf40f013caf4d",
     attributes: {
-      adjustableHeight: "Yes"
+      height: "Adjustable"
     },
     imageUrls: [
-      "https://picsum.photos/id/139/300/300",
-      "https://picsum.photos/id/140/300/300"
+      "https://picsum.photos/id/190/300/300"
     ],
-    price: 120.00,
+    price: 180.00,
     stockQuantity: 10
   },
   {
     productId: "9eba46e499bb49c484c1b1b09a23a371",
     attributes: {
-      processor: "Intel i5",
-      ram: "8GB"
+      processor: "Intel Core i5",
+      ram: "8GB",
+      storage: "256GB SSD"
     },
     imageUrls: [
-      "https://picsum.photos/id/141/300/300",
-      "https://picsum.photos/id/142/300/300"
+      "https://picsum.photos/id/70/300/300",
+      "https://picsum.photos/id/71/300/300"
     ],
-    price: 550.00,
+    price: 750.00,
     stockQuantity: 15
   },
   {
     productId: "9eba46e499bb49c484c1b1b09a23a371",
     attributes: {
-      processor: "Intel i7",
-      ram: "16GB"
+      processor: "Intel Core i7",
+      ram: "16GB",
+      storage: "512GB SSD"
     },
     imageUrls: [
-      "https://picsum.photos/id/143/300/300",
-      "https://picsum.photos/id/144/300/300"
+      "https://picsum.photos/id/72/300/300",
+      "https://picsum.photos/id/73/300/300"
     ],
-    price: 750.00,
+    price: 1000.00,
     stockQuantity: 10
   },
   {
     productId: "29350bc19db947cda84a2b6783cabe2b",
     attributes: {
-      processor: "AMD Ryzen 5",
-      storage: "512GB SSD"
+      processor: "Intel Core i3",
+      ram: "4GB",
+      storage: "1TB HDD"
     },
     imageUrls: [
-      "https://picsum.photos/id/145/300/300",
-      "https://picsum.photos/id/146/300/300"
+      "https://picsum.photos/id/200/300/300",
+      "https://picsum.photos/id/201/300/300"
     ],
-    price: 480.00,
-    stockQuantity: 12
+    price: 500.00,
+    stockQuantity: 20
   },
   {
     productId: "ff311ac09a3c400fae8614a9c9116713",
     attributes: {
-      size: "50-inch"
+      screenSize: "43-inch"
     },
     imageUrls: [
-      "https://picsum.photos/id/147/300/300",
-      "https://picsum.photos/id/148/300/300"
+      "https://picsum.photos/id/80/300/300",
+      "https://picsum.photos/id/81/300/300"
     ],
-    price: 350.00,
-    stockQuantity: 8
+    price: 450.00,
+    stockQuantity: 20
+  },
+  {
+    productId: "ff311ac09a3c400fae8614a9c9116713",
+    attributes: {
+      screenSize: "55-inch"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/82/300/300",
+      "https://picsum.photos/id/83/300/300"
+    ],
+    price: 650.00,
+    stockQuantity: 12
   },
   {
     productId: "e1b14a4112ce486bb6f4fa318365122c",
     attributes: {
-      connectivity: "HDMI"
+      region: "Multi-Region"
     },
     imageUrls: [
-      "https://picsum.photos/id/149/300/300",
-      "https://picsum.photos/id/150/300/300"
+      "https://picsum.photos/id/210/300/300"
     ],
-    price: 45.00,
+    price: 40.00,
+    stockQuantity: 30
+  },
+  {
+    productId: "3290e11348124dae82bdb66097bdb778",
+    attributes: {
+      pattern: "Geometric Print",
+      size: "M"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/90/300/300",
+      "https://picsum.photos/id/91/300/300"
+    ],
+    price: 40.00,
     stockQuantity: 20
   },
   {
     productId: "3290e11348124dae82bdb66097bdb778",
     attributes: {
-      size: "M",
-      print: "Geometric"
+      pattern: "Floral Print",
+      size: "L"
     },
     imageUrls: [
-      "https://picsum.photos/id/151/300/300",
-      "https://picsum.photos/id/152/300/300"
+      "https://picsum.photos/id/92/300/300",
+      "https://picsum.photos/id/93/300/300"
     ],
-    price: 60.00,
-    stockQuantity: 18
-  },
-  {
-    productId: "3290e11348124dae82bdb66097bdb778",
-    attributes: {
-      size: "XL",
-      print: "Floral"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/153/300/300",
-      "https://picsum.photos/id/154/300/300"
-    ],
-    price: 65.00,
-    stockQuantity: 10
+    price: 40.00,
+    stockQuantity: 15
   },
   {
     productId: "c2f233802d3b4937b79a4ab4dcfd712c",
     attributes: {
-      size: "38",
-      color: "Brown"
+      color: "Brown",
+      size: "US 7"
     },
     imageUrls: [
-      "https://picsum.photos/id/155/300/300",
-      "https://picsum.photos/id/156/300/300"
+      "https://picsum.photos/id/220/300/300",
+      "https://picsum.photos/id/221/300/300"
     ],
-    price: 30.00,
-    stockQuantity: 25
+    price: 20.00,
+    stockQuantity: 40
   },
   {
     productId: "c2f233802d3b4937b79a4ab4dcfd712c",
     attributes: {
-      size: "40",
-      color: "Black"
+      color: "Black",
+      size: "US 8"
     },
     imageUrls: [
-      "https://picsum.photos/id/157/300/300",
-      "https://picsum.photos/id/158/300/300"
+      "https://picsum.photos/id/222/300/300",
+      "https://picsum.photos/id/223/300/300"
     ],
-    price: 32.00,
-    stockQuantity: 20
+    price: 20.00,
+    stockQuantity: 35
   },
   {
     productId: "330c48f29fd64ee984022880494fdc82",
     attributes: {
-      weight: "25kg"
+      weight: "50kg"
     },
     imageUrls: [
-      "https://picsum.photos/id/159/300/300",
-      "https://picsum.photos/id/160/300/300"
+      "https://picsum.photos/id/230/300/300"
     ],
-    price: 28.00,
-    stockQuantity: 50
+    price: 50.00,
+    stockQuantity: 100
   },
   {
     productId: "57d1448bdf9e4723ba1853383cca67c3",
     attributes: {
-      size: "10 Litres"
+      volume: "5 Litres"
     },
     imageUrls: [
-      "https://picsum.photos/id/161/300/300",
-      "https://picsum.photos/id/162/300/300"
+      "https://picsum.photos/id/240/300/300"
     ],
     price: 15.00,
-    stockQuantity: 30
+    stockQuantity: 70
   },
   {
     productId: "69df85eedb764c7298a82728cc7afcd9",
     attributes: {
-      packSize: "50 Cubes"
+      packSize: "100-Pack"
     },
     imageUrls: [
-      "https://picsum.photos/id/163/300/300",
-      "https://picsum.photos/id/164/300/300"
+      "https://picsum.photos/id/250/300/300"
     ],
-    price: 4.00,
-    stockQuantity: 100
+    price: 5.00,
+    stockQuantity: 150
   },
   {
     productId: "fecf99f94548472d87e40f4e15702041",
     attributes: {
-      size: "500ml"
+      volume: "750ml"
     },
     imageUrls: [
-      "https://picsum.photos/id/165/300/300",
-      "https://picsum.photos/id/166/300/300"
+      "https://picsum.photos/id/260/300/300"
     ],
-    price: 7.00,
-    stockQuantity: 50
+    price: 10.00,
+    stockQuantity: 110
   },
   {
     productId: "9a0940055729496ea6183c4ec632d85c",
@@ -1919,83 +1707,76 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       scent: "Unscented"
     },
     imageUrls: [
-      "https://picsum.photos/id/167/300/300",
-      "https://picsum.photos/id/168/300/300"
+      "https://picsum.photos/id/270/300/300"
     ],
-    price: 3.50,
-    stockQuantity: 80
+    price: 7.00,
+    stockQuantity: 90
   },
   {
     productId: "87d5ffb09d7e430c9c2f76c87fe0017f",
     attributes: {
-      carModel: "Honda Civic"
+      model: "Toyota Corolla"
     },
     imageUrls: [
-      "https://picsum.photos/id/169/300/300",
-      "https://picsum.photos/id/170/300/300"
+      "https://picsum.photos/id/280/300/300"
     ],
-    price: 12.00,
-    stockQuantity: 20
+    price: 18.00,
+    stockQuantity: 30
   },
   {
     productId: "7e06559c9c39424f9bf6671e79f97195",
     attributes: {
-      engineType: "Petrol"
+      quantity: "Set of 4"
     },
     imageUrls: [
-      "https://picsum.photos/id/171/300/300",
-      "https://picsum.photos/id/172/300/300"
+      "https://picsum.photos/id/290/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 30
+    price: 12.00,
+    stockQuantity: 50
   },
   {
     productId: "f7428eb87a324d67a97432b4856b4c56",
     attributes: {
-      gradeLevel: "Grade 6"
+      grade: "Grade 5"
     },
     imageUrls: [
-      "https://picsum.photos/id/173/300/300",
-      "https://picsum.photos/id/174/300/300"
+      "https://picsum.photos/id/300/300/300"
     ],
-    price: 8.00,
-    stockQuantity: 40
+    price: 25.00,
+    stockQuantity: 70
   },
   {
     productId: "d8dc6f2ec4984198af6d5d488afea0b2",
     attributes: {
-      edition: "Compact"
+      language: "Krio"
     },
     imageUrls: [
-      "https://picsum.photos/id/175/300/300",
-      "https://picsum.photos/id/176/300/300"
+      "https://picsum.photos/id/310/300/300"
     ],
-    price: 15.00,
-    stockQuantity: 25
+    price: 30.00,
+    stockQuantity: 50
   },
   {
     productId: "7a3dbf516ebf4312b76a01495cb1d24f",
     attributes: {
-      material: "Wooden"
+      boardType: "Classic"
     },
     imageUrls: [
-      "https://picsum.photos/id/177/300/300",
-      "https://picsum.photos/id/178/300/300"
+      "https://picsum.photos/id/320/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 30
+    price: 15.00,
+    stockQuantity: 80
   },
   {
     productId: "bb80a8cd9fb84e41a54ea53b3bab1e50",
     attributes: {
-      boardSize: "Large"
+      pieces: "Standard"
     },
     imageUrls: [
-      "https://picsum.photos/id/179/300/300",
-      "https://picsum.photos/id/180/300/300"
+      "https://picsum.photos/id/330/300/300"
     ],
-    price: 8.00,
-    stockQuantity: 35
+    price: 10.00,
+    stockQuantity: 90
   },
   {
     productId: "1424e715592f42d8a3d9f275074913a4",
@@ -2003,47 +1784,43 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       color: "Blue"
     },
     imageUrls: [
-      "https://picsum.photos/id/181/300/300",
-      "https://picsum.photos/id/182/300/300"
+      "https://picsum.photos/id/340/300/300"
     ],
-    price: 20.00,
-    stockQuantity: 20
+    price: 30.00,
+    stockQuantity: 40
   },
   {
     productId: "1e42ee4c462845119280fb33e1607424",
     attributes: {
-      pattern: "Striped"
+      size: "Large"
     },
     imageUrls: [
-      "https://picsum.photos/id/183/300/300",
-      "https://picsum.photos/id/184/300/300"
+      "https://picsum.photos/id/350/300/300"
     ],
-    price: 25.00,
-    stockQuantity: 15
+    price: 22.00,
+    stockQuantity: 50
   },
   {
     productId: "7e59acdb91e5418881594bbd1d681650",
     attributes: {
-      capacity: "1.0L"
+      capacity: "1.7L"
     },
     imageUrls: [
-      "https://picsum.photos/id/185/300/300",
-      "https://picsum.photos/id/186/300/300"
+      "https://picsum.photos/id/360/300/300"
     ],
-    price: 18.00,
-    stockQuantity: 30
+    price: 35.00,
+    stockQuantity: 60
   },
   {
     productId: "2e0da0dce29a4ed3a1679d869f55d8e4",
     attributes: {
-      power: "500W"
+      functionality: "2-in-1"
     },
     imageUrls: [
-      "https://picsum.photos/id/187/300/300",
-      "https://picsum.photos/id/188/300/300"
+      "https://picsum.photos/id/370/300/300"
     ],
-    price: 40.00,
-    stockQuantity: 25
+    price: 55.00,
+    stockQuantity: 30
   },
   {
     productId: "f3eaad3032304e009430462060de26aa",
@@ -2051,23 +1828,33 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       color: "Green"
     },
     imageUrls: [
-      "https://picsum.photos/id/189/300/300",
-      "https://picsum.photos/id/190/300/300"
+      "https://picsum.photos/id/380/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 50
+    price: 18.00,
+    stockQuantity: 70
   },
   {
     productId: "0483a6a113294545a76fc10fecb003fc",
     attributes: {
-      material: "Oak"
+      seatingCapacity: "4-Seater"
     },
     imageUrls: [
-      "https://picsum.photos/id/191/300/300",
-      "https://picsum.photos/id/192/300/300"
+      "https://picsum.photos/id/390/300/300"
     ],
-    price: 150.00,
+    price: 250.00,
     stockQuantity: 8
+  },
+  {
+    productId: "640f02c67bc54140a2d018cdf88be801",
+    attributes: {
+      color: "Black"
+    },
+    imageUrls: [
+      "https://picsum.photos/id/100/300/300",
+      "https://picsum.photos/id/101/300/300"
+    ],
+    price: 50.00,
+    stockQuantity: 80
   },
   {
     productId: "640f02c67bc54140a2d018cdf88be801",
@@ -2075,120 +1862,110 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       color: "White"
     },
     imageUrls: [
-      "https://picsum.photos/id/193/300/300",
-      "https://picsum.photos/id/194/300/300"
+      "https://picsum.photos/id/102/300/300",
+      "https://picsum.photos/id/103/300/300"
     ],
-    price: 30.00,
-    stockQuantity: 35
+    price: 45.00,
+    stockQuantity: 60
   },
   {
     productId: "ed8c75d18c5841c68b11844e321f4e85",
     attributes: {
-      size: "Compact"
+      color: "Black"
     },
     imageUrls: [
-      "https://picsum.photos/id/195/300/300",
-      "https://picsum.photos/id/196/300/300"
+      "https://picsum.photos/id/400/300/300"
     ],
-    price: 60.00,
-    stockQuantity: 20
+    price: 70.00,
+    stockQuantity: 40
   },
   {
     productId: "044a3be5b3514f9d81b77040497f3c25",
     attributes: {
-      size: "Large",
-      color: "Black"
+      size: "Large"
     },
     imageUrls: [
-      "https://picsum.photos/id/197/300/300",
-      "https://picsum.photos/id/198/300/300"
+      "https://picsum.photos/id/410/300/300"
     ],
-    price: 40.00,
-    stockQuantity: 15
+    price: 85.00,
+    stockQuantity: 25
   },
   {
     productId: "43d4bd84884d4cb2bc2565bb5e9b440b",
     attributes: {
-      volume: "200ml"
+      volume: "400ml"
     },
     imageUrls: [
-      "https://picsum.photos/id/199/300/300",
-      "https://picsum.photos/id/200/300/300"
+      "https://picsum.photos/id/420/300/300"
     ],
-    price: 8.00,
-    stockQuantity: 25
+    price: 12.00,
+    stockQuantity: 50
   },
   {
     productId: "759205856bfa41a890f5057233e774b5",
     attributes: {
-      packSize: "6-pack"
+      packSize: "12-Pack"
     },
     imageUrls: [
-      "https://picsum.photos/id/201/300/300",
-      "https://picsum.photos/id/202/300/300"
+      "https://picsum.photos/id/430/300/300"
     ],
-    price: 18.00,
-    stockQuantity: 40
+    price: 20.00,
+    stockQuantity: 100
   },
   {
     productId: "3bb23d976d9641b3a6f22c9e0ea42ce7",
     attributes: {
-      size: "200g"
+      weight: "400g"
     },
     imageUrls: [
-      "https://picsum.photos/id/203/300/300",
-      "https://picsum.photos/id/204/300/300"
+      "https://picsum.photos/id/440/300/300"
     ],
-    price: 6.00,
-    stockQuantity: 60
+    price: 7.00,
+    stockQuantity: 150
   },
   {
     productId: "f004c2e551ed42a29265fe50642118a0",
     attributes: {
-      genre: "Traditional"
+      artist: "Various"
     },
     imageUrls: [
-      "https://picsum.photos/id/205/300/300",
-      "https://picsum.photos/id/206/300/300"
+      "https://picsum.photos/id/450/300/300"
     ],
-    price: 12.00,
-    stockQuantity: 15
+    price: 10.00,
+    stockQuantity: 60
   },
   {
     productId: "e39dbb8946e34ceaa5559d4ad09c2cc3",
     attributes: {
-      storage: "16GB"
+      capacity: "16GB"
     },
     imageUrls: [
-      "https://picsum.photos/id/207/300/300",
-      "https://picsum.photos/id/208/300/300"
+      "https://picsum.photos/id/460/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 25
+    price: 15.00,
+    stockQuantity: 80
   },
   {
     productId: "3ed1e7f73b0540ba951b52f5c8e7ac7d",
     attributes: {
-      shade: "Warm Beige"
+      shade: "Rich Espresso"
     },
     imageUrls: [
-      "https://picsum.photos/id/209/300/300",
-      "https://picsum.photos/id/210/300/300"
+      "https://picsum.photos/id/470/300/300"
     ],
-    price: 14.00,
-    stockQuantity: 30
+    price: 18.00,
+    stockQuantity: 50
   },
   {
     productId: "75fad26ca54b4f6097a3bdb257a1089e",
     attributes: {
-      finish: "Matte"
+      color: "Red"
     },
     imageUrls: [
-      "https://picsum.photos/id/211/300/300",
-      "https://picsum.photos/id/212/300/300"
+      "https://picsum.photos/id/480/300/300"
     ],
-    price: 9.00,
-    stockQuantity: 40
+    price: 15.00,
+    stockQuantity: 70
   },
   {
     productId: "16bd26f5bfe94f0a933b08ce057f6f65",
@@ -2196,11 +1973,10 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       resistanceLevel: "Medium"
     },
     imageUrls: [
-      "https://picsum.photos/id/213/300/300",
-      "https://picsum.photos/id/214/300/300"
+      "https://picsum.photos/id/490/300/300"
     ],
-    price: 22.00,
-    stockQuantity: 20
+    price: 25.00,
+    stockQuantity: 40
   },
   {
     productId: "9b9760f83d864dbc836d34ce6d691d40",
@@ -2208,215 +1984,199 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       material: "PVC"
     },
     imageUrls: [
-      "https://picsum.photos/id/215/300/300",
-      "https://picsum.photos/id/216/300/300"
+      "https://picsum.photos/id/500/300/300"
     ],
-    price: 7.00,
-    stockQuantity: 30
+    price: 8.00,
+    stockQuantity: 90
   },
   {
     productId: "cc47536ec1694046a0543a8f79b9a6b2",
     attributes: {
-      capacity: "60L"
+      capacity: "40L",
+      color: "Green"
     },
     imageUrls: [
-      "https://picsum.photos/id/217/300/300",
-      "https://picsum.photos/id/218/300/300"
+      "https://picsum.photos/id/510/300/300"
     ],
-    price: 45.00,
-    stockQuantity: 15
+    price: 60.00,
+    stockQuantity: 25
   },
   {
     productId: "360646d0b1c14a4e8f2079364b1748e4",
     attributes: {
-      season: "3-Season"
+      capacity: "2-Person"
     },
     imageUrls: [
-      "https://picsum.photos/id/219/300/300",
-      "https://picsum.photos/id/220/300/300"
+      "https://picsum.photos/id/520/300/300"
     ],
-    price: 80.00,
-    stockQuantity: 10
+    price: 90.00,
+    stockQuantity: 15
   },
   {
     productId: "81851030af334c2c8c6b639ca24fecb1",
     attributes: {
-      color: "White"
+      size: "King Size"
     },
     imageUrls: [
-      "https://picsum.photos/id/221/300/300",
-      "https://picsum.photos/id/222/300/300"
+      "https://picsum.photos/id/530/300/300"
     ],
-    price: 15.00,
-    stockQuantity: 30
+    price: 12.00,
+    stockQuantity: 80
   },
   {
     productId: "4cddd7803b15455199ea18047fc5a09d",
     attributes: {
-      threadCount: "300"
+      size: "Queen",
+      color: "White"
     },
     imageUrls: [
-      "https://picsum.photos/id/223/300/300",
-      "https://picsum.photos/id/224/300/300"
+      "https://picsum.photos/id/540/300/300"
     ],
-    price: 25.00,
-    stockQuantity: 20
+    price: 35.00,
+    stockQuantity: 50
   },
   {
     productId: "8c45c93b745c4930a85e6e0586414721",
     attributes: {
-      shape: "Square"
+      design: "Geometric"
     },
     imageUrls: [
-      "https://picsum.photos/id/225/300/300",
-      "https://picsum.photos/id/226/300/300"
+      "https://picsum.photos/id/550/300/300"
     ],
-    price: 12.00,
-    stockQuantity: 25
+    price: 18.00,
+    stockQuantity: 40
   },
   {
     productId: "40824070cc304079a85fb69f928a117a",
     attributes: {
-      material: "Woven"
+      quantity: "Set of 3"
     },
     imageUrls: [
-      "https://picsum.photos/id/227/300/300",
-      "https://picsum.photos/id/228/300/300"
+      "https://picsum.photos/id/560/300/300"
     ],
-    price: 18.00,
+    price: 25.00,
     stockQuantity: 30
   },
   {
     productId: "90c3b11cd2714881abb08d96ffd17105",
     attributes: {
-      characterName: "Captain Salone"
+      character: "Local Hero"
     },
     imageUrls: [
-      "https://picsum.photos/id/229/300/300",
-      "https://picsum.photos/id/230/300/300"
+      "https://picsum.photos/id/570/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 40
+    price: 20.00,
+    stockQuantity: 30
   },
   {
     productId: "813fcd134db44b2fa4628845b6295fbc",
     attributes: {
-      attire: "Kaba"
+      outfit: "Traditional Dress"
     },
     imageUrls: [
-      "https://picsum.photos/id/231/300/300",
-      "https://picsum.photos/id/232/300/300"
+      "https://picsum.photos/id/580/300/300"
     ],
-    price: 15.00,
-    stockQuantity: 30
+    price: 22.00,
+    stockQuantity: 25
   },
   {
     productId: "130c397e657440c984fb3a5ecee21c5e",
     attributes: {
-      capacity: "20000mAh"
+      capacity: "10000mAh"
     },
     imageUrls: [
-      "https://picsum.photos/id/233/300/300",
-      "https://picsum.photos/id/234/300/300"
+      "https://picsum.photos/id/590/300/300"
     ],
-    price: 25.00,
-    stockQuantity: 20
+    price: 30.00,
+    stockQuantity: 70
   },
   {
     productId: "a99776d8e7f94da3af16ce7c320fe16b",
     attributes: {
-      powerOutput: "3.5KVA"
+      powerOutput: "2.5KVA"
     },
     imageUrls: [
-      "https://picsum.photos/id/235/300/300",
-      "https://picsum.photos/id/236/300/300"
+      "https://picsum.photos/id/600/300/300"
     ],
-    price: 250.00,
-    stockQuantity: 5
+    price: 300.00,
+    stockQuantity: 10
   },
   {
     productId: "1d856669af9e48528fab2e29c795d731",
     attributes: {
-      hairType: "Coarse"
+      type: "Regular"
     },
     imageUrls: [
-      "https://picsum.photos/id/237/300/300",
-      "https://picsum.photos/id/238/300/300"
+      "https://picsum.photos/id/610/300/300"
     ],
-    price: 10.00,
-    stockQuantity: 30
+    price: 15.00,
+    stockQuantity: 60
   },
   {
     productId: "e7f72784737440b28d51e457bd7948fd",
     attributes: {
-      size: "500ml"
+      volume: "250ml"
     },
     imageUrls: [
-      "https://picsum.photos/id/239/300/300",
-      "https://picsum.photos/id/240/300/300"
+      "https://picsum.photos/id/620/300/300"
     ],
-    price: 8.00,
-    stockQuantity: 40
+    price: 10.00,
+    stockQuantity: 90
   },
   {
     productId: "f898e6b433284e379b2f0a3dd9733c12",
     attributes: {
-      form: "Gummy"
+      count: "60 Count"
     },
     imageUrls: [
-      "https://picsum.photos/id/241/300/300",
-      "https://picsum.photos/id/242/300/300"
+      "https://picsum.photos/id/630/300/300"
     ],
-    price: 15.00,
-    stockQuantity: 25
+    price: 20.00,
+    stockQuantity: 70
   },
   {
     productId: "175c361555644542b1c115946f56fa32",
     attributes: {
-      dosage: "1000mg"
+      count: "90 Count"
     },
     imageUrls: [
-      "https://picsum.photos/id/243/300/300",
-      "https://picsum.photos/id/244/300/300"
+      "https://picsum.photos/id/640/300/300"
     ],
-    price: 20.00,
-    stockQuantity: 20
+    price: 28.00,
+    stockQuantity: 60
   },
   {
     productId: "0a111e108db540669cd4b56fa2880bb6",
     attributes: {
-      material: "Non-toxic Wood"
+      pieces: "50-Piece"
     },
     imageUrls: [
-      "https://picsum.photos/id/245/300/300",
-      "https://picsum.photos/id/246/300/300"
+      "https://picsum.photos/id/650/300/300"
     ],
     price: 25.00,
-    stockQuantity: 30
+    stockQuantity: 40
   },
   {
     productId: "2288b97a82994eed923259759054e325",
     attributes: {
-      colorScheme: "Bright"
+      design: "Animal Shapes"
     },
     imageUrls: [
-      "https://picsum.photos/id/247/300/300",
-      "https://picsum.photos/id/248/300/300"
+      "https://picsum.photos/id/660/300/300"
     ],
     price: 18.00,
-    stockQuantity: 35
+    stockQuantity: 50
   },
   {
     productId: "d2621ecac5f84098a54695f91cf8bd89",
     attributes: {
-      thickness: "1 inch"
+      type: "Soft Foam"
     },
     imageUrls: [
-      "https://picsum.photos/id/249/300/300",
-      "https://picsum.photos/id/250/300/300"
+      "https://picsum.photos/id/670/300/300"
     ],
     price: 30.00,
-    stockQuantity: 20
+    stockQuantity: 35
   },
   {
     productId: "dce49f3bdbd445f6a5a64d8f166b3b48",
@@ -2424,377 +2184,21 @@ mutation mockVariation @auth(level: NO_ACCESS) {
       color: "Red"
     },
     imageUrls: [
-      "https://picsum.photos/id/251/300/300",
-      "https://picsum.photos/id/252/300/300"
+      "https://picsum.photos/id/680/300/300"
     ],
-    price: 35.00,
-    stockQuantity: 15
+    price: 45.00,
+    stockQuantity: 20
   },
   {
     productId: "dd7082046e2a4a3ca2d03677cf7d589f",
     attributes: {
-      size: "Medium"
+      size: "Portable"
     },
     imageUrls: [
-      "https://picsum.photos/id/253/300/300",
-      "https://picsum.photos/id/254/300/300"
+      "https://picsum.photos/id/690/300/300"
     ],
-    price: 25.00,
-    stockQuantity: 10
-  },
-  {
-    productId: "7dfb23816df74c558151d8b5f4d04e08",
-    attributes: {
-      design: "Tropical"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/255/300/300",
-      "https://picsum.photos/id/256/300/300"
-    ],
-    price: 8.00,
-    stockQuantity: 40
-  },
-  {
-    productId: "e3986e5dbb7a4035a20923c5b18518a9",
-    attributes: {
-      viscosity: "10W-40"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/257/300/300",
-      "https://picsum.photos/id/258/300/300"
-    ],
-    price: 30.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "930a454fa7d84c56872991e2f2f5393c",
-    attributes: {
-      scent: "Lemon"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/259/300/300",
-      "https://picsum.photos/id/260/300/300"
-    ],
-    price: 10.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "78bfff1dd2394946b8c6b1735d6953da",
-    attributes: {
-      type: "Digital"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/261/300/300",
-      "https://picsum.photos/id/262/300/300"
-    ],
-    price: 15.00,
-    stockQuantity: 25
-  },
-  {
-    productId: "2309686c87bd43d5b95cefbec1a1340f",
-    attributes: {
-      brand: "Michelin"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/263/300/300",
-      "https://picsum.photos/id/264/300/300"
-    ],
-    price: 70.00,
-    stockQuantity: 10
-  },
-  {
-    productId: "e7771c7d15464602bcbc5cf776cc4238",
-    attributes: {
-      includesInflator: "No"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/265/300/300",
-      "https://picsum.photos/id/266/300/300"
-    ],
-    price: 12.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "606a910d2654417f860c8de51c3a4949",
-    attributes: {
-      material: "Stainless Steel"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/267/300/300",
-      "https://picsum.photos/id/268/300/300"
-    ],
-    price: 25.00,
+    price: 60.00,
     stockQuantity: 15
-  },
-  {
-    productId: "be2ee466a5234a2fafcf2d404647abee",
-    attributes: {
-      packaging: "Sachet"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/269/300/300",
-      "https://picsum.photos/id/270/300/300"
-    ],
-    price: 10.00,
-    stockQuantity: 50
-  },
-  {
-    productId: "76323f22f58144a39441a1af6f1fffaa",
-    attributes: {
-      eggSize: "Large"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/271/300/300",
-      "https://picsum.photos/id/272/300/300"
-    ],
-    price: 8.00,
-    stockQuantity: 60
-  },
-  {
-    productId: "6c22713cdf754d20a57629f2be41b31e",
-    attributes: {
-      size: "Small Tin"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/273/300/300",
-      "https://picsum.photos/id/274/300/300"
-    ],
-    price: 3.00,
-    stockQuantity: 80
-  },
-  {
-    productId: "7d0540b376a046c78f34b925e32dce4b",
-    attributes: {
-      weight: "1.5kg"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/275/300/300",
-      "https://picsum.photos/id/276/300/300"
-    ],
-    price: 12.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "c8ddd0b5701a4d7f935f3f89b19c0444",
-    attributes: {
-      preparation: "Whole"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/277/300/300",
-      "https://picsum.photos/id/278/300/300"
-    ],
-    price: 7.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "baa72e25b82c407b907c59bb4e178c9b",
-    attributes: {
-      cut: "Diced"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/279/300/300",
-      "https://picsum.photos/id/280/300/300"
-    ],
-    price: 9.00,
-    stockQuantity: 25
-  },
-  {
-    productId: "be91a4ae29bb4999b509dcfda322942e",
-    attributes: {
-      condition: "New"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/281/300/300",
-      "https://picsum.photos/id/282/300/300"
-    ],
-    price: 12.00,
-    stockQuantity: 15
-  },
-  {
-    productId: "8815268943594acca2d8f52df6db4962",
-    attributes: {
-      author: "Various"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/283/300/300",
-      "https://picsum.photos/id/284/300/300"
-    ],
-    price: 10.00,
-    stockQuantity: 10
-  },
-  {
-    productId: "c87583f6da18476fb7bc1c6370746006",
-    attributes: {
-      edition: "Anniversary"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/285/300/300",
-      "https://picsum.photos/id/286/300/300"
-    ],
-    price: 14.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "1f4e89870f754b148e7536711a96a1db",
-    attributes: {
-      genre: "Comedy"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/287/300/300",
-      "https://picsum.photos/id/288/300/300"
-    ],
-    price: 8.00,
-    stockQuantity: 25
-  },
-  {
-    productId: "996f1604e4a2441fa99cfc778cd8ca61",
-    attributes: {
-      numDiscs: "3"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/289/300/300",
-      "https://picsum.photos/id/290/300/300"
-    ],
-    price: 20.00,
-    stockQuantity: 15
-  },
-  {
-    productId: "51d24839142c4caeb385a51a4c63826f",
-    attributes: {
-      size: "42",
-      color: "Black"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/291/300/300",
-      "https://picsum.photos/id/292/300/300"
-    ],
-    price: 35.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "f52c481dbac84c868eb84e8604dc05f7",
-    attributes: {
-      size: "Kids 10",
-      color: "Yellow"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/293/300/300",
-      "https://picsum.photos/id/294/300/300"
-    ],
-    price: 7.00,
-    stockQuantity: 50
-  },
-  {
-    productId: "2e16bb7e00b84fad9fa4dd953d00e168",
-    attributes: {
-      size: "39",
-      color: "Navy"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/295/300/300",
-      "https://picsum.photos/id/296/300/300"
-    ],
-    price: 28.00,
-    stockQuantity: 25
-  },
-  {
-    productId: "e8a6520d52ae4e9da6a9500ca49af205",
-    attributes: {
-      material: "Cotton"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/297/300/300",
-      "https://picsum.photos/id/298/300/300"
-    ],
-    price: 15.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "7d356ba9094a44f2af17ddffa7034d9c",
-    attributes: {
-      diameter: "30mm"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/299/300/300",
-      "https://picsum.photos/id/300/300"
-    ],
-    price: 20.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "079a2ebadf084d42911f28d24e9a24fd",
-    attributes: {
-      color: "Brown"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/301/300/300",
-      "https://picsum.photos/id/302/300/300"
-    ],
-    price: 25.00,
-    stockQuantity: 18
-  },
-  {
-    productId: "8f9681078e5d4b98bf969d1df7ac7871",
-    attributes: {
-      size: "0-3 Months"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/303/300/300",
-      "https://picsum.photos/id/304/300/300"
-    ],
-    price: 15.00,
-    stockQuantity: 40
-  },
-  {
-    productId: "aee1d8c6d3f943f2874dceb35f0bc8cd",
-    attributes: {
-      size: "Age 5-6",
-      color: "Blue"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/305/300/300",
-      "https://picsum.photos/id/306/300/300"
-    ],
-    price: 10.00,
-    stockQuantity: 30
-  },
-  {
-    productId: "6281ad046700430bbf9f902ce0cd0894",
-    attributes: {
-      size: "Age 2-3",
-      print: "Kente"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/307/300/300",
-      "https://picsum.photos/id/308/300/300"
-    ],
-    price: 22.00,
-    stockQuantity: 20
-  },
-  {
-    productId: "1015889dba20407c998c533e40945eda",
-    attributes: {
-      size: "Age 7-8",
-      color: "Green/Yellow"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/309/300/300",
-      "https://picsum.photos/id/310/300/300"
-    ],
-    price: 18.00,
-    stockQuantity: 25
-  },
-  {
-    productId: "28f8f8c7ee854cefa820055a94449d8e",
-    attributes: {
-      material: "Organic Cotton"
-    },
-    imageUrls: [
-      "https://picsum.photos/id/311/300/300",
-      "https://picsum.photos/id/312/300/300"
-    ],
-    price: 12.00,
-    stockQuantity: 35
   }
 ])
 }

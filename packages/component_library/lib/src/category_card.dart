@@ -23,35 +23,20 @@ class CategoryCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          padding: const EdgeInsets.all(8),
           child: Row(
+            spacing: 12,
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Center(
-                  child: CachedProductImage(
-                    imageUrl: imageUrl,
-                    aspectRatio: 40 / 40,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
+              CachedProductImage(
+                imageUrl: imageUrl,
+                aspectRatio: 60 / 60,
+                borderRadius: BorderRadius.circular(12),
               ),
-              const SizedBox(width: 12.0),
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

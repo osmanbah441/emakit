@@ -22,13 +22,7 @@ class BottomNavBar extends StatelessWidget {
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       destinations: [
         NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-        NavigationDestination(
-          icon: Icon(Icons.list_outlined),
-          label: switch (role) {
-            BottomNavRole.buyer => 'Categories',
-            BottomNavRole.seller => 'Products',
-          },
-        ),
+
         NavigationDestination(
           icon: Icon(switch (role) {
             BottomNavRole.buyer => Icons.shopping_cart_outlined,

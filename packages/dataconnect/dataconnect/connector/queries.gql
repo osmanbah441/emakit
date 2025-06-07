@@ -4,6 +4,9 @@ fragment ProductInfo on Product {
         description
         categoryId
         specifications
+        mainCategory {
+            name
+        }
         variations: productVariations_on_product {
             ...ProductVariationInfo
         }
@@ -29,7 +32,7 @@ fragment CategoryInfo on Category {
 # - `false`: return only subcategories
 # - `true`: return only main categories
 # - `null`: return all categories (both main and subcategories)
-query fetchCategories@auth(level: PUBLIC) {
+query fetchCategories @auth(level: PUBLIC) {
     categories(where: {parentId: {isNull: true}}) {
        ...CategoryInfo
     }
@@ -44,8 +47,11 @@ query fetchSubCategories($parentId: UUID!) @auth(level: PUBLIC) {
 
 
 
-query fetchProducts @auth(level: PUBLIC) {
-    products {
+query fetchProducts
+($categoryId: UUID,
+ $mainCategoryId: UUID
+) @auth(level: PUBLIC) {
+    products(where: {categoryId: {eq: $categoryId}, mainCategoryId: {eq: $mainCategoryId}}) {
         ...ProductInfo
     }
 }

@@ -7,13 +7,6 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
-    );
+    return Text(title, style: Theme.of(context).textTheme.titleMedium);
   }
 }

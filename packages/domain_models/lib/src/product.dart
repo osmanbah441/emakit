@@ -4,6 +4,7 @@ class Product {
   final String description;
   final Map<String, dynamic> specifications;
   final List<ProductVariation> variations;
+  final String mainCategory;
   final String sellerInfo;
   final String storeName;
 
@@ -13,6 +14,7 @@ class Product {
     required this.description,
     required this.variations,
     required this.specifications,
+    required this.mainCategory,
     this.sellerInfo = '',
     this.storeName = '',
   });

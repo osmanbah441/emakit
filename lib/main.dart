@@ -1,6 +1,6 @@
 import 'package:cart/cart.dart';
-import 'package:category/category.dart';
 import 'package:checkout/checkout.dart';
+import 'package:filter/filter.dart';
 
 import 'package:component_library/component_library.dart';
 import 'package:dataconnect/dataconnect.dart';
@@ -34,42 +34,68 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  void _onDestinationSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  int _selectedIndex = 0;
-
-  final _pages = <Widget>[
-    HomeScreen(
-      onProductTap: (context, productId) => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProductDetailsScreen(productId: productId),
-        ),
-      ),
-    ),
-    CategoryScreen(),
-    CartScreen(
-      onCheckoutTap: (context) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CheckoutScreen()),
-      ),
-    ),
-    ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: _pages[_selectedIndex],
-        // body: OrderDetailsScreen(),
-        bottomNavigationBar: BottomNavBar(
-          onDestinationSelected: _onDestinationSelected,
-          selectedIndex: _selectedIndex,
+      theme: AppThemeData.light(context),
+      darkTheme: AppThemeData.dark(context),
+      themeMode: ThemeMode.light,
+      debugShowCheckedModeBanner: false,
+      title: 'Emakit',
+      home: _Home(),
+    );
+  }
+}
+
+class _Home extends StatelessWidget {
+  const _Home();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actionsPadding: const EdgeInsets.only(right: 12),
+        title: const Text('Emakit'),
+        actions: [
+          CartIconButton(
+            itemCount: 10,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(
+                    onCheckoutTap: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+
+          IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            ),
+            icon: const Icon(Icons.person),
+          ),
+        ],
+      ),
+      body: HomeScreen(
+        filterDialog: CategorySelectionAlertDialog(),
+        onCategoryFilterTap: (mainCategoryId) => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FilterScreen(id: mainCategoryId),
+          ),
+        ),
+        onProductTap: (context, productId) => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(productId: productId),
+          ),
         ),
       ),
     );

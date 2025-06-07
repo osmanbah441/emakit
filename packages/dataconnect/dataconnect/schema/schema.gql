@@ -11,6 +11,7 @@ type Product @table {
   name: String! # Name of the product 
   description: String! # Detailed description of the product
   brand: String # Brand of the product (e.g., "Apple", "Nike")
+  mainCategory: Category! # Main category of the product (e.g., "Electronics", "Apparel")
   category: Category! # subCategory
   specifications: Any!
   createdAt: Timestamp! @default(expr: "request.time")

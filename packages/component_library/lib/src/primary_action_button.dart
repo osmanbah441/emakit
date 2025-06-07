@@ -12,6 +12,10 @@ class PrimaryActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: SizedBox(
@@ -20,8 +24,7 @@ class PrimaryActionButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFD3E0F2), // Light blue background
-            foregroundColor: Colors.black87, // Text color
+            backgroundColor: colorScheme.secondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0), // Rounded corners
             ),
@@ -29,7 +32,9 @@ class PrimaryActionButton extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+            style: textTheme.titleMedium?.copyWith(
+              color: colorScheme.onSecondary,
+            ),
           ),
         ),
       ),

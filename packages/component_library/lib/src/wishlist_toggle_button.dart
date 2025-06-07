@@ -6,7 +6,7 @@ class WishlistToggleButton extends StatelessWidget {
 
   const WishlistToggleButton({
     super.key,
-    this.isFavorite = false,
+    this.isFavorite = true,
     this.onToggle,
   });
 
@@ -25,12 +25,7 @@ class WishlistToggleButton extends StatelessWidget {
           key: ValueKey<bool>(isFavorite), // Key for AnimatedSwitcher
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite
-                ? Colors
-                      .red
-                      .shade600 // Explicit red for favorite
-                : colorScheme.onSurface, // Themed color for unfavorite
-            size: 24,
+            color: isFavorite ? colorScheme.error : null,
           ),
           onPressed: onToggle,
         ),

@@ -1,12 +1,31 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_cubit.dart';
 import 'package:component_library/component_library.dart'; // Assuming this is correctly imported
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.onProductTap});
+  const HomeScreen({
+    super.key,
+    required this.onProductTap,
+    required this.filterDialog,
+    required this.onCategoryFilterTap,
+  });
 
   final Function(BuildContext context, String productId) onProductTap;
+  final Function(String mainCategoryId) onCategoryFilterTap;
+  final Widget filterDialog;
+
+  void _showFilterDialog(BuildContext context) async {
+    final selectedCategory = await showDialog<Category>(
+      context: context,
+      builder: (BuildContext context) => filterDialog,
+    );
+
+    if (selectedCategory != null) {
+      onCategoryFilterTap(selectedCategory.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +40,8 @@ class HomeScreen extends StatelessWidget {
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   return AppSearchBar(
-                    onSearchchanged: (term) {
-                      context.read<HomeCubit>().onSearchTermChanged(term);
-                    },
+                    onSearchchanged: (p) {},
+                    onFilterTap: () => _showFilterDialog(context),
                   );
                 },
               ),

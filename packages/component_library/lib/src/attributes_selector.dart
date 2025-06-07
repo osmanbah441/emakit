@@ -35,6 +35,7 @@ class AttributeSelector<T> extends StatelessWidget {
             final bool isSelected = option == selectedOption;
 
             return ChoiceChip(
+              selectedColor: Theme.of(context).colorScheme.primary,
               label: Text(option.toString()),
               selected: isSelected,
               onSelected: (bool selected) {

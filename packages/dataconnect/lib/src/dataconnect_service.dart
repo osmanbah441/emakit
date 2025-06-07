@@ -70,30 +70,40 @@ final class DataconnectService {
         .execute();
   }
 
-  Future<List<Product>> fetchProducts({String searchTerm = ''}) async =>
-      await _connector.fetchProducts().execute().then(
-        (results) => results.data.products
-            .map(
-              (p) => Product(
-                id: p.id,
-                name: p.name,
-                description: p.description,
-                specifications: p.specifications.value as Map<String, dynamic>,
-                variations: p.variations
-                    .map(
-                      (v) => ProductVariation(
-                        id: v.id,
-                        attributes: v.attributes.value,
-                        imageUrls: v.imageUrls,
-                        price: v.price,
-                        stockQuantity: v.stockQuantity,
-                      ),
-                    )
-                    .toList(),
-              ),
-            )
-            .toList(),
-      );
+  Future<List<Product>> fetchProducts({
+    String searchTerm = '',
+    String? categoryId,
+    String? mainCategoryId,
+  }) async {
+    var query = _connector.fetchProducts();
+    if (categoryId != null) query = query.categoryId(categoryId);
+    if (mainCategoryId != null) query = query.mainCategoryId(mainCategoryId);
+
+    return await query.execute().then(
+      (result) => result.data.products
+          .map(
+            (p) => Product(
+              id: p.id,
+              name: p.name,
+              mainCategory: p.mainCategory.name,
+              description: p.description,
+              specifications: p.specifications.value as Map<String, dynamic>,
+              variations: p.variations
+                  .map(
+                    (v) => ProductVariation(
+                      id: v.id,
+                      attributes: v.attributes.value,
+                      imageUrls: v.imageUrls,
+                      price: v.price,
+                      stockQuantity: v.stockQuantity,
+                    ),
+                  )
+                  .toList(),
+            ),
+          )
+          .toList(),
+    );
+  }
 
   Future<Product> fetchProductById(String id) async =>
       await _connector.fetchProduct(id: id).execute().then((result) {
@@ -102,6 +112,8 @@ final class DataconnectService {
         return Product(
           id: p.id,
           name: p.name,
+          mainCategory: p.mainCategory.name,
+
           description: p.description,
           specifications: p.specifications.value as Map<String, dynamic>,
           variations: p.variations
@@ -186,16 +198,34 @@ final class DataconnectService {
     await _connector.removeCartItem(id: id).execute();
   }
 
-  Future<List<Category>> fetchCategories({String? parentId}) async {
+  Future<List<Category>> fetchCategories() async {
     return await _connector.fetchCategories().execute().then((result) {
       return result.data.categories
           .map(
             (c) => Category(
+              id: c.id,
               name: c.name,
               imageUrl: 'https://picsum.photos/id/237/200/300',
             ),
           )
           .toList();
     });
+  }
+
+  Future<List<Category>> fetchSubcategories(String parentId) async {
+    return await _connector
+        .fetchSubCategories(parentId: parentId)
+        .execute()
+        .then((results) {
+          return results.data.categories
+              .map(
+                (c) => Category(
+                  id: c.id,
+                  name: c.name,
+                  imageUrl: 'https://picsum.photos/id/237/200/300',
+                ),
+              )
+              .toList();
+        });
   }
 }

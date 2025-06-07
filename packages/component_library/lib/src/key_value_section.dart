@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:component_library/src/summary_row.dart';
 import 'package:flutter/material.dart';
 
 /// Displays a section with a title and a list of key-value information rows.
@@ -18,21 +19,25 @@ class KeyValueSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionTitle(title: title),
-        ...data.entries.map((entry) {
-          final bool shouldHighlight =
-              highlightKey != null && entry.key == highlightKey;
-          return InfoRow(
-            label: entry.key,
-            value: entry.value,
-            valueStyle: shouldHighlight ? highlightValueStyle : null,
-          );
-        }),
-        const SizedBox(height: 16.0), // Padding after each section
-      ],
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SectionTitle(title: title),
+            ...data.entries.map((entry) {
+              return Column(
+                children: [
+                  const Divider(height: 24.0, thickness: 1.0),
+
+                  SummaryRow(label: entry.key, value: entry.value),
+                ],
+              );
+            }),
+          ],
+        ),
+      ),
     );
   }
 }

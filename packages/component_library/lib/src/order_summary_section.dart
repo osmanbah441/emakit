@@ -1,4 +1,5 @@
 import 'package:component_library/src/section_title.dart';
+import 'package:component_library/src/summary_row.dart';
 import 'package:flutter/material.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -15,35 +16,12 @@ class OrderSummarySection extends StatelessWidget {
     required this.total,
   });
 
-  Widget _buildSummaryRow(String label, String value, {bool isTotal = false}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: isTotal ? 18.0 : 16.0,
-              fontWeight: isTotal ? FontWeight.w700 : FontWeight.normal,
-              color: isTotal ? Colors.black : Colors.grey[700],
-            ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: isTotal ? 18.0 : 16.0,
-              fontWeight: isTotal ? FontWeight.w700 : FontWeight.normal,
-              color: isTotal ? Colors.black : Colors.black,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
@@ -51,11 +29,22 @@ class OrderSummarySection extends StatelessWidget {
         children: [
           const SectionTitle(title: 'Order Summary'),
           const SizedBox(height: 16.0),
-          _buildSummaryRow('Subtotal', subtotal),
-          _buildSummaryRow('Shipping', shippingCost),
-          _buildSummaryRow('Taxes', taxes),
-          const Divider(height: 24.0, thickness: 1.0, color: Color(0xFFE0E0E0)),
-          _buildSummaryRow('Total', total, isTotal: true),
+          SummaryRow(label: 'Subtotal', value: subtotal),
+          SummaryRow(label: 'Shipping', value: shippingCost),
+          SummaryRow(label: 'Taxes', value: taxes),
+          const Divider(height: 24.0, thickness: 1.0),
+          SummaryRow(
+            label: 'Total',
+            value: total,
+            valueTextStyle: textTheme.titleMedium?.copyWith(
+              color: colorScheme.primary,
+              fontWeight: FontWeight.bold,
+            ),
+            labelTextStyle: textTheme.titleMedium?.copyWith(
+              color: colorScheme.primary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );

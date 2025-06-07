@@ -11,6 +11,7 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isInCart;
   final double imageAspectRatio;
+  final String currency;
 
   const ProductCard({
     super.key,
@@ -23,11 +24,14 @@ class ProductCard extends StatelessWidget {
     this.onTap,
     this.isInCart = false,
     this.imageAspectRatio = 4 / 3,
+    this.currency = '\$',
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Card(
       child: InkWell(
@@ -54,15 +58,16 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: theme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: textTheme.titleMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '\$${price.toStringAsFixed(2)}',
-                    style: theme.labelLarge,
+                    '$currency${price.toStringAsFixed(2)}',
+                    style: textTheme.titleMedium?.copyWith(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

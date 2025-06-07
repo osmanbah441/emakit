@@ -9,6 +9,7 @@ class CartItemCard extends StatelessWidget {
   final Map<String, dynamic> attributes;
   final VoidCallback onDecrement;
   final VoidCallback onIncrement;
+  final String currency;
 
   const CartItemCard({
     super.key,
@@ -18,6 +19,7 @@ class CartItemCard extends StatelessWidget {
     required this.currentQuantity,
     required this.onDecrement,
     required this.onIncrement,
+    this.currency = '\$',
     this.attributes = const {},
   });
 
@@ -45,7 +47,10 @@ class CartItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -65,24 +70,16 @@ class CartItemCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
+                Text(title, style: textTheme.titleMedium),
                 const SizedBox(height: 4.0),
+                Text(formatAttributes(), style: textTheme.labelSmall),
+                const SizedBox(height: 8.0),
                 Text(
-                  '\$${totalPrice.toStringAsFixed(2)}',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
+                  '$currency ${totalPrice.toStringAsFixed(2)}',
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.primary,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                const SizedBox(height: 4.0),
-                Text(
-                  formatAttributes(),
-                  style: textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -91,19 +88,16 @@ class CartItemCard extends StatelessWidget {
           // Quantity Controls
           Row(
             children: [
-              _buildQuantityButton(Icons.remove, onDecrement),
+              _buildQuantityButton(context, Icons.remove, onDecrement),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Text(
                   currentQuantity.toString(),
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
-              _buildQuantityButton(Icons.add, onIncrement),
+
+              _buildQuantityButton(context, Icons.add, onIncrement),
             ],
           ),
         ],
@@ -111,19 +105,24 @@ class CartItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildQuantityButton(IconData icon, VoidCallback onPressed) {
+  Widget _buildQuantityButton(
+    BuildContext context,
+    IconData icon,
+    VoidCallback onPressed,
+  ) {
+    final colorScheme = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(12.0),
       child: Container(
-        width: 28,
-        height: 28,
+        width: 32,
+        height: 32,
         decoration: BoxDecoration(
-          color: const Color(0xFFF0F0F0),
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: colorScheme.primary),
         ),
-        child: Icon(icon, size: 18, color: Colors.black),
+        child: Icon(icon),
       ),
     );
   }

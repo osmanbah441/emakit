@@ -1,6 +1,10 @@
 final class Category {
+  final String id;
   final String name;
-  final String imageUrl;
+  final String? imageUrl;
 
-  const Category({required this.name, required this.imageUrl});
+  const Category({required this.id, required this.name, this.imageUrl});
+
+  @override
+  String toString() => name;
 }

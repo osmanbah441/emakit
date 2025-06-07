@@ -2,8 +2,13 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
 class AppSearchBar extends StatefulWidget {
-  const AppSearchBar({super.key, required this.onSearchchanged});
+  const AppSearchBar({
+    super.key,
+    required this.onSearchchanged,
+    this.onFilterTap,
+  });
   final Function(String) onSearchchanged;
+  final VoidCallback? onFilterTap;
 
   @override
   State<AppSearchBar> createState() => _AppSearchBarState();
@@ -51,7 +56,6 @@ class _AppSearchBarState extends State<AppSearchBar> {
       elevation: WidgetStateProperty.all(0),
       hintText: _isVoiceListening ? 'Listening...' : 'Search for items...',
       controller: _searchController,
-      padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 24)),
       leading: Icon(Icons.search),
       trailing: [
         if (_searchController.text.isNotEmpty)
@@ -64,6 +68,11 @@ class _AppSearchBarState extends State<AppSearchBar> {
               _isVoiceListening = isListening;
             });
           },
+        ),
+
+        IconButton(
+          onPressed: widget.onFilterTap,
+          icon: Icon(Icons.filter_list),
         ),
       ],
     );

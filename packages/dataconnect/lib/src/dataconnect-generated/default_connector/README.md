@@ -118,10 +118,32 @@ ref.subscribe(...);
 DefaultConnector.instance.fetchProducts().execute();
 ```
 
+#### Optional Arguments
+We return a builder for each query. For fetchProducts, we created `fetchProductsBuilder`. For queries and mutations with optional parameters, we return a builder class.
+The builder pattern allows Data Connect to distinguish between fields that haven't been set and fields that have been set to null. A field can be set by calling its respective setter method like below:
+```dart
+class FetchProductsVariablesBuilder {
+  ...
+ 
+  FetchProductsVariablesBuilder categoryId(String? t) {
+   _categoryId.value = t;
+   return this;
+  }
+  FetchProductsVariablesBuilder mainCategoryId(String? t) {
+   _mainCategoryId.value = t;
+   return this;
+  }
 
+  ...
+}
+DefaultConnector.instance.fetchProducts()
+.categoryId(categoryId)
+.mainCategoryId(mainCategoryId)
+.execute();
+```
 
 #### Return Type
-`execute()` returns a `QueryResult<fetchProductsData, void>`
+`execute()` returns a `QueryResult<fetchProductsData, fetchProductsVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
