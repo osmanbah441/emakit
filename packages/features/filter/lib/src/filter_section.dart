@@ -37,8 +37,7 @@ class FilterSection extends StatelessWidget {
   ) {
     return SelectableFilterChips<Category>(
       itemLabelBuilder: (category) => category.name,
-      title:
-          'Shop popular ${state.fiteredProducts.first.mainCategory.toLowerCase()} categories:',
+      title: 'Shop popular ${state.mainCategoryName.toLowerCase()} categories:',
       options: state.subCategories,
       selectedOption: state.tempFilters.selectedSubCategory,
       onOptionSelected: (category) {

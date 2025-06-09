@@ -39,6 +39,7 @@ class ProductDetailsScreen extends StatelessWidget {
           final product = state.product!;
           final cubit = context.read<ProductDetailsCubit>();
           final selectedVariation = state.selectedVariation;
+          final theme = Theme.of(context);
 
           return Scaffold(
             appBar: AppBar(
@@ -63,11 +64,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 16.0),
                     child: Text(
                       product.description,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        height: 1.5,
-                        color: Colors.grey[700],
-                      ),
+                      style: theme.textTheme.bodyLarge,
                     ),
                   ),
                   if (selectedVariation != null)
@@ -76,10 +73,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   if (selectedVariation != null)
                     Text(
                       '\$${selectedVariation.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 28.0,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w600,
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        color: theme.primaryColor,
                       ),
                     ),
 
@@ -88,9 +83,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
                         'This combination is not available.',
-                        style: TextStyle(
-                          color: Colors.orange.shade700,
-                          fontWeight: FontWeight.bold,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: theme.colorScheme.error,
                         ),
                       ),
                     ),

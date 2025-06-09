@@ -31,6 +31,12 @@ class HomeCubit extends Cubit<HomeState> {
     _searchTermController.add(term);
   }
 
+  void updateWithSearchResult(String result) {
+    // You could parse the result and update the product list
+    // For now, we’ll just simulate it
+    // emit(HomeLoaded([], currentSearchTerm: result));
+  }
+
   void refreshProducts() {
     _fetchProducts();
   }
@@ -53,8 +59,9 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   // --- Cart Management ---
-  void toggleCartStatus(String productId) async {
-    await _db.toggleCartStatus(productId);
+  void toggleCartStatus(ProductVariation product) async {
+    // TODO: toggle if in cart then remove
+    await _db.addToCart(product, 1);
   }
 
   // --- Wishlist Management ---

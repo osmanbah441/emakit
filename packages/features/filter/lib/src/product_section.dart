@@ -16,22 +16,42 @@ class ProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (products.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 40.0),
-        child: Center(
-          child: Text(
-            'No products found with the current filters.',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
-    }
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
       child: Column(
+        spacing: 8,
         children: [
+          BlocBuilder<CategoryDetailsCubit, CategoryDetailsState>(
+            builder: (context, state) {
+              if (state is! CategoryDetailsLoaded) {
+                return const SizedBox.shrink();
+              }
+
+              return HorizontalFilterSelector(
+                itemLabelBuilder: (category) => category.name,
+
+                options: state.subCategories,
+                selectedOption: state.tempFilters.selectedSubCategory,
+                onOptionSelected: (category) {
+                  context.read<CategoryDetailsCubit>().filterBySubCategory(
+                    category,
+                  );
+                },
+              );
+            },
+          ),
+
+          if (products.isEmpty)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.0),
+              child: Center(
+                child: Text(
+                  'No products found with the current filters.',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           Expanded(
             child: GridView.builder(
               shrinkWrap: true,

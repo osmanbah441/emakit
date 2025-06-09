@@ -8,6 +8,7 @@ class CategoryDetailsLoaded extends CategoryDetailsState {
   final FilterData appliedFilters;
   final FilterData tempFilters;
   final bool showFilters;
+  final String mainCategoryName;
   final List<Category> subCategories;
   final List<String> availableBrands;
   final ({double min, double max}) priceRange;
@@ -16,6 +17,7 @@ class CategoryDetailsLoaded extends CategoryDetailsState {
   CategoryDetailsLoaded({
     required this.appliedFilters,
     required this.tempFilters,
+    this.mainCategoryName = '',
     required this.showFilters,
     this.availableBrands = const [],
     this.subCategories = const [],
@@ -40,6 +42,7 @@ class CategoryDetailsLoaded extends CategoryDetailsState {
       availableBrands: availableBrands ?? this.availableBrands,
       priceRange: priceRange ?? this.priceRange,
       fiteredProducts: fiteredProducts ?? this.fiteredProducts,
+      mainCategoryName: mainCategoryName,
     );
   }
 }

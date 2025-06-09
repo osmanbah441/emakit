@@ -1,6 +1,8 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search_agent/search_agent.dart';
+import 'home_category_section.dart';
 import 'home_cubit.dart';
 import 'package:component_library/component_library.dart'; // Assuming this is correctly imported
 
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   });
 
   final Function(BuildContext context, String productId) onProductTap;
-  final Function(String mainCategoryId) onCategoryFilterTap;
+  final Function(Category) onCategoryFilterTap;
   final Widget filterDialog;
 
   void _showFilterDialog(BuildContext context) async {
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
     );
 
     if (selectedCategory != null) {
-      onCategoryFilterTap(selectedCategory.id);
+      onCategoryFilterTap(selectedCategory);
     }
   }
 
@@ -39,16 +41,61 @@ class HomeScreen extends StatelessWidget {
             children: [
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
-                  return AppSearchBar(
-                    onSearchchanged: (p) {},
+                  return SearchAgentScreen(
                     onFilterTap: () => _showFilterDialog(context),
+                    onSearchStarted: () {},
+                    onSearchResult: (result) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Search result: $result')),
+                      );
+                      // Example: Trigger cubit to show result
+                      // context.read<HomeCubit>().updateWithSearchResult(result);
+                    },
+                    onSearchError: (message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Search failed: $message')),
+                      );
+                    },
                   );
                 },
               ),
+
+              // BlocBuilder<HomeCubit, HomeState>(
+              //   builder: (context, state) {
+              //     return HomeCategorySection(
+              //       categoryTitle: "Electronics",
+              //       onSeeMore: () => onCategoryFilterTap(
+              //         Category(id: 'electronics', name: 'Electronics'),
+              //       ),
+              //       products: state is HomeLoaded ? state.products : [],
+              //       onProductTap: (product) =>
+              //           onProductTap(context, product.id),
+              //       onAddToCart: (product) {
+              //         context.read<HomeCubit>().toggleCartStatus(
+              //           product.variations.first,
+              //         );
+              //         ScaffoldMessenger.of(context).showSnackBar(
+              //           SnackBar(
+              //             content: Text('Added "${product.name}" to cart!'),
+              //           ),
+              //         );
+              //       },
+              //       onWishlistToggle: (product) {
+              //         context.read<HomeCubit>().toggleWishlistStatus(
+              //           product.id,
+              //         );
+              //         ScaffoldMessenger.of(context).showSnackBar(
+              //           SnackBar(
+              //             content: Text('Added "${product.name}" to wishlist!'),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               Expanded(
                 child: BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    // Using 'switch' with a sealed class to ensure all states are handled.
                     return switch (state) {
                       HomeLoading() => const CenteredProgressIndicator(),
                       HomeLoaded(
@@ -89,7 +136,9 @@ class HomeScreen extends StatelessWidget {
                                     onAddToCart: () {
                                       context
                                           .read<HomeCubit>()
-                                          .toggleCartStatus(product.id);
+                                          .toggleCartStatus(
+                                            product.variations.first,
+                                          );
                                       ScaffoldMessenger.of(
                                         context,
                                       ).showSnackBar(

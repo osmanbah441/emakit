@@ -2,6 +2,16 @@ library default_connector;
 import 'package:firebase_data_connect/firebase_data_connect.dart';
 import 'dart:convert';
 
+part 'fetch_categories.dart';
+
+part 'fetch_sub_categories.dart';
+
+part 'fetch_products.dart';
+
+part 'fetch_product.dart';
+
+part 'fetch_cart.dart';
+
 part 'mock_categories.dart';
 
 part 'mock_subcategories.dart';
@@ -28,16 +38,6 @@ part 'remove_cart_item.dart';
 
 part 'clear_cart.dart';
 
-part 'fetch_categories.dart';
-
-part 'fetch_sub_categories.dart';
-
-part 'fetch_products.dart';
-
-part 'fetch_product.dart';
-
-part 'fetch_cart.dart';
-
 
 
 
@@ -45,6 +45,31 @@ part 'fetch_cart.dart';
 
 
 class DefaultConnector {
+  
+  
+  FetchCategoriesVariablesBuilder fetchCategories () {
+    return FetchCategoriesVariablesBuilder(dataConnect, );
+  }
+  
+  
+  FetchSubCategoriesVariablesBuilder fetchSubCategories ({required String parentId, }) {
+    return FetchSubCategoriesVariablesBuilder(dataConnect, parentId: parentId,);
+  }
+  
+  
+  FetchProductsVariablesBuilder fetchProducts () {
+    return FetchProductsVariablesBuilder(dataConnect, );
+  }
+  
+  
+  FetchProductVariablesBuilder fetchProduct ({required String id, }) {
+    return FetchProductVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  FetchCartVariablesBuilder fetchCart () {
+    return FetchCartVariablesBuilder(dataConnect, );
+  }
   
   
   MockCategoriesVariablesBuilder mockCategories () {
@@ -109,31 +134,6 @@ class DefaultConnector {
   
   ClearCartVariablesBuilder clearCart () {
     return ClearCartVariablesBuilder(dataConnect, );
-  }
-  
-  
-  FetchCategoriesVariablesBuilder fetchCategories () {
-    return FetchCategoriesVariablesBuilder(dataConnect, );
-  }
-  
-  
-  FetchSubCategoriesVariablesBuilder fetchSubCategories ({required String parentId, }) {
-    return FetchSubCategoriesVariablesBuilder(dataConnect, parentId: parentId,);
-  }
-  
-  
-  FetchProductsVariablesBuilder fetchProducts () {
-    return FetchProductsVariablesBuilder(dataConnect, );
-  }
-  
-  
-  FetchProductVariablesBuilder fetchProduct ({required String id, }) {
-    return FetchProductVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  FetchCartVariablesBuilder fetchCart () {
-    return FetchCartVariablesBuilder(dataConnect, );
   }
   
 

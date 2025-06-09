@@ -85,10 +85,11 @@ class _Home extends StatelessWidget {
       ),
       body: HomeScreen(
         filterDialog: CategorySelectionAlertDialog(),
-        onCategoryFilterTap: (mainCategoryId) => Navigator.push(
+        onCategoryFilterTap: (category) => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FilterScreen(id: mainCategoryId),
+            builder: (context) =>
+                FilterScreen(id: category.id, mainCategoryName: category.name),
           ),
         ),
         onProductTap: (context, productId) => Navigator.push(

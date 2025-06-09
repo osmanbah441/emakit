@@ -139,8 +139,6 @@ final class DataconnectService {
           )
           .execute();
 
-  Future<void> toggleCartStatus(String productId) async {}
-
   Future<void> toggleWishlistStatus(String productId) async {}
 
   Future<Cart> fetchUserCart() async {

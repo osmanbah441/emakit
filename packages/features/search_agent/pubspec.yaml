@@ -1,6 +1,6 @@
-name: home
+name: search_agent
 description: "A new Flutter package project."
-version: 0.0.0
+version: 0.0.1
 resolution: workspace
 
 environment:
@@ -8,17 +8,19 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  firebase_ai: ^2.0.0
   flutter:
     sdk: flutter
-  component_library: ^0.0.0
-  domain_models: ^0.0.0
-  dataconnect: ^0.0.0
-  search_agent: ^0.0.1
-
   flutter_bloc: ^9.1.1
-  rxdart: ^0.28.0
+  http: ^1.4.0
+  meta: ^1.16.0
+  record: ^6.0.0
+  universal_file: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+
+flutter:

@@ -6,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'category_state.dart';
 
 class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
-  CategoryDetailsCubit({required this.id}) : super(CategoryDetailsInitial()) {
-    _initializeFilters();
+  CategoryDetailsCubit({required this.id, required String mainCategoryName})
+    : super(CategoryDetailsInitial()) {
+    _initializeFilters(mainCategoryName);
   }
 
   final String id; // parent category id
@@ -24,7 +25,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
 
   final _service = DataconnectService.instance;
 
-  void _initializeFilters() async {
+  void _initializeFilters(String categoryName) async {
     final fetchSubcategory = await _service.fetchSubcategories(id);
 
     final initialFilters = FilterData(
@@ -34,6 +35,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
 
     emit(
       CategoryDetailsLoaded(
+        mainCategoryName: categoryName,
         priceRange: (min: 0, max: 2000),
         availableBrands: availableBrands,
         subCategories: fetchSubcategory,
@@ -76,6 +78,20 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
     updatedTempFilters.selectedSubCategory = category;
 
     emit(currentState.copyWith(tempFilters: updatedTempFilters));
+  }
+
+  void filterBySubCategory(Category? category) async {
+    final currentState = state as CategoryDetailsLoaded;
+    final updatedTempFilters = currentState.tempFilters.copyWith();
+    updatedTempFilters.selectedSubCategory = category;
+
+    emit(
+      currentState.copyWith(
+        tempFilters: updatedTempFilters,
+        appliedFilters: updatedTempFilters,
+        fiteredProducts: await _fetchFilteredProduct(updatedTempFilters),
+      ),
+    );
   }
 
   void updateTempBrand(String? brand) {
