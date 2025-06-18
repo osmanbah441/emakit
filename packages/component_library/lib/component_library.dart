@@ -27,5 +27,6 @@ export 'src/action_row_buttons.dart';
 export 'src/horizontal_filter_sector.dart';
 export 'src/mic_button.dart';
 export 'src/audio_input_wave_form.dart';
-export 'src/audio_input_controls.dart';
 export 'src/audio_text_input_field.dart';
+export 'src/empty_image_placeholder.dart';
+export 'src/image_thumbnail.dart';

@@ -7,6 +7,7 @@ import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:functions/functions.dart';
 import 'package:home/home.dart';
 import 'package:product_details/product_details.dart';
 import 'package:profile/profile.dart';
@@ -22,6 +23,7 @@ void main() async {
 
   if (_debugging) {
     DataconnectService.useEmulator('localhost', 9399);
+    MooemartFunctions.useEmulator('localhost', 5001);
   }
   runApp(const MainApp());
 }

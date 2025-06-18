@@ -2,24 +2,6 @@ library default_connector;
 import 'package:firebase_data_connect/firebase_data_connect.dart';
 import 'dart:convert';
 
-part 'fetch_categories.dart';
-
-part 'fetch_sub_categories.dart';
-
-part 'fetch_products.dart';
-
-part 'fetch_product.dart';
-
-part 'fetch_cart.dart';
-
-part 'mock_categories.dart';
-
-part 'mock_subcategories.dart';
-
-part 'mock_products.dart';
-
-part 'mock_variation.dart';
-
 part 'add_new_category.dart';
 
 part 'add_new_product.dart';
@@ -38,6 +20,24 @@ part 'remove_cart_item.dart';
 
 part 'clear_cart.dart';
 
+part 'fetch_categories.dart';
+
+part 'fetch_sub_categories.dart';
+
+part 'fetch_products.dart';
+
+part 'fetch_product.dart';
+
+part 'fetch_cart.dart';
+
+part 'mock_categories.dart';
+
+part 'mock_subcategories.dart';
+
+part 'mock_products.dart';
+
+part 'mock_variation.dart';
+
 
 
 
@@ -45,51 +45,6 @@ part 'clear_cart.dart';
 
 
 class DefaultConnector {
-  
-  
-  FetchCategoriesVariablesBuilder fetchCategories () {
-    return FetchCategoriesVariablesBuilder(dataConnect, );
-  }
-  
-  
-  FetchSubCategoriesVariablesBuilder fetchSubCategories ({required String parentId, }) {
-    return FetchSubCategoriesVariablesBuilder(dataConnect, parentId: parentId,);
-  }
-  
-  
-  FetchProductsVariablesBuilder fetchProducts () {
-    return FetchProductsVariablesBuilder(dataConnect, );
-  }
-  
-  
-  FetchProductVariablesBuilder fetchProduct ({required String id, }) {
-    return FetchProductVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  FetchCartVariablesBuilder fetchCart () {
-    return FetchCartVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockCategoriesVariablesBuilder mockCategories () {
-    return MockCategoriesVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockSubcategoriesVariablesBuilder mockSubcategories () {
-    return MockSubcategoriesVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockProductsVariablesBuilder mockProducts () {
-    return MockProductsVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockVariationVariablesBuilder mockVariation () {
-    return MockVariationVariablesBuilder(dataConnect, );
-  }
   
   
   AddNewCategoryVariablesBuilder addNewCategory ({required String name, }) {
@@ -134,6 +89,51 @@ class DefaultConnector {
   
   ClearCartVariablesBuilder clearCart () {
     return ClearCartVariablesBuilder(dataConnect, );
+  }
+  
+  
+  FetchCategoriesVariablesBuilder fetchCategories () {
+    return FetchCategoriesVariablesBuilder(dataConnect, );
+  }
+  
+  
+  FetchSubCategoriesVariablesBuilder fetchSubCategories ({required String parentId, }) {
+    return FetchSubCategoriesVariablesBuilder(dataConnect, parentId: parentId,);
+  }
+  
+  
+  FetchProductsVariablesBuilder fetchProducts () {
+    return FetchProductsVariablesBuilder(dataConnect, );
+  }
+  
+  
+  FetchProductVariablesBuilder fetchProduct ({required String id, }) {
+    return FetchProductVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  FetchCartVariablesBuilder fetchCart () {
+    return FetchCartVariablesBuilder(dataConnect, );
+  }
+  
+  
+  MockCategoriesVariablesBuilder mockCategories () {
+    return MockCategoriesVariablesBuilder(dataConnect, );
+  }
+  
+  
+  MockSubcategoriesVariablesBuilder mockSubcategories () {
+    return MockSubcategoriesVariablesBuilder(dataConnect, );
+  }
+  
+  
+  MockProductsVariablesBuilder mockProducts () {
+    return MockProductsVariablesBuilder(dataConnect, );
+  }
+  
+  
+  MockVariationVariablesBuilder mockVariation () {
+    return MockVariationVariablesBuilder(dataConnect, );
   }
   
 

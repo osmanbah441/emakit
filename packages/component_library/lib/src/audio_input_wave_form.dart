@@ -3,20 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-// Define a simple class for amplitude values that the waveform widget can understand
-class WaveformAmplitude {
-  final double current;
-  final double max;
-
-  WaveformAmplitude({required this.current, required this.max});
-}
-
 class AudioInputWaveform extends StatefulWidget {
-  final Stream<WaveformAmplitude> amplitudeStream;
+  final Stream<({double current, double max})> amplitudeStream;
 
-  // Customizable properties for the waveform bars
   final int numberOfBars;
-  final Color barColor;
   final BorderRadius barBorderRadius;
   final double minBarHeight;
   final double maxBarHeight;
@@ -28,7 +18,6 @@ class AudioInputWaveform extends StatefulWidget {
     super.key,
     required this.amplitudeStream,
     this.numberOfBars = 60, // Default: More bars for a denser look
-    this.barColor = Colors.deepOrange, // Default: Original color
     this.barBorderRadius = const BorderRadius.all(
       Radius.circular(2),
     ), // Default: Original rounding
@@ -49,7 +38,7 @@ class AudioInputWaveform extends StatefulWidget {
 class _AudioInputWaveformState extends State<AudioInputWaveform> {
   // The list of heights will now be initialized based on widget.numberOfBars
   late final List<double> _heights;
-  StreamSubscription<WaveformAmplitude>? _amplitudeSubscription;
+  StreamSubscription<({double current, double max})>? _amplitudeSubscription;
 
   @override
   void initState() {
@@ -135,7 +124,7 @@ class _AudioInputWaveformState extends State<AudioInputWaveform> {
                     : 2.0, // Use calculated width, fallback to 2.0 if not finite or zero
                 height: barHeight,
                 decoration: BoxDecoration(
-                  color: widget.barColor, // Use customizable color
+                  color: Theme.of(context).colorScheme.primary,
                   borderRadius:
                       widget.barBorderRadius, // Use customizable border radius
                 ),

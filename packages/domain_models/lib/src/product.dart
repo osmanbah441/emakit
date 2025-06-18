@@ -5,7 +5,6 @@ class Product {
   final Map<String, dynamic> specifications;
   final List<ProductVariation> variations;
   final String mainCategory;
-  final String sellerInfo;
   final String storeName;
 
   const Product({
@@ -15,7 +14,7 @@ class Product {
     required this.variations,
     required this.specifications,
     required this.mainCategory,
-    this.sellerInfo = '',
+
     this.storeName = '',
   });
 }

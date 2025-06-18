@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum AudioState { idle, recording, thinking }
+// enum AudioState { idle, recording, thinking }
 
 class MicButton extends StatefulWidget {
-  final AudioState state;
+  final bool isRecording;
   final VoidCallback onTap;
-  const MicButton({super.key, required this.state, required this.onTap});
+  const MicButton({super.key, this.isRecording = false, required this.onTap});
 
   @override
   State<MicButton> createState() => _MicButtonState();
@@ -35,35 +35,32 @@ class _MicButtonState extends State<MicButton>
 
   @override
   Widget build(BuildContext context) {
-    final isRecording = widget.state == AudioState.recording;
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: AnimatedBuilder(
-        animation: _pulse,
-        builder: (_, __) {
-          final double glow = isRecording ? _pulse.value * 12 : 0;
-          return Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                if (isRecording)
-                  BoxShadow(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withOpacity(0.5),
-                    blurRadius: glow,
-                    spreadRadius: glow / 2,
-                  ),
-              ],
+    final colorScheme = Theme.of(context).colorScheme;
+    return AnimatedBuilder(
+      animation: _pulse,
+      builder: (_, __) {
+        final double glow = widget.isRecording ? _pulse.value * 12 : 0;
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              if (widget.isRecording)
+                BoxShadow(
+                  color: colorScheme.primaryContainer,
+                  blurRadius: glow,
+                  spreadRadius: glow / 2,
+                ),
+            ],
+          ),
+          child: IconButton(
+            onPressed: widget.onTap,
+            icon: Icon(
+              Icons.mic_outlined,
+              color: widget.isRecording ? colorScheme.secondaryContainer : null,
             ),
-            child: Icon(
-              Icons.mic,
-              color: isRecording ? Colors.redAccent : Colors.black,
-              size: 32,
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -265,142 +265,6 @@ ref.subscribe(...);
 
 ## Mutations
 
-### mockCategories
-#### Required Arguments
-```dart
-// No required arguments
-DefaultConnector.instance.mockCategories().execute();
-```
-
-
-
-#### Return Type
-`execute()` returns a `OperationResult<mockCategoriesData, void>`
-```dart
-/// Result of an Operation Request (query/mutation).
-class OperationResult<Data, Variables> {
-  OperationResult(this.dataConnect, this.data, this.ref);
-  Data data;
-  OperationRef<Data, Variables> ref;
-  FirebaseDataConnect dataConnect;
-}
-
-final result = await DefaultConnector.instance.mockCategories();
-mockCategoriesData data = result.data;
-final ref = result.ref;
-```
-
-#### Getting the Ref
-Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
-An example of how to use the `Ref` object is shown below:
-```dart
-final ref = DefaultConnector.instance.mockCategories().ref();
-ref.execute();
-```
-
-
-### mockSubcategories
-#### Required Arguments
-```dart
-// No required arguments
-DefaultConnector.instance.mockSubcategories().execute();
-```
-
-
-
-#### Return Type
-`execute()` returns a `OperationResult<mockSubcategoriesData, void>`
-```dart
-/// Result of an Operation Request (query/mutation).
-class OperationResult<Data, Variables> {
-  OperationResult(this.dataConnect, this.data, this.ref);
-  Data data;
-  OperationRef<Data, Variables> ref;
-  FirebaseDataConnect dataConnect;
-}
-
-final result = await DefaultConnector.instance.mockSubcategories();
-mockSubcategoriesData data = result.data;
-final ref = result.ref;
-```
-
-#### Getting the Ref
-Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
-An example of how to use the `Ref` object is shown below:
-```dart
-final ref = DefaultConnector.instance.mockSubcategories().ref();
-ref.execute();
-```
-
-
-### mockProducts
-#### Required Arguments
-```dart
-// No required arguments
-DefaultConnector.instance.mockProducts().execute();
-```
-
-
-
-#### Return Type
-`execute()` returns a `OperationResult<mockProductsData, void>`
-```dart
-/// Result of an Operation Request (query/mutation).
-class OperationResult<Data, Variables> {
-  OperationResult(this.dataConnect, this.data, this.ref);
-  Data data;
-  OperationRef<Data, Variables> ref;
-  FirebaseDataConnect dataConnect;
-}
-
-final result = await DefaultConnector.instance.mockProducts();
-mockProductsData data = result.data;
-final ref = result.ref;
-```
-
-#### Getting the Ref
-Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
-An example of how to use the `Ref` object is shown below:
-```dart
-final ref = DefaultConnector.instance.mockProducts().ref();
-ref.execute();
-```
-
-
-### mockVariation
-#### Required Arguments
-```dart
-// No required arguments
-DefaultConnector.instance.mockVariation().execute();
-```
-
-
-
-#### Return Type
-`execute()` returns a `OperationResult<mockVariationData, void>`
-```dart
-/// Result of an Operation Request (query/mutation).
-class OperationResult<Data, Variables> {
-  OperationResult(this.dataConnect, this.data, this.ref);
-  Data data;
-  OperationRef<Data, Variables> ref;
-  FirebaseDataConnect dataConnect;
-}
-
-final result = await DefaultConnector.instance.mockVariation();
-mockVariationData data = result.data;
-final ref = result.ref;
-```
-
-#### Getting the Ref
-Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
-An example of how to use the `Ref` object is shown below:
-```dart
-final ref = DefaultConnector.instance.mockVariation().ref();
-ref.execute();
-```
-
-
 ### addNewCategory
 #### Required Arguments
 ```dart
@@ -853,6 +717,142 @@ Each builder returns an `execute` function, which is a helper function that crea
 An example of how to use the `Ref` object is shown below:
 ```dart
 final ref = DefaultConnector.instance.clearCart().ref();
+ref.execute();
+```
+
+
+### mockCategories
+#### Required Arguments
+```dart
+// No required arguments
+DefaultConnector.instance.mockCategories().execute();
+```
+
+
+
+#### Return Type
+`execute()` returns a `OperationResult<mockCategoriesData, void>`
+```dart
+/// Result of an Operation Request (query/mutation).
+class OperationResult<Data, Variables> {
+  OperationResult(this.dataConnect, this.data, this.ref);
+  Data data;
+  OperationRef<Data, Variables> ref;
+  FirebaseDataConnect dataConnect;
+}
+
+final result = await DefaultConnector.instance.mockCategories();
+mockCategoriesData data = result.data;
+final ref = result.ref;
+```
+
+#### Getting the Ref
+Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
+An example of how to use the `Ref` object is shown below:
+```dart
+final ref = DefaultConnector.instance.mockCategories().ref();
+ref.execute();
+```
+
+
+### mockSubcategories
+#### Required Arguments
+```dart
+// No required arguments
+DefaultConnector.instance.mockSubcategories().execute();
+```
+
+
+
+#### Return Type
+`execute()` returns a `OperationResult<mockSubcategoriesData, void>`
+```dart
+/// Result of an Operation Request (query/mutation).
+class OperationResult<Data, Variables> {
+  OperationResult(this.dataConnect, this.data, this.ref);
+  Data data;
+  OperationRef<Data, Variables> ref;
+  FirebaseDataConnect dataConnect;
+}
+
+final result = await DefaultConnector.instance.mockSubcategories();
+mockSubcategoriesData data = result.data;
+final ref = result.ref;
+```
+
+#### Getting the Ref
+Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
+An example of how to use the `Ref` object is shown below:
+```dart
+final ref = DefaultConnector.instance.mockSubcategories().ref();
+ref.execute();
+```
+
+
+### mockProducts
+#### Required Arguments
+```dart
+// No required arguments
+DefaultConnector.instance.mockProducts().execute();
+```
+
+
+
+#### Return Type
+`execute()` returns a `OperationResult<mockProductsData, void>`
+```dart
+/// Result of an Operation Request (query/mutation).
+class OperationResult<Data, Variables> {
+  OperationResult(this.dataConnect, this.data, this.ref);
+  Data data;
+  OperationRef<Data, Variables> ref;
+  FirebaseDataConnect dataConnect;
+}
+
+final result = await DefaultConnector.instance.mockProducts();
+mockProductsData data = result.data;
+final ref = result.ref;
+```
+
+#### Getting the Ref
+Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
+An example of how to use the `Ref` object is shown below:
+```dart
+final ref = DefaultConnector.instance.mockProducts().ref();
+ref.execute();
+```
+
+
+### mockVariation
+#### Required Arguments
+```dart
+// No required arguments
+DefaultConnector.instance.mockVariation().execute();
+```
+
+
+
+#### Return Type
+`execute()` returns a `OperationResult<mockVariationData, void>`
+```dart
+/// Result of an Operation Request (query/mutation).
+class OperationResult<Data, Variables> {
+  OperationResult(this.dataConnect, this.data, this.ref);
+  Data data;
+  OperationRef<Data, Variables> ref;
+  FirebaseDataConnect dataConnect;
+}
+
+final result = await DefaultConnector.instance.mockVariation();
+mockVariationData data = result.data;
+final ref = result.ref;
+```
+
+#### Getting the Ref
+Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
+An example of how to use the `Ref` object is shown below:
+```dart
+final ref = DefaultConnector.instance.mockVariation().ref();
 ref.execute();
 ```
 
