@@ -13,18 +13,12 @@ class LoadProducts extends HomeEvent {
 
 class RefreshProducts extends HomeEvent {}
 
-// Search events
-class SearchTermChanged extends HomeEvent {
-  final String term;
+class SendRecordingSearch extends HomeEvent {
+  const SendRecordingSearch({required this.bytes, required this.mimeType});
 
-  const SearchTermChanged(this.term);
+  final Uint8List bytes;
+  final String mimeType;
 }
-
-class StartRecordingSearch extends HomeEvent {}
-
-class CancelRecordingSearch extends HomeEvent {}
-
-class SendRecordingSearch extends HomeEvent {}
 
 class SendTextSearch extends HomeEvent {
   const SendTextSearch(this.text);

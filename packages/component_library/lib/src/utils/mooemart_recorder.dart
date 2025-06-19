@@ -2,12 +2,13 @@ import 'dart:typed_data';
 
 import 'package:record/record.dart';
 
-import '../../models/models.dart';
 import 'audio_file_web.dart'
     if (dart.library.io) 'audio_file_reader_mobile.dart';
 
-final class AiRecorder {
-  final _recorder = AudioRecorder();
+final class MooemartRecorder {
+  MooemartRecorder() : _recorder = AudioRecorder();
+
+  final AudioRecorder _recorder;
 
   Stream<({double current, double max})> get getamplitudeStream => _recorder
       .onAmplitudeChanged(const Duration(milliseconds: 100))
@@ -35,7 +36,7 @@ final class AiRecorder {
 
   Future<Uint8List> stopRecording() async {
     final path = await _recorder.stop();
-    if (path == null) throw const AudioPathNotFoundException();
+    if (path == null) throw ('path is null');
     return await AudioFileImpl().readBytes(path);
   }
 

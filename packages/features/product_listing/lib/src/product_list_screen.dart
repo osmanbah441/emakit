@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_listing/src/image_upload_step.dart';
 
 import 'complete.dart';
 import 'product_listing_cubit.dart';

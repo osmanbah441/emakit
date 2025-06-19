@@ -1,27 +1,21 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:component_library/component_library.dart';
+import 'package:component_library/src/utils/mooemart_recorder.dart';
 import 'package:flutter/material.dart';
 
 enum _AudioInputMode { idle, typing, recording }
 
 class AudioTextInputField extends StatefulWidget {
-  final void Function(String)? onTextChanged;
-  final VoidCallback onMicTap;
-  final VoidCallback onSendText;
-  final VoidCallback onSendRecording;
-  final VoidCallback onCancelRecording;
+  final Function(String text) onSendText;
+  final Function(String mimeType, Uint8List bytes) onSendRecording;
   final VoidCallback onFilterTap;
-  final Stream<({double current, double max})> amplitudeStream;
   final bool isSearching;
 
   const AudioTextInputField({
     super.key,
-    this.onTextChanged,
-    required this.onMicTap,
     required this.onSendText,
     required this.onSendRecording,
-    required this.onCancelRecording,
-    required this.amplitudeStream,
     required this.onFilterTap,
     this.isSearching = false,
   });
@@ -34,16 +28,33 @@ class _AudioTextInputFieldState extends State<AudioTextInputField> {
   late TextEditingController _controller;
   _AudioInputMode _internalMode = _AudioInputMode.idle;
 
+  final _recorder = MooemartRecorder();
+
+  Future<void> _startRecording() async {
+    await _recorder.startRecording();
+    _setInternalMode(_AudioInputMode.recording);
+  }
+
+  Future<void> _cancelRecording() async {
+    await _recorder.cancelRecording();
+    _setInternalMode(_AudioInputMode.idle);
+  }
+
+  Future<void> _sendRecording() async {
+    final recordedBytes = await _recorder.stopRecording();
+    widget.onSendRecording('audio/wav', recordedBytes);
+    _setInternalMode(_AudioInputMode.idle);
+  }
+
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _controller.addListener(_onControllerTextChanged);
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_onControllerTextChanged);
+    _recorder.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -56,24 +67,10 @@ class _AudioTextInputFieldState extends State<AudioTextInputField> {
     }
   }
 
-  void _onControllerTextChanged() {
-    if (_controller.text.isNotEmpty) {
-      _setInternalMode(_AudioInputMode.typing);
-    } else if (_controller.text.isEmpty) {
-      _setInternalMode(_AudioInputMode.idle);
-    }
-    widget.onTextChanged?.call(_controller.text);
-  }
-
   Widget _buildInputControl() => switch (_internalMode) {
     _AudioInputMode.idle => Row(
       children: [
-        MicButton(
-          onTap: () {
-            _setInternalMode(_AudioInputMode.recording);
-            widget.onMicTap();
-          },
-        ),
+        MicButton(onTap: _startRecording),
         IconButton(
           onPressed: widget.onFilterTap,
           icon: Icon(Icons.filter_list),
@@ -84,7 +81,7 @@ class _AudioTextInputFieldState extends State<AudioTextInputField> {
     _AudioInputMode.typing => IconButton(
       icon: const Icon(Icons.send),
       onPressed: () {
-        widget.onSendText();
+        widget.onSendText(_controller.text);
         _controller.clear();
         _setInternalMode(_AudioInputMode.idle);
       },
@@ -92,20 +89,8 @@ class _AudioTextInputFieldState extends State<AudioTextInputField> {
 
     _AudioInputMode.recording => Row(
       children: [
-        IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            _setInternalMode(_AudioInputMode.idle);
-            widget.onCancelRecording(); // Call client's handler
-          },
-        ),
-        MicButton(
-          onTap: () {
-            widget.onSendRecording();
-            _setInternalMode(_AudioInputMode.idle);
-          },
-          isRecording: true,
-        ),
+        IconButton(icon: const Icon(Icons.close), onPressed: _cancelRecording),
+        MicButton(onTap: _sendRecording, isRecording: true),
       ],
     ),
   };
@@ -123,9 +108,23 @@ class _AudioTextInputFieldState extends State<AudioTextInputField> {
         children: [
           Expanded(
             child: _internalMode == _AudioInputMode.recording
-                ? AudioInputWaveform(amplitudeStream: widget.amplitudeStream)
+                ? AudioInputWaveform(
+                    amplitudeStream: _recorder.getamplitudeStream,
+                  )
                 : TextField(
                     controller: _controller,
+                    onChanged: (value) {
+                      if (_controller.text.isNotEmpty) {
+                        _setInternalMode(_AudioInputMode.typing);
+                      } else {
+                        _setInternalMode(_AudioInputMode.idle);
+                      }
+                    },
+                    onSubmitted: (value) {
+                      widget.onSendText(value);
+                      _controller.clear();
+                      _setInternalMode(_AudioInputMode.idle);
+                    },
                     enabled: !widget.isSearching,
                     decoration: InputDecoration(
                       hintText: widget.isSearching

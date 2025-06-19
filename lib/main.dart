@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:functions/functions.dart';
 import 'package:home/home.dart';
 import 'package:product_details/product_details.dart';
+import 'package:product_listing/product_listing.dart';
 import 'package:profile/profile.dart';
 
 import 'firebase_options.dart';
@@ -44,7 +45,7 @@ class _MainAppState extends State<MainApp> {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       title: 'Emakit',
-      home: _Home(),
+      home: ProductListScreen(),
     );
   }
 }

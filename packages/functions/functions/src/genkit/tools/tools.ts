@@ -1,1 +1,0 @@
-export {productSearchTool} from "./product_search_tool"

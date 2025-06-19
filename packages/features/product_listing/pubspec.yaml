@@ -16,7 +16,7 @@ dependencies:
   just_audio: ^0.10.4
   component_library: ^0.0.0
   firebase_ai: ^2.0.0
-  ai_integration: ^0.0.1
+  functions: ^0.0.1
 
 
 

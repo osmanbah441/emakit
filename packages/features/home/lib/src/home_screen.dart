@@ -55,19 +55,10 @@ class HomeScreen extends StatelessWidget {
                   AudioTextInputField(
                     onFilterTap: () => _showFilterDialog(context),
                     isSearching: state is HomeSearchProcessing,
-                    amplitudeStream: bloc.getAmplitudeStream,
-                    onTextChanged: (value) =>
-                        bloc.add(SearchTermChanged(value)),
-                    onMicTap: () => bloc.add(StartRecordingSearch()),
-                    onSendText: () {
-                      if (state is HomeLoaded) {
-                        bloc.add(SendTextSearch(state.currentSearchTerm));
-                      }
-                    },
-                    onSendRecording: () =>
-                        context.read<HomeBloc>().add(SendRecordingSearch()),
-                    onCancelRecording: () =>
-                        context.read<HomeBloc>().add(CancelRecordingSearch()),
+                    onSendText: (text) => bloc.add(SendTextSearch(text)),
+                    onSendRecording: (mimeType, bytes) => bloc.add(
+                      SendRecordingSearch(bytes: bytes, mimeType: mimeType),
+                    ),
                   ),
                   const SizedBox(height: 16),
 

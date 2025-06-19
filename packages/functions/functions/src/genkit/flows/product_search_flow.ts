@@ -67,8 +67,8 @@ Now, analyze and respond to the following user message.
 const inputSchema = z.object({
       text: z.string().optional().describe('Optional: User query as text (used if media not provided).'),
       media: z.object({
-         url: z.string().describe('Base64 encoded media data of the user\'s spoken query.'),
-      mimeType: z.string().describe('MIME type of the media data (e.g., "media/mpeg", "media/wav"). Required if base64Encoded is present.'),
+        url: z.string().describe('Base64 encoded media data of the user\'s spoken query.'),
+        mimeType: z.string().describe('MIME type of the media data (e.g., "media/mpeg", "media/wav"). Required if base64Encoded is present.'),
       }).optional().describe('base64 encode media file and it mime type')
     });
 
@@ -85,13 +85,8 @@ export const productSearchFlow =ai. defineFlow(
     }
 
     const contents = input.text ? [{ text: promptBuilder(input.text) }] : [
-      {text: promptBuilder()},
-      {
-        media: {
-          url: input.media!.url, 
-          mimeType: input.media!.mimeType,
-        },
-      }
+      { text: promptBuilder() },
+      { media: input.media! }
     ];
 
     const llmResponse = await ai.generate({

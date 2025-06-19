@@ -7,7 +7,6 @@ workspace:
   - packages/domain_models
   - packages/dataconnect
   - packages/component_library
-  - packages/ai_integration
   - packages/functions
 
   - packages/features/home
@@ -31,7 +30,6 @@ dependencies:
   dataconnect: ^0.0.0
   domain_models: ^0.0.0
   component_library: ^0.0.0
-  ai_integration: ^0.0.1
 
   functions: ^0.0.1
 
