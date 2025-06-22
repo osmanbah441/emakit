@@ -85,7 +85,7 @@ final class DataconnectService {
             (p) => Product(
               id: p.id,
               name: p.name,
-              mainCategory: p.mainCategory.name,
+              mainCategory: '',
               description: p.description,
               specifications: p.specifications.value as Map<String, dynamic>,
               variations: p.variations
@@ -112,7 +112,7 @@ final class DataconnectService {
         return Product(
           id: p.id,
           name: p.name,
-          mainCategory: p.mainCategory.name,
+          mainCategory: '',
 
           description: p.description,
           specifications: p.specifications.value as Map<String, dynamic>,

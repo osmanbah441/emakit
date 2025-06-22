@@ -24,6 +24,8 @@ part 'fetch_categories.dart';
 
 part 'fetch_sub_categories.dart';
 
+part 'fetch_category_by_name.dart';
+
 part 'fetch_products.dart';
 
 part 'fetch_product.dart';
@@ -32,11 +34,7 @@ part 'fetch_cart.dart';
 
 part 'mock_categories.dart';
 
-part 'mock_subcategories.dart';
-
-part 'mock_products.dart';
-
-part 'mock_variation.dart';
+part 'mocksubcategories.dart';
 
 
 
@@ -102,6 +100,11 @@ class DefaultConnector {
   }
   
   
+  FetchCategoryByNameVariablesBuilder fetchCategoryByName ({required String name, }) {
+    return FetchCategoryByNameVariablesBuilder(dataConnect, name: name,);
+  }
+  
+  
   FetchProductsVariablesBuilder fetchProducts () {
     return FetchProductsVariablesBuilder(dataConnect, );
   }
@@ -122,18 +125,8 @@ class DefaultConnector {
   }
   
   
-  MockSubcategoriesVariablesBuilder mockSubcategories () {
-    return MockSubcategoriesVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockProductsVariablesBuilder mockProducts () {
-    return MockProductsVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockVariationVariablesBuilder mockVariation () {
-    return MockVariationVariablesBuilder(dataConnect, );
+  MocksubcategoriesVariablesBuilder mocksubcategories () {
+    return MocksubcategoriesVariablesBuilder(dataConnect, );
   }
   
 

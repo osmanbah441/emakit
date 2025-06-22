@@ -23,10 +23,9 @@ class FetchProductProduct {
   String description;
   String categoryId;
   AnyValue specifications;
-  FetchProductProductMainCategory mainCategory;
   List<FetchProductProductVariations> variations;
   FetchProductProduct.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),categoryId = nativeFromJson<String>(json['categoryId']),specifications = AnyValue.fromJson(json['specifications']),mainCategory = FetchProductProductMainCategory.fromJson(json['mainCategory']),variations = (json['variations'] as List<dynamic>)
+  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),categoryId = nativeFromJson<String>(json['categoryId']),specifications = AnyValue.fromJson(json['specifications']),variations = (json['variations'] as List<dynamic>)
         .map((e) => FetchProductProductVariations.fromJson(e))
         .toList();
 
@@ -37,7 +36,6 @@ class FetchProductProduct {
     json['description'] = nativeToJson<String>(description);
     json['categoryId'] = nativeToJson<String>(categoryId);
     json['specifications'] = specifications.toJson();
-    json['mainCategory'] = mainCategory.toJson();
     json['variations'] = variations.map((e) => e.toJson()).toList();
     return json;
   }
@@ -48,24 +46,7 @@ class FetchProductProduct {
     required this.description,
     required this.categoryId,
     required this.specifications,
-    required this.mainCategory,
     required this.variations,
-  });
-}
-
-class FetchProductProductMainCategory {
-  String name;
-  FetchProductProductMainCategory.fromJson(dynamic json):
-  name = nativeFromJson<String>(json['name']);
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> json = {};
-    json['name'] = nativeToJson<String>(name);
-    return json;
-  }
-
-  FetchProductProductMainCategory({
-    required this.name,
   });
 }
 
