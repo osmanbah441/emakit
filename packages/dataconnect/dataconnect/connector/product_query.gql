@@ -1,0 +1,33 @@
+
+fragment ProductInfo on Product {
+        id
+        name
+        description
+        categoryId
+        specifications
+        variations: productVariations_on_product {
+            ...ProductVariationInfo
+        }
+}
+
+fragment ProductVariationInfo on ProductVariation {
+        id
+        price
+        stockQuantity
+        attributes
+        imageUrls  
+}
+
+query getProductById($id: UUID!) @auth(level: PUBLIC) {
+    product(id: $id) {
+        ...ProductInfo
+    }
+}
+
+query listProducts(
+    $categoryId: UUID,
+) @auth(level: PUBLIC) {
+    products(where: {categoryId: {eq: $categoryId}}) {
+        ...ProductInfo
+    }
+}

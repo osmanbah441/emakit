@@ -1,36 +1,15 @@
-fragment ProductInfo on Product {
-        id
-        name
-        description
-        categoryId
-        specifications
-        variations: productVariations_on_product {
-            ...ProductVariationInfo
-        }
-}
-
-fragment ProductVariationInfo on ProductVariation {
-        id
-        price
-        stockQuantity
-        attributes
-        imageUrls  
-}
-
 fragment CategoryInfo on Category {
         id
         name
-        description
-
-
-        
+        description        
 }
 
+query fetchCategoryByName($name: String!) @auth(level: PUBLIC) {
+    categories(where: {name: {eq: $name}}) {
+        ...CategoryInfo
+    }
+}
 
-# Controls the category filtering behavior:
-# - `false`: return only subcategories
-# - `true`: return only main categories
-# - `null`: return all categories (both main and subcategories)
 query fetchCategories @auth(level: PUBLIC) {
     categories {
        ...CategoryInfo
@@ -41,42 +20,5 @@ query fetchSubCategories($parentId: UUID!) @auth(level: PUBLIC) {
     categories(where: {parentId: {eq: $parentId}}) {
         parentId
         ...CategoryInfo
-    }
-}
-
-query fetchCategoryByName($name: String!) @auth(level: PUBLIC) {
-    categories(where: {name: {eq: $name}}) {
-        ...CategoryInfo
-    }
-}
-
-
-query fetchProducts
-($categoryId: UUID,
- $mainCategoryId: UUID
-) @auth(level: PUBLIC) {
-    products(where: {categoryId: {eq: $categoryId}}) {
-        ...ProductInfo
-    }
-}
-
-query fetchProduct($id: UUID!) @auth(level: PUBLIC) {
-    product(id: $id) {
-        ...ProductInfo
-    }
-}
-
-
-query fetchCart @auth(level: PUBLIC) {
-    cart(id:"37247512bd66434ba5ca741a454d3cdc" ) {
-       id
-       items: cartItems_on_cart {
-            id
-            quantity
-            variation {
-                product {name}
-                ...ProductVariationInfo
-            }
-        }
     }
 }

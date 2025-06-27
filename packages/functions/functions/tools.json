@@ -1,0 +1,22 @@
+{
+  "connector": "tools",
+  "location": "us-central1",
+  "service": "e-makit-service",
+  "tools": [
+    {
+      "name": "sematicSearch",
+      "type": "query",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

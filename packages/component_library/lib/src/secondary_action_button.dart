@@ -1,36 +1,26 @@
 import 'package:flutter/material.dart';
 
 class SecondaryActionButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final String label;
+  final Widget? icon;
+
   const SecondaryActionButton({
     super.key,
     required this.onPressed,
     required this.label,
+    this.icon,
   });
-
-  final VoidCallback? onPressed;
-  final String label;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.0,
-      child: OutlinedButton(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        icon: icon,
         onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.black, // Text color
-          side: BorderSide(
-            color: Colors.grey.shade400,
-            width: 1.5,
-          ), // Border color and width
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          elevation: 0,
-        ),
-        child: Text(
-          label,
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
-        ),
+
+        label: Text(label),
       ),
     );
   }

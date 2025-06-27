@@ -2,12 +2,12 @@
 mutation mockCategories @auth(level: NO_ACCESS) {
  category_insertMany(data: [
     {
-      description: "Products powered by electricity, ranging from personal devices to home entertainment systems. This category includes gadgets, computing devices, audio equipment, and smart home technology.",
+      description: "Products powered by electricity, ranging from personal devices to home entertainment systems. This categoryId includes gadgets, computing devices, audio equipment, and smart home technology.",
       id: "a7ebbf850b9d4f96a52bda8f201ca037",
       name: "Electronics"
     },
     {
-      description: "Apparel, footwear, and accessories for all ages and genders. This category encompasses clothing for various occasions, shoes, bags, jewelry, and personal style items.",
+      description: "Apparel, footwear, and accessories for all ages and genders. This categoryId encompasses clothing for various occasions, shoes, bags, jewelry, and personal style items.",
       id: "4edf6c5cc100493fa2856c6973563bc1",
       name: "Fashion"
     },
@@ -30,7 +30,7 @@ mutation mocksubcategories @auth(level: NO_ACCESS) {
       # Subcategories for Electronics (Parent ID: a7ebbf850b9d4f96a52bda8f201ca037)
     {
     description: "Handheld smart devices and portable computing tablets.",
-    name: "Mobile Phones & Tablets",
+    name: "b5db472b9ab541359a1cf2f24f9b10b6s & Tablets",
     parentId: "a7ebbf850b9d4f96a52bda8f201ca037",
     specificationAttributes: ["Brand", "Model", "Operating System (OS)", "Screen Size", "Battery Capacity (mAh)", "RAM", "Camera Resolution (MP)", "SIM Slots", "Network Support"],
     variationAttributes: ["Color", "Storage Capacity (GB)"]
@@ -179,20 +179,6 @@ mutation mocksubcategories @auth(level: NO_ACCESS) {
     specificationAttributes: ["Type", "Brand", "Scent Profile"],
     variationAttributes: ["Size", "Fragrance Type"]
   },
-  {
-    description: "Nutritional and wellness products taken orally to support health.",
-    name: "Health Supplements",
-    parentId: "7625336ddeec4763b6fda252a33017db",
-    specificationAttributes: ["Type", "Key Ingredient", "Health Benefit", "Form", "Brand"],
-    variationAttributes: ["Count", "Dosage Size", "Flavor"]
-  },
-  {
-    description: "Products for minor injuries, pain relief, and general well-being, excluding supplements.",
-    name: "First Aid & Wellness",
-    parentId: "7625336ddeec4763b6fda252a33017db",
-    specificationAttributes: ["Product Type", "Brand", "Active Ingredient", "Application"],
-    variationAttributes: ["Size", "Quantity"]
-  },
 
   # Subcategories for Groceries (Parent ID: a41936b6cd8e417fa7b8471f5cc23b25)
   {
@@ -267,4 +253,100 @@ mutation mocksubcategories @auth(level: NO_ACCESS) {
   }
 
   ])
+}
+
+mutation mockProducts @auth(level: PUBLIC) {
+  product_insertMany(data: [
+  {
+    name: "Nova X Pro 2025",
+    description: "A flagship smartphone with an advanced AI camera system, stunning OLED display, and all-day battery life, perfect for content creators.",
+    brand: "TechGlow",
+    categoryId: "b5db472b9ab541359a1cf2f24f9b10b6",
+    specifications: {
+      display: "6.7-inch Super AMOLED, 120Hz",
+      processor: "Snapdragon 8 Gen 4",
+      ram: "12GB",
+      storage: "256GB (expandable)",
+      rearCamera: "50MP Main, 12MP Ultra-wide, 10MP Telephoto",
+      frontCamera: "32MP",
+      battery: "5000 mAh, 80W Fast Charging",
+      os: "Android 16",
+      connectivity: "5G, Wi-Fi 7, Bluetooth 5.4",
+      color: "Cosmic Black"
+    }
+  },
+  {
+    name: "Pheonix Lite 3",
+    description: "An affordable yet powerful smartphone offering a smooth user experience, decent camera, and reliable performance for everyday tasks.",
+    brand: "VividCom",
+    categoryId: "b5db472b9ab541359a1cf2f24f9b10b6",
+    specifications: {
+      display: "6.5-inch LCD, 90Hz",
+      processor: "MediaTek Dimensity 700",
+      ram: "6GB",
+      storage: "128GB",
+      rearCamera: "48MP Main, 8MP Ultra-wide",
+      frontCamera: "16MP",
+      battery: "4500 mAh, 33W Fast Charging",
+      os: "Android 15",
+      connectivity: "5G, Wi-Fi 6, Bluetooth 5.2",
+      color: "Sky Blue"
+    }
+  },
+  {
+    name: "Sentinel Pro Fold",
+    description: "Experience the future with this innovative foldable smartphone. A large inner display for productivity and a convenient outer screen for quick access.",
+    brand: "FlexiMobile",
+    categoryId: "b5db472b9ab541359a1cf2f24f9b10b6",
+    specifications: {
+      mainDisplay: "8.1-inch Foldable AMOLED, 120Hz",
+      coverDisplay: "6.2-inch AMOLED",
+      processor: "Snapdragon 8 Gen 4",
+      ram: "16GB",
+      storage: "512GB",
+      rearCamera: "64MP Main, 13MP Ultra-wide, 10MP Telephoto",
+      frontCamera: "20MP (under display), 10MP (cover)",
+      battery: "4800 mAh, 67W Fast Charging",
+      os: "Android 16 (optimized for foldables)",
+      connectivity: "5G, Wi-Fi 7, Bluetooth 5.4",
+      color: "Phantom Gray"
+    }
+  },
+  {
+    name: "Aura Mini",
+    description: "Compact and powerful, the Aura Mini delivers flagship performance in a pocket-friendly design, perfect for one-handed use.",
+    brand: "CompactTech",
+    categoryId: "b5db472b9ab541359a1cf2f24f9b10b6",
+    specifications: {
+      display: "5.9-inch OLED, 120Hz",
+      processor: "Snapdragon 8 Gen 3",
+      ram: "8GB",
+      storage: "128GB",
+      rearCamera: "50MP Main, 12MP Ultra-wide",
+      frontCamera: "12MP",
+      battery: "4000 mAh, 30W Fast Charging",
+      os: "Android 15",
+      connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3",
+      color: "Arctic White"
+    }
+  },
+  {
+    name: "Connect Go",
+    description: "A durable and simple smartphone designed for essential communication and basic smart features, with a long-lasting battery.",
+    brand: "ReliableMob",
+    categoryId: "b5db472b9ab541359a1cf2f24f9b10b6",
+    specifications: {
+      display: "6.0-inch IPS LCD",
+      processor: "Qualcomm Snapdragon 480+",
+      ram: "4GB",
+      storage: "64GB (expandable)",
+      rearCamera: "13MP",
+      frontCamera: "5MP",
+      battery: "6000 mAh, 18W Charging",
+      os: "Android 14 Go Edition",
+      connectivity: "4G LTE, Wi-Fi 5, Bluetooth 5.0",
+      color: "Charcoal Gray"
+    }
+  }
+])
 }

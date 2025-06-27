@@ -1,3 +1,4 @@
+import 'package:add_edit_product/add_edit_product.dart';
 import 'package:cart/cart.dart';
 import 'package:checkout/checkout.dart';
 import 'package:filter/filter.dart';
@@ -10,7 +11,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:functions/functions.dart';
 import 'package:home/home.dart';
 import 'package:product_details/product_details.dart';
-import 'package:product_listing/product_listing.dart';
 import 'package:profile/profile.dart';
 
 import 'firebase_options.dart';
@@ -42,10 +42,10 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       theme: AppThemeData.light(context),
       darkTheme: AppThemeData.dark(context),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       title: 'Emakit',
-      home: ProductListScreen(),
+      home: AddEditProductScreen(),
     );
   }
 }

@@ -1,0 +1,47 @@
+mutation addCartItem(
+  $unitPrice: Float!
+ $quantity: Int!
+ $variationId: UUID!
+) @auth(level: PUBLIC) {
+  cartItem_insert(data: {
+    cartId: "37247512bd66434ba5ca741a454d3cdc"
+    variationId: $variationId
+    price: $unitPrice
+    quantity: $quantity    
+  })
+}
+
+mutation createCart @auth(level: PUBLIC) {
+  cart_insert(data: {
+    id: "37247512bd66434ba5ca741a454d3cdc"
+    
+  })
+}
+
+mutation incrementCartItemQuantity($cartItemId: UUID!, $quantity: Int!) @auth(level: PUBLIC) {
+  cartItem_update(
+    id: $cartItemId
+    data: {
+    quantity_update: {
+      inc: $quantity
+    }
+  })
+}
+
+mutation decrementCartItemQuantity($cartItemId: UUID!, $quantity: Int!) @auth(level: PUBLIC) {
+  cartItem_update(
+    id: $cartItemId
+    data: {
+    quantity_update: {
+      dec: $quantity
+    }
+  })
+}
+
+mutation removeCartItem($id: UUID!) @auth(level: PUBLIC) {
+  cartItem_delete(id: $id)
+}
+
+mutation clearCart @auth(level: PUBLIC) {
+  cartItem_deleteMany(all: true, where: {cartId: {eq: "37247512bd66434ba5ca741a454d3cdc"}})
+}

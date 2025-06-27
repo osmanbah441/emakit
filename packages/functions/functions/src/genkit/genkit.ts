@@ -4,6 +4,7 @@ import {enableFirebaseTelemetry} from "@genkit-ai/firebase";
 import { onCallGenkit } from "firebase-functions/https";
 enableFirebaseTelemetry();
 
+
 import { defineSecret } from "firebase-functions/params";
 const apiKey = defineSecret("GOOGLE_GENAI_API_KEY");
 

@@ -19,11 +19,16 @@ final class MooemartFunctions {
     return response.data;
   }
 
-  Future<String> productImageUnderstand(List<MooemartMediaPart> parts) async {
+  Future<String> processGuidelineImage(List<MooemartMediaPart> parts) async {
     final response = await _function
         .httpsCallable('productImageUnderstand')
-        .call(parts.map((part) => part.toJson()).toList());
+        .call(parts.map((part) => part.toJson()).toList())
+        .then((res) {
+          return res.data as Map<String, dynamic>;
+        });
 
-    return response.data;
+    print(response);
+
+    return '';
   }
 }

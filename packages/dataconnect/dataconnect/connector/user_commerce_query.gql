@@ -1,0 +1,18 @@
+query fetchCart @auth(level: PUBLIC) {
+    cart(id:"37247512bd66434ba5ca741a454d3cdc" ) {
+       id
+       items: cartItems_on_cart {
+            id
+            quantity
+            variation {
+                product {name}
+                id
+                price
+                stockQuantity
+                attributes
+                imageUrls 
+           
+            }
+        }
+    }
+}

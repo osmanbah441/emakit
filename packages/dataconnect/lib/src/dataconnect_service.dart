@@ -1,8 +1,12 @@
-import 'package:dataconnect/src/dataconnect-generated/default_connector/default.dart';
+import 'package:dataconnect/src/default_connector/default.dart';
 import 'package:domain_models/domain_models.dart';
 
+import 'product_repository.dart';
+
 final class DataconnectService {
-  const DataconnectService._();
+  const DataconnectService._() : _productRepository = const ProductRepository();
+
+  final ProductRepository _productRepository;
 
   static const instance = DataconnectService._();
 
@@ -12,17 +16,17 @@ final class DataconnectService {
     _connector.dataConnect.useDataConnectEmulator(host, port);
   }
 
-  Future<void> addCategory({
-    required String name,
-    String? parentId,
-    String? description,
-  }) async {
-    await _connector
-        .addNewCategory(name: name)
-        .parentId(parentId)
-        .description(description)
-        .execute();
-  }
+  // Products
+  Future<Product> fetchProductById(String id) async =>
+      await _productRepository.fetchProductById(id);
+
+  Future<List<Product>> fetchProducts({
+    String searchTerm = '',
+    String? categoryId,
+  }) async => await _productRepository.fetchProducts(
+    searchTerm: searchTerm,
+    categoryId: categoryId,
+  );
 
   Future<void> addProduct({
     required String name,
@@ -32,103 +36,29 @@ final class DataconnectService {
     required List<String> imageUrls,
     required double price,
     required int stockQuantity,
-  }) async {
-    final productId = await _connector
-        .addNewProduct(
-          name: name,
-          description: description,
-          category: subcategoryId,
-          brand: brand,
-        )
-        .execute()
-        .then((result) {
-          return result.data.product_insert.id;
-        });
-
-    // add default variation
-    await addVariationForProduct(
-      productId: productId,
-      imageUrls: imageUrls,
-      price: price,
-      stockQuantity: stockQuantity,
-    );
-  }
+  }) async => await _productRepository.addProduct(
+    name: name,
+    description: description,
+    subcategoryId: subcategoryId,
+    brand: brand,
+    imageUrls: imageUrls,
+    price: price,
+    stockQuantity: stockQuantity,
+  );
 
   Future<void> addVariationForProduct({
     required String productId,
     required List<String> imageUrls,
     required double price,
     required int stockQuantity,
-  }) async {
-    await _connector
-        .addNewProductVariation(
-          productId: productId,
-          imageUrls: imageUrls,
-          price: price,
-          stockQuantity: stockQuantity,
-        )
-        .execute();
-  }
+  }) async => await _productRepository.addVariationForProduct(
+    productId: productId,
+    imageUrls: imageUrls,
+    price: price,
+    stockQuantity: stockQuantity,
+  );
 
-  Future<List<Product>> fetchProducts({
-    String searchTerm = '',
-    String? categoryId,
-    String? mainCategoryId,
-  }) async {
-    var query = _connector.fetchProducts();
-    if (categoryId != null) query = query.categoryId(categoryId);
-    if (mainCategoryId != null) query = query.mainCategoryId(mainCategoryId);
-
-    return await query.execute().then(
-      (result) => result.data.products
-          .map(
-            (p) => Product(
-              id: p.id,
-              name: p.name,
-              mainCategory: '',
-              description: p.description,
-              specifications: p.specifications.value as Map<String, dynamic>,
-              variations: p.variations
-                  .map(
-                    (v) => ProductVariation(
-                      id: v.id,
-                      attributes: v.attributes.value,
-                      imageUrls: v.imageUrls,
-                      price: v.price,
-                      stockQuantity: v.stockQuantity,
-                    ),
-                  )
-                  .toList(),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  Future<Product> fetchProductById(String id) async =>
-      await _connector.fetchProduct(id: id).execute().then((result) {
-        final p = result.data.product;
-        if (p == null) throw ('No product found');
-        return Product(
-          id: p.id,
-          name: p.name,
-          mainCategory: '',
-
-          description: p.description,
-          specifications: p.specifications.value as Map<String, dynamic>,
-          variations: p.variations
-              .map(
-                (v) => ProductVariation(
-                  id: v.id,
-                  attributes: v.attributes.value,
-                  imageUrls: v.imageUrls,
-                  price: v.price,
-                  stockQuantity: v.stockQuantity,
-                ),
-              )
-              .toList(),
-        );
-      });
+  // Cart
 
   Future<void> addToCart(ProductVariation p, int quantity) async =>
       await _connector

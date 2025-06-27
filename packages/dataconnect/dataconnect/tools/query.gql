@@ -1,0 +1,11 @@
+query sematicSearch($query: String!) @auth(level: PUBLIC) {
+    products(where: { name: { contains: $query } }) {
+        id
+        name
+        description
+        category {
+            id
+            name
+        }
+    }
+}

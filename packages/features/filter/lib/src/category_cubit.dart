@@ -50,7 +50,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
   Future<List<Product>> _fetchFilteredProduct(FilterData filters) async {
     print('selectedSubCategory: ${filters.selectedSubCategory}');
     return await _service.fetchProducts(
-      mainCategoryId: id,
+      // mainCategoryId: id,
       categoryId: filters.selectedSubCategory?.id,
     );
   }

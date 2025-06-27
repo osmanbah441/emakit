@@ -71,9 +71,6 @@ class _AudioInputWaveformState extends State<AudioInputWaveform> {
         });
       },
       onError: (e) {
-        // Log errors from the stream for debugging.
-        print("Error in AudioInputWaveform stream: $e");
-        // Reset waveform on error to indicate an issue.
         setState(() {
           _heights.fillRange(0, widget.numberOfBars, 0.0);
         });

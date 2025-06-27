@@ -91,13 +91,11 @@ class FilterSection extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context) {
-    return ActionRowButtons(
-      onPrimaryAction: () =>
-          context.read<CategoryDetailsCubit>().applyFilters(),
-      onSecondaryAction: () =>
-          context.read<CategoryDetailsCubit>().resetFilters(),
-      primaryButtonText: 'Apply Filters',
-      secondaryButtonText: "Reset",
+    return ButtonActionBar(
+      onRightTap: () => context.read<CategoryDetailsCubit>().applyFilters(),
+      onLeftTap: () => context.read<CategoryDetailsCubit>().resetFilters(),
+      rightLabel: 'Apply Filters',
+      leftLabel: "Reset",
     );
   }
 }
