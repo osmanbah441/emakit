@@ -15,7 +15,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   void loadProduct(String productId) async {
     emit(state.copyWith(status: ProductDetailsStatus.loading));
     try {
-      final productData = await _connector.fetchProductById(productId);
+      final productData = await _connector.productRepository.getProductById(
+        productId,
+      );
       final variations = productData.variations;
 
       final sortedAvailableAttributes = productData

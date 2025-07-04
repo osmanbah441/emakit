@@ -7,7 +7,8 @@ class CategorySelectionAlertDialog extends StatelessWidget {
   const CategorySelectionAlertDialog({super.key});
 
   Future<List<Category>> _fetchCategories() async {
-    return await DataconnectService.instance.fetchCategories();
+    return await DataconnectService.instance.categoryRepository
+        .getAllCategories();
   }
 
   @override

@@ -1,0 +1,23 @@
+fragment StoreFragment on Store {
+    id
+    name
+    description
+    logoUrl
+    phoneNumber
+}
+
+query getAllUser @auth(level: NO_ACCESS) {
+    users {
+        id
+        displayName
+        phoneNumber
+    }
+}
+
+query getAllStore @auth(level: NO_ACCESS) {
+    stores {...StoreFragment}
+}
+
+query getStoreById($id: UUID!) @auth(level: PUBLIC) {
+    store(id: $id) {...StoreFragment}
+}

@@ -1,73 +1,81 @@
 part of 'add_edit_product_cubit.dart';
 
+enum AddEditProductStatus {
+  initial,
+  loading,
+  success,
+  error,
+  submitting,
+  potentailDuplicateDetected,
+}
+
+enum AddEditProductStep {
+  guideLineImage,
+  similarProducts,
+  newProduct,
+  newVariation,
+}
+
 class AddEditProductState {
   const AddEditProductState({
-    this.currentStep = 0,
+    this.status = AddEditProductStatus.initial,
+    this.currentStep = AddEditProductStep.guideLineImage,
     this.guidelineImage,
     this.currentProgressIndicator = 0.0,
+    this.newProduct,
+    this.newProductVariation,
     this.similarProducts = const [],
     this.detectedSimilarProduct,
-    this.selectedParentProduct,
-    this.isCreatingFromExistingProduct = false,
-    this.isPotentialDuplicateDetected = false,
-    this.productVariationData = const {},
-    this.productSpecificationData = const {},
-    this.uploadedImages = const [],
+    this.creatingFromExistingProduct,
+    this.errorMessage,
+    this.isFlaggedAsDuplicate = false,
+    this.variationFields = const [], // NEW
   });
 
-  final int currentStep;
+  final AddEditProductStatus status;
+  final AddEditProductStep currentStep;
   final double currentProgressIndicator;
   final ({String mimeType, Uint8List bytes})? guidelineImage;
   final List<Product> similarProducts;
+  final Product? newProduct;
+  final ProductVariation? newProductVariation;
   final Product? detectedSimilarProduct;
-  final Product? selectedParentProduct;
-  final bool isCreatingFromExistingProduct;
-  final bool isPotentialDuplicateDetected;
-  final Map<String, dynamic> productVariationData;
-  final Map<String, dynamic> productSpecificationData;
-  final List<(String mimeType, Uint8List bytes)> uploadedImages;
+  final Product? creatingFromExistingProduct;
+  final bool isFlaggedAsDuplicate;
+  final String? errorMessage;
+
+  final List<Map<String, dynamic>> variationFields; // NEW
 
   AddEditProductState copyWith({
-    int? currentStep,
+    AddEditProductStatus? status,
+    AddEditProductStep? currentStep,
     ({String mimeType, Uint8List bytes})? guidelineImage,
     List<Product>? similarProducts,
+    Product? newProduct,
+    ProductVariation? newProductVariation,
     Product? detectedSimilarProduct,
-    Product? selectedParentProduct,
-    bool? isCreatingFromExistingProduct,
-    bool? isPotentialDuplicateDetected,
-    Map<String, dynamic>? productVariationData,
-    Map<String, dynamic>? productSpecificationData,
-    List<(String mimeType, Uint8List bytes)>? uploadedImages,
+    Product? creatingFromExistingProduct,
     double? currentProgressIndicator,
-  }) => AddEditProductState(
-    currentStep: currentStep ?? this.currentStep,
-    guidelineImage: guidelineImage ?? this.guidelineImage,
-    similarProducts: similarProducts ?? this.similarProducts,
-    detectedSimilarProduct:
-        detectedSimilarProduct ?? this.detectedSimilarProduct,
-    selectedParentProduct: selectedParentProduct ?? this.selectedParentProduct,
-    isCreatingFromExistingProduct:
-        isCreatingFromExistingProduct ?? this.isCreatingFromExistingProduct,
-    isPotentialDuplicateDetected:
-        isPotentialDuplicateDetected ?? this.isPotentialDuplicateDetected,
-    productVariationData: productVariationData ?? this.productVariationData,
-    productSpecificationData:
-        productSpecificationData ?? this.productSpecificationData,
-    uploadedImages: uploadedImages ?? this.uploadedImages,
-    currentProgressIndicator:
-        currentProgressIndicator ?? this.currentProgressIndicator,
-  );
-}
-
-// TODO: replace with actual product model
-final class Product {
-  final String imageUrl;
-  final String title;
-  final String subtitle;
-
-  const Product({
-    required this.imageUrl,
-    required this.title,
-    required this.subtitle,
-  });
+    String? errorMessage,
+    bool? isFlaggedAsDuplicate,
+    List<Map<String, dynamic>>? variationFields, // NEW
+  }) {
+    return AddEditProductState(
+      status: status ?? this.status,
+      currentStep: currentStep ?? this.currentStep,
+      guidelineImage: guidelineImage ?? this.guidelineImage,
+      similarProducts: similarProducts ?? this.similarProducts,
+      detectedSimilarProduct:
+          detectedSimilarProduct ?? this.detectedSimilarProduct,
+      newProduct: newProduct ?? this.newProduct,
+      newProductVariation: newProductVariation ?? this.newProductVariation,
+      creatingFromExistingProduct:
+          creatingFromExistingProduct ?? this.creatingFromExistingProduct,
+      currentProgressIndicator:
+          currentProgressIndicator ?? this.currentProgressIndicator,
+      errorMessage: errorMessage ?? this.errorMessage,
+      isFlaggedAsDuplicate: isFlaggedAsDuplicate ?? this.isFlaggedAsDuplicate,
+      variationFields: variationFields ?? this.variationFields, // NEW
+    );
+  }
 }

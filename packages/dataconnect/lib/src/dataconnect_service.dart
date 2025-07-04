@@ -1,63 +1,37 @@
+import 'dart:typed_data';
+
+import 'package:dataconnect/src/category_repository.dart';
 import 'package:dataconnect/src/default_connector/default.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:functions/functions.dart';
 
 import 'product_repository.dart';
 
 final class DataconnectService {
-  const DataconnectService._() : _productRepository = const ProductRepository();
+  const DataconnectService._()
+    : productRepository = const ProductRepository(),
+      categoryRepository = const CategoryRepository();
 
-  final ProductRepository _productRepository;
+  final ProductRepository productRepository;
+  final CategoryRepository categoryRepository;
 
   static const instance = DataconnectService._();
 
   static final _connector = DefaultConnector.instance;
+  static final _fn = MooemartFunctions.instance;
 
   static void useEmulator(String host, int port) {
-    _connector.dataConnect.useDataConnectEmulator(host, port);
+    DefaultConnector.instance.dataConnect.useDataConnectEmulator(host, port);
   }
 
-  // Products
-  Future<Product> fetchProductById(String id) async =>
-      await _productRepository.fetchProductById(id);
-
-  Future<List<Product>> fetchProducts({
-    String searchTerm = '',
-    String? categoryId,
-  }) async => await _productRepository.fetchProducts(
-    searchTerm: searchTerm,
-    categoryId: categoryId,
-  );
-
-  Future<void> addProduct({
-    required String name,
-    required String description,
-    required String subcategoryId,
-    required String brand,
-    required List<String> imageUrls,
-    required double price,
-    required int stockQuantity,
-  }) async => await _productRepository.addProduct(
-    name: name,
-    description: description,
-    subcategoryId: subcategoryId,
-    brand: brand,
-    imageUrls: imageUrls,
-    price: price,
-    stockQuantity: stockQuantity,
-  );
-
-  Future<void> addVariationForProduct({
-    required String productId,
-    required List<String> imageUrls,
-    required double price,
-    required int stockQuantity,
-  }) async => await _productRepository.addVariationForProduct(
-    productId: productId,
-    imageUrls: imageUrls,
-    price: price,
-    stockQuantity: stockQuantity,
-  );
-
+  Future<ProcessGuidelineImageResult> processGuidelineImage(
+    Uint8List bytes,
+    String mimeType,
+  ) async {
+    return await _fn.processGuidelineImage([
+      MooemartMediaPart(bytes, mimeType),
+    ]);
+  }
   // Cart
 
   Future<void> addToCart(ProductVariation p, int quantity) async =>
@@ -126,34 +100,8 @@ final class DataconnectService {
     await _connector.removeCartItem(id: id).execute();
   }
 
-  Future<List<Category>> fetchCategories() async {
-    return await _connector.fetchCategories().execute().then((result) {
-      return result.data.categories
-          .map(
-            (c) => Category(
-              id: c.id,
-              name: c.name,
-              imageUrl: 'https://picsum.photos/id/237/200/300',
-            ),
-          )
-          .toList();
-    });
-  }
-
-  Future<List<Category>> fetchSubcategories(String parentId) async {
-    return await _connector
-        .fetchSubCategories(parentId: parentId)
-        .execute()
-        .then((results) {
-          return results.data.categories
-              .map(
-                (c) => Category(
-                  id: c.id,
-                  name: c.name,
-                  imageUrl: 'https://picsum.photos/id/237/200/300',
-                ),
-              )
-              .toList();
-        });
+  Future<UserRole?> get getCurrentUserRole async {
+    // return null;
+    return UserRole.admin;
   }
 }

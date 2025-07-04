@@ -26,7 +26,6 @@ class _SimilarProductsStepState extends State<SimilarProductsStep> {
           ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w100),
         ),
 
-        // List of similar product items
         Expanded(
           child: BlocBuilder<AddEditProductCubit, AddEditProductState>(
             builder: (context, state) {
@@ -35,21 +34,22 @@ class _SimilarProductsStepState extends State<SimilarProductsStep> {
                 itemBuilder: (context, index) {
                   final product = state.similarProducts[index];
                   return ProductListItem(
-                    imageUrl: product.imageUrl,
-                    title: product.title,
-                    subtitle: product.subtitle,
-                    onTap: () => cubit.onSelectedParentProduct(product),
+                    imageUrl: product.imageUrl!,
+                    title: product.name,
+                    subtitle: product.description,
+                    onTap: () => cubit.createNewProduct(exist: product),
                   );
                 },
               );
             },
           ),
         ),
+        const Spacer(),
         ButtonActionBar(
           leftLabel: 'Back',
-          rightLabel: "Create New Product",
-          onLeftTap: cubit.previousStep,
-          onRightTap: cubit.onCreateNewListing,
+          rightLabel: 'Create a new product',
+          onLeftTap: () => cubit.goToStep(AddEditProductStep.guideLineImage),
+          onRightTap: () => cubit.createNewProduct(),
         ),
       ],
     );

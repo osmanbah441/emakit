@@ -6,10 +6,9 @@ resolution: workspace
 environment:
   sdk: ^3.8.0
 
-# Add regular dependencies here.
 dependencies:
   cloud_functions: ^5.5.2
-  # path: ^1.8.0
+  domain_models: ^0.0.0
 
 dev_dependencies:
   lints: ^5.0.0

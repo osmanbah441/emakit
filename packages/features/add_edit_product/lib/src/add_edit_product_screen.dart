@@ -1,14 +1,14 @@
 import 'package:add_edit_product/src/components/add_product_specification_step.dart';
 import 'package:add_edit_product/src/components/add_product_variation_step.dart';
+import 'package:add_edit_product/src/components/potential_duplicated_detected.dart';
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_edit_product_cubit.dart';
 
-import 'components/add_variation_images.dart';
-import 'components/potential_duplicated_detected_step.dart';
 import 'components/similar_product_step.dart';
-import 'components/upload_image_step.dart';
+import 'components/upload_guideline_image_step.dart';
 
 class AddEditProductScreen extends StatelessWidget {
   const AddEditProductScreen({super.key});
@@ -28,29 +28,43 @@ class AddEditProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddEditProductCubit, AddEditProductState>(
+    return BlocConsumer<AddEditProductCubit, AddEditProductState>(
+      listener: (context, state) {
+        if (state.status == AddEditProductStatus.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage ?? 'An unknown error occurred.'),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
+        if (state.status == AddEditProductStatus.loading) {
+          return const Scaffold(body: CenteredProgressIndicator());
+        }
+        if (state.status == AddEditProductStatus.potentailDuplicateDetected) {
+          return const PotentialDuplicatedDetected();
+        }
+
+        final cubit = context.read<AddEditProductCubit>();
         return Scaffold(
           body: Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 24, 16, 32),
+            padding: const EdgeInsets.fromLTRB(16.0, 24, 16, 16),
             child: Column(
               spacing: 16,
               children: [
-                LinearProgressIndicator(value: state.currentProgressIndicator),
+                LinearProgressIndicator(value: cubit.currentProgressIndicator),
                 Expanded(
-                  child: IndexedStack(
-                    index: state.currentStep,
-                    children: [
-                      const UploadImageStep(),
+                  child: switch (state.currentStep) {
+                    AddEditProductStep.guideLineImage =>
+                      const UploadGuidelineImageStep(),
+                    AddEditProductStep.similarProducts =>
                       const SimilarProductsStep(),
-                      if (!state.isCreatingFromExistingProduct)
-                        const AddProductSpecificationStep(),
-                      const AddProductVariationStep(),
-                      const AddVariationImages(),
-                      if (state.isPotentialDuplicateDetected)
-                        const PotentialDuplicatedDetectedStep(),
-                    ],
-                  ),
+                    AddEditProductStep.newProduct =>
+                      const AddProductSpecificationStep(),
+                    AddEditProductStep.newVariation =>
+                      AddProductVariationStep(),
+                  },
                 ),
               ],
             ),

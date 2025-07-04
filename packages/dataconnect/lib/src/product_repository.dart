@@ -1,39 +1,43 @@
 import 'package:domain_models/domain_models.dart';
-
 import 'default_connector/default.dart';
 
 final class ProductRepository {
   const ProductRepository();
   static final _connector = DefaultConnector.instance;
 
-  Future<String> addProduct({
+  Future<String> createNewProduct({
     required String name,
     required String description,
     required String subcategoryId,
-    required String brand,
-    required List<String> imageUrls,
-    required double price,
-    required int stockQuantity,
-  }) async => await _connector
-      .insertProduct(
-        name: name,
-        description: description,
-        category: subcategoryId,
-        brand: brand,
-      )
-      .execute()
-      .then((result) {
-        return result.data.product_insert.id;
-      });
+    required String imageUrl,
+    required Map<String, dynamic> specs,
+  }) async {
+    return await _connector
+        .createNewProduct(
+          name: name,
+          description: description,
+          category: subcategoryId,
+          mainImage: imageUrl,
+          specs: specs,
+        )
+        .execute()
+        .then((result) {
+          return result.data.product_insert.id;
+        });
+  }
 
-  Future<void> addVariationForProduct({
+  Future<void> createNewProductVariation({
     required String productId,
     required List<String> imageUrls,
     required double price,
     required int stockQuantity,
+    required Map<String, dynamic> attributes,
+    required String storeId,
   }) async {
     await _connector
-        .insertProductVariation(
+        .createNewProductVariation(
+          storeId: storeId,
+          attributes: attributes,
           productId: productId,
           imageUrls: imageUrls,
           price: price,
@@ -42,12 +46,12 @@ final class ProductRepository {
         .execute();
   }
 
-  Future<List<Product>> fetchProducts({
+  Future<List<Product>> getAllProducts({
     String searchTerm = '',
     String? categoryId,
   }) async {
-    var query = _connector.listProducts();
-    if (categoryId != null) query = query.categoryId(categoryId);
+    var query = _connector.getAllProducts();
+    // if (categoryId != null) query = query.categoryId(categoryId);
 
     return await query.execute().then(
       (result) => result.data.products
@@ -55,7 +59,6 @@ final class ProductRepository {
             (p) => Product(
               id: p.id,
               name: p.name,
-              mainCategory: '',
               description: p.description,
               specifications: p.specifications.value as Map<String, dynamic>,
               variations: p.variations
@@ -75,15 +78,13 @@ final class ProductRepository {
     );
   }
 
-  Future<Product> fetchProductById(String id) async =>
+  Future<Product> getProductById(String id) async =>
       await _connector.getProductById(id: id).execute().then((result) {
         final p = result.data.product;
         if (p == null) throw ('No product found');
         return Product(
           id: p.id,
           name: p.name,
-          mainCategory: '',
-
           description: p.description,
           specifications: p.specifications.value as Map<String, dynamic>,
           variations: p.variations

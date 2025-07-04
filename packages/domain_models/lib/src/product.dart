@@ -1,21 +1,18 @@
 class Product {
-  final String id;
+  final String? id;
   final String name;
   final String description;
+  final String? imageUrl;
   final Map<String, dynamic> specifications;
   final List<ProductVariation> variations;
-  final String mainCategory;
-  final String storeName;
 
   const Product({
-    required this.id,
+    this.id,
     required this.name,
-    required this.description,
-    required this.variations,
-    required this.specifications,
-    required this.mainCategory,
-
-    this.storeName = '',
+    this.description = '',
+    this.variations = const [],
+    this.specifications = const {},
+    this.imageUrl,
   });
 }
 
@@ -25,6 +22,8 @@ class ProductVariation {
   final List<String> imageUrls;
   final double price;
   final int stockQuantity;
+  final String? storeId;
+  final String? storeName;
 
   const ProductVariation({
     required this.id,
@@ -32,5 +31,7 @@ class ProductVariation {
     required this.imageUrls,
     required this.price,
     required this.stockQuantity,
+    this.storeId,
+    this.storeName,
   });
 }

@@ -6,39 +6,22 @@ class ProductListItem extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.onTap,
   });
 
   final String imageUrl;
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final VoidCallback onTap;
 
   void _showDailog(BuildContext context) async => await showDialog(
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        // insetPadding: const EdgeInsets.all((16.0)),
-        child: Stack(
-          children: [
-            CachedProductImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            // Close button for the full-screen image dialog
-            Positioned(
-              top: 40,
-              right: 20,
-              child: IconButton(
-                icon: const Icon(Icons.close, size: 30),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Dismiss the dialog
-                },
-              ),
-            ),
-          ],
+        child: CachedProductImage(
+          imageUrl: imageUrl,
+          borderRadius: BorderRadius.circular(24),
         ),
       );
     },
@@ -76,7 +59,13 @@ class ProductListItem extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(subtitle, style: const TextStyle(fontSize: 14)),
+                if (subtitle != null)
+                  Text(
+                    subtitle!,
+                    style: const TextStyle(fontSize: 14),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
               ],
             ),
           ],

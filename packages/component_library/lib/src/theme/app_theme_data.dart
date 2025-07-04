@@ -19,6 +19,9 @@ final class AppThemeData {
     return ThemeData(
       useMaterial3: true,
       brightness: colorScheme.brightness,
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
       colorScheme: colorScheme,
       textTheme: textTheme.apply(
         bodyColor: colorScheme.onSurface,

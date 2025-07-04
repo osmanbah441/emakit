@@ -30,7 +30,8 @@ class CategoryCard extends StatelessWidget {
             children: [
               CachedProductImage(
                 imageUrl: imageUrl,
-                aspectRatio: 60 / 60,
+                width: 60,
+                height: 60,
                 borderRadius: BorderRadius.circular(12),
               ),
               Expanded(

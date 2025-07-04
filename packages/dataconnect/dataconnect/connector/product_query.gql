@@ -1,11 +1,14 @@
-
 fragment ProductInfo on Product {
         id
         name
         description
         categoryId
         specifications
-        variations: productVariations_on_product {
+        variations: productVariations_on_product(where:  {
+           stockQuantity:  {
+              gt: 0
+           }
+        }) {
             ...ProductVariationInfo
         }
 }
@@ -13,9 +16,16 @@ fragment ProductInfo on Product {
 fragment ProductVariationInfo on ProductVariation {
         id
         price
+        storeId
         stockQuantity
         attributes
         imageUrls  
+}
+
+query getAllProducts @auth(level: PUBLIC) {
+    products {
+        ...ProductInfo
+    }
 }
 
 query getProductById($id: UUID!) @auth(level: PUBLIC) {
@@ -24,10 +34,5 @@ query getProductById($id: UUID!) @auth(level: PUBLIC) {
     }
 }
 
-query listProducts(
-    $categoryId: UUID,
-) @auth(level: PUBLIC) {
-    products(where: {categoryId: {eq: $categoryId}}) {
-        ...ProductInfo
-    }
-}
+
+

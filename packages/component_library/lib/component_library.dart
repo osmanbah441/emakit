@@ -29,3 +29,6 @@ export 'src/audio_input_wave_form.dart';
 export 'src/audio_text_input_field.dart';
 export 'src/product_list_item.dart';
 export 'src/button_action_bar.dart';
+export 'src/image_placeholder.dart';
+export 'src/display_memory_image.dart';
+export 'src/image_picker_widget.dart';

@@ -69,10 +69,10 @@ class ProductSection extends StatelessWidget {
                   imageUrl: product.variations.first.imageUrls.first,
                   title: product.name,
                   price: product.variations.first.price,
-                  onTap: () => onProductTap(context, product.id),
+                  onTap: () => onProductTap(context, product.id!),
                   onAddToCart: () {
                     context.read<CategoryDetailsCubit>().toggleCartStatus(
-                      product.id,
+                      product.id!,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -83,7 +83,7 @@ class ProductSection extends StatelessWidget {
                   },
                   onWishlistToggle: () {
                     context.read<CategoryDetailsCubit>().toggleWishlistStatus(
-                      product.id,
+                      product.id!,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

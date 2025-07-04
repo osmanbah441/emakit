@@ -53,11 +53,12 @@ class GetProductByIdProduct {
 class GetProductByIdProductVariations {
   String id;
   double price;
+  String storeId;
   int stockQuantity;
   AnyValue attributes;
   List<String> imageUrls;
   GetProductByIdProductVariations.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),price = nativeFromJson<double>(json['price']),stockQuantity = nativeFromJson<int>(json['stockQuantity']),attributes = AnyValue.fromJson(json['attributes']),imageUrls = (json['imageUrls'] as List<dynamic>)
+  id = nativeFromJson<String>(json['id']),price = nativeFromJson<double>(json['price']),storeId = nativeFromJson<String>(json['storeId']),stockQuantity = nativeFromJson<int>(json['stockQuantity']),attributes = AnyValue.fromJson(json['attributes']),imageUrls = (json['imageUrls'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
         .toList();
 
@@ -65,6 +66,7 @@ class GetProductByIdProductVariations {
     Map<String, dynamic> json = {};
     json['id'] = nativeToJson<String>(id);
     json['price'] = nativeToJson<double>(price);
+    json['storeId'] = nativeToJson<String>(storeId);
     json['stockQuantity'] = nativeToJson<int>(stockQuantity);
     json['attributes'] = attributes.toJson();
     json['imageUrls'] = imageUrls.map((e) => nativeToJson<String>(e)).toList();
@@ -74,6 +76,7 @@ class GetProductByIdProductVariations {
   GetProductByIdProductVariations({
     required this.id,
     required this.price,
+    required this.storeId,
     required this.stockQuantity,
     required this.attributes,
     required this.imageUrls,

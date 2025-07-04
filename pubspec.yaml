@@ -9,7 +9,6 @@ workspace:
   - packages/component_library
   - packages/functions
 
-  - packages/features/home
   - packages/features/filter
   - packages/features/cart
   - packages/features/checkout
@@ -17,6 +16,8 @@ workspace:
   - packages/features/product_details
   - packages/features/order_details
   - packages/features/add_edit_product
+  - packages/features/product_list
+  - packages/features/manage_categories
 
 environment:
   sdk: ^3.8.0
@@ -32,7 +33,6 @@ dependencies:
 
   functions: ^0.0.1
 
-  home: ^0.0.0
   filter: ^0.0.0
   cart: ^0.0.0
   checkout: ^0.0.0
@@ -40,6 +40,8 @@ dependencies:
   product_details: ^0.0.0
   order_details: ^0.0.0
   add_edit_product: ^0.0.1
+  product_list: ^0.0.0
+  manage_categories: ^0.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,153 +1,130 @@
 import 'dart:typed_data';
 
+import 'package:dataconnect/dataconnect.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-// import 'package:functions/functions.dart';
 
 part 'add_edit_product_state.dart';
 
 class AddEditProductCubit extends Cubit<AddEditProductState> {
   AddEditProductCubit() : super(const AddEditProductState());
 
-  // final _func = MooemartFunctions.instance;
+  double get currentProgressIndicator {
+    int totalSteps = AddEditProductStep.values.length - 1;
+    if (state.creatingFromExistingProduct != null) {
+      totalSteps = AddEditProductStep.values.length - 1;
+    }
 
-  void nextStep() {
-    emit(
-      state.copyWith(
-        currentStep: state.currentStep + 1,
-        currentProgressIndicator: state.currentProgressIndicator + 0.25,
-      ),
-    );
+    return state.currentStep.index / totalSteps;
   }
 
-  void previousStep() {
-    emit(
-      state.copyWith(
-        currentStep: state.currentStep - 1,
-        currentProgressIndicator: state.currentProgressIndicator - 0.25,
-      ),
-    );
+  void goToStep(AddEditProductStep step) => emit(
+    state.copyWith(currentStep: step, status: AddEditProductStatus.initial),
+  );
+
+  void setPotentialDuplicate(bool isDuplicate) {
+    emit(state.copyWith(isFlaggedAsDuplicate: isDuplicate));
+    goToStep(AddEditProductStep.newVariation);
   }
 
   void processGuidelineImage() async {
-    // final res = await _func.processGuidelineImage([
-    //   MooemartMediaPart(
-    //     state.guidelineImage!.bytes,
-    //     state.guidelineImage!.mimeType,
-    //   ),
-    // ]);
+    if (state.guidelineImage == null) return;
+    if (state.similarProducts.isNotEmpty ||
+        state.newProduct != null ||
+        state.newProductVariation != null) {
+      return goToStep(AddEditProductStep.similarProducts);
+    }
+    emit(state.copyWith(status: AddEditProductStatus.loading));
+    try {
+      final result = await DataconnectService.instance.processGuidelineImage(
+        state.guidelineImage!.bytes,
+        state.guidelineImage!.mimeType,
+      );
 
-    // replace with actual similar products
-    final similarProduct = [
-      Product(
-        imageUrl: 'https://picsum.photos/seed/dress1/400/400',
-        title: 'Floral Print Dress',
-        subtitle: 'Women\'s dress',
-      ),
-      Product(
-        imageUrl: 'https://picsum.photos/seed/dress2/400/400',
-        title: 'Summer Dress',
-        subtitle: 'Women\'s dress',
-      ),
-      Product(
-        imageUrl: 'https://picsum.photos/seed/dress3/400/400',
-        title: 'Casual Dress',
-        subtitle: 'Women\'s dress',
-      ),
-    ];
+      final category = await DataconnectService.instance.categoryRepository
+          .getCategoryById("29139e6ac4034888967041cff3670fff");
+      emit(
+        state.copyWith(
+          similarProducts: result.similarProducts,
+          newProduct: result.generatedProduct,
+          variationFields: category,
+          newProductVariation: result.generatedProductVariation,
+          status: AddEditProductStatus.success,
+          currentStep: AddEditProductStep.similarProducts,
+        ),
+      );
+    } catch (e) {
+      print(e.toString());
 
-    final initialVariationData = {
-      'Product name': 'Gaming PC',
-      'Color': 'Silver',
-      'Size': '15-inch',
-      'Is Available': true,
-      'Quantity': 10,
-      'Has Warranty': false,
-      'Condition': ['New', 'Fair Used', 'Good'],
-    };
-
-    final initialSpecificationData = {
-      'Product name': 'Gaming PC',
-      'Weight': 2.0,
-      'Dimensions': '35.7 x 23.5 x 1.7 cm',
-      'Brand': 'Dell',
-      'Model': 'XPS 15',
-      'Material': 'Aluminum',
-    };
-
-    emit(
-      state.copyWith(
-        similarProducts: similarProduct,
-        productSpecificationData: initialSpecificationData,
-        productVariationData: initialVariationData,
-      ),
-    );
-
-    nextStep();
-  }
-
-  void uploadImages() async {
-    final picked = await _pickImage();
-    if (picked != null) {
-      emit(state.copyWith(uploadedImages: [...state.uploadedImages, picked]));
+      emit(
+        state.copyWith(
+          status: AddEditProductStatus.error,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 
-  void removeUploadedImage((String, Uint8List) image) {
-    final index = state.uploadedImages.indexOf(image);
-    final images = [...state.uploadedImages];
-    images.removeAt(index);
-    emit(state.copyWith(uploadedImages: images));
-  }
+  createProductVariation({
+    required double price,
+    required int stockQuantity,
+    required Map<String, dynamic> attributes,
+    required List<({Uint8List bytes, String mimeType})> images,
+  }) async {}
 
-  void uploadGuildelineImage() async {
-    final picked = await _pickImage();
-    if (picked != null) {
+  void validateProductWithLLM({
+    required String name,
+    required String description,
+    required Map<String, dynamic> specifications,
+  }) async {
+    final newProduct = Product(
+      name: name,
+      description: description,
+      specifications: specifications,
+    );
+
+    emit(
+      state.copyWith(
+        status: AddEditProductStatus.loading,
+        newProduct: newProduct,
+        creatingFromExistingProduct: null,
+      ),
+    );
+    try {
       emit(
-        state.copyWith(guidelineImage: (mimeType: picked.$1, bytes: picked.$2)),
+        state.copyWith(
+          status: AddEditProductStatus.success,
+          currentStep: AddEditProductStep.newVariation,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: AddEditProductStatus.potentailDuplicateDetected,
+          detectedSimilarProduct: Product(
+            name: name,
+            description: description,
+            imageUrl: 'https://picsum.photos/id/237/200/300',
+          ),
+        ),
       );
     }
   }
 
   void removeGuidelineImage() => emit(const AddEditProductState());
 
-  Future<(String, Uint8List)?> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery);
-    if (picked != null) {
-      final bytes = await picked.readAsBytes();
-      return (picked.mimeType!, bytes);
-    }
-    return null;
-  }
-
-  void onSelectedParentProduct(Product product) {
+  void createNewProduct({Product? exist}) {
     emit(
       state.copyWith(
-        selectedParentProduct: product,
-        isCreatingFromExistingProduct: true,
+        creatingFromExistingProduct: exist,
+        currentStep: exist != null
+            ? AddEditProductStep.newVariation
+            : AddEditProductStep.newProduct,
       ),
     );
-    nextStep();
   }
 
-  void onCreateNewListing() {
-    emit(state.copyWith(isCreatingFromExistingProduct: false));
-    nextStep();
-  }
-
-  void addProductVariation(Map<String, dynamic> data) {
-    emit(state.copyWith(productVariationData: data));
-
-    // TODO: remove
-    if (!state.isCreatingFromExistingProduct) {
-      emit(state.copyWith(isPotentialDuplicateDetected: true));
-    }
-    nextStep();
-  }
-
-  void addProductSpecification(Map<String, dynamic> data) {
-    emit(state.copyWith(productSpecificationData: data));
-    nextStep();
+  void addGuidelineImage(({Uint8List bytes, String mimeType}) image) {
+    emit(state.copyWith(guidelineImage: image));
   }
 }

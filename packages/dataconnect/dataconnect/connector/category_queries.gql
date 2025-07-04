@@ -1,0 +1,23 @@
+fragment CategoryInfo on Category {
+        id
+        name
+        description
+        imageUrl
+        parentCategoryId
+        variationAttributes
+}
+
+query getCategoryById($id: UUID!) @auth(level: PUBLIC){
+  category(id: $id) {
+    ...CategoryInfo
+      }
+}
+
+query getAllCategories @auth(level: PUBLIC) {
+  categories {
+    ...CategoryInfo
+  }
+}
+
+
+

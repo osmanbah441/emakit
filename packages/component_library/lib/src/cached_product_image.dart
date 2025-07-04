@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 
 class CachedProductImage extends StatelessWidget {
   final String imageUrl;
-  final double aspectRatio;
   final BoxFit fit;
   final BorderRadius borderRadius;
+  final double? width;
+  final double? height;
 
   const CachedProductImage({
     super.key,
     required this.imageUrl,
-    this.aspectRatio = 11 / 8,
     this.fit = BoxFit.cover,
+    this.width,
+    this.height,
     this.borderRadius = BorderRadius.zero,
   });
 
@@ -20,15 +22,14 @@ class CachedProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: borderRadius,
-      child: AspectRatio(
-        aspectRatio: aspectRatio,
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          fit: fit,
-          placeholder: (context, url) => CenteredProgressIndicator(),
-          errorWidget: (context, url, error) => Center(
-            child: Icon(Icons.broken_image, size: 50, color: Colors.grey[400]),
-          ),
+      child: CachedNetworkImage(
+        width: width,
+        height: height,
+        imageUrl: imageUrl,
+        fit: fit,
+        placeholder: (context, url) => CenteredProgressIndicator(),
+        errorWidget: (context, url, error) => Center(
+          child: Icon(Icons.broken_image, size: 50, color: Colors.grey[400]),
         ),
       ),
     );

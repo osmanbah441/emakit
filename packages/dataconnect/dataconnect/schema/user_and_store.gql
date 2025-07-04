@@ -1,0 +1,19 @@
+type User @table {
+  # id: UUID! @default(expr: "auth.uid") # firebase uid
+  phoneNumber: String! @unique @col(dataType: "VARCHAR(20)") 
+  displayName: String! @col(dataType: "VARCHAR(255)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Store @table {
+  name: String! @unique @col(dataType: "VARCHAR(255)")
+  description: String!
+  logoUrl: String! @col(dataType: "VARCHAR(255)")
+  phoneNumber: String! @unique @col(dataType: "VARCHAR(20)")
+  owner: User! @unique
+  # Status of the store (e.g., "active", "pending approval", "suspended")
+  status: String! @default(expr: "'pending'") @col(dataType: "VARCHAR(50)") 
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}

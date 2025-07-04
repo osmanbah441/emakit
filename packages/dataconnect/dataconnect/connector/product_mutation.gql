@@ -1,26 +1,29 @@
-
-mutation insertProduct(
+mutation createNewProduct(
   $name: String!, 
   $description: String!, 
   $category: UUID!, 
-  $brand: String!
+  $mainImage: String!
+  $specs: Any!
 ) @auth(level: PUBLIC) {
   product_insert(data: {
     name: $name
     description: $description
     categoryId: $category
-    brand: $brand
+    mainImage: $mainImage
+    specifications: $specs
   })
-  }
+}
 
-mutation insertProductVariation(
+mutation createNewProductVariation(
+  $storeId: UUID!
   $productId: UUID!, 
-  $attributes: Any,
+  $attributes: Any!,
   $imageUrls: [String!]!,
   $price: Float!,
   $stockQuantity: Int!
 ) @auth(level: PUBLIC) {
   productVariation_insert(data: {
+    storeId: $storeId
     productId: $productId
     attributes: $attributes
     imageUrls: $imageUrls
