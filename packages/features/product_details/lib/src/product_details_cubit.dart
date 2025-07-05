@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:dataconnect/dataconnect.dart';
+import 'package:api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
 
@@ -10,7 +10,7 @@ part 'extension_on_product.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsState());
 
-  final _connector = DataconnectService.instance;
+  final _connector = Api.instance;
 
   void loadProduct(String productId) async {
     emit(state.copyWith(status: ProductDetailsStatus.loading));
@@ -70,6 +70,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void addToCart(ProductVariation p) async {
-    await _connector.addToCart(p, 1);
+    await _connector.userCommerceRepository.addToCart(p, 1);
   }
 }

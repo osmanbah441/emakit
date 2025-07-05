@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:dataconnect/dataconnect.dart';
+import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:functions/functions.dart';
 import 'package:meta/meta.dart';
 
 part 'product_list_event.dart';
@@ -16,8 +15,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     add(LoadProducts());
   }
 
-  final _db = DataconnectService.instance;
-  final _fn = MooemartFunctions.instance;
+  final _api = Api.instance;
 
   void _registerHandler() async => on<ProductListEvent>(
     (event, emit) async => switch (event) {
@@ -37,7 +35,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     emit(const ProductListLoading());
 
     try {
-      final fetchPage = await _db.productRepository.getAllProducts(
+      final fetchPage = await _api.productRepository.getAllProducts(
         searchTerm: event.searchTerm,
       );
 
@@ -45,7 +43,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
         ProductListLoaded(
           products: fetchPage,
           currentSearchTerm: event.searchTerm,
-          userRole: await _db.getCurrentUserRole,
+          userRole: await _api.userRepository.getCurrentUserRole,
         ),
       );
     } catch (e) {
@@ -69,8 +67,8 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _fn.productSearch(
-        MooemartMediaPart(event.bytes, event.mimeType),
+      final res = await _api.productRepository.productSearch(
+        UserContentMedia(event.bytes, event.mimeType),
       );
 
       emit(ProductListSearchSuccess(result: res));
@@ -89,7 +87,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _fn.productSearch(MooemartTextPart(event.text));
+      final res = await _api.productRepository.productSearch(
+        UserContentText(event.text),
+      );
       emit(ProductListSearchSuccess(result: res));
     } catch (e) {
       emit(
@@ -102,13 +102,13 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     ToggleCartStatus event,
     Emitter<ProductListState> emit,
   ) async {
-    await _db.addToCart(event.product, 1);
+    await _api.userCommerceRepository.addToCart(event.product, 1);
   }
 
   Future<void> _onToggleWishlistStatus(
     ToggleWishlistStatus event,
     Emitter<ProductListState> emit,
   ) async {
-    await _db.toggleWishlistStatus(event.productId);
+    await _api.userCommerceRepository.toggleWishlistStatus(event.productId);
   }
 }

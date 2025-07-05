@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:dataconnect/dataconnect.dart';
+import 'package:api/api.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,13 +36,17 @@ class AddEditProductCubit extends Cubit<AddEditProductState> {
     }
     emit(state.copyWith(status: AddEditProductStatus.loading));
     try {
-      final result = await DataconnectService.instance.processGuidelineImage(
-        state.guidelineImage!.bytes,
-        state.guidelineImage!.mimeType,
-      );
+      final result = await Api.instance.productRepository
+          .processProductGuidelineImage(
+            UserContentMedia(
+              state.guidelineImage!.bytes,
+              state.guidelineImage!.mimeType,
+            ),
+          );
 
-      final category = await DataconnectService.instance.categoryRepository
-          .getCategoryById("29139e6ac4034888967041cff3670fff");
+      final category = await Api.instance.categoryRepository.getCategoryById(
+        "29139e6ac4034888967041cff3670fff",
+      );
       emit(
         state.copyWith(
           similarProducts: result.similarProducts,

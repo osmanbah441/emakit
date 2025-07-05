@@ -1,15 +1,15 @@
 import 'package:add_edit_product/add_edit_product.dart';
+import 'package:authentication/authentication.dart';
 import 'package:cart/cart.dart';
 import 'package:checkout/checkout.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:filter/filter.dart';
 
 import 'package:component_library/component_library.dart';
-import 'package:dataconnect/dataconnect.dart';
+import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:functions/functions.dart';
 import 'package:manage_categories/manage_categories.dart';
 import 'package:product_details/product_details.dart';
 import 'package:product_list/product_list.dart';
@@ -25,9 +25,13 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   if (_debugging) {
-    DataconnectService.useEmulator('localhost', 9399);
-    MooemartFunctions.useEmulator('localhost', 5001);
+    Api.useEmulator(
+      db: ('localhost', 9399),
+      auth: ('localhost', 9099),
+      fn: ('localhost', 5001),
+    );
   }
+
   runApp(const MainApp());
 }
 

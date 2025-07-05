@@ -10,15 +10,19 @@ enum UserRole {
 }
 
 class UserInfo {
-  final String name;
-  final String phoneNumber;
-  final String? profilePictureUrl;
+  final String? displayName;
+  final String? phoneNumber;
+  final String? photoURL;
+  final String? email;
+  final bool emailVerified;
   final UserRole role;
 
   UserInfo({
-    required this.name,
-    required this.phoneNumber,
-    this.profilePictureUrl,
+    this.displayName,
+    this.phoneNumber,
+    this.email,
+    this.emailVerified = false,
+    this.photoURL,
     this.role = UserRole.buyer,
   });
 }

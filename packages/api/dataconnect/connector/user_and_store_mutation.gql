@@ -1,0 +1,32 @@
+mutation createNewUser(
+    $id: String!
+    $displayName: String
+    $phoneNumber: String
+    $email: String
+    $photoURL: String
+
+) @auth(level: PUBLIC) {
+    user_insert(data:  {
+     uid: $id
+       displayName: $displayName
+       phoneNumber: $phoneNumber
+       photoUrl: $photoURL
+       email: $email
+    })
+}
+
+mutation createStoreForUser(
+    $ownerId: UUID!
+    $name: String!
+    $description: String!
+    $logoUrl: String!
+    $phoneNumber: String!
+) @auth(level: PUBLIC) {
+    store_insert(data: {
+        ownerId: $ownerId
+        name: $name
+        description: $description
+        logoUrl: $logoUrl
+        phoneNumber: $phoneNumber
+    })
+}

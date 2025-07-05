@@ -1,5 +1,5 @@
-// category_details_cubit.dart
-import 'package:dataconnect/dataconnect.dart';
+import 'package:api/api.dart';
+
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +23,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
     'Google',
   ];
 
-  final _service = DataconnectService.instance;
+  final _service = Api.instance;
 
   void _initializeFilters(String categoryName) async {
     final fetchSubcategory = await _service.categoryRepository.getCategoryById(
