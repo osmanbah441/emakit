@@ -1,0 +1,36 @@
+---
+model: googleai/gemini-2.5-flash
+config:
+  temperature: 0.2
+  topK: 32
+  topP: 0.7
+tools:
+  - dbTools/getAllParentCategories
+  - dbTools/getChildrenCategories
+input:
+  schema: ProductImageInputSchema
+output:
+  schema: ProductExtractionListingSchema
+---
+
+{{> systemPrompt }}
+
+{{role "user"}}
+I'm ready to list a new product! I've attached an image of the item I want to sell.
+First, please use your internal tools to determine if this product's main category is 
+permitted on MooEmart:
+If it is, provide a list of all relevant subcategories I can choose from.
+If not, please explain why in a single sentence.
+
+If the product is allowed, please generate a product name and description. Also, use the 
+category specification fields to fill in details based on the image, leaving any 
+uninferable fields empty. Finally, return the complete variation attributes as they are, 
+without modification, and provide the selected child category ID.
+
+In this case that image not allow please make sure you return the error, message and set data to null
+
+{{media url=media.url mimeType=media.mimeType}}
+
+Your response MUST be a JSON object that strictly adheres to the following schema.
+
+{{ ProductExtractionListingSchema }}

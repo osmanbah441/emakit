@@ -1,11 +1,19 @@
-query sematicSearch($query: String!) @auth(level: PUBLIC) {
-    products(where: { name: { contains: $query } }) {
-        id
-        name
-        description
-        category {
-            id
-            name
-        }
+query getAllParentCategories @auth(level: PUBLIC, insecureReason: "Everyone can read") {
+    categories(where: {parentCategoryId: {isNull: true}}) {
+      id
+      name
+      description
+    }
+}
+
+
+query getChildrenCategories($id: UUID!) @auth(level: PUBLIC,insecureReason: "Everyone can read") {
+    categories(where: {parentCategoryId: {eq: $id}}) {
+      id
+      name
+      description
+      variationAttributes
+      specificationAttributes
+      parentCategoryId
     }
 }

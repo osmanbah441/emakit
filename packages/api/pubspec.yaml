@@ -10,7 +10,6 @@ environment:
 dependencies:
   firebase_data_connect: ^0.1.5
   domain_models: ^0.0.0
-  functions: ^0.0.1
   firebase_auth: ^5.6.2
   cloud_functions: ^5.6.1
 

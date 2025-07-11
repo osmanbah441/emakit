@@ -1,13 +1,13 @@
 part of 'default.dart';
 
 class CreateNewUserVariablesBuilder {
-  String id;
   Optional<String> _displayName = Optional.optional(nativeFromJson, nativeToJson);
   Optional<String> _phoneNumber = Optional.optional(nativeFromJson, nativeToJson);
   Optional<String> _email = Optional.optional(nativeFromJson, nativeToJson);
   Optional<String> _photoURL = Optional.optional(nativeFromJson, nativeToJson);
 
-  final FirebaseDataConnect _dataConnect;  CreateNewUserVariablesBuilder displayName(String? t) {
+  final FirebaseDataConnect _dataConnect;
+  CreateNewUserVariablesBuilder displayName(String? t) {
    _displayName.value = t;
    return this;
   }
@@ -24,7 +24,7 @@ class CreateNewUserVariablesBuilder {
    return this;
   }
 
-  CreateNewUserVariablesBuilder(this._dataConnect, {required  this.id,});
+  CreateNewUserVariablesBuilder(this._dataConnect, );
   Deserializer<CreateNewUserData> dataDeserializer = (dynamic json)  => CreateNewUserData.fromJson(jsonDecode(json));
   Serializer<CreateNewUserVariables> varsSerializer = (CreateNewUserVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<CreateNewUserData, CreateNewUserVariables>> execute() {
@@ -32,7 +32,7 @@ class CreateNewUserVariablesBuilder {
   }
 
   MutationRef<CreateNewUserData, CreateNewUserVariables> ref() {
-    CreateNewUserVariables vars= CreateNewUserVariables(id: id,displayName: _displayName,phoneNumber: _phoneNumber,email: _email,photoURL: _photoURL,);
+    CreateNewUserVariables vars= CreateNewUserVariables(displayName: _displayName,phoneNumber: _phoneNumber,email: _email,photoURL: _photoURL,);
     return _dataConnect.mutation("createNewUser", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -70,14 +70,12 @@ class CreateNewUserData {
 }
 
 class CreateNewUserVariables {
-  String id;
   late Optional<String>displayName;
   late Optional<String>phoneNumber;
   late Optional<String>email;
   late Optional<String>photoURL;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  CreateNewUserVariables.fromJson(Map<String, dynamic> json):
-  id = nativeFromJson<String>(json['id']) {
+  CreateNewUserVariables.fromJson(Map<String, dynamic> json) {
   
     displayName = Optional.optional(nativeFromJson, nativeToJson);
     displayName.value = json['displayName'] == null ? null : nativeFromJson<String>(json['displayName']);
@@ -95,7 +93,6 @@ class CreateNewUserVariables {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['id'] = nativeToJson<String>(id);
     if(displayName.state == OptionalState.set) {
       json['displayName'] = displayName.toJson();
     }
@@ -112,7 +109,6 @@ class CreateNewUserVariables {
   }
 
   CreateNewUserVariables({
-    required this.id,
     required this.displayName,
     required this.phoneNumber,
     required this.email,

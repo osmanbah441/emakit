@@ -295,7 +295,6 @@ const subcategoryDataSource = [
 );
 
 
-
 const InputSchema = z.array(
   z.object({
     media: z.object({
@@ -310,7 +309,6 @@ const InputSchema = z.array(
  const OutputSchema = z.object({
   productName: z.string().describe("The name of the product."),
   description: z.string().describe("A detailed description of the product."),
-  category: z.string().describe("The specific subcategory return from the tools."),
   categoryId: z.string().describe("A unique identifier for the selected subcategory."),
   specifications: z.object({}).describe("An object containing dynamic key-value pairs representing product specifications. Keys are attribute names and values are their corresponding string representations.")
 });

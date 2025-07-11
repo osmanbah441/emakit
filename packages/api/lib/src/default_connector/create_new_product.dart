@@ -6,9 +6,10 @@ class CreateNewProductVariablesBuilder {
   String category;
   String mainImage;
   AnyValue specs;
+  String embeddingText;
 
   final FirebaseDataConnect _dataConnect;
-  CreateNewProductVariablesBuilder(this._dataConnect, {required  this.name,required  this.description,required  this.category,required  this.mainImage,required  this.specs,});
+  CreateNewProductVariablesBuilder(this._dataConnect, {required  this.name,required  this.description,required  this.category,required  this.mainImage,required  this.specs,required  this.embeddingText,});
   Deserializer<CreateNewProductData> dataDeserializer = (dynamic json)  => CreateNewProductData.fromJson(jsonDecode(json));
   Serializer<CreateNewProductVariables> varsSerializer = (CreateNewProductVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<CreateNewProductData, CreateNewProductVariables>> execute() {
@@ -16,7 +17,7 @@ class CreateNewProductVariablesBuilder {
   }
 
   MutationRef<CreateNewProductData, CreateNewProductVariables> ref() {
-    CreateNewProductVariables vars= CreateNewProductVariables(name: name,description: description,category: category,mainImage: mainImage,specs: specs,);
+    CreateNewProductVariables vars= CreateNewProductVariables(name: name,description: description,category: category,mainImage: mainImage,specs: specs,embeddingText: embeddingText,);
     return _dataConnect.mutation("createNewProduct", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -59,9 +60,10 @@ class CreateNewProductVariables {
   String category;
   String mainImage;
   AnyValue specs;
+  String embeddingText;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateNewProductVariables.fromJson(Map<String, dynamic> json):
-  name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),category = nativeFromJson<String>(json['category']),mainImage = nativeFromJson<String>(json['mainImage']),specs = AnyValue.fromJson(json['specs']);
+  name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),category = nativeFromJson<String>(json['category']),mainImage = nativeFromJson<String>(json['mainImage']),specs = AnyValue.fromJson(json['specs']),embeddingText = nativeFromJson<String>(json['embeddingText']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -70,6 +72,7 @@ class CreateNewProductVariables {
     json['category'] = nativeToJson<String>(category);
     json['mainImage'] = nativeToJson<String>(mainImage);
     json['specs'] = specs.toJson();
+    json['embeddingText'] = nativeToJson<String>(embeddingText);
     return json;
   }
 
@@ -79,6 +82,7 @@ class CreateNewProductVariables {
     required this.category,
     required this.mainImage,
     required this.specs,
+    required this.embeddingText,
   });
 }
 

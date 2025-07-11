@@ -116,7 +116,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: PrimaryActionButton(
+                        child: ExtendedElevatedButton(
                           onPressed: selectedVariation != null
                               ? () {
                                   cubit.addToCart(selectedVariation);

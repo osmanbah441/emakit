@@ -1,5 +1,4 @@
 import 'package:add_edit_product/add_edit_product.dart';
-import 'package:authentication/authentication.dart';
 import 'package:cart/cart.dart';
 import 'package:checkout/checkout.dart';
 import 'package:domain_models/domain_models.dart';
@@ -14,6 +13,7 @@ import 'package:manage_categories/manage_categories.dart';
 import 'package:product_details/product_details.dart';
 import 'package:product_list/product_list.dart';
 import 'package:profile/profile.dart';
+import 'package:sign_in/sign_in.dart';
 
 import 'firebase_options.dart';
 
@@ -51,7 +51,7 @@ class _MainAppState extends State<MainApp> {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       title: 'Emakit',
-      home: _Home(),
+      home: SignInScreen(),
     );
   }
 }

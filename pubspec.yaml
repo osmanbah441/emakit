@@ -16,7 +16,7 @@ workspace:
   - packages/features/add_edit_product
   - packages/features/product_list
   - packages/features/manage_categories
-  - packages/features/authentication
+  - packages/features/sign_in
 
 environment:
   sdk: ^3.8.0
@@ -38,7 +38,7 @@ dependencies:
   add_edit_product: ^0.0.1
   product_list: ^0.0.0
   manage_categories: ^0.0.1
-  authentication: ^0.0.1
+  sign_in: ^0.0.1
 
 dev_dependencies:
   flutter_test:

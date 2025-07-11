@@ -1,5 +1,5 @@
 import 'package:component_library/component_library.dart';
-import 'package:component_library/src/primary_action_button.dart';
+import 'package:component_library/src/extended_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,7 +89,7 @@ class CartView extends StatelessWidget {
               taxes: '\$${cart.taxes.toStringAsFixed(2)}',
               total: '\$${cart.total.toStringAsFixed(2)}',
             ),
-            PrimaryActionButton(
+            ExtendedElevatedButton(
               onPressed: () => onCheckoutTap(context),
               label: 'Proceed to Checkout',
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// A reusable Flutter widget that provides dynamic validation for text fields.
 ///
@@ -25,6 +26,7 @@ abstract class AutovalidatingTextField extends StatefulWidget {
     this.suffixIcon,
     this.initialValue,
     this.onFieldSubmitted,
+    this.inputFormatters = const [],
   });
 
   final TextEditingController? controller;
@@ -38,6 +40,7 @@ abstract class AutovalidatingTextField extends StatefulWidget {
   final void Function(String?)? onChanged;
   final String? initialValue;
   final Function(String)? onFieldSubmitted;
+  final List<TextInputFormatter> inputFormatters;
 
   String? validator(String? value);
 
@@ -68,6 +71,7 @@ class _AutovalidatingTextFieldState extends State<AutovalidatingTextField> {
     return ValueListenableBuilder(
       valueListenable: _valueNotifier,
       builder: (context, autovalidateMode, child) => TextFormField(
+        inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
         initialValue: widget.initialValue,
         onFieldSubmitted: widget.onFieldSubmitted,
@@ -81,8 +85,7 @@ class _AutovalidatingTextFieldState extends State<AutovalidatingTextField> {
         autovalidateMode: autovalidateMode,
         decoration: InputDecoration(
           suffixIcon: widget.suffixIcon,
-          labelText: widget.labelText.toUpperCase(),
-          border: const OutlineInputBorder(),
+          labelText: widget.labelText,
         ),
       ),
     );

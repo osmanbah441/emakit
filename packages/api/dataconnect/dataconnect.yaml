@@ -1,12 +1,12 @@
 specVersion: "v1"
-serviceId: "e-makit-service"
+serviceId: "e-makit-1-service"
 location: "us-central1"
 schema:
   source: "./schema"
   datasource:
     postgresql:
-      database: "e-makit-database"
+      database: "e-makit-1-database"
       cloudSql:
-        instanceId: "e-makit-instance"
+        instanceId: "e-makit-1-instance"
       # schemaValidation: "COMPATIBLE"
 connectorDirs: ["./connector", "./tools"]

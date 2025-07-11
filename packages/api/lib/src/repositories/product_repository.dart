@@ -1,4 +1,5 @@
 import 'package:api/api.dart';
+import 'package:api/src/functions/models.dart';
 import 'package:domain_models/domain_models.dart';
 
 import '../functions/functions.dart';
@@ -16,18 +17,19 @@ final class ProductRepository {
     required String imageUrl,
     required Map<String, dynamic> specs,
   }) async {
-    return await _connector
-        .createNewProduct(
-          name: name,
-          description: description,
-          category: subcategoryId,
-          mainImage: imageUrl,
-          specs: specs,
-        )
-        .execute()
-        .then((result) {
-          return result.data.product_insert.id;
-        });
+    // return await _connector
+    //     .createNewProduct(
+    //       name: name,
+    //       description: description,
+    //       category: subcategoryId,
+    //       mainImage: imageUrl,
+    //       specs: specs,
+    //     )
+    //     .execute()
+    //     .then((result) {
+    //       return result.data.product_insert.id;
+    //     });
+    return '';
   }
 
   Future<void> createNewProductVariation({
@@ -105,9 +107,9 @@ final class ProductRepository {
         );
       });
 
-  Future<ProcessGuidelineImageResult> processProductGuidelineImage(
+  Future<ProductExtractionListingData> productExtractionListing(
     UserContent content,
-  ) async => _fn.processProductGuidelineImage(content);
+  ) async => _fn.productExtractionListing(content);
 
   Future productSearch(UserContent userContentMedia) async {
     return await _fn.productSearch(userContentMedia);

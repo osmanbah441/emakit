@@ -1,8 +1,6 @@
 import 'package:domain_models/domain_models.dart' as domain;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../default_connector/default.dart';
-
 extension on User {
   domain.UserInfo get toDomain => domain.UserInfo(
     email: email,
@@ -16,8 +14,8 @@ extension on User {
 class UserRepository {
   const UserRepository();
   static final FirebaseAuth _auth = FirebaseAuth.instance;
-  static final _db = DefaultConnector.instance;
 
+  static ConfirmationResult? _confirmationResult;
   domain.UserInfo? get currentUser => _auth.currentUser?.toDomain;
 
   Future<void> updateDisplayName(String displayName) async {
@@ -30,17 +28,36 @@ class UserRepository {
     await user.reload();
   }
 
-  Future<void> signInWithGoogleWeb() async {
+  Future<void> signInwithPhoneNumberWeb(String phoneNumber) async {
+    try {
+      _confirmationResult = await _auth.signInWithPhoneNumber(phoneNumber);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<domain.AuthResult> verifyOtp(String code) async {
+    if (_confirmationResult != null) {
+      final credential = await _confirmationResult!.confirm(code);
+
+      return domain.AuthResult(
+        user: credential.user!.toDomain,
+        isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
+      );
+    }
+
+    throw const domain.UserAuthenticationRequiredException();
+  }
+
+  Future<domain.AuthResult> signInWithGoogleWeb() async {
     try {
       final authProvider = GoogleAuthProvider();
-      final credentials = await _auth.signInWithPopup(authProvider);
-      final user = credentials.user;
-      if (user == null) return;
-      final fn = _db.createNewUser(id: user.uid);
-      if (user.email != null) fn.email(user.email!);
-      if (user.displayName != null) fn.displayName(user.displayName!);
-      if (user.photoURL != null) fn.photoURL(user.photoURL!);
-      await fn.execute();
+      final credential = await _auth.signInWithPopup(authProvider);
+
+      return domain.AuthResult(
+        user: credential.user!.toDomain,
+        isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
+      );
     } catch (e) {
       rethrow;
     }

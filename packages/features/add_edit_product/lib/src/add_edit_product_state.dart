@@ -29,7 +29,7 @@ class AddEditProductState {
     this.creatingFromExistingProduct,
     this.errorMessage,
     this.isFlaggedAsDuplicate = false,
-    this.variationFields = const [], // NEW
+    this.variationFields = const {}, // NEW
   });
 
   final AddEditProductStatus status;
@@ -44,7 +44,7 @@ class AddEditProductState {
   final bool isFlaggedAsDuplicate;
   final String? errorMessage;
 
-  final List<Map<String, dynamic>> variationFields; // NEW
+  final Map<String, List<String>> variationFields; // NEW
 
   AddEditProductState copyWith({
     AddEditProductStatus? status,
@@ -58,7 +58,7 @@ class AddEditProductState {
     double? currentProgressIndicator,
     String? errorMessage,
     bool? isFlaggedAsDuplicate,
-    List<Map<String, dynamic>>? variationFields, // NEW
+    Map<String, List<String>>? variationFields, // NEW
   }) {
     return AddEditProductState(
       status: status ?? this.status,

@@ -26,3 +26,10 @@ class UserInfo {
     this.role = UserRole.buyer,
   });
 }
+
+class AuthResult {
+  final UserInfo user;
+  final bool isNewUser;
+
+  AuthResult({required this.user, required this.isNewUser});
+}

@@ -6,18 +6,21 @@ enableFirebaseTelemetry();
 
 
 import { defineSecret } from "firebase-functions/params";
+import { MultimodalProductSearchFlow } from "./flows/multimodal_product_search";
+import { productImageUnderstandFlow } from "./flows/product_image_understanding_flow";
+import { ProductExtractionListingFlow } from "./flows/product_extraction_listing_flow";
+
 const apiKey = defineSecret("GOOGLE_GENAI_API_KEY");
 
-import {productImageUnderstandFlow, productSearchFlow} from "./flows/flow";
-
-
-
-export const productSearch = onCallGenkit({
+export const ProductExtractionListing = onCallGenkit({
   secrets: [apiKey]
-}, productSearchFlow);
+}, ProductExtractionListingFlow);
 
+
+export const MultimodalProductSearch = onCallGenkit({
+  secrets: [apiKey]
+}, MultimodalProductSearchFlow);
 
 export const productImageUnderstand = onCallGenkit({
-
   secrets: [apiKey],
 }, productImageUnderstandFlow);

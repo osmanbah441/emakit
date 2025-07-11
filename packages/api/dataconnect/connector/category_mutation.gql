@@ -1,0 +1,29 @@
+mutation createNewCategory(
+    $name: String! 
+    $description: String!
+    $parentCategory: UUID
+    $imageUrl: String! 
+) @auth(level: NO_ACCESS) {
+    category_insert(data:  {
+        name: $name
+        description: $description
+        parentCategoryId: $parentCategory
+        imageUrl: $imageUrl
+    
+    })
+}
+
+mutation setCategoryAttributes(
+    $id: UUID!
+    $specificationAttributes: [String!]
+    $variationAttributes: Any
+) @auth(level: NO_ACCESS) {
+    category_update(id: $id, data:  {
+        specificationAttributes: $specificationAttributes
+        variationAttributes: $variationAttributes
+    })
+}
+
+mutation deleteCategory($id: UUID!) @auth(level: NO_ACCESS) {
+    category_delete(id: $id)
+}

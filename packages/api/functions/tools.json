@@ -1,20 +1,25 @@
 {
   "connector": "tools",
   "location": "us-central1",
-  "service": "e-makit-service",
+  "service": "e-makit-1-service",
   "tools": [
     {
-      "name": "sematicSearch",
+      "name": "getAllParentCategories",
+      "type": "query",
+      "parameters": null
+    },
+    {
+      "name": "getChildrenCategories",
       "type": "query",
       "parameters": {
         "type": "object",
         "properties": {
-          "query": {
+          "id": {
             "type": "string"
           }
         },
         "required": [
-          "query"
+          "id"
         ]
       }
     }

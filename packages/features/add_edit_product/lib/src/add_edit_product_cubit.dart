@@ -27,7 +27,7 @@ class AddEditProductCubit extends Cubit<AddEditProductState> {
     goToStep(AddEditProductStep.newVariation);
   }
 
-  void processGuidelineImage() async {
+  void productExtractionListing() async {
     if (state.guidelineImage == null) return;
     if (state.similarProducts.isNotEmpty ||
         state.newProduct != null ||
@@ -37,22 +37,24 @@ class AddEditProductCubit extends Cubit<AddEditProductState> {
     emit(state.copyWith(status: AddEditProductStatus.loading));
     try {
       final result = await Api.instance.productRepository
-          .processProductGuidelineImage(
+          .productExtractionListing(
             UserContentMedia(
               state.guidelineImage!.bytes,
               state.guidelineImage!.mimeType,
             ),
           );
 
-      final category = await Api.instance.categoryRepository.getCategoryById(
-        "29139e6ac4034888967041cff3670fff",
+      final product = Product(
+        name: result.productName,
+        description: result.productDescription,
+        specifications: result.categorySpecificationFields,
+        categoryId: result.selectedChildCategoryId,
       );
+
       emit(
         state.copyWith(
-          similarProducts: result.similarProducts,
-          newProduct: result.generatedProduct,
-          variationFields: category,
-          newProductVariation: result.generatedProductVariation,
+          newProduct: product,
+          variationFields: result.variationAttributes,
           status: AddEditProductStatus.success,
           currentStep: AddEditProductStep.similarProducts,
         ),

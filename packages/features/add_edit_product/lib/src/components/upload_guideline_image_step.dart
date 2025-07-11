@@ -37,7 +37,7 @@ class UploadGuidelineImageStep extends StatelessWidget {
             onLeftTap: () => Navigator.pop(context),
             onRightTap: state.guidelineImage == null
                 ? null
-                : cubit.processGuidelineImage,
+                : cubit.productExtractionListing,
           ),
         ],
       );

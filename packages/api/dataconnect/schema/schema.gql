@@ -1,0 +1,111 @@
+type Category @table {
+  name: String! @unique @col(dataType: "VARCHAR(255)")
+  description: String!
+  parentCategory: Category
+  imageUrl: String! @col(dataType: "VARCHAR(255)")
+  specificationAttributes: [String]
+  variationAttributes: Any
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type Listing @table {
+  name: String! @col(dataType: "VARCHAR(255)")
+  description: String!
+  category: Category!
+  mainImage: String @col(dataType: "VARCHAR(255)")
+  specifications: Any!
+  embeddingText: Vector! @col(size: 768)
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type ProductVariation @table {
+  product: Listing!
+  store: Store!
+  price: Float! @col(dataType: "DECIMAL(10, 2)")
+  availabeStock: Int!
+  attributes: Any!
+  imageUrls: [String!]!
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type User @table {
+  # The 'id' field is implicitly added as UUID! by Firebase Data Connect.
+  # The original 'id: String! # firebase uid' is removed as per instructions
+  # to "leave out the `id` field" to avoid conflict with the implicit primary key.
+  email: String @unique @col(dataType: "VARCHAR(100)")
+  phoneNumber: String @unique @col(dataType: "VARCHAR(20)")
+  displayName: String @col(dataType: "VARCHAR(255)")
+  photoUrl: String @col(dataType: "VARCHAR(255)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Address @table {
+  user: User!
+  label: String! @col(dataType: "VARCHAR(50)")
+  addressLine: String
+  district: String
+  province: String
+  longitude: Float
+  latitude: Float
+  isDefault: Boolean! @default(value: false)
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type Store @table {
+  name: String! @unique @col(dataType: "VARCHAR(255)")
+  description: String!
+  logoUrl: String! @col(dataType: "VARCHAR(255)")
+  phoneNumber: String! @unique @col(dataType: "VARCHAR(20)")
+  owner: User! @unique
+  address: Address!
+  status: String! @default(expr: "'pending'") @col(dataType: "VARCHAR(50)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Cart @table {
+  user: User! @unique
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type CartItem @table {
+  cart: Cart!
+  productVariation: ProductVariation!
+  quantity: Int!
+}
+
+type Payment @table {
+  user: User!
+  method: String! @col(dataType: "VARCHAR(100)") # e.g., 'mobile_money', 'cash_on_delivery'
+  status: String! @default(expr: "'unpaid'") @col(dataType: "VARCHAR(50)") # unpaid, paid, failed
+  reference: String @col(dataType: "VARCHAR(255)")
+  amount: Float! @col(dataType: "DECIMAL(10, 2)")
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type Order @table {
+  user: User!
+  payment: Payment!
+  address: Address!
+  status: String! @default(expr: "'pending'") @col(dataType: "VARCHAR(50)")
+  totalAmount: Float! @col(dataType: "DECIMAL(10, 2)")
+  taxAmount: Float! @col(dataType: "DECIMAL(10, 2)")
+  deliveryFee: Float! @col(dataType: "DECIMAL(10, 2)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type OrderItem @table {
+  order: Order!
+  productVariation: ProductVariation!
+  store: Store!
+  quantity: Int!
+  unitPrice: Float! @col(dataType: "DECIMAL(10, 2)")
+  subtotal: Float! @col(dataType: "DECIMAL(10, 2)")
+  deliveryStatus: String! @default(expr: "'pending'") @col(dataType: "VARCHAR(50)") # pending, shipped, delivered
+  deliveredAt: Timestamp
+}

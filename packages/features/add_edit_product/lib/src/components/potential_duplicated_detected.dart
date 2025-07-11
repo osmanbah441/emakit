@@ -37,11 +37,11 @@ class PotentialDuplicatedDetected extends StatelessWidget {
                       imageUrls: [state.detectedSimilarProduct!.imageUrl!],
                     ),
                     const Spacer(),
-                    PrimaryActionButton(
+                    ExtendedElevatedButton(
                       onPressed: () => cubit.setPotentialDuplicate(false),
                       label: 'Yes, this is the same product.',
                     ),
-                    PrimaryActionButton(
+                    ExtendedElevatedButton(
                       onPressed: () => cubit.setPotentialDuplicate(true),
                       label: 'No, my product is different.',
                     ),
