@@ -13,13 +13,13 @@ class ProductListLoaded extends ProductListState {
   final List<Product> products;
   final String currentSearchTerm;
   final SearchInputMode searchInputMode;
-  final UserRole? userRole;
+
   final Set<String> cartProductIds;
   final Set<String> wishlistProductIds;
 
   const ProductListLoaded({
     required this.products,
-    this.userRole,
+
     this.currentSearchTerm = '',
     this.searchInputMode = SearchInputMode.idle,
     this.cartProductIds = const {},

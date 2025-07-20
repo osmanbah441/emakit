@@ -16,6 +16,8 @@ class PhoneNumberInputField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.phone,
+      autocorrect: false,
+
       decoration: const InputDecoration(
         labelText: 'Phone Number',
         hintText: '+23278647879',

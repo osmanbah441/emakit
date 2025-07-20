@@ -1,0 +1,49 @@
+query GetUser($id: UUID!) @auth(level: USER) {
+  user(id: $id) {
+    id
+    displayName
+    email
+    store: store_on_owner {
+        id
+        
+    }
+  }
+}
+
+query getAllUsers @auth(level: NO_ACCESS) {
+  users {
+    id
+    displayName
+    email
+    phoneNumber
+    photoUrl
+    store: store_on_owner {
+      id
+      name
+
+    }
+    address {
+      label
+      addressLine
+      district
+      province
+      longitude
+      latitude
+      isDefault
+    }
+  }
+}
+
+query getAllAddresses @auth(level: NO_ACCESS) {
+  addresses {
+    id
+    label
+    addressLine
+    district
+    province
+    longitude
+    latitude
+    isDefault
+    createdAt
+  }
+}

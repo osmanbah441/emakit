@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:api/src/dataconnect_gen/default.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:firebase_data_connect/firebase_data_connect.dart';
-
-import '../default_connector/default.dart';
 
 final class CategoryRepository {
   const CategoryRepository();

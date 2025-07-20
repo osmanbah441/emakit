@@ -13,7 +13,7 @@ query getAllCategories @auth(level: NO_ACCESS) {
 }
 
 query getAllParentCategories @auth(level: NO_ACCESS) {
-    categories(where: {parentCategoryId: {isNull: true}}) {...CategoryFragment}
+    categories(where: {parentCategoryId: {isNull: false}}) {...CategoryFragment}
 }
 
 query getCategoryById($id: UUID!) @auth(level: NO_ACCESS) {
@@ -23,3 +23,4 @@ query getCategoryById($id: UUID!) @auth(level: NO_ACCESS) {
 query getChildrenCategories($id: UUID!) @auth(level: NO_ACCESS) {
     categories(where: {parentCategoryId: {eq: $id}}) {...CategoryFragment}
 }
+

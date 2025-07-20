@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 extension on User {
   domain.UserInfo get toDomain => domain.UserInfo(
     email: email,
-    displayName: displayName,
+    displayName: displayName!,
     photoURL: photoURL,
     emailVerified: emailVerified,
     phoneNumber: phoneNumber,
@@ -17,6 +17,10 @@ class UserRepository {
 
   static ConfirmationResult? _confirmationResult;
   domain.UserInfo? get currentUser => _auth.currentUser?.toDomain;
+
+  Stream<domain.UserInfo?> authChanges() {
+    return _auth.authStateChanges().map((a) => a?.toDomain);
+  }
 
   Future<void> updateDisplayName(String displayName) async {
     final user = _auth.currentUser;
@@ -36,37 +40,28 @@ class UserRepository {
     }
   }
 
-  Future<domain.AuthResult> verifyOtp(String code) async {
+  // return true if new user else false
+  Future<bool> verifyOtp(String code) async {
     if (_confirmationResult != null) {
       final credential = await _confirmationResult!.confirm(code);
 
-      return domain.AuthResult(
-        user: credential.user!.toDomain,
-        isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
-      );
+      return credential.additionalUserInfo?.isNewUser ?? false;
     }
 
     throw const domain.UserAuthenticationRequiredException();
   }
 
-  Future<domain.AuthResult> signInWithGoogleWeb() async {
+  Future<void> signInWithGoogleWeb() async {
     try {
       final authProvider = GoogleAuthProvider();
-      final credential = await _auth.signInWithPopup(authProvider);
+      await _auth.signInWithPopup(authProvider);
 
-      return domain.AuthResult(
-        user: credential.user!.toDomain,
-        isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
-      );
+      // add this credentails to the db;
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
 
   Future<void> signOut() async => await _auth.signOut();
-
-  Future<domain.UserRole?> get getCurrentUserRole async {
-    // return null;
-    return domain.UserRole.admin;
-  }
 }

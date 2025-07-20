@@ -1,0 +1,18 @@
+mutation createStore(
+    $name: String!
+    $description: String!
+    $ownerId: UUID!
+    $addressId: UUID!
+    $logoUrl: String!
+    $phoneNumber: String!
+
+) @auth(level: USER, insecureReason: "Users can create stores") {
+    store_insert(data: {
+      addressId: $addressId
+        name: $name
+        description: $description
+        ownerId: $ownerId
+        logoUrl: $logoUrl
+        phoneNumber: $phoneNumber
+    })
+}

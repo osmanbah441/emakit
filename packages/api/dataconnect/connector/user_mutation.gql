@@ -1,0 +1,26 @@
+mutation createNewUser(
+    $displayName: String
+    $email: String
+    $phoneNumber: String
+    $photoUrl: String
+) @auth(level: PUBLIC, insecureReason: "Everyone can create account") {
+    user_insert(data:  {
+        displayName: $displayName
+        email: $email
+        phoneNumber: $phoneNumber
+        photoUrl: $photoUrl
+    })
+}
+
+mutation createNewAddressForUser(
+    $label: String!
+    $addressLine: String
+    $district: String
+) @auth(level: USER, insecureReason: "Users can create addresses") {
+    address_insert(data: {
+        label: $label
+        addressLine: $addressLine
+        district: $district
+
+    })
+}

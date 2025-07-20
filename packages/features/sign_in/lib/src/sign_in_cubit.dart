@@ -23,17 +23,16 @@ class SignInCubit extends Cubit<SignInState> {
   Future<void> verifyOtp(String otp) async {
     emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
     try {
-      final result = await _userRepository.verifyOtp(otp);
+      final isNewUser = await _userRepository.verifyOtp(otp);
 
       emit(
         state.copyWith(
-          status: result.isNewUser
+          status: isNewUser
               ? SignInSubmissionStatus.newUser
               : SignInSubmissionStatus.success,
-          user: result.user,
         ),
       );
-    } catch (_) {
+    } catch (e) {
       emit(
         state.copyWith(status: SignInSubmissionStatus.failedOtpVerification),
       );
@@ -43,17 +42,20 @@ class SignInCubit extends Cubit<SignInState> {
   Future<void> continueWithGoogle() async {
     emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
     try {
-      final result = await _userRepository.signInWithGoogleWeb();
+      await _userRepository.signInWithGoogleWeb();
 
-      emit(
-        state.copyWith(
-          status: result.isNewUser
-              ? SignInSubmissionStatus.newUser
-              : SignInSubmissionStatus.success,
-          user: result.user,
-        ),
-      );
+      emit(state.copyWith(status: SignInSubmissionStatus.success));
     } catch (_) {
+      emit(state.copyWith(status: SignInSubmissionStatus.networkError));
+    }
+  }
+
+  void updateDisplayName(String name) {
+    try {
+      _userRepository.updateDisplayName(name);
+      emit(state.copyWith(status: SignInSubmissionStatus.success));
+    } catch (e) {
+      print(e);
       emit(state.copyWith(status: SignInSubmissionStatus.networkError));
     }
   }

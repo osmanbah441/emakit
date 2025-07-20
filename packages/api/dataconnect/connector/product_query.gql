@@ -1,0 +1,41 @@
+
+
+query getAllProducts @auth(level: PUBLIC insecureReason: "Everyone can see products") {
+    products: listings {
+        id name description mainImage specifications
+        variations: productVariations_on_product(where:  {
+           availabeStock:  {
+              gt: 0
+           }
+        }) {
+            id, price, imageUrls attributes, availabeStock
+        }
+
+    }
+}
+
+query getProductById($id: UUID!) @auth(level: PUBLIC insecureReason: "Everyone can see products") {
+    product: listing(id: $id) {
+        id name description mainImage specifications
+        variations: productVariations_on_product(where:  {
+           availabeStock:  {
+              gt: 0
+           }
+        }) {
+            id, price, imageUrls attributes, availabeStock
+        }
+
+    }
+}
+
+query getProductForStoreOwner($storeId: UUID!) @auth(level: NO_ACCESS) {
+    listings {
+        productVariations_on_product(where:  {
+           storeId:  {
+              eq: $storeId
+           }
+        }) {
+            id, price, imageUrls attributes, availabeStock
+        }
+    }
+}

@@ -1,0 +1,34 @@
+mutation createNewProduct(
+    $name: String! 
+    $description: String!
+    $category: UUID!
+    $mainImage: String! 
+    $specs: Any!
+) @auth(level: USER) {
+    listing_insert(data:  {
+        name: $name
+        description: $description
+        categoryId: $category
+        mainImage: $mainImage
+        specifications: $specs
+        # add embedding text
+    })
+}
+
+mutation createNewProductVariation(
+    $storeId: UUID!,
+    $attributes: Any!,
+    $productId: UUID!,
+    $imageUrls: [String!]!,
+    $price: Float!,
+    $availabeStock: Int!
+) @auth(level: USER) {
+    productVariation_insert(data: {
+        storeId: $storeId,
+        attributes: $attributes,
+        productId: $productId,
+        imageUrls: $imageUrls,
+        price: $price,
+        availabeStock: $availabeStock
+    })
+}

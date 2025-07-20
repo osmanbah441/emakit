@@ -27,3 +27,987 @@ mutation setCategoryAttributes(
 mutation deleteCategory($id: UUID!) @auth(level: NO_ACCESS) {
     category_delete(id: $id)
 }
+
+mutation mockParentCategory @auth(level: NO_ACCESS) {
+    category_insertMany(data:  [
+    {
+      id: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      name: "Electronics",
+      description: "Devices and accessories characterized by their functional importance, technological nature, and electrical operation, providing solutions for communication, entertainment, productivity, and home utility.",
+      imageUrl: "https://picsum.photos/400/300?random=1"
+    },
+    {
+      description: "Apparel, footwear, and accessories designed for personal adornment, style, and utility across all genders and age groups.",
+      id: "f0d232d4aa5949a2af18f2f3d2ce7b92",
+      name: "Fashion",
+      imageUrl: "https://picsum.photos/400/300?random=2"
+    },
+    {
+      description: "Products emphasizing personal care, wellness, hygiene, and aesthetic enhancement, with a strong focus on safety, formulation, and well-being.",
+      id: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      name: "Health & Beauty",
+      imageUrl: "https://picsum.photos/400/300?random=3"
+    },
+    {
+      id: "bf0f0cb72ae049b09e8bae194b326453",
+      name: "Groceries",
+      description: "Consumable items, encompassing all food products, beverages, and essential household consumables, structured by dietary needs, preparation, and packaging.",
+      imageUrl: "https://picsum.photos/400/300?random=4"
+    }
+])
+}
+
+mutation mockChildrenCategory @auth(level: NO_ACCESS) {
+    category_insertMany(data:  [
+    {
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "500f6fcee1a6426a9a066429cc7792ea",
+      name: "Mobile Phones & Tablets",
+      description: "Handheld smart devices and portable computing tablets.",
+      imageUrl: "https://picsum.photos/seed/mobile-phones/800/600",
+      variationAttributes: {
+        color: [
+          "Black",
+          "White",
+          "Blue",
+          "Red",
+          "Green",
+          "Gold",
+          "Silver"
+        ],
+        storageCapacityGB: [
+          "32",
+          "64",
+          "128",
+          "256",
+          "512",
+          "1024"
+        ]
+      },
+      specificationAttributes: [
+        "Brand",
+        "Model",
+        "Operating System (OS)",
+        "Screen Size",
+        "Battery Capacity (mAh)",
+        "RAM",
+        "Camera Resolution (MP)",
+        "SIM Slots",
+        "Network Support (2G, 3G, 4G, 5G)"
+      ]
+    },
+    {
+      name: "Laptops & Computers",
+      description: "Portable and desktop computing devices, including accessories.",
+      imageUrl: "https://picsum.photos/seed/laptops/800/600",
+      variationAttributes: {
+        ramSize: [
+          "4GB",
+          "8GB",
+          "16GB",
+          "32GB"
+        ],
+        storageCapacity: [
+          "128GB SSD",
+          "256GB SSD",
+          "512GB SSD",
+          "1TB SSD",
+          "1TB HDD",
+          "2TB HDD"
+        ],
+        color: [
+          "Black",
+          "Silver",
+          "Grey",
+          "White"
+        ]
+      },
+      specificationAttributes: [
+        "Brand",
+        "Model",
+        "OS",
+        "Screen Size",
+        "Processor (e.g., Intel i5, AMD Ryzen)",
+        "RAM (GB)",
+        "Storage Type (SSD, HDD)",
+        "Graphics Card",
+        "Ports (USB, HDMI)"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "a85915f382fe443f9f6edbc78c8a4278"
+    },
+    {
+      id: "5c312b751f3645609cfbbe54be7c8ca2",
+      name: "Televisions & Displays",
+      description: "Visual display units for entertainment and viewing.",
+      imageUrl: "https://picsum.photos/seed/televisions/800/600",
+      variationAttributes: {
+        screenSize: [
+          "32 inches",
+          "43 inches",
+          "55 inches",
+          "65 inches",
+          "75 inches"
+        ]
+      },
+      specificationAttributes: [
+        "Brand",
+        "Model",
+        "Screen Size (inches)",
+        "Display Type (LED, OLED)",
+        "Resolution (HD, Full HD, 4K)",
+        "Smart TV Features",
+        "Connectivity (HDMI, USB, Wi-Fi)"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6"
+    },
+    {
+      id: "d5664778a64347d593e8d5682eddf7cd",
+      name: "Audio Devices",
+      description: "Personal and home audio systems for sound reproduction.",
+      imageUrl: "https://picsum.photos/seed/audio-devices/800/600",
+      variationAttributes: {
+        powerSource: [
+          "Rechargeable Battery",
+          "AC Powered",
+          "USB"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Silver",
+          "Red"
+        ]
+      },
+      specificationAttributes: [
+        "Brand",
+        "Form Factor (Headphones, Earbuds, Speaker, Soundbar)",
+        "Connectivity (Bluetooth, Wired)",
+        "Noise Cancellation",
+        "Microphone",
+        "Power Output (Watts)",
+        "Battery Life"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6"
+    },
+    {
+      description: "Devices for capturing images, videos, and aerial footage.",
+      imageUrl: "https://picsum.photos/seed/cameras-drones/800/600",
+      variationAttributes: {
+        color: [
+          "Black",
+          "Silver",
+          "White"
+        ],
+        kitOptions: [
+          "Body Only",
+          "Kit Lens",
+          "Dual Lens Kit"
+        ]
+      },
+      specificationAttributes: [
+        "Brand",
+        "Model",
+        "Sensor Type",
+        "Megapixels (MP)",
+        "Optical Zoom",
+        "Video Resolution",
+        "Features (e.g., Image Stabilization, Panorama)"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "f376d99802034a71b5f2bf5ba9d87739",
+      name: "Cameras & Drones"
+    },
+    {
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "270fb50dfda749c1abb37690b6136ec9",
+      name: "Wearable Technology",
+      description: "Smart devices worn on the body for health, fitness, and notifications.",
+      imageUrl: "https://picsum.photos/seed/wearables/800/600",
+      variationAttributes: {
+        size: [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        strapColor: [
+          "Black",
+          "Blue",
+          "Pink",
+          "Green",
+          "White"
+        ]
+      },
+      specificationAttributes: [
+        "Device Type (Smartwatch, Fitness Tracker)",
+        "Brand",
+        "Screen Type",
+        "Compatibility (Android, iOS)",
+        "Battery Life",
+        "Health Sensors (Heart Rate, SpO2)"
+      ]
+    },
+    {
+      description: "Compact electrical appliances for various household tasks.",
+      imageUrl: "https://picsum.photos/seed/home-appliances/800/600",
+      variationAttributes: {
+        capacity: [
+          "1.7L",
+          "2L",
+          "500ml",
+          "1.5L"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Silver",
+          "Red"
+        ]
+      },
+      specificationAttributes: [
+        "Type (Blender, Kettle, Fan, Iron, Toaster)",
+        "Brand",
+        "Power (Watts)",
+        "Voltage",
+        "Capacity",
+        "Safety Features"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "dfc4815f0c67416b9c28468197f8978f",
+      name: "Home & Kitchen Appliances"
+    },
+    {
+      name: "Electronics Accessories",
+      description: "Complementary items for electronic devices.",
+      imageUrl: "https://picsum.photos/seed/electronics-accessories/800/600",
+      variationAttributes: {
+        cableLength: [
+          "1m",
+          "2m",
+          "0.5m"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Grey"
+        ],
+        size: [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      },
+      specificationAttributes: [
+        "Accessory Type (Charger, Cable, Case, Power Bank, Adapter)",
+        "Brand",
+        "Compatibility",
+        "Capacity"
+      ],
+      parentCategoryId: "2c7c30ae34384473bcd2d32cf23d5fb6",
+      id: "8d68f35fd08b431197848d92e824cc64"
+    },
+    {
+      id: "f387df277e044d448f439854c07af0da",
+      name: "Women's Apparel",
+      description: "Clothing specifically designed for women.",
+      imageUrl: "https://picsum.photos/seed/womens-apparel/800/600",
+      variationAttributes: {
+        style: [
+          "Casual",
+          "Formal",
+          "Sporty",
+          "Boho",
+          "Vintage"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Blue",
+          "Red",
+          "Green",
+          "Yellow",
+          "Pink",
+          "Purple",
+          "Brown",
+          "Grey"
+        ],
+        pattern: [
+          "Solid",
+          "Striped",
+          "Floral",
+          "Geometric",
+          "Polka Dot"
+        ],
+        size: [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      specificationAttributes: [
+        "Apparel Type (e.g., Dress, Top, Skirt, Jeans)",
+        "Fabric",
+        "Fit",
+        "Neckline",
+        "Sleeve Length",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92"
+    },
+    {
+      id: "b16c7403f4414ba5b308fab292cff117",
+      name: "Men's Apparel",
+      description: "Clothing specifically designed for men.",
+      imageUrl: "https://picsum.photos/seed/mens-apparel/800/600",
+      variationAttributes: {
+        style: [
+          "Casual",
+          "Formal",
+          "Sporty",
+          "Business Casual"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Blue",
+          "Grey",
+          "Navy",
+          "Green",
+          "Brown"
+        ],
+        pattern: [
+          "Solid",
+          "Striped",
+          "Checkered",
+          "Geometric"
+        ],
+        size: [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      specificationAttributes: [
+        "Apparel Type (e.g., Shirt, Trousers, Jacket, Shorts)",
+        "Fabric",
+        "Fit Type",
+        "Collar Type",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92"
+    },
+    {
+      id: "10040a52eaa047c29b47a5a57d7351b8",
+      name: "Children's Apparel",
+      description: "Clothing for infants, toddlers, and older children.",
+      imageUrl: "https://picsum.photos/seed/childrens-apparel/800/600",
+      variationAttributes: {
+        sizeAge: [
+          "0-3 Months",
+          "3-6 Months",
+          "6-12 Months",
+          "1-2 Years",
+          "2-3 Years",
+          "4-5 Years",
+          "6-8 Years",
+          "9-12 Years"
+        ],
+        color: [
+          "Blue",
+          "Pink",
+          "Yellow",
+          "Green",
+          "White",
+          "Multi-color"
+        ],
+        pattern: [
+          "Cartoon",
+          "Animal",
+          "Striped",
+          "Solid"
+        ]
+      },
+      specificationAttributes: [
+        "Gender (Unisex, Boy, Girl)",
+        "Age Group (e.g., 0-12 months, 2-4 years)",
+        "Apparel Type",
+        "Fabric",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92"
+    },
+    {
+      description: "Items worn on the feet for protection and style.",
+      imageUrl: "https://picsum.photos/seed/footwear/800/600",
+      variationAttributes: {
+        width: [
+          "Standard",
+          "Wide"
+        ],
+        color: [
+          "Black",
+          "White",
+          "Brown",
+          "Blue",
+          "Red",
+          "Grey"
+        ],
+        size: [
+          "EU 36",
+          "EU 37",
+          "EU 38",
+          "EU 39",
+          "EU 40",
+          "EU 41",
+          "EU 42",
+          "EU 43",
+          "EU 44",
+          "EU 45"
+        ]
+      },
+      specificationAttributes: [
+        "Gender",
+        "Footwear Type (e.g., Sneakers, Sandals, Boots, Heels)",
+        "Material (e.g., Leather, Canvas, Synthetic)",
+        "Closure Type (Lace-up, Slip-on)",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92",
+      id: "235128ec8f83499c91bbe7df5af8977d",
+      name: "Footwear"
+    },
+    {
+      id: "ecb5d21d659d4ef3b18090fbb8529735",
+      name: "Bags & Luggage",
+      description: "Items for carrying personal belongings or travel essentials.",
+      imageUrl: "https://picsum.photos/seed/bags-luggage/800/600",
+      variationAttributes: {
+        capacity: [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        color: [
+          "Black",
+          "Brown",
+          "Tan",
+          "Blue",
+          "Red",
+          "Grey"
+        ]
+      },
+      specificationAttributes: [
+        "Bag Type (e.g., Handbag, Backpack, Wallet, Travel Bag)",
+        "Material",
+        "Dimensions",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92"
+    },
+    {
+      name: "Jewelry & Watches",
+      description: "Ornamental items and timepieces, primarily for aesthetic value.",
+      imageUrl: "https://picsum.photos/seed/jewelry-watches/800/600",
+      variationAttributes: {
+        finish: [
+          "Polished",
+          "Matte",
+          "Brushed"
+        ],
+        size: [
+          "Adjustable",
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        color: [
+          "Gold",
+          "Silver",
+          "Rose Gold",
+          "Multi-color"
+        ]
+      },
+      specificationAttributes: [
+        "Item Type (e.g., Necklace, Ring, Earrings, Bracelet, Watch)",
+        "Material (e.g., Gold, Silver, Beads, Leather)",
+        "Style",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92",
+      id: "cb34e16eb96249419c25496baad93d3f"
+    },
+    {
+      specificationAttributes: [
+        "Accessory Type (e.g., Belt, Scarf, Hat, Sunglasses)",
+        "Material",
+        "Dimensions",
+        "Brand"
+      ],
+      parentCategoryId: "f0d232d4aa5949a2af18f2f3d2ce7b92",
+      id: "229bf53e0a1344b1a1abc19f406c4e84",
+      name: "Fashion Accessories",
+      description: "Complementary items to enhance an outfit or serve a supplementary purpose.",
+      imageUrl: "https://picsum.photos/seed/fashion-accessories/800/600",
+      variationAttributes: {
+        color: [
+          "Black",
+          "White",
+          "Brown",
+          "Blue",
+          "Red",
+          "Multi-color"
+        ],
+        size: [
+          "One Size",
+          "S",
+          "M",
+          "L"
+        ]
+      }
+    },
+    {
+      variationAttributes: {
+        size: [
+          "30ml",
+          "50ml",
+          "100ml",
+          "200ml"
+        ],
+        fragranceScent: [
+          "Unscented",
+          "Floral",
+          "Fruity",
+          "Fresh",
+          "Musky"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Cleanser, Moisturizer, Serum, Sunscreen, Mask)",
+        "Skin Type (e.g., Oily, Dry, Sensitive)",
+        "Key Ingredients",
+        "Primary Concern (e.g., Anti-Aging, Acne)",
+        "Brand"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "3bb31913cd03410d956c2bf86fb3173e",
+      name: "Skincare",
+      description: "Products formulated to cleanse, treat, protect, and enhance the health and appearance of facial and body skin.",
+      imageUrl: "https://picsum.photos/seed/skincare/800/600"
+    },
+    {
+      variationAttributes: {
+        scent: [
+          "Floral",
+          "Fruity",
+          "Fresh",
+          "Herbal"
+        ],
+        size: [
+          "150ml",
+          "250ml",
+          "500ml",
+          "750ml"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Shampoo, Conditioner, Treatment, Styling Gel)",
+        "Hair Type (e.g., Oily, Dry, Curly)",
+        "Key Ingredients",
+        "Brand"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "9971c47a09ad46e09e0dd022ad3afd1a",
+      name: "Hair Care",
+      description: "Products for cleansing, conditioning, styling, and treating hair and scalp.",
+      imageUrl: "https://picsum.photos/seed/haircare/800/600"
+    },
+    {
+      variationAttributes: {
+        shadeColor: [
+          "Fair",
+          "Light",
+          "Medium",
+          "Deep",
+          "Red",
+          "Pink",
+          "Nude"
+        ],
+        size: [
+          "Full Size",
+          "Travel Size"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Foundation, Lipstick, Mascara, Eyeshadow)",
+        "Skin Tone",
+        "Finish (e.g., Matte, Radiant)",
+        "Brand"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "f246299174024a84a4fc3a8912293abb",
+      name: "Makeup & Cosmetics",
+      description: "Decorative products for facial and body enhancement.",
+      imageUrl: "https://picsum.photos/seed/makeup-cosmetics/800/600"
+    },
+    {
+      variationAttributes: {
+        bristleType: [
+          "Soft",
+          "Medium",
+          "Hard"
+        ],
+        size: [
+          "50g",
+          "100g",
+          "200ml",
+          "500ml"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Toothpaste, Mouthwash, Toothbrush, Floss)",
+        "Brand",
+        "Benefit (e.g., Whitening, Sensitivity)",
+        "Flavor",
+        "Active Ingredient"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "b13b89af205247c98f148110e347f11b",
+      name: "Oral Care",
+      description: "Products for dental and mouth hygiene.",
+      imageUrl: "https://picsum.photos/seed/oral-care/800/600"
+    },
+    {
+      description: "Everyday essentials for bodily cleanliness, freshness, and basic grooming.",
+      imageUrl: "https://picsum.photos/seed/personal-hygiene/800/600",
+      variationAttributes: {
+        packCount: [
+          "1",
+          "3",
+          "6",
+          "12"
+        ],
+        scent: [
+          "Unscented",
+          "Fresh",
+          "Floral",
+          "Sport"
+        ],
+        size: [
+          "50ml",
+          "100ml",
+          "250ml",
+          "Bar"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Deodorant, Soap, Body Wash, Hand Sanitizer, Sanitary Pads, Razor, Wet Wipes)",
+        "Brand",
+        "Skin Sensitivity",
+        "Application Area"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "9399a797a93044918c48c63769a64358",
+      name: "Personal Hygiene"
+    },
+    {
+      name: "Fragrances",
+      description: "Scented products for personal use.",
+      imageUrl: "https://picsum.photos/seed/fragrances/800/600",
+      variationAttributes: {
+        fragranceType: [
+          "Day",
+          "Night",
+          "Unisex"
+        ],
+        size: [
+          "30ml",
+          "50ml",
+          "100ml"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Eau de Parfum, Eau de Toilette, Body Mist)",
+        "Brand",
+        "Scent Profile (e.g., Floral, Woody, Citrus, Spicy)"
+      ],
+      parentCategoryId: "d59d0dd83a5145c0b821ac06c4d1b01e",
+      id: "cb07a47e75214016a604dd3c66f6619f"
+    },
+    {
+      variationAttributes: {
+        packSize: [
+          "Single",
+          "Bag",
+          "Bunch"
+        ],
+        weight: [
+          "500g",
+          "1kg",
+          "2kg"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Apple, Tomato, Lettuce)",
+        "Variety",
+        "Farming Method",
+        "Origin"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "42108b0dc0d94eaa91ee28be18e8db1d",
+      name: "Fresh Produce",
+      description: "Unprocessed fruits, vegetables, and herbs.",
+      imageUrl: "https://picsum.photos/seed/fresh-produce/800/600"
+    },
+    {
+      imageUrl: "https://picsum.photos/seed/pantry-staples/800/600",
+      variationAttributes: {
+        packSize: [
+          "Single",
+          "Multipack"
+        ],
+        sizeWeight: [
+          "500g",
+          "1kg",
+          "2kg",
+          "5kg",
+          "1L"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Rice, Flour, Sugar, Pasta, Canned Beans)",
+        "Brand",
+        "Dietary Features (e.g., Gluten-Free, Organic, Vegan)",
+        "Packaging Type"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "a7c20559c2e5462a8a8b18880a8f3e1f",
+      name: "Pantry Staples",
+      description: "Essential dry goods and non-perishable foods for everyday cooking and storage."
+    },
+    {
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "f4155c9a75c94ce080551f213d820164",
+      name: "Beverages",
+      description: "Liquid consumables for drinking.",
+      imageUrl: "https://picsum.photos/seed/beverages/800/600",
+      variationAttributes: {
+        volume: [
+          "250ml",
+          "500ml",
+          "1L",
+          "1.5L",
+          "2L"
+        ],
+        packSize: [
+          "Single",
+          "6-Pack",
+          "12-Pack"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Juice, Soda, Water, Tea, Coffee, Milk)",
+        "Brand",
+        "Dietary Feature (e.g., Sugar-Free, Caffeinated, Dairy-Free)"
+      ]
+    },
+    {
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "9079497113d54f838c9a66d2ee552a08",
+      name: "Snacks & Confectionery",
+      description: "Ready-to-eat light foods, chips, biscuits, chocolates, and sweets.",
+      imageUrl: "https://picsum.photos/seed/snacks-confectionery/800/600",
+      variationAttributes: {
+        packType: [
+          "Single Bag",
+          "Multipack",
+          "Box"
+        ],
+        size: [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Chips, Biscuits, Candy, Nuts)",
+        "Flavor",
+        "Allergen Information",
+        "Brand"
+      ]
+    },
+    {
+      name: "Meat, Poultry & Seafood",
+      description: "Fresh or frozen animal protein products.",
+      imageUrl: "https://picsum.photos/seed/meat-poultry-seafood/800/600",
+      variationAttributes: {
+        packSize: [
+          "Single Pack",
+          "Family Pack"
+        ],
+        weight: [
+          "250g",
+          "500g",
+          "1kg"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Beef, Chicken, Fish, Pork)",
+        "Cut",
+        "Preparation (Fresh, Frozen, Smoked)",
+        "Brand",
+        "Origin"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "3175600e1c8b42bb9fc6fe4f28d7b396"
+    },
+    {
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "e199783a013c4f9281dba75612cd58af",
+      name: "Dairy & Alternatives",
+      description: "Milk, cheese, yogurt, and plant-based substitutes.",
+      imageUrl: "https://picsum.photos/seed/dairy-alternatives/800/600",
+      variationAttributes: {
+        packType: [
+          "Single",
+          "Multipack"
+        ],
+        size: [
+          "200ml",
+          "500ml",
+          "1L",
+          "2L"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Milk, Cheese, Yogurt, Soy Milk)",
+        "Brand",
+        "Fat Content",
+        "Dietary Features (e.g., Lactose-Free, Vegan)"
+      ]
+    },
+    {
+      variationAttributes: {
+        packSize: [
+          "Single",
+          "Family Pack"
+        ],
+        weight: [
+          "300g",
+          "500g",
+          "1kg"
+        ]
+      },
+      specificationAttributes: [
+        "Type (e.g., Frozen Vegetables, Ice Cream, Ready Meals, Pizza)",
+        "Brand",
+        "Preservation Method",
+        "Dietary Features"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "aec1801559754f4393a6408e7bb5d059",
+      name: "Frozen & Prepared Foods",
+      description: "Perishable items requiring freezing, or ready-to-eat meals.",
+      imageUrl: "https://picsum.photos/seed/frozen-prepared-foods/800/600"
+    },
+    {
+      id: "7750f87e1d3f48a3add86fb15def75d7",
+      name: "Baking & Cooking Ingredients",
+      description: "Oils, spices, condiments, sauces, and baking essentials.",
+      imageUrl: "https://picsum.photos/seed/baking-cooking-ingredients/800/600",
+      variationAttributes: {
+        packageType: [
+          "Bottle",
+          "Jar",
+          "Bag",
+          "Box"
+        ],
+        size: [
+          "250g",
+          "500g",
+          "1kg",
+          "500ml",
+          "1L"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Cooking Oil, Salt, Ketchup, Baking Powder)",
+        "Brand",
+        "Flavor",
+        "Certifications (e.g., Organic, Non-GMO)",
+        "Package Type"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453"
+    },
+    {
+      name: "Baby Food & Formula",
+      description: "Specialized food and formula for infants and toddlers.",
+      imageUrl: "https://picsum.photos/seed/baby-food-formula/800/600",
+      variationAttributes: {
+        flavor: [
+          "Apple",
+          "Banana",
+          "Rice",
+          "Mixed Vegetables"
+        ],
+        packType: [
+          "Jar",
+          "Pouch",
+          "Can"
+        ],
+        size: [
+          "120g",
+          "200g",
+          "400g",
+          "900g"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type",
+        "Age Range",
+        "Ingredients",
+        "Brand"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "756fffaa4140451e92781afccaa32de5"
+    },
+    {
+      variationAttributes: {
+        size: [
+          "500ml",
+          "1L",
+          "2L",
+          "Roll",
+          "Box"
+        ],
+        packCount: [
+          "1",
+          "4",
+          "6",
+          "12"
+        ],
+        scent: [
+          "Lemon",
+          "Floral",
+          "Unscented",
+          "Pine"
+        ]
+      },
+      specificationAttributes: [
+        "Product Type (e.g., Detergent, Cleaner, Toilet Paper, Tissues)",
+        "Brand",
+        "Application Area",
+        "Scent"
+      ],
+      parentCategoryId: "bf0f0cb72ae049b09e8bae194b326453",
+      id: "33142603355449eb875aef5367f4c33c",
+      name: "Household Essentials",
+      description: "Non-food items for cleaning, laundry, and general home maintenance.",
+      imageUrl: "https://picsum.photos/seed/household-essentials/800/600"
+    }
+  ])
+}

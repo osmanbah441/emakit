@@ -8,10 +8,11 @@ type Category @table {
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type Listing @table {
+type Product @table {
   name: String! @col(dataType: "VARCHAR(255)")
   description: String!
   category: Category!
+  status: String
   mainImage: String @col(dataType: "VARCHAR(255)")
   specifications: Any!
   embeddingText: Vector! @col(size: 768)
@@ -20,11 +21,12 @@ type Listing @table {
 }
 
 type ProductVariation @table {
-  product: Listing!
+  product: Product!
   store: Store!
   price: Float! @col(dataType: "DECIMAL(10, 2)")
   availabeStock: Int!
   attributes: Any!
+  status: String
   imageUrls: [String!]!
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp! @default(expr: "request.time")
@@ -40,10 +42,10 @@ type User @table {
   photoUrl: String @col(dataType: "VARCHAR(255)")
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp! @default(expr: "request.time")
+  address: Address
 }
 
 type Address @table {
-  user: User!
   label: String! @col(dataType: "VARCHAR(50)")
   addressLine: String
   district: String
@@ -60,7 +62,7 @@ type Store @table {
   logoUrl: String! @col(dataType: "VARCHAR(255)")
   phoneNumber: String! @unique @col(dataType: "VARCHAR(20)")
   owner: User! @unique
-  address: Address!
+  address: Address
   status: String! @default(expr: "'pending'") @col(dataType: "VARCHAR(50)")
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp! @default(expr: "request.time")

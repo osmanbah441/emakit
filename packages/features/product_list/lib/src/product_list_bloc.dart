@@ -43,7 +43,6 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
         ProductListLoaded(
           products: fetchPage,
           currentSearchTerm: event.searchTerm,
-          userRole: await _api.userRepository.getCurrentUserRole,
         ),
       );
     } catch (e) {

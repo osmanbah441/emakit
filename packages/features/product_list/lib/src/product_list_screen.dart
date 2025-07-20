@@ -14,11 +14,13 @@ class ProductListScreen extends StatelessWidget {
     required this.filterDialog,
     this.onAddNewProductTap,
     this.onManageCategoryTap,
+    this.isSeller = false,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
   final Function(BuildContext context)? onAddNewProductTap;
   final Function(BuildContext context)? onManageCategoryTap;
+  final bool isSeller;
 
   final Function(Category) onCategoryFilterTap;
   final Widget filterDialog;
@@ -33,6 +35,7 @@ class ProductListScreen extends StatelessWidget {
         onCategoryFilterTap: onCategoryFilterTap,
         onAddNewProductTap: onAddNewProductTap,
         onManageCategoryTap: onManageCategoryTap,
+        isSeller: isSeller,
       ),
     );
   }
@@ -47,6 +50,7 @@ class ProductListScreenView extends StatelessWidget {
     required this.onCategoryFilterTap,
     this.onAddNewProductTap,
     this.onManageCategoryTap,
+    this.isSeller = false,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
@@ -54,6 +58,7 @@ class ProductListScreenView extends StatelessWidget {
   final Function(BuildContext context)? onManageCategoryTap;
   final Function(Category) onCategoryFilterTap;
   final Widget filterDialog;
+  final bool isSeller;
 
   void _showFilterDialog(BuildContext context) async {
     final selectedCategory = await showDialog<Category>(
@@ -82,20 +87,9 @@ class ProductListScreenView extends StatelessWidget {
       },
       builder: (context, state) {
         final bloc = context.read<ProductListBloc>();
-        late final UserRole role;
-        final isLoaded = state is ProductListLoaded;
-        if (isLoaded && state.userRole != null && state.userRole!.isSeller) {
-          role = UserRole.seller;
-        } else if (isLoaded &&
-            state.userRole != null &&
-            state.userRole!.isAdmin) {
-          role = UserRole.admin;
-        } else {
-          role = UserRole.buyer;
-        }
 
         return Scaffold(
-          floatingActionButton: role.isBuyer
+          floatingActionButton: isSeller
               ? null
               : FloatingActionButton(
                   onPressed: onAddNewProductTap != null
@@ -104,22 +98,7 @@ class ProductListScreenView extends StatelessWidget {
                   tooltip: 'Add New Product',
                   child: const Icon(Icons.add),
                 ),
-          appBar: role.isBuyer
-              ? null
-              : AppBar(
-                  title: const Text('Manage Products'),
-                  actions: [
-                    // admin
-                    if (role.isAdmin)
-                      IconButton(
-                        onPressed: onManageCategoryTap != null
-                            ? () => onManageCategoryTap!(context)
-                            : null,
-                        icon: Icon(Icons.category_outlined),
-                        tooltip: 'Manage Categories',
-                      ),
-                  ],
-                ),
+
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -154,8 +133,7 @@ class ProductListScreenView extends StatelessWidget {
                                         : 'No products available.',
                                   ),
                                 )
-                              : state.userRole == null ||
-                                    state.userRole!.isBuyer
+                              : !isSeller
                               ? ProductGridView(
                                   products: products,
                                   onProductTap: onProductTap,

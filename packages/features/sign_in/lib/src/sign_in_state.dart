@@ -14,6 +14,7 @@ enum SignInSubmissionStatus {
   bool get isAwaitingOtp => this == SignInSubmissionStatus.awaitingOtp;
   bool get isSuccess => this == SignInSubmissionStatus.success;
   bool get isInProgress => this == SignInSubmissionStatus.inprogress;
+  bool get isNewUser => this == SignInSubmissionStatus.newUser;
 
   bool get hasError =>
       this == SignInSubmissionStatus.invalidPhoneNumber ||
@@ -24,11 +25,10 @@ enum SignInSubmissionStatus {
 
 class SignInState {
   final SignInSubmissionStatus status;
-  final UserInfo? user;
 
-  const SignInState({this.status = SignInSubmissionStatus.idle, this.user});
+  const SignInState({this.status = SignInSubmissionStatus.idle});
 
-  SignInState copyWith({SignInSubmissionStatus? status, UserInfo? user}) {
-    return SignInState(status: status ?? this.status, user: user ?? this.user);
+  SignInState copyWith({SignInSubmissionStatus? status}) {
+    return SignInState(status: status ?? this.status);
   }
 }

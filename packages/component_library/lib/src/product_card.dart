@@ -10,7 +10,6 @@ class ProductCard extends StatelessWidget {
   final bool isWishlisted;
   final VoidCallback? onTap;
   final bool isInCart;
-  final double imageAspectRatio;
   final String currency;
 
   const ProductCard({
@@ -23,7 +22,6 @@ class ProductCard extends StatelessWidget {
     this.onAddToCart,
     this.onTap,
     this.isInCart = false,
-    this.imageAspectRatio = 4 / 3,
     this.currency = '\$',
   });
 
@@ -43,6 +41,8 @@ class ProductCard extends StatelessWidget {
           spacing: 8,
           children: [
             CachedProductImage(
+              height: 200,
+              width: double.infinity,
               imageUrl: imageUrl,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),

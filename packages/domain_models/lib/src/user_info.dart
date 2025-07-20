@@ -10,7 +10,7 @@ enum UserRole {
 }
 
 class UserInfo {
-  final String? displayName;
+  final String displayName;
   final String? phoneNumber;
   final String? photoURL;
   final String? email;
@@ -18,7 +18,7 @@ class UserInfo {
   final UserRole role;
 
   UserInfo({
-    this.displayName,
+    required this.displayName,
     this.phoneNumber,
     this.email,
     this.emailVerified = false,
