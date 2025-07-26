@@ -2,33 +2,49 @@ mutation createNewProduct(
     $name: String! 
     $description: String!
     $category: UUID!
-    $mainImage: String! 
     $specs: Any!
-) @auth(level: USER) {
-    listing_insert(data:  {
+    $storeId: UUID!,
+    $attributes: Any!,
+    $imageUrls: [String!]!,
+    $price: Float!,
+    $availableStock: Int!
+    $embeddingText: String!
+)@transaction @auth(level: USER) {
+    product_insert(data:  {
         name: $name
         description: $description
         categoryId: $category
-        mainImage: $mainImage
         specifications: $specs
-        # add embedding text
+        embeddingText_embed:  {
+            model: "gemini-embedding-001"
+            text: $embeddingText
+        }
     })
-}
 
-mutation createNewProductVariation(
-    $storeId: UUID!,
-    $attributes: Any!,
-    $productId: UUID!,
-    $imageUrls: [String!]!,
-    $price: Float!,
-    $availabeStock: Int!
-) @auth(level: USER) {
     productVariation_insert(data: {
+        productId_expr: "response.product_insert.id",
         storeId: $storeId,
         attributes: $attributes,
-        productId: $productId,
         imageUrls: $imageUrls,
         price: $price,
-        availabeStock: $availabeStock
+        availableStock: $availableStock
+    }) 
+}
+
+mutation createNewproductVariation(
+    $productId: UUID!,
+    $storeId: UUID!,
+    $attributes: Any!,
+    $imageUrls: [String!]!,
+    $price: Float!,
+    $availableStock: Int!
+) @auth(level: USER){
+    productVariation_insert(data:  {
+        productId: $productId
+        storeId: $storeId
+        attributes: $attributes
+        imageUrls: $imageUrls
+        price: $price
+        availableStock: $availableStock
     })
 }

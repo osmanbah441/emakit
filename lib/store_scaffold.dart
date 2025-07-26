@@ -4,37 +4,6 @@ import 'package:emakit/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class StoreProductsScreen extends StatelessWidget {
-  const StoreProductsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.storefront, size: 48, color: Colors.indigo),
-            const SizedBox(height: 16),
-            const Text(
-              'Your Products',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Future: Add product logic
-              },
-              icon: const Icon(Icons.add),
-              label: const Text('Add New Product'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class StoreOrdersScreen extends StatelessWidget {
   const StoreOrdersScreen({super.key});
 
@@ -73,7 +42,7 @@ class StoreScaffold extends StatelessWidget {
             onSwitchToBuyerTap: () => context.goNamed(AppRouter.homeRouteName),
             onLogOutTap: () {
               _logout();
-              context.goNamed(AppRouter.homeRouteName);
+              context.goNamed(AppRouter.signInRouteName);
             },
           ),
         ],

@@ -10,7 +10,7 @@ class ProductCarouselView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imageUrls.isEmpty) throw ('images cannot be empty');
     return SizedBox(
-      height: 320,
+      height: 480,
       child: CarouselView.weighted(
         consumeMaxWeight: true,
         flexWeights: [1, 10, 1],

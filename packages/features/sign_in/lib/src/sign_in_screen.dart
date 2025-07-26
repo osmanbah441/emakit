@@ -161,6 +161,7 @@ class _SignInViewState extends State<SignInView> {
         final textTheme = Theme.of(context).textTheme;
 
         return Scaffold(
+          appBar: AppBar(),
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -187,7 +188,7 @@ class _SignInViewState extends State<SignInView> {
                   onPressed: cubit.continueWithGoogle,
                   label: 'Sign in with Google',
                   icon: Image.asset(
-                    'assets/google_icon.png',
+                    'assets/images/google_icon.png',
                     height: 32,
                     package: 'component_library',
                   ),

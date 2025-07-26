@@ -1,3 +1,4 @@
+import 'package:api/src/dataconnect_gen/default.dart';
 import 'package:domain_models/domain_models.dart' as domain;
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,6 +19,20 @@ class UserRepository {
   static ConfirmationResult? _confirmationResult;
   domain.UserInfo? get currentUser => _auth.currentUser?.toDomain;
 
+  static final _connector = DefaultConnector.instance;
+
+  Future<domain.Store?> get getStore async =>
+      await _connector.getUserStore().execute().then((result) {
+        final data = result.data.user?.store;
+        if (data == null) return null;
+
+        return domain.Store(
+          name: data.name,
+          status: domain.StoreStatus.fromString(data.status),
+          phoneNumber: data.phoneNumber,
+        );
+      });
+
   Stream<domain.UserInfo?> authChanges() {
     return _auth.authStateChanges().map((a) => a?.toDomain);
   }
@@ -30,6 +45,7 @@ class UserRepository {
 
     await user.updateDisplayName(displayName);
     await user.reload();
+    await _connector.updateDisplayName(displayName: displayName).execute();
   }
 
   Future<void> signInwithPhoneNumberWeb(String phoneNumber) async {
@@ -44,8 +60,15 @@ class UserRepository {
   Future<bool> verifyOtp(String code) async {
     if (_confirmationResult != null) {
       final credential = await _confirmationResult!.confirm(code);
+      final isNewUser = credential.additionalUserInfo?.isNewUser ?? false;
+      if (isNewUser) {
+        _connector
+            .createNewUser()
+            .phoneNumber(credential.user!.phoneNumber)
+            .execute();
+      }
 
-      return credential.additionalUserInfo?.isNewUser ?? false;
+      return isNewUser;
     }
 
     throw const domain.UserAuthenticationRequiredException();
@@ -54,14 +77,29 @@ class UserRepository {
   Future<void> signInWithGoogleWeb() async {
     try {
       final authProvider = GoogleAuthProvider();
-      await _auth.signInWithPopup(authProvider);
-
-      // add this credentails to the db;
+      final credential = await _auth.signInWithPopup(authProvider);
+      final isNewUser = credential.additionalUserInfo?.isNewUser ?? false;
+      final user = credential.user;
+      if (user != null && isNewUser) {
+        final fn = _connector.createNewUser();
+        if (user.email != null) fn.email(user.email!);
+        if (user.displayName != null) fn.displayName(user.displayName!);
+        if (user.photoURL != null) fn.photoUrl(user.photoURL!);
+        await fn.execute();
+      }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
 
   Future<void> signOut() async => await _auth.signOut();
+
+  Future<void> applyToBecomeSeller({
+    required String businessName,
+    required String phoneNumber,
+  }) async {
+    await _connector
+        .applyForStore(name: businessName, phoneNumber: phoneNumber)
+        .execute();
+  }
 }

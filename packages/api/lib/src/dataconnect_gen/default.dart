@@ -2,21 +2,37 @@ library default_connector;
 import 'package:firebase_data_connect/firebase_data_connect.dart';
 import 'dart:convert';
 
-part 'get_user.dart';
+part 'get_all_products.dart';
 
-part 'get_all_users.dart';
+part 'get_product_by_id.dart';
 
-part 'get_all_addresses.dart';
+part 'get_product_for_store_owner.dart';
+
+part 'create_new_user.dart';
+
+part 'apply_for_store.dart';
+
+part 'update_display_name.dart';
+
+part 'approve_store.dart';
+
+part 'create_cart_item.dart';
+
+part 'get_user_store.dart';
+
+part 'get_all_pending_approval_stores.dart';
+
+part 'get_all_active_stores.dart';
+
+part 'get_all_suspended_stores.dart';
+
+part 'get_user_cart.dart';
 
 part 'create_new_category.dart';
 
 part 'set_category_attributes.dart';
 
 part 'delete_category.dart';
-
-part 'mock_parent_category.dart';
-
-part 'mock_children_category.dart';
 
 part 'get_all_categories.dart';
 
@@ -28,21 +44,7 @@ part 'get_children_categories.dart';
 
 part 'create_new_product.dart';
 
-part 'create_new_product_variation.dart';
-
-part 'get_all_products.dart';
-
-part 'get_product_by_id.dart';
-
-part 'get_product_for_store_owner.dart';
-
-part 'create_store.dart';
-
-part 'get_all_stores.dart';
-
-part 'create_new_user.dart';
-
-part 'create_new_address_for_user.dart';
+part 'create_newproduct_variation.dart';
 
 
 
@@ -53,18 +55,68 @@ part 'create_new_address_for_user.dart';
 class DefaultConnector {
   
   
-  GetUserVariablesBuilder getUser ({required String id, }) {
-    return GetUserVariablesBuilder(dataConnect, id: id,);
+  GetAllProductsVariablesBuilder getAllProducts () {
+    return GetAllProductsVariablesBuilder(dataConnect, );
   }
   
   
-  GetAllUsersVariablesBuilder getAllUsers () {
-    return GetAllUsersVariablesBuilder(dataConnect, );
+  GetProductByIdVariablesBuilder getProductById ({required String id, }) {
+    return GetProductByIdVariablesBuilder(dataConnect, id: id,);
   }
   
   
-  GetAllAddressesVariablesBuilder getAllAddresses () {
-    return GetAllAddressesVariablesBuilder(dataConnect, );
+  GetProductForStoreOwnerVariablesBuilder getProductForStoreOwner ({required String storeId, }) {
+    return GetProductForStoreOwnerVariablesBuilder(dataConnect, storeId: storeId,);
+  }
+  
+  
+  CreateNewUserVariablesBuilder createNewUser () {
+    return CreateNewUserVariablesBuilder(dataConnect, );
+  }
+  
+  
+  ApplyForStoreVariablesBuilder applyForStore ({required String name, required String phoneNumber, }) {
+    return ApplyForStoreVariablesBuilder(dataConnect, name: name,phoneNumber: phoneNumber,);
+  }
+  
+  
+  UpdateDisplayNameVariablesBuilder updateDisplayName ({required String displayName, }) {
+    return UpdateDisplayNameVariablesBuilder(dataConnect, displayName: displayName,);
+  }
+  
+  
+  ApproveStoreVariablesBuilder approveStore ({required String storeId, }) {
+    return ApproveStoreVariablesBuilder(dataConnect, storeId: storeId,);
+  }
+  
+  
+  CreateCartItemVariablesBuilder createCartItem ({required String productVariationId, required String cartId, }) {
+    return CreateCartItemVariablesBuilder(dataConnect, productVariationId: productVariationId,cartId: cartId,);
+  }
+  
+  
+  GetUserStoreVariablesBuilder getUserStore () {
+    return GetUserStoreVariablesBuilder(dataConnect, );
+  }
+  
+  
+  GetAllPendingApprovalStoresVariablesBuilder getAllPendingApprovalStores () {
+    return GetAllPendingApprovalStoresVariablesBuilder(dataConnect, );
+  }
+  
+  
+  GetAllActiveStoresVariablesBuilder getAllActiveStores () {
+    return GetAllActiveStoresVariablesBuilder(dataConnect, );
+  }
+  
+  
+  GetAllSuspendedStoresVariablesBuilder getAllSuspendedStores () {
+    return GetAllSuspendedStoresVariablesBuilder(dataConnect, );
+  }
+  
+  
+  GetUserCartVariablesBuilder getUserCart () {
+    return GetUserCartVariablesBuilder(dataConnect, );
   }
   
   
@@ -80,16 +132,6 @@ class DefaultConnector {
   
   DeleteCategoryVariablesBuilder deleteCategory ({required String id, }) {
     return DeleteCategoryVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  MockParentCategoryVariablesBuilder mockParentCategory () {
-    return MockParentCategoryVariablesBuilder(dataConnect, );
-  }
-  
-  
-  MockChildrenCategoryVariablesBuilder mockChildrenCategory () {
-    return MockChildrenCategoryVariablesBuilder(dataConnect, );
   }
   
   
@@ -113,55 +155,20 @@ class DefaultConnector {
   }
   
   
-  CreateNewProductVariablesBuilder createNewProduct ({required String name, required String description, required String category, required String mainImage, required dynamic specs, }) {
-    return CreateNewProductVariablesBuilder(dataConnect, name: name,description: description,category: category,mainImage: mainImage,specs: specs,);
+  CreateNewProductVariablesBuilder createNewProduct ({required String name, required String description, required String category, required dynamic specs, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, required String embeddingText, }) {
+    return CreateNewProductVariablesBuilder(dataConnect, name: name,description: description,category: category,specs: specs,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,embeddingText: embeddingText,);
   }
   
   
-  CreateNewProductVariationVariablesBuilder createNewProductVariation ({required String storeId, required dynamic attributes, required String productId, required List<String> imageUrls, required double price, required int availabeStock, }) {
-    return CreateNewProductVariationVariablesBuilder(dataConnect, storeId: storeId,attributes: attributes,productId: productId,imageUrls: imageUrls,price: price,availabeStock: availabeStock,);
-  }
-  
-  
-  GetAllProductsVariablesBuilder getAllProducts () {
-    return GetAllProductsVariablesBuilder(dataConnect, );
-  }
-  
-  
-  GetProductByIdVariablesBuilder getProductById ({required String id, }) {
-    return GetProductByIdVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  GetProductForStoreOwnerVariablesBuilder getProductForStoreOwner ({required String storeId, }) {
-    return GetProductForStoreOwnerVariablesBuilder(dataConnect, storeId: storeId,);
-  }
-  
-  
-  CreateStoreVariablesBuilder createStore ({required String name, required String description, required String ownerId, required String addressId, required String logoUrl, required String phoneNumber, }) {
-    return CreateStoreVariablesBuilder(dataConnect, name: name,description: description,ownerId: ownerId,addressId: addressId,logoUrl: logoUrl,phoneNumber: phoneNumber,);
-  }
-  
-  
-  GetAllStoresVariablesBuilder getAllStores () {
-    return GetAllStoresVariablesBuilder(dataConnect, );
-  }
-  
-  
-  CreateNewUserVariablesBuilder createNewUser () {
-    return CreateNewUserVariablesBuilder(dataConnect, );
-  }
-  
-  
-  CreateNewAddressForUserVariablesBuilder createNewAddressForUser ({required String label, }) {
-    return CreateNewAddressForUserVariablesBuilder(dataConnect, label: label,);
+  CreateNewproductVariationVariablesBuilder createNewproductVariation ({required String productId, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, }) {
+    return CreateNewproductVariationVariablesBuilder(dataConnect, productId: productId,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
   }
   
 
   static ConnectorConfig connectorConfig = ConnectorConfig(
     'us-central1',
     'default',
-    'e-makit-1-service',
+    'sl-baz-service',
   );
 
   DefaultConnector({required this.dataConnect});

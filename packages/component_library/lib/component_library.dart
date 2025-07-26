@@ -34,3 +34,4 @@ export 'src/display_memory_image.dart';
 export 'src/image_picker_widget.dart';
 export 'src/fields/phone_number_input_field.dart';
 export 'src/profile_avatar_popup_menu.dart';
+export 'src/product_variation_card.dart';

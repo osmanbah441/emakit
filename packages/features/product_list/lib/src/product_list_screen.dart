@@ -2,7 +2,6 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_list/src/product_grid_view.dart';
-import 'package:product_list/src/product_list_view.dart';
 import 'product_list_bloc.dart';
 import 'package:component_library/component_library.dart';
 
@@ -13,14 +12,10 @@ class ProductListScreen extends StatelessWidget {
     required this.onCategoryFilterTap,
     required this.filterDialog,
     this.onAddNewProductTap,
-    this.onManageCategoryTap,
-    this.isSeller = false,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
   final Function(BuildContext context)? onAddNewProductTap;
-  final Function(BuildContext context)? onManageCategoryTap;
-  final bool isSeller;
 
   final Function(Category) onCategoryFilterTap;
   final Widget filterDialog;
@@ -34,8 +29,6 @@ class ProductListScreen extends StatelessWidget {
         filterDialog: filterDialog,
         onCategoryFilterTap: onCategoryFilterTap,
         onAddNewProductTap: onAddNewProductTap,
-        onManageCategoryTap: onManageCategoryTap,
-        isSeller: isSeller,
       ),
     );
   }
@@ -49,16 +42,12 @@ class ProductListScreenView extends StatelessWidget {
     required this.filterDialog,
     required this.onCategoryFilterTap,
     this.onAddNewProductTap,
-    this.onManageCategoryTap,
-    this.isSeller = false,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
   final Function(BuildContext context)? onAddNewProductTap;
-  final Function(BuildContext context)? onManageCategoryTap;
   final Function(Category) onCategoryFilterTap;
   final Widget filterDialog;
-  final bool isSeller;
 
   void _showFilterDialog(BuildContext context) async {
     final selectedCategory = await showDialog<Category>(
@@ -89,16 +78,6 @@ class ProductListScreenView extends StatelessWidget {
         final bloc = context.read<ProductListBloc>();
 
         return Scaffold(
-          floatingActionButton: isSeller
-              ? null
-              : FloatingActionButton(
-                  onPressed: onAddNewProductTap != null
-                      ? () => onAddNewProductTap!(context)
-                      : null,
-                  tooltip: 'Add New Product',
-                  child: const Icon(Icons.add),
-                ),
-
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -133,15 +112,11 @@ class ProductListScreenView extends StatelessWidget {
                                         : 'No products available.',
                                   ),
                                 )
-                              : !isSeller
-                              ? ProductGridView(
-                                  products: products,
-                                  onProductTap: onProductTap,
-                                )
-                              : ProductListView(
+                              : ProductGridView(
                                   products: products,
                                   onProductTap: onProductTap,
                                 ),
+
                         ProductListError(message: final message) => Center(
                           child: Text('Error: $message'),
                         ),

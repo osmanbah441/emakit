@@ -20,6 +20,8 @@ workspace:
   - packages/features/order_list
   - packages/features/seller_onboarding
   - packages/features/seller_dashboard
+  - packages/features/store_product_details
+  - packages/features/store_product_list
 
 environment:
   sdk: ^3.8.0
@@ -46,6 +48,8 @@ dependencies:
   order_list: ^0.0.1
   seller_dashboard: ^0.0.1
   go_router: ^16.0.0
+  store_product_details: ^0.0.1
+  store_product_list: ^0.0.1
 
 dev_dependencies:
   flutter_test:

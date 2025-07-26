@@ -17,34 +17,56 @@ class GetProductForStoreOwnerVariablesBuilder {
   }
 }
 
-class GetProductForStoreOwnerListings {
-  List<GetProductForStoreOwnerListingsProductVariationsOnProduct> productVariations_on_product;
-  GetProductForStoreOwnerListings.fromJson(dynamic json):
+class GetProductForStoreOwnerProducts {
+  String id;
+  String name;
+  String description;
+  AnyValue specifications;
+  List<GetProductForStoreOwnerProductsProductVariationsOnProduct> productVariations_on_product;
+  GetProductForStoreOwnerProducts.fromJson(dynamic json):
+  
+  id = nativeFromJson<String>(json['id']),
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  specifications = AnyValue.fromJson(json['specifications']),
   productVariations_on_product = (json['productVariations_on_product'] as List<dynamic>)
-        .map((e) => GetProductForStoreOwnerListingsProductVariationsOnProduct.fromJson(e))
+        .map((e) => GetProductForStoreOwnerProductsProductVariationsOnProduct.fromJson(e))
         .toList();
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
+    json['id'] = nativeToJson<String>(id);
+    json['name'] = nativeToJson<String>(name);
+    json['description'] = nativeToJson<String>(description);
+    json['specifications'] = specifications.toJson();
     json['productVariations_on_product'] = productVariations_on_product.map((e) => e.toJson()).toList();
     return json;
   }
 
-  GetProductForStoreOwnerListings({
+  GetProductForStoreOwnerProducts({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.specifications,
     required this.productVariations_on_product,
   });
 }
 
-class GetProductForStoreOwnerListingsProductVariationsOnProduct {
+class GetProductForStoreOwnerProductsProductVariationsOnProduct {
   String id;
   double price;
   List<String> imageUrls;
   AnyValue attributes;
-  int availabeStock;
-  GetProductForStoreOwnerListingsProductVariationsOnProduct.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),price = nativeFromJson<double>(json['price']),imageUrls = (json['imageUrls'] as List<dynamic>)
+  int availableStock;
+  GetProductForStoreOwnerProductsProductVariationsOnProduct.fromJson(dynamic json):
+  
+  id = nativeFromJson<String>(json['id']),
+  price = nativeFromJson<double>(json['price']),
+  imageUrls = (json['imageUrls'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
-        .toList(),attributes = AnyValue.fromJson(json['attributes']),availabeStock = nativeFromJson<int>(json['availabeStock']);
+        .toList(),
+  attributes = AnyValue.fromJson(json['attributes']),
+  availableStock = nativeFromJson<int>(json['availableStock']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -52,34 +74,35 @@ class GetProductForStoreOwnerListingsProductVariationsOnProduct {
     json['price'] = nativeToJson<double>(price);
     json['imageUrls'] = imageUrls.map((e) => nativeToJson<String>(e)).toList();
     json['attributes'] = attributes.toJson();
-    json['availabeStock'] = nativeToJson<int>(availabeStock);
+    json['availableStock'] = nativeToJson<int>(availableStock);
     return json;
   }
 
-  GetProductForStoreOwnerListingsProductVariationsOnProduct({
+  GetProductForStoreOwnerProductsProductVariationsOnProduct({
     required this.id,
     required this.price,
     required this.imageUrls,
     required this.attributes,
-    required this.availabeStock,
+    required this.availableStock,
   });
 }
 
 class GetProductForStoreOwnerData {
-  List<GetProductForStoreOwnerListings> listings;
+  List<GetProductForStoreOwnerProducts> products;
   GetProductForStoreOwnerData.fromJson(dynamic json):
-  listings = (json['listings'] as List<dynamic>)
-        .map((e) => GetProductForStoreOwnerListings.fromJson(e))
+  
+  products = (json['products'] as List<dynamic>)
+        .map((e) => GetProductForStoreOwnerProducts.fromJson(e))
         .toList();
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['listings'] = listings.map((e) => e.toJson()).toList();
+    json['products'] = products.map((e) => e.toJson()).toList();
     return json;
   }
 
   GetProductForStoreOwnerData({
-    required this.listings,
+    required this.products,
   });
 }
 
@@ -87,6 +110,7 @@ class GetProductForStoreOwnerVariables {
   String storeId;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   GetProductForStoreOwnerVariables.fromJson(Map<String, dynamic> json):
+  
   storeId = nativeFromJson<String>(json['storeId']);
 
   Map<String, dynamic> toJson() {

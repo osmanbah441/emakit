@@ -26,9 +26,16 @@ class GetCategoryByIdCategory {
   List<String>? specificationAttributes;
   String? parentCategoryId;
   GetCategoryByIdCategory.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),imageUrl = nativeFromJson<String>(json['imageUrl']),variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
+  
+  id = nativeFromJson<String>(json['id']),
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  imageUrl = nativeFromJson<String>(json['imageUrl']),
+  variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),
+  specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
-        .toList(),parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
+        .toList(),
+  parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -62,6 +69,7 @@ class GetCategoryByIdCategory {
 class GetCategoryByIdData {
   GetCategoryByIdCategory? category;
   GetCategoryByIdData.fromJson(dynamic json):
+  
   category = json['category'] == null ? null : GetCategoryByIdCategory.fromJson(json['category']);
 
   Map<String, dynamic> toJson() {
@@ -81,6 +89,7 @@ class GetCategoryByIdVariables {
   String id;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   GetCategoryByIdVariables.fromJson(Map<String, dynamic> json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {

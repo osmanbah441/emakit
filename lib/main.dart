@@ -37,7 +37,7 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.router,
-      title: 'Emakit',
+      title: 'Salone Bazaar',
     );
   }
 }

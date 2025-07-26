@@ -38,8 +38,26 @@ class CreateNewUserVariablesBuilder {
 }
 
 class CreateNewUserUserInsert {
-  String id;
+  String uid;
   CreateNewUserUserInsert.fromJson(dynamic json):
+  
+  uid = nativeFromJson<String>(json['uid']);
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    json['uid'] = nativeToJson<String>(uid);
+    return json;
+  }
+
+  CreateNewUserUserInsert({
+    required this.uid,
+  });
+}
+
+class CreateNewUserCartInsert {
+  String id;
+  CreateNewUserCartInsert.fromJson(dynamic json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {
@@ -48,24 +66,29 @@ class CreateNewUserUserInsert {
     return json;
   }
 
-  CreateNewUserUserInsert({
+  CreateNewUserCartInsert({
     required this.id,
   });
 }
 
 class CreateNewUserData {
   CreateNewUserUserInsert user_insert;
+  CreateNewUserCartInsert cart_insert;
   CreateNewUserData.fromJson(dynamic json):
-  user_insert = CreateNewUserUserInsert.fromJson(json['user_insert']);
+  
+  user_insert = CreateNewUserUserInsert.fromJson(json['user_insert']),
+  cart_insert = CreateNewUserCartInsert.fromJson(json['cart_insert']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
     json['user_insert'] = user_insert.toJson();
+    json['cart_insert'] = cart_insert.toJson();
     return json;
   }
 
   CreateNewUserData({
     required this.user_insert,
+    required this.cart_insert,
   });
 }
 
@@ -77,14 +100,18 @@ class CreateNewUserVariables {
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateNewUserVariables.fromJson(Map<String, dynamic> json) {
   
+  
     displayName = Optional.optional(nativeFromJson, nativeToJson);
     displayName.value = json['displayName'] == null ? null : nativeFromJson<String>(json['displayName']);
+  
   
     email = Optional.optional(nativeFromJson, nativeToJson);
     email.value = json['email'] == null ? null : nativeFromJson<String>(json['email']);
   
+  
     phoneNumber = Optional.optional(nativeFromJson, nativeToJson);
     phoneNumber.value = json['phoneNumber'] == null ? null : nativeFromJson<String>(json['phoneNumber']);
+  
   
     photoUrl = Optional.optional(nativeFromJson, nativeToJson);
     photoUrl.value = json['photoUrl'] == null ? null : nativeFromJson<String>(json['photoUrl']);

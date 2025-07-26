@@ -1,1 +1,14 @@
-{"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"e-makit","configurations":{"web":"1:478119887098:web:673ffb15aab6be5f1a0943"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "sl-baz",
+          "configurations": {
+            "web": "1:728167467625:web:ba1c28f54ec59777d230f8"
+          }
+        }
+      }
+    }
+  }
+}

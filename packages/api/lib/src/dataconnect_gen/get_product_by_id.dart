@@ -21,11 +21,15 @@ class GetProductByIdProduct {
   String id;
   String name;
   String description;
-  String? mainImage;
   AnyValue specifications;
   List<GetProductByIdProductVariations> variations;
   GetProductByIdProduct.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),mainImage = json['mainImage'] == null ? null : nativeFromJson<String>(json['mainImage']),specifications = AnyValue.fromJson(json['specifications']),variations = (json['variations'] as List<dynamic>)
+  
+  id = nativeFromJson<String>(json['id']),
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  specifications = AnyValue.fromJson(json['specifications']),
+  variations = (json['variations'] as List<dynamic>)
         .map((e) => GetProductByIdProductVariations.fromJson(e))
         .toList();
 
@@ -34,9 +38,6 @@ class GetProductByIdProduct {
     json['id'] = nativeToJson<String>(id);
     json['name'] = nativeToJson<String>(name);
     json['description'] = nativeToJson<String>(description);
-    if (mainImage != null) {
-      json['mainImage'] = nativeToJson<String?>(mainImage);
-    }
     json['specifications'] = specifications.toJson();
     json['variations'] = variations.map((e) => e.toJson()).toList();
     return json;
@@ -46,7 +47,6 @@ class GetProductByIdProduct {
     required this.id,
     required this.name,
     required this.description,
-    this.mainImage,
     required this.specifications,
     required this.variations,
   });
@@ -57,11 +57,16 @@ class GetProductByIdProductVariations {
   double price;
   List<String> imageUrls;
   AnyValue attributes;
-  int availabeStock;
+  int availableStock;
   GetProductByIdProductVariations.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),price = nativeFromJson<double>(json['price']),imageUrls = (json['imageUrls'] as List<dynamic>)
+  
+  id = nativeFromJson<String>(json['id']),
+  price = nativeFromJson<double>(json['price']),
+  imageUrls = (json['imageUrls'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
-        .toList(),attributes = AnyValue.fromJson(json['attributes']),availabeStock = nativeFromJson<int>(json['availabeStock']);
+        .toList(),
+  attributes = AnyValue.fromJson(json['attributes']),
+  availableStock = nativeFromJson<int>(json['availableStock']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -69,7 +74,7 @@ class GetProductByIdProductVariations {
     json['price'] = nativeToJson<double>(price);
     json['imageUrls'] = imageUrls.map((e) => nativeToJson<String>(e)).toList();
     json['attributes'] = attributes.toJson();
-    json['availabeStock'] = nativeToJson<int>(availabeStock);
+    json['availableStock'] = nativeToJson<int>(availableStock);
     return json;
   }
 
@@ -78,13 +83,14 @@ class GetProductByIdProductVariations {
     required this.price,
     required this.imageUrls,
     required this.attributes,
-    required this.availabeStock,
+    required this.availableStock,
   });
 }
 
 class GetProductByIdData {
   GetProductByIdProduct? product;
   GetProductByIdData.fromJson(dynamic json):
+  
   product = json['product'] == null ? null : GetProductByIdProduct.fromJson(json['product']);
 
   Map<String, dynamic> toJson() {
@@ -104,6 +110,7 @@ class GetProductByIdVariables {
   String id;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   GetProductByIdVariables.fromJson(Map<String, dynamic> json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {

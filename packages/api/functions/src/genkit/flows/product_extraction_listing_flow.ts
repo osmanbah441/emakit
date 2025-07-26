@@ -1,8 +1,6 @@
 import { z } from "genkit";
 import { ai } from "../genkit.config";
-import { ProductImageInputSchema, ProductExtractionListingSchema } from "../schemas/multimodal_input_schema";
-
-
+import { ProductImageInputSchema, ProductExtractionListingSchema } from "../schemas/product_extraction_listing";
 
 export const ProductExtractionListingFlow = ai.defineFlow({
     name: 'ProductExtractionListingFlow',

@@ -4,10 +4,12 @@ import 'package:flutter/services.dart'; // Required for FilteringTextInputFormat
 class PhoneNumberInputField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final String? labelText;
 
   const PhoneNumberInputField({
     super.key,
     required this.controller,
+    this.labelText,
     this.validator,
   });
 
@@ -18,10 +20,8 @@ class PhoneNumberInputField extends StatelessWidget {
       keyboardType: TextInputType.phone,
       autocorrect: false,
 
-      decoration: const InputDecoration(
-        labelText: 'Phone Number',
-        hintText: '+23278647879',
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: labelText ?? 'Phone Number',
         prefixIcon: Icon(Icons.phone),
       ),
       // Optional: Limit input to digits and '+' at the beginning for better UX

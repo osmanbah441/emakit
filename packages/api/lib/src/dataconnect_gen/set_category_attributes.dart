@@ -30,6 +30,7 @@ class SetCategoryAttributesVariablesBuilder {
 class SetCategoryAttributesCategoryUpdate {
   String id;
   SetCategoryAttributesCategoryUpdate.fromJson(dynamic json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {
@@ -46,6 +47,7 @@ class SetCategoryAttributesCategoryUpdate {
 class SetCategoryAttributesData {
   SetCategoryAttributesCategoryUpdate? category_update;
   SetCategoryAttributesData.fromJson(dynamic json):
+  
   category_update = json['category_update'] == null ? null : SetCategoryAttributesCategoryUpdate.fromJson(json['category_update']);
 
   Map<String, dynamic> toJson() {
@@ -67,12 +69,16 @@ class SetCategoryAttributesVariables {
   late Optional<AnyValue>variationAttributes;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   SetCategoryAttributesVariables.fromJson(Map<String, dynamic> json):
+  
   id = nativeFromJson<String>(json['id']) {
+  
+  
   
     specificationAttributes = Optional.optional(listDeserializer(nativeFromJson), listSerializer(nativeToJson));
     specificationAttributes.value = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
         .toList();
+  
   
     variationAttributes = Optional.optional(AnyValue.fromJson, defaultSerializer);
     variationAttributes.value = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']);

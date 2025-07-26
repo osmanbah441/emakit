@@ -23,6 +23,7 @@ class CachedProductImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: borderRadius,
       child: CachedNetworkImage(
+        fadeInCurve: Curves.easeIn,
         width: width,
         height: height,
         imageUrl: imageUrl,

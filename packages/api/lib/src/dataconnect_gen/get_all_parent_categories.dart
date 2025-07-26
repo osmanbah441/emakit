@@ -25,9 +25,16 @@ class GetAllParentCategoriesCategories {
   List<String>? specificationAttributes;
   String? parentCategoryId;
   GetAllParentCategoriesCategories.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),imageUrl = nativeFromJson<String>(json['imageUrl']),variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
+  
+  id = nativeFromJson<String>(json['id']),
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  imageUrl = nativeFromJson<String>(json['imageUrl']),
+  variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),
+  specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
-        .toList(),parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
+        .toList(),
+  parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -61,6 +68,7 @@ class GetAllParentCategoriesCategories {
 class GetAllParentCategoriesData {
   List<GetAllParentCategoriesCategories> categories;
   GetAllParentCategoriesData.fromJson(dynamic json):
+  
   categories = (json['categories'] as List<dynamic>)
         .map((e) => GetAllParentCategoriesCategories.fromJson(e))
         .toList();

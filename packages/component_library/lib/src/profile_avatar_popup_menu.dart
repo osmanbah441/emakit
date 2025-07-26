@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum _MenuItem { profileSettings, sellManageStore, myOrdersSwitchToBuy, logOut }
 
-enum UserStoreState { noStore, hasStore, managing }
+enum UserStoreState { noStore, pendingApproval, suspended, hasStore, managing }
 
 class ProfileAvatarPopupMenu extends StatelessWidget {
   final UserStoreState storeState;
@@ -13,6 +13,7 @@ class ProfileAvatarPopupMenu extends StatelessWidget {
   final VoidCallback? onMyOrdersTap;
   final VoidCallback? onSwitchToBuyerTap;
   final VoidCallback? onLogOutTap;
+  final VoidCallback? onContactSupportTap;
 
   const ProfileAvatarPopupMenu({
     super.key,
@@ -24,6 +25,7 @@ class ProfileAvatarPopupMenu extends StatelessWidget {
     this.onMyOrdersTap,
     this.onSwitchToBuyerTap,
     this.onLogOutTap,
+    this.onContactSupportTap,
   });
 
   @override
@@ -35,18 +37,46 @@ class ProfileAvatarPopupMenu extends StatelessWidget {
             onProfileSettingsTap?.call();
             break;
           case _MenuItem.sellManageStore:
-            if (storeState == UserStoreState.noStore) {
-              onApplyToSellTap?.call();
-            } else if (storeState == UserStoreState.hasStore) {
-              onManageStoreTap?.call();
+            switch (storeState) {
+              case UserStoreState.noStore:
+                onApplyToSellTap?.call();
+                break;
+              case UserStoreState.hasStore:
+                onManageStoreTap?.call();
+                break;
+              case UserStoreState.managing:
+                // Should not appear
+                break;
+              case UserStoreState.pendingApproval:
+                // Optional: show dialog/snackbar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Your seller application is pending approval.',
+                    ),
+                  ),
+                );
+                break;
+              case UserStoreState.suspended:
+                if (onContactSupportTap != null) {
+                  onContactSupportTap!();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Your store is suspended. Contact support.',
+                      ),
+                    ),
+                  );
+                }
+                break;
             }
             break;
           case _MenuItem.myOrdersSwitchToBuy:
-            if (storeState == UserStoreState.hasStore ||
-                storeState == UserStoreState.noStore) {
-              onMyOrdersTap?.call();
-            } else if (storeState == UserStoreState.managing) {
+            if (storeState == UserStoreState.managing) {
               onSwitchToBuyerTap?.call();
+            } else {
+              onMyOrdersTap?.call();
             }
             break;
           case _MenuItem.logOut:
@@ -64,14 +94,33 @@ class ProfileAvatarPopupMenu extends StatelessWidget {
 
         // Add Sell/Manage Store only if NOT managing the store
         if (storeState != UserStoreState.managing) {
+          String label;
+          bool disabled = false;
+
+          switch (storeState) {
+            case UserStoreState.noStore:
+              label = 'Become a Seller';
+              break;
+            case UserStoreState.hasStore:
+              label = 'Manage My Store';
+              break;
+            case UserStoreState.pendingApproval:
+              label = 'Application Pending';
+              disabled = true;
+              break;
+            case UserStoreState.suspended:
+              label = 'Store Suspended';
+              disabled = false; // Let user tap to contact support
+              break;
+            default:
+              label = 'Manage My Store';
+          }
+
           items.add(
             PopupMenuItem<_MenuItem>(
-              value: _MenuItem.sellManageStore,
-              child: Text(
-                storeState == UserStoreState.noStore
-                    ? 'Become a Seller'
-                    : 'Manage My Store',
-              ),
+              value: disabled ? null : _MenuItem.sellManageStore,
+              enabled: !disabled,
+              child: Text(label),
             ),
           );
         }

@@ -1,49 +1,95 @@
-query GetUser($id: UUID!) @auth(level: USER) {
-  user(id: $id) {
-    id
-    displayName
-    email
-    store: store_on_owner {
-        id
-        
-    }
-  }
-}
 
-query getAllUsers @auth(level: NO_ACCESS) {
-  users {
-    id
-    displayName
-    email
-    phoneNumber
-    photoUrl
+query getUserStore @auth(level: USER) {
+  user(key:  {
+     uid_expr: "auth.uid"
+  }) {
     store: store_on_owner {
       id
       name
-
-    }
-    address {
-      label
-      addressLine
-      district
-      province
-      longitude
-      latitude
-      isDefault
+      description
+      logoUrl
+      status
+      phoneNumber
+      owner {
+        displayName
+      }
     }
   }
 }
 
-query getAllAddresses @auth(level: NO_ACCESS) {
-  addresses {
+query getAllPendingApprovalStores @auth(level: NO_ACCESS) {
+  stores(where:  {
+     status:  {
+        eq: "pending"
+     }
+  }) {
     id
-    label
-    addressLine
-    district
-    province
-    longitude
-    latitude
-    isDefault
-    createdAt
+    name
+    description
+    logoUrl
+    status
+    phoneNumber
+    owner {
+      displayName
+    }
   }
 }
+
+query getAllActiveStores @auth(level: NO_ACCESS) {
+  stores(where:  {
+     status:  {
+        eq: "active"
+     }
+  }) {
+    id
+    name
+    description
+    logoUrl
+    status
+    phoneNumber
+    owner {
+      displayName
+    }
+  }
+}
+
+query getAllSuspendedStores @auth(level: NO_ACCESS) {
+  stores(where:  {
+     status:  {
+        eq: "suspended"
+     }
+  }) {
+    id
+    name
+    description
+    logoUrl
+    status
+    phoneNumber
+    owner {
+      displayName
+    }
+  }
+}
+
+  query getUserCart @auth(level: USER) {
+    cart(first:  { where: {userUid:  {
+       eq_expr: "auth.uid"
+    }}}) {
+      id
+    items: cartItems_on_cart {
+      id
+      productVariation {
+        id
+        product {
+          id
+          name
+        }
+        price
+        imageUrls
+        attributes
+        availableStock
+      }
+      quantity
+    }
+  }
+  }

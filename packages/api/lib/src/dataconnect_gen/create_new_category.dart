@@ -27,6 +27,7 @@ class CreateNewCategoryVariablesBuilder {
 class CreateNewCategoryCategoryInsert {
   String id;
   CreateNewCategoryCategoryInsert.fromJson(dynamic json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {
@@ -43,6 +44,7 @@ class CreateNewCategoryCategoryInsert {
 class CreateNewCategoryData {
   CreateNewCategoryCategoryInsert category_insert;
   CreateNewCategoryData.fromJson(dynamic json):
+  
   category_insert = CreateNewCategoryCategoryInsert.fromJson(json['category_insert']);
 
   Map<String, dynamic> toJson() {
@@ -63,10 +65,17 @@ class CreateNewCategoryVariables {
   String imageUrl;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateNewCategoryVariables.fromJson(Map<String, dynamic> json):
-  name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),imageUrl = nativeFromJson<String>(json['imageUrl']) {
+  
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  imageUrl = nativeFromJson<String>(json['imageUrl']) {
+  
+  
+  
   
     parentCategory = Optional.optional(nativeFromJson, nativeToJson);
     parentCategory.value = json['parentCategory'] == null ? null : nativeFromJson<String>(json['parentCategory']);
+  
   
   }
 

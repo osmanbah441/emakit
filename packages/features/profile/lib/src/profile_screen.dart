@@ -1,10 +1,8 @@
 import 'package:api/api.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final VoidCallback? onOrderHistoryTap;
   final VoidCallback? onPaymentMethodsTap;
   final VoidCallback? onDeliveryAddressesTap;
   final void Function(BuildContext context) onUserAuthenticationRequired;
@@ -12,7 +10,6 @@ class ProfileScreen extends StatefulWidget {
 
   const ProfileScreen({
     super.key,
-    this.onOrderHistoryTap,
     this.onPaymentMethodsTap,
     this.onDeliveryAddressesTap,
     required this.onUserAuthenticationRequired,
@@ -41,10 +38,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile', style: Theme.of(context).textTheme.titleLarge),
-        centerTitle: true,
-      ),
       body: StreamBuilder(
         stream: userRepository.authChanges(),
         builder: (context, asyncSnapshot) {
@@ -112,23 +105,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   leading: Image.asset(
-                    'assets/google_icon.png',
+                    'assets/images/google_icon.png',
                     package: 'component_library',
                     width: 24,
                     height: 24,
                   ),
-                  trailing: user.email == null
+                  trailing: user.email != null
                       ? null
                       : TextButton(onPressed: () {}, child: Text('Link')),
                 ),
-                ListTile(
-                  title: Text(
-                    'Order History',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: widget.onOrderHistoryTap,
-                ),
+
                 ListTile(
                   title: Text(
                     'Payment Methods',

@@ -1,15 +1,10 @@
-import {genkit,} from "genkit";
-import {googleAI} from "@genkit-ai/googleai";
+import { genkit, } from "genkit";
+import { googleAI } from "@genkit-ai/googleai";
 
 import { dataConnectTools } from "@genkit-ai/firebase/beta/data-connect";
-import { initializeApp } from "firebase/app";
+import { app } from "../firebase_config";
 
-const firebaseConfig = {
-  // TODO: 
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 export const ai = genkit({
   promptDir: './src/genkit/prompts',

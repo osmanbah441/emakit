@@ -20,6 +20,7 @@ class DeleteCategoryVariablesBuilder {
 class DeleteCategoryCategoryDelete {
   String id;
   DeleteCategoryCategoryDelete.fromJson(dynamic json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {
@@ -36,6 +37,7 @@ class DeleteCategoryCategoryDelete {
 class DeleteCategoryData {
   DeleteCategoryCategoryDelete? category_delete;
   DeleteCategoryData.fromJson(dynamic json):
+  
   category_delete = json['category_delete'] == null ? null : DeleteCategoryCategoryDelete.fromJson(json['category_delete']);
 
   Map<String, dynamic> toJson() {
@@ -55,6 +57,7 @@ class DeleteCategoryVariables {
   String id;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   DeleteCategoryVariables.fromJson(Map<String, dynamic> json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {

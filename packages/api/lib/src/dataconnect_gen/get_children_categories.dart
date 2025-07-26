@@ -26,9 +26,16 @@ class GetChildrenCategoriesCategories {
   List<String>? specificationAttributes;
   String? parentCategoryId;
   GetChildrenCategoriesCategories.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']),name = nativeFromJson<String>(json['name']),description = nativeFromJson<String>(json['description']),imageUrl = nativeFromJson<String>(json['imageUrl']),variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
+  
+  id = nativeFromJson<String>(json['id']),
+  name = nativeFromJson<String>(json['name']),
+  description = nativeFromJson<String>(json['description']),
+  imageUrl = nativeFromJson<String>(json['imageUrl']),
+  variationAttributes = json['variationAttributes'] == null ? null : AnyValue.fromJson(json['variationAttributes']),
+  specificationAttributes = json['specificationAttributes'] == null ? null : (json['specificationAttributes'] as List<dynamic>)
         .map((e) => nativeFromJson<String>(e))
-        .toList(),parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
+        .toList(),
+  parentCategoryId = json['parentCategoryId'] == null ? null : nativeFromJson<String>(json['parentCategoryId']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -62,6 +69,7 @@ class GetChildrenCategoriesCategories {
 class GetChildrenCategoriesData {
   List<GetChildrenCategoriesCategories> categories;
   GetChildrenCategoriesData.fromJson(dynamic json):
+  
   categories = (json['categories'] as List<dynamic>)
         .map((e) => GetChildrenCategoriesCategories.fromJson(e))
         .toList();
@@ -81,6 +89,7 @@ class GetChildrenCategoriesVariables {
   String id;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   GetChildrenCategoriesVariables.fromJson(Map<String, dynamic> json):
+  
   id = nativeFromJson<String>(json['id']);
 
   Map<String, dynamic> toJson() {

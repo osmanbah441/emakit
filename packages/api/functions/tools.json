@@ -1,7 +1,7 @@
 {
   "connector": "tools",
   "location": "us-central1",
-  "service": "e-makit-1-service",
+  "service": "sl-baz-service",
   "tools": [
     {
       "name": "getAllParentCategories",

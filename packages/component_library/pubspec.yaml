@@ -27,4 +27,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - 'assets/google_icon.png'
+    - 'assets/images/google_icon.png'
+    - 'assets/images/become_a_seller.png'

@@ -31,7 +31,7 @@ class KeyValueSection extends StatelessWidget {
                 children: [
                   const Divider(height: 24.0, thickness: 1.0),
 
-                  SummaryRow(label: entry.key, value: entry.value),
+                  SummaryRow(label: entry.key, value: entry.value.toString()),
                 ],
               );
             }),

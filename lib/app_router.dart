@@ -15,11 +15,12 @@ import 'package:profile/profile.dart';
 import 'package:seller_dashboard/seller_dashboard.dart';
 import 'package:seller_onboarding/seller_onboarding.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:store_product_list/store_product_list.dart';
 
 /// A class that centralizes all GoRouter configurations and path constants.
 class AppRouter {
   /// Named routes for consistent navigation.
-  static const String homeRouteName = '/';
+  static const String homeRouteName = '/home';
   static const String addEditProductRouteName = 'addEditProduct';
   static const String cartRouteName = 'cart';
   static const String checkoutRouteName = 'checkout';
@@ -36,13 +37,17 @@ class AppRouter {
   static const String storeProductsRouteName = 'storeProducts';
   static const String storeOrdersRouteName = 'storeOrders';
 
-  // List of routes that do NOT require authentication
-  static const List<String> _publicRoutes = [signInRouteName, homeRouteName];
-
   final GoRouter router = GoRouter(
-    initialLocation: '/$homeRouteName',
+    initialLocation: "/",
     routes: [
       ShellRoute(
+        redirect: (context, state) async {
+          final store = await Api.instance.userRepository.getStore;
+          if (store == null || !store.status.isActive) {
+            return "/";
+          }
+          return null;
+        },
         builder: (context, state, child) {
           return StoreScaffold(child: child);
         },
@@ -56,7 +61,22 @@ class AppRouter {
           GoRoute(
             path: '/$storeProductsRouteName',
             name: storeProductsRouteName,
-            builder: (context, state) => const StoreProductsScreen(),
+            builder: (context, state) => StoreProductListScreen(
+              onProductTap: (context, productId) => context.goNamed(
+                productDetailsRouteName,
+                pathParameters: {'productId': productId},
+              ),
+              onCategoryFilterTap: (category) => context.goNamed(
+                filterRouteName,
+                pathParameters: {
+                  'id': category.id!,
+                  'mainCategoryName': category.name,
+                },
+              ),
+              filterDialog: CategorySelectionAlertDialog(),
+              onAddNewProductTap: (context) =>
+                  context.goNamed(addEditProductRouteName),
+            ),
           ),
           GoRoute(
             path: '/$storeOrdersRouteName',
@@ -116,8 +136,7 @@ class AppRouter {
           filterDialog: CategorySelectionAlertDialog(),
           onAddNewProductTap: (context) =>
               context.goNamed(addEditProductRouteName),
-          onManageCategoryTap: (context) =>
-              context.goNamed(manageCategoriesRouteName),
+
           onCategoryFilterTap: (category) => context.goNamed(
             filterRouteName,
             pathParameters: {
@@ -125,19 +144,19 @@ class AppRouter {
               'mainCategoryName': category.name,
             },
           ),
-          onProductTap: (context, productId) => context.goNamed(
-            productDetailsRouteName,
-            pathParameters: {'productId': productId},
-          ),
+          onProductTap: (context, productId) {
+            print('go to id: $productId');
+            //   context.goNamed(
+            //   productDetailsRouteName,
+            //   pathParameters: {'productId': productId},
+            // );
+          },
         ),
       ),
       GoRoute(
         path: '/$profileRouteName',
         name: profileRouteName,
         builder: (context, state) => ProfileScreen(
-          onOrderHistoryTap: () {
-            context.goNamed(orderListRouteName);
-          },
           onPaymentMethodsTap: () {
             // TODO: Implement navigation to payment methods
           },
@@ -185,27 +204,14 @@ class AppRouter {
         path: '/$sellerOnboardingRouteName',
         name: sellerOnboardingRouteName,
         builder: (context, state) {
-          return const SellerApplicationScreen();
+          return const BecomeSellerScreen();
         },
       ),
     ],
     redirect: (context, state) {
       final bool isLoggedIn = Api.instance.userRepository.currentUser != null;
-      final bool isSigningIn = state.matchedLocation == '/$signInRouteName';
+      if (!isLoggedIn) return '/$signInRouteName';
 
-      print('isLoggedIn: $isLoggedIn, isSigningIn: $isSigningIn');
-
-      // If the user is not logged in AND the current location is not the sign-in page,
-      // redirect them to the sign-in page.
-      if (!isLoggedIn && !_publicRoutes.contains(state.matchedLocation)) {
-        return '/$signInRouteName';
-      }
-
-      // If the user IS logged in AND they are trying to go to the sign-in page,
-      // redirect them to the home page (or wherever you want logged-in users to go from the sign-in page).
-      if (isLoggedIn && isSigningIn) {
-        return '/';
-      }
       return null;
     },
   );

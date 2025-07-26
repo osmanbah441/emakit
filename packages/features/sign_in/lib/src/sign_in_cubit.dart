@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:domain_models/domain_models.dart';
 
 import 'package:api/api.dart';
 
@@ -10,7 +9,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   SignInCubit() : super(const SignInState());
 
-  Future<void> continueWithMobile(String phoneNumber) async {
+  void continueWithMobile(String phoneNumber) async {
     emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
     try {
       await _userRepository.signInwithPhoneNumberWeb(phoneNumber);
@@ -20,7 +19,7 @@ class SignInCubit extends Cubit<SignInState> {
     }
   }
 
-  Future<void> verifyOtp(String otp) async {
+  void verifyOtp(String otp) async {
     emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
     try {
       final isNewUser = await _userRepository.verifyOtp(otp);
@@ -39,23 +38,21 @@ class SignInCubit extends Cubit<SignInState> {
     }
   }
 
-  Future<void> continueWithGoogle() async {
+  void continueWithGoogle() async {
     emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
     try {
       await _userRepository.signInWithGoogleWeb();
-
       emit(state.copyWith(status: SignInSubmissionStatus.success));
     } catch (_) {
       emit(state.copyWith(status: SignInSubmissionStatus.networkError));
     }
   }
 
-  void updateDisplayName(String name) {
+  void updateDisplayName(String name) async {
     try {
-      _userRepository.updateDisplayName(name);
+      await _userRepository.updateDisplayName(name);
       emit(state.copyWith(status: SignInSubmissionStatus.success));
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: SignInSubmissionStatus.networkError));
     }
   }

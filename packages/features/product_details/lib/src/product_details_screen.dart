@@ -42,15 +42,6 @@ class ProductDetailsScreen extends StatelessWidget {
           final theme = Theme.of(context);
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text(product.name),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  if (Navigator.canPop(context)) Navigator.pop(context);
-                },
-              ),
-            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -62,9 +53,16 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
-                    child: Text(
-                      product.description,
-                      style: theme.textTheme.bodyLarge,
+                    child: Column(
+                      spacing: 12,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(product.name, style: theme.textTheme.titleLarge),
+                        Text(
+                          product.description,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ],
                     ),
                   ),
                   if (selectedVariation != null)

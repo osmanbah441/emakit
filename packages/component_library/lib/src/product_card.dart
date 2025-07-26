@@ -5,11 +5,7 @@ class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final double price;
-  final VoidCallback? onWishlistToggle;
-  final VoidCallback? onAddToCart;
-  final bool isWishlisted;
   final VoidCallback? onTap;
-  final bool isInCart;
   final String currency;
 
   const ProductCard({
@@ -17,11 +13,7 @@ class ProductCard extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     required this.price,
-    this.isWishlisted = false,
-    this.onWishlistToggle,
-    this.onAddToCart,
     this.onTap,
-    this.isInCart = false,
     this.currency = '\$',
   });
 
@@ -41,7 +33,7 @@ class ProductCard extends StatelessWidget {
           spacing: 8,
           children: [
             CachedProductImage(
-              height: 200,
+              height: 208,
               width: double.infinity,
               imageUrl: imageUrl,
               borderRadius: BorderRadius.only(
@@ -67,19 +59,6 @@ class ProductCard extends StatelessWidget {
                       color: colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      WishlistToggleButton(
-                        onToggle: onWishlistToggle,
-                        isFavorite: isWishlisted,
-                      ),
-                      AddToCartButton(
-                        onPressed: onAddToCart,
-                        isIncart: isInCart,
-                      ),
-                    ],
                   ),
                 ],
               ),

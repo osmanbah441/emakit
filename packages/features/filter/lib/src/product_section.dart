@@ -70,28 +70,6 @@ class ProductSection extends StatelessWidget {
                   title: product.name,
                   price: product.variations.first.price,
                   onTap: () => onProductTap(context, product.id!),
-                  onAddToCart: () {
-                    context.read<CategoryDetailsCubit>().toggleCartStatus(
-                      product.id!,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Added "${product.name}" to cart!'),
-                        duration: const Duration(milliseconds: 700),
-                      ),
-                    );
-                  },
-                  onWishlistToggle: () {
-                    context.read<CategoryDetailsCubit>().toggleWishlistStatus(
-                      product.id!,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Added "${product.name}" to wishlist!'),
-                        duration: const Duration(milliseconds: 700),
-                      ),
-                    );
-                  },
                 );
               },
             ),

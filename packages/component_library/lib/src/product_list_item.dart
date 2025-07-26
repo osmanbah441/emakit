@@ -29,6 +29,7 @@ class ProductListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
@@ -51,21 +52,15 @@ class ProductListItem extends StatelessWidget {
             const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.titleSmall,
                 ),
                 if (subtitle != null)
-                  Text(
-                    subtitle!,
-                    style: const TextStyle(fontSize: 14),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  Text(subtitle!, style: textTheme.bodySmall),
               ],
             ),
           ],

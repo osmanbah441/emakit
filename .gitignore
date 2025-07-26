@@ -56,3 +56,4 @@ windows/
 *.firebase*
 pubspec.lock
 android/
+.gemini/
