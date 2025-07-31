@@ -22,6 +22,7 @@ class GetProductByIdProduct {
   String name;
   String description;
   AnyValue specifications;
+  String categoryId;
   List<GetProductByIdProductVariations> variations;
   GetProductByIdProduct.fromJson(dynamic json):
   
@@ -29,6 +30,7 @@ class GetProductByIdProduct {
   name = nativeFromJson<String>(json['name']),
   description = nativeFromJson<String>(json['description']),
   specifications = AnyValue.fromJson(json['specifications']),
+  categoryId = nativeFromJson<String>(json['categoryId']),
   variations = (json['variations'] as List<dynamic>)
         .map((e) => GetProductByIdProductVariations.fromJson(e))
         .toList();
@@ -39,6 +41,7 @@ class GetProductByIdProduct {
     json['name'] = nativeToJson<String>(name);
     json['description'] = nativeToJson<String>(description);
     json['specifications'] = specifications.toJson();
+    json['categoryId'] = nativeToJson<String>(categoryId);
     json['variations'] = variations.map((e) => e.toJson()).toList();
     return json;
   }
@@ -48,6 +51,7 @@ class GetProductByIdProduct {
     required this.name,
     required this.description,
     required this.specifications,
+    required this.categoryId,
     required this.variations,
   });
 }

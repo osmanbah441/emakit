@@ -12,17 +12,43 @@ class ProductListView extends StatelessWidget {
   final List<Product> products;
   final Function(BuildContext, String) onProductTap;
 
+  void _showDailog(BuildContext context, String imageUrl) async =>
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: CachedProductImage(
+              width: 300,
+              height: 400,
+              imageUrl: imageUrl,
+              borderRadius: BorderRadius.circular(24),
+            ),
+          );
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        return ProductListItem(
-          imageUrl: product.imageUrl ?? "https://picsum.photos/200/300",
-          title: product.name,
-          // subtitle: product.description,
-          onTap: () {},
+        final imageUrl = product.imageUrl ?? "https://picsum.photos/200/300";
+        return ListTile(
+          onTap: () => onProductTap(context, product.id!),
+          leading: SizedBox(
+            width: 60,
+            height: 60,
+            child: InkWell(
+              onTap: () => _showDailog(context, imageUrl),
+              child: CachedProductImage(
+                borderRadius: BorderRadius.circular(12),
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          title: Text(product.name),
         );
       },
     );

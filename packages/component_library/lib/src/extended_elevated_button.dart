@@ -30,14 +30,16 @@ class ExtendedElevatedButton extends StatelessWidget {
       child: ElevatedButton.icon(
         icon: icon,
         onPressed: onPressed,
-        style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(
-            Theme.of(context).colorScheme.secondary,
-          ),
-          foregroundColor: WidgetStateProperty.all(
-            Theme.of(context).colorScheme.onSecondary,
-          ),
-        ),
+        style: onPressed == null
+            ? null
+            : ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(
+                  Theme.of(context).colorScheme.secondary,
+                ),
+                foregroundColor: WidgetStateProperty.all(
+                  Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
         label: Text(label),
       ),
     );

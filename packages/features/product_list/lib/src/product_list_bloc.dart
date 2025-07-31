@@ -63,17 +63,44 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     SendRecordingSearch event,
     Emitter<ProductListState> emit,
   ) async {
+    // Capture the current state *before* processing search
+    final currentState = state;
+    if (currentState is! ProductListLoaded) {
+      // If we're not in a loaded state (e.g., initial loading error),
+      // there's no previous product list to fall back to.
+      emit(ProductListError(message: 'Cannot search from current state.'));
+      return;
+    }
+
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _api.productRepository.productSearch(
-        UserContentMedia(event.bytes, event.mimeType),
-      );
+      // --- FOR TESTING: Intentionally throw an error here ---
+      await Future.delayed(
+        const Duration(seconds: 1),
+      ); // Simulate network delay
+      throw Exception('Internal server error');
+      // --- END FOR TESTING ---
 
-      emit(ProductListSearchSuccess(result: res));
+      // Original code (uncomment when you want real search):
+      // final res = await _api.productRepository.productSearch(
+      //   UserContentMedia(event.bytes, event.mimeType),
+      // );
+      // emit(ProductListSearchSuccess(result: res));
     } catch (e) {
+      final errorMessage = e.toString();
+
+      // 1. Emit the error state to trigger the dialog in the listener
+      emit(ProductListSearchError(message: errorMessage));
+
+      // 2. Immediately revert to the previous ProductListLoaded state
+      //    This keeps the products on screen and also provides the error message
+      //    to the ProductListLoaded state for potential inline display if needed.
       emit(
-        ProductListSearchError(message: 'Voice search failed: ${e.toString()}'),
+        currentState.copyWith(
+          searchErrorMessage: errorMessage,
+          searchInputMode: SearchInputMode.idle, // Reset search input mode
+        ),
       );
     }
   }
@@ -83,16 +110,44 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     Emitter<ProductListState> emit,
   ) async {
     if (event.text.isEmpty) return;
+
+    // Capture the current state *before* processing search
+    final currentState = state;
+    if (currentState is! ProductListLoaded) {
+      // If we're not in a loaded state, there's no previous product list to fall back to.
+      emit(ProductListError(message: 'Cannot search from current state.'));
+      return;
+    }
+
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _api.productRepository.productSearch(
-        UserContentText(event.text),
-      );
-      emit(ProductListSearchSuccess(result: res));
+      // --- FOR TESTING: Intentionally throw an error here ---
+      await Future.delayed(
+        const Duration(seconds: 1),
+      ); // Simulate network delay
+      throw Exception('Internal server error');
+      // --- END FOR TESTING ---
+
+      // Original code (uncomment when you want real search):
+      // final res = await _api.productRepository.productSearch(
+      //   UserContentText(event.text),
+      // );
+      // emit(ProductListSearchSuccess(result: res));
     } catch (e) {
+      final errorMessage = e.toString();
+
+      // 1. Emit the error state to trigger the dialog in the listener
+      emit(ProductListSearchError(message: errorMessage));
+
+      // 2. Immediately revert to the previous ProductListLoaded state
+      //    This keeps the products on screen and also provides the error message
+      //    to the ProductListLoaded state for potential inline display if needed.
       emit(
-        ProductListSearchError(message: 'Text search failed: ${e.toString()}'),
+        currentState.copyWith(
+          searchErrorMessage: errorMessage,
+          searchInputMode: SearchInputMode.idle, // Reset search input mode
+        ),
       );
     }
   }

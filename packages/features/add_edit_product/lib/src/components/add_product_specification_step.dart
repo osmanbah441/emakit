@@ -23,10 +23,10 @@ class _AddProductSpecificationStepState
   @override
   void initState() {
     super.initState();
-    final product = _cubit.state.newProduct!;
-    _nameController.text = product.name;
-    _descriptionController.text = product.description;
-    product.specifications.forEach((key, value) {
+    final p = _cubit.state.extractedProductInfo!.generatedProduct;
+    _nameController.text = p.name;
+    _descriptionController.text = p.description;
+    p.specifications.forEach((key, value) {
       _specControllers[key] = TextEditingController(text: value.toString());
     });
   }
@@ -51,7 +51,7 @@ class _AddProductSpecificationStepState
       specs[key] = int.tryParse(value) ?? double.tryParse(value) ?? value;
     });
 
-    _cubit.validateProductWithLLM(
+    _cubit.createNewProduct(
       name: _nameController.text.trim(),
       description: _descriptionController.text.trim(),
       specifications: specs,
@@ -60,69 +60,87 @@ class _AddProductSpecificationStepState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Product Name',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Enter product name' : null,
-                ),
-                const SizedBox(height: 16),
-
-                TextFormField(
-                  controller: _descriptionController,
-                  maxLines: 5,
-                  minLines: 3,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    alignLabelWithHint: true,
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (val) => val == null || val.isEmpty
-                      ? 'Enter product description'
-                      : null,
-                ),
-                const SizedBox(height: 16),
-
-                for (final entry in _specControllers.entries)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: TextFormField(
-                      controller: entry.value,
-                      decoration: InputDecoration(
-                        labelText: entry.key,
-                        border: const OutlineInputBorder(),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => _cubit.goToStep(AddEditProductStep.guideLineImage),
+          icon: const Icon(Icons.arrow_back),
+        ),
+        title: const Text('Create New Product'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+        child: BlocBuilder<AddEditProductCubit, AddEditProductState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  spacing: 16,
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Product Name',
+                        border: OutlineInputBorder(),
                       ),
                       validator: (val) => val == null || val.isEmpty
-                          ? 'Enter ${entry.key}'
+                          ? 'Enter product name'
                           : null,
                     ),
-                  ),
-                const SizedBox(height: 24),
-              ],
-            ),
-          ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _descriptionController,
+                      maxLines: 5,
+                      minLines: 3,
+                      decoration: const InputDecoration(
+                        labelText: 'Description',
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (val) => val == null || val.isEmpty
+                          ? 'Enter product description'
+                          : null,
+                    ),
+
+                    for (final entry in _specControllers.entries)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: TextFormField(
+                          controller: entry.value,
+                          decoration: InputDecoration(
+                            labelText: entry.key,
+                            border: const OutlineInputBorder(),
+                          ),
+                          validator: (val) => val == null || val.isEmpty
+                              ? 'Enter ${entry.key}'
+                              : null,
+                        ),
+                      ),
+                    const SizedBox(height: 2),
+                    ProductVariationCard(
+                      mode: ProductVariationMode.add,
+                      isActive: true,
+                      onAddLabelText: 'Validate variation',
+                      onAdd: _cubit.verifyVariation,
+                      optionalFields:
+                          state.extractedProductInfo!.variationDefinationData,
+                    ),
+                    ExtendedElevatedButton(
+                      label: 'Add Product',
+                      onPressed:
+                          (state.isVariationValid != null &&
+                              state.isVariationValid!)
+                          ? _handleSubmit
+                          : null,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
-        const SizedBox(height: 16),
-        ButtonActionBar(
-          leftLabel: 'Back',
-          rightLabel: 'Next',
-          onRightTap: _handleSubmit,
-          onLeftTap: () => context.read<AddEditProductCubit>().goToStep(
-            AddEditProductStep.similarProducts,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

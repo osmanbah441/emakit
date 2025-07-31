@@ -70,7 +70,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   if (selectedVariation != null)
                     Text(
-                      '\$${selectedVariation.price.toStringAsFixed(2)}',
+                      'NLE ${selectedVariation.price.toStringAsFixed(2)}',
                       style: theme.textTheme.headlineLarge?.copyWith(
                         color: theme.primaryColor,
                       ),

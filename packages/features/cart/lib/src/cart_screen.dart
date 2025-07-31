@@ -54,6 +54,7 @@ class CartView extends StatelessWidget {
           children: [
             ...items.map((item) {
               return CartItemCard(
+                currency: 'NLE ',
                 imageUrl: item.product.imageUrls.first,
                 title: item.title,
                 totalPrice: item.totalPrice,
@@ -84,10 +85,10 @@ class CartView extends StatelessWidget {
 
             // Order Summary Section
             OrderSummarySection(
-              subtotal: '\$${cart.subTotal.toStringAsFixed(2)}',
+              subtotal: 'NLE ${cart.subTotal.toStringAsFixed(2)}',
               shippingCost: 'Free',
-              taxes: '\$${cart.taxes.toStringAsFixed(2)}',
-              total: '\$${cart.total.toStringAsFixed(2)}',
+              taxes: 'NLE ${cart.taxes.toStringAsFixed(2)}',
+              total: 'NLE ${cart.total.toStringAsFixed(2)}',
             ),
             ExtendedElevatedButton(
               onPressed: () => onCheckoutTap(context),

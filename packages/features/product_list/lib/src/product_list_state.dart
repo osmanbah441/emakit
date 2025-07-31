@@ -16,14 +16,15 @@ class ProductListLoaded extends ProductListState {
 
   final Set<String> cartProductIds;
   final Set<String> wishlistProductIds;
+  final String? searchErrorMessage; // Added: Optional message for failed search
 
   const ProductListLoaded({
     required this.products,
-
     this.currentSearchTerm = '',
     this.searchInputMode = SearchInputMode.idle,
     this.cartProductIds = const {},
     this.wishlistProductIds = const {},
+    this.searchErrorMessage, // Added: Initialize it
   });
 
   ProductListLoaded copyWith({
@@ -32,6 +33,7 @@ class ProductListLoaded extends ProductListState {
     SearchInputMode? searchInputMode,
     Set<String>? cartProductIds,
     Set<String>? wishlistProductIds,
+    String? searchErrorMessage, // Added: Copy this
   }) {
     return ProductListLoaded(
       products: products ?? this.products,
@@ -39,6 +41,7 @@ class ProductListLoaded extends ProductListState {
       searchInputMode: searchInputMode ?? this.searchInputMode,
       cartProductIds: cartProductIds ?? this.cartProductIds,
       wishlistProductIds: wishlistProductIds ?? this.wishlistProductIds,
+      searchErrorMessage: searchErrorMessage, // Pass the new value
     );
   }
 }

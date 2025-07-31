@@ -18,26 +18,26 @@ class DisplayMemoryImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(8),
       child: Stack(
         children: [
           Image.memory(
             imageBytes,
             width: width,
             height: height,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           Positioned(
-            top: 4,
-            right: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.close, size: 18, color: Colors.red),
-                onPressed: onRemove,
+            top: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: onRemove,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.close, size: 16, color: Colors.red),
               ),
             ),
           ),

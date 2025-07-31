@@ -17,7 +17,7 @@ final class Functions {
     return res.data.toString();
   }
 
-  Future<ProductExtractionListingData> productExtractionListing(
+  Future<ExtractedProductInfo> productExtractionListing(
     UserContent content,
   ) async => await _fn
       .httpsCallable('ProductExtractionListing')
@@ -28,8 +28,21 @@ final class Functions {
         final message = jsonMap['message'] as String;
         final data = jsonMap['data'] as Map<String, dynamic>?;
 
-        return (status == 'success' && data != null)
-            ? ProductExtractionListingData.fromJson(data)
-            : throw ProductExtractionException(message);
+        if (status == 'success' && data != null) {
+          final p = ProductExtractionListingData.fromJson(data);
+
+          return ExtractedProductInfo(
+            similarProducts: [],
+            variationDefinationData: p.variationAttributes,
+            generatedProduct: Product(
+              specifications: p.categorySpecificationFields,
+              name: p.productName,
+              description: p.productDescription,
+              categoryId: p.selectedChildCategoryId,
+            ),
+          );
+        } else {
+          throw ProductExtractionException(message);
+        }
       });
 }

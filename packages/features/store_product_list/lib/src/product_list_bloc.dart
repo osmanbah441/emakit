@@ -36,8 +36,8 @@ class StoreProductListBloc
     emit(const ProductListLoading());
 
     try {
-      final fetchPage = await _api.productRepository.getAllProducts(
-        searchTerm: event.searchTerm,
+      final fetchPage = await _api.productRepository.getProductForStore(
+        // searchTerm: event.searchTerm,
       );
 
       emit(

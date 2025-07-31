@@ -19,6 +19,7 @@ void main() async {
       auth: ('localhost', 9099),
       fn: ('localhost', 5001),
       firestore: ('localhost', 8080),
+      storage: ('localhost', 9199),
     );
   }
 

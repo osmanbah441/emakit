@@ -50,10 +50,9 @@ class _HomeState extends State<Home> {
         return Scaffold(
           appBar: AppBar(
             actionsPadding: const EdgeInsets.only(right: 12),
-            title: const Text('Emakit'),
+            title: const Text('Salone Bazaar'),
             actions: [
               CartIconButton(
-                itemCount: 10,
                 onPressed: () {
                   context.goNamed(AppRouter.cartRouteName);
                 },

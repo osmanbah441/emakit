@@ -1,0 +1,90 @@
+mutation mock @auth(level: NO_ACCESS) {
+    productVariation_insertMany(data:  [
+{
+  productId: "d5ef38bdab5e4ddea514e1f98a8388ba",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { color: Olive, size: M },
+  availableStock: 18,
+  price: 550,
+  imageUrls: [
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e"
+  ]
+}
+{
+  productId: "d5ef38bdab5e4ddea514e1f98a8388ba",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { color: Mustard, size: L },
+  availableStock: 21,
+  price: 590,
+  imageUrls: [
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e"
+  ]
+}
+{
+  productId: "d5ef38bdab5e4ddea514e1f98a8388ba",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { color: Lemon, size: XL },
+  availableStock: 25,
+  price: 630,
+  imageUrls: [
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e"
+  ]
+}
+{
+  productId: "c27ea1df9d1a470b880320137a3b67f2",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { material: Cotton, size: M },
+  availableStock: 20,
+  price: 670,
+  imageUrls: [
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e",
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
+  ]
+}
+{
+  productId: "c27ea1df9d1a470b880320137a3b67f2",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { material: Linen, size: L },
+  availableStock: 23,
+  price: 710,
+  imageUrls: [
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e",
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
+  ]
+}
+{
+  productId: "c27ea1df9d1a470b880320137a3b67f2",
+  storeId: "5c0e96b87282400f848abf45177d5879",
+  attributes: { material: Silk, size: XL },
+  availableStock: 26,
+  price: 750,
+  imageUrls: [
+    "https://images.unsplash.com/photo-1495121605193-b116b5b9c33e",
+    "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
+  ]
+}
+
+
+    ])
+}

@@ -6,6 +6,7 @@ import 'package:emakit/home.dart';
 import 'package:emakit/store_scaffold.dart';
 import 'package:filter/filter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home/home.dart';
 import 'package:manage_categories/manage_categories.dart';
 import 'package:order_details/order_details.dart';
 import 'package:order_list/order_list.dart';
@@ -15,12 +16,13 @@ import 'package:profile/profile.dart';
 import 'package:seller_dashboard/seller_dashboard.dart';
 import 'package:seller_onboarding/seller_onboarding.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:store_product_details/store_product_details.dart';
 import 'package:store_product_list/store_product_list.dart';
 
 /// A class that centralizes all GoRouter configurations and path constants.
 class AppRouter {
   /// Named routes for consistent navigation.
-  static const String homeRouteName = '/home';
+  static const String homeRouteName = 'home';
   static const String addEditProductRouteName = 'addEditProduct';
   static const String cartRouteName = 'cart';
   static const String checkoutRouteName = 'checkout';
@@ -33,9 +35,11 @@ class AppRouter {
   static const String orderListRouteName = 'orderList';
   static const String orderDetailsRouteName = 'orderDetails';
   static const String sellerOnboardingRouteName = 'sellerOnboarding';
+
   static const String storeDashboardRouteName = 'storeDashboard';
   static const String storeProductsRouteName = 'storeProducts';
   static const String storeOrdersRouteName = 'storeOrders';
+  static const String storeProductsDetailsRouteName = "store-products-details";
 
   final GoRouter router = GoRouter(
     initialLocation: "/",
@@ -63,7 +67,7 @@ class AppRouter {
             name: storeProductsRouteName,
             builder: (context, state) => StoreProductListScreen(
               onProductTap: (context, productId) => context.goNamed(
-                productDetailsRouteName,
+                storeProductsDetailsRouteName,
                 pathParameters: {'productId': productId},
               ),
               onCategoryFilterTap: (category) => context.goNamed(
@@ -205,6 +209,14 @@ class AppRouter {
         name: sellerOnboardingRouteName,
         builder: (context, state) {
           return const BecomeSellerScreen();
+        },
+      ),
+      GoRoute(
+        path: '/$storeProductsDetailsRouteName/:productId',
+        name: storeProductsDetailsRouteName,
+        builder: (context, state) {
+          final productId = state.pathParameters['productId']!;
+          return StoreProductDetailsScreen(productId: productId);
         },
       ),
     ],

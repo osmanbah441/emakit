@@ -10,10 +10,9 @@ class CreateNewProductVariablesBuilder {
   List<String> imageUrls;
   double price;
   int availableStock;
-  String embeddingText;
 
   final FirebaseDataConnect _dataConnect;
-  CreateNewProductVariablesBuilder(this._dataConnect, {required  this.name,required  this.description,required  this.category,required  this.specs,required  this.storeId,required  this.attributes,required  this.imageUrls,required  this.price,required  this.availableStock,required  this.embeddingText,});
+  CreateNewProductVariablesBuilder(this._dataConnect, {required  this.name,required  this.description,required  this.category,required  this.specs,required  this.storeId,required  this.attributes,required  this.imageUrls,required  this.price,required  this.availableStock,});
   Deserializer<CreateNewProductData> dataDeserializer = (dynamic json)  => CreateNewProductData.fromJson(jsonDecode(json));
   Serializer<CreateNewProductVariables> varsSerializer = (CreateNewProductVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<CreateNewProductData, CreateNewProductVariables>> execute() {
@@ -21,7 +20,7 @@ class CreateNewProductVariablesBuilder {
   }
 
   MutationRef<CreateNewProductData, CreateNewProductVariables> ref() {
-    CreateNewProductVariables vars= CreateNewProductVariables(name: name,description: description,category: category,specs: specs,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,embeddingText: embeddingText,);
+    CreateNewProductVariables vars= CreateNewProductVariables(name: name,description: description,category: category,specs: specs,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
     return _dataConnect.mutation("createNewProduct", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -91,7 +90,6 @@ class CreateNewProductVariables {
   List<String> imageUrls;
   double price;
   int availableStock;
-  String embeddingText;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateNewProductVariables.fromJson(Map<String, dynamic> json):
   
@@ -105,8 +103,7 @@ class CreateNewProductVariables {
         .map((e) => nativeFromJson<String>(e))
         .toList(),
   price = nativeFromJson<double>(json['price']),
-  availableStock = nativeFromJson<int>(json['availableStock']),
-  embeddingText = nativeFromJson<String>(json['embeddingText']);
+  availableStock = nativeFromJson<int>(json['availableStock']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
@@ -119,7 +116,6 @@ class CreateNewProductVariables {
     json['imageUrls'] = imageUrls.map((e) => nativeToJson<String>(e)).toList();
     json['price'] = nativeToJson<double>(price);
     json['availableStock'] = nativeToJson<int>(availableStock);
-    json['embeddingText'] = nativeToJson<String>(embeddingText);
     return json;
   }
 
@@ -133,7 +129,6 @@ class CreateNewProductVariables {
     required this.imageUrls,
     required this.price,
     required this.availableStock,
-    required this.embeddingText,
   });
 }
 

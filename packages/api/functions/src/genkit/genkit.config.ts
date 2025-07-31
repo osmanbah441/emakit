@@ -2,9 +2,7 @@ import { genkit, } from "genkit";
 import { googleAI } from "@genkit-ai/googleai";
 
 import { dataConnectTools } from "@genkit-ai/firebase/beta/data-connect";
-import { app } from "../firebase_config";
-
-
+import { app } from "../firebase_config.js";
 
 export const ai = genkit({
   promptDir: './src/genkit/prompts',

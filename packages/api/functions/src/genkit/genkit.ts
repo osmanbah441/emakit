@@ -6,8 +6,7 @@ enableFirebaseTelemetry();
 
 
 import { defineSecret } from "firebase-functions/params";
-import { MultimodalProductSearchFlow } from "./flows/multimodal_product_search";
-import { ProductExtractionListingFlow } from "./flows/product_extraction_listing_flow";
+import { ProductExtractionListingFlow, MultimodalProductSearchFlow } from "./flow.js";
 
 const apiKey = defineSecret("GOOGLE_GENAI_API_KEY");
 

@@ -65,10 +65,10 @@ class MultipleImagesPickerWidget extends StatefulWidget {
     required this.selectedImages,
     required this.onImagesSelected,
     required this.onImageRemoved,
-    this.maxImages = 6,
-    this.minImages = 4,
+    this.maxImages = 5,
+    this.minImages = 3,
     this.pickerTitle =
-        "Upload 4-6 photos of the same item, from different angles.",
+        "Upload 3-5 photos of the same item, from different angles.",
   });
 
   final List<({Uint8List bytes, String mimeType})> selectedImages;

@@ -60,19 +60,15 @@ class ProductListScreenView extends StatelessWidget {
     }
   }
 
-  void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
+  // Removed _showErrorDialog method as it's no longer needed
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductListBloc, ProductListState>(
       listener: (context, state) {
-        if (state is ProductListSearchError) {
-          _showSnackBar(context, 'Search Failed: ${state.message}');
-        }
+        // The listener is now empty because the error is displayed inline.
+        // ProductListSearchError state is now only used internally by the Bloc
+        // to immediately transition to ProductListLoaded with an error message.
       },
       builder: (context, state) {
         final bloc = context.read<ProductListBloc>();
@@ -103,19 +99,35 @@ class ProductListScreenView extends StatelessWidget {
                         ProductListLoaded(
                           products: final products,
                           currentSearchTerm: final searchTerm,
+                          searchErrorMessage: final searchErrorMessage, // Get the error message from state
                         ) =>
-                          products.isEmpty
-                              ? Center(
+                          Column(
+                            children: [
+                              // Display the inline error message if present
+                              if (searchErrorMessage != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
                                   child: Text(
-                                    searchTerm.isNotEmpty
-                                        ? 'No products found for "$searchTerm".'
-                                        : 'No products available.',
+                                    'search failed: $searchErrorMessage',
+                                    style: const TextStyle(color: Colors.red),
                                   ),
-                                )
-                              : ProductGridView(
-                                  products: products,
-                                  onProductTap: onProductTap,
                                 ),
+                              Expanded(
+                                child: products.isEmpty
+                                    ? Center(
+                                        child: Text(
+                                          searchTerm.isNotEmpty
+                                              ? 'No products found for "$searchTerm".'
+                                              : 'No products available.',
+                                        ),
+                                      )
+                                    : ProductGridView(
+                                        products: products,
+                                        onProductTap: onProductTap,
+                                      ),
+                              ),
+                            ],
+                          ),
 
                         ProductListError(message: final message) => Center(
                           child: Text('Error: $message'),
@@ -127,6 +139,10 @@ class ProductListScreenView extends StatelessWidget {
                             Text('Processing search...'),
                           ],
                         ),
+                        // These states are now less critical for UI rendering,
+                        // as the bloc will quickly transition to ProductListLoaded
+                        // even on error. ProductListSearchError is no longer handled
+                        // directly by the builder, only by the previous state transition.
                         ProductListIdleSearch() => const SizedBox.shrink(),
                         ProductListSearchSuccess(result: final result) => Card(
                           child: Padding(
@@ -134,6 +150,8 @@ class ProductListScreenView extends StatelessWidget {
                             child: Text('Search Result: $result'),
                           ),
                         ),
+                        // This state should now ideally never be directly built by the widget,
+                        // as the Bloc immediately transitions from it to ProductListLoaded.
                         ProductListSearchError() => const SizedBox.shrink(),
                       };
                     },

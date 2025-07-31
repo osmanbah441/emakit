@@ -9,73 +9,75 @@ enum AddEditProductStatus {
   potentailDuplicateDetected,
 }
 
-enum AddEditProductStep {
-  guideLineImage,
-  similarProducts,
-  newProduct,
-  newVariation,
-}
+enum AddEditProductStep { guideLineImage, newProduct }
 
 class AddEditProductState {
   const AddEditProductState({
     this.status = AddEditProductStatus.initial,
     this.currentStep = AddEditProductStep.guideLineImage,
     this.guidelineImage,
-    this.currentProgressIndicator = 0.0,
-    this.newProduct,
-    this.newProductVariation,
     this.similarProducts = const [],
     this.detectedSimilarProduct,
-    this.creatingFromExistingProduct,
     this.errorMessage,
-    this.isFlaggedAsDuplicate = false,
-    this.variationFields = const {}, // NEW
+    this.extractedProductInfo,
+    this.imagesData,
+    this.price,
+    this.availableStock,
+    this.variationAttributes,
+    this.isVariationValid = false,
+    this.description,
+    this.subcategoryId,
+    this.specs,
   });
 
   final AddEditProductStatus status;
   final AddEditProductStep currentStep;
-  final double currentProgressIndicator;
   final ({String mimeType, Uint8List bytes})? guidelineImage;
   final List<Product> similarProducts;
-  final Product? newProduct;
-  final ProductVariation? newProductVariation;
   final Product? detectedSimilarProduct;
-  final Product? creatingFromExistingProduct;
-  final bool isFlaggedAsDuplicate;
   final String? errorMessage;
-
-  final Map<String, List<String>> variationFields; // NEW
+  final ExtractedProductInfo? extractedProductInfo;
+  final bool? isVariationValid;
+  final List<({Uint8List bytes, String mimeType})>? imagesData;
+  final double? price;
+  final int? availableStock;
+  final Map<String, dynamic>? variationAttributes;
+  final String? description;
+  final String? subcategoryId;
+  final Map<String, dynamic>? specs;
 
   AddEditProductState copyWith({
     AddEditProductStatus? status,
     AddEditProductStep? currentStep,
     ({String mimeType, Uint8List bytes})? guidelineImage,
-    List<Product>? similarProducts,
-    Product? newProduct,
-    ProductVariation? newProductVariation,
     Product? detectedSimilarProduct,
-    Product? creatingFromExistingProduct,
-    double? currentProgressIndicator,
     String? errorMessage,
-    bool? isFlaggedAsDuplicate,
-    Map<String, List<String>>? variationFields, // NEW
+    ExtractedProductInfo? extractedProductInfo,
+    bool? isVariationValid,
+    List<({Uint8List bytes, String mimeType})>? imagesData,
+    double? price,
+    int? availableStock,
+    Map<String, dynamic>? variationAttributes,
+    String? description,
+    String? subcategoryId,
+    Map<String, dynamic>? specs,
   }) {
     return AddEditProductState(
       status: status ?? this.status,
       currentStep: currentStep ?? this.currentStep,
       guidelineImage: guidelineImage ?? this.guidelineImage,
-      similarProducts: similarProducts ?? this.similarProducts,
       detectedSimilarProduct:
           detectedSimilarProduct ?? this.detectedSimilarProduct,
-      newProduct: newProduct ?? this.newProduct,
-      newProductVariation: newProductVariation ?? this.newProductVariation,
-      creatingFromExistingProduct:
-          creatingFromExistingProduct ?? this.creatingFromExistingProduct,
-      currentProgressIndicator:
-          currentProgressIndicator ?? this.currentProgressIndicator,
       errorMessage: errorMessage ?? this.errorMessage,
-      isFlaggedAsDuplicate: isFlaggedAsDuplicate ?? this.isFlaggedAsDuplicate,
-      variationFields: variationFields ?? this.variationFields, // NEW
+      extractedProductInfo: extractedProductInfo ?? this.extractedProductInfo,
+      imagesData: imagesData ?? this.imagesData,
+      availableStock: availableStock ?? this.availableStock,
+      variationAttributes: variationAttributes ?? this.variationAttributes,
+      price: price ?? this.price,
+      description: description ?? this.description,
+      isVariationValid: isVariationValid ?? this.isVariationValid,
+      specs: specs ?? this.specs,
+      subcategoryId: subcategoryId ?? this.subcategoryId,
     );
   }
 }

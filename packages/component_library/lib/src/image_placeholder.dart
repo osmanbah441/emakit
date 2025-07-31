@@ -6,6 +6,7 @@ class ImagePlaceholder extends StatelessWidget {
   final double width;
   final double height;
   final String? imageUrl;
+  final BorderRadius? borderRadius;
 
   const ImagePlaceholder({
     super.key,
@@ -13,6 +14,7 @@ class ImagePlaceholder extends StatelessWidget {
     this.width = 200,
     this.height = 200,
     this.imageUrl,
+    this.borderRadius,
   });
 
   @override
@@ -25,14 +27,14 @@ class ImagePlaceholder extends StatelessWidget {
               imageUrl: imageUrl!,
               width: width,
               height: height,
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: borderRadius,
             )
           : Container(
               width: width,
               height: height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
-                border: Border.all(color: color, width: 4),
+                borderRadius: borderRadius,
+                border: Border.all(color: color, width: 2),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

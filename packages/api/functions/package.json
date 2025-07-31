@@ -12,6 +12,7 @@
     "logs": "firebase functions:log"
   },
   "name": "functions",
+  "type": "module",
   "engines": {
     "node": "22"
   },
@@ -22,7 +23,7 @@
     "express": "^5.1.0",
     "firebase": "^11.10.0",
     "firebase-admin": "^13.4.0",
-    "firebase-functions": "^6.3.2",
+    "firebase-functions": "^6.4.0",
     "genkit": "^1.14.0"
   },
   "devDependencies": {

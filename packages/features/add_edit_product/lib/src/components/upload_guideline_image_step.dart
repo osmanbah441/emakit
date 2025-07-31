@@ -13,33 +13,38 @@ class UploadGuidelineImageStep extends StatelessWidget {
   ) => BlocBuilder<AddEditProductCubit, AddEditProductState>(
     builder: (context, state) {
       final AddEditProductCubit cubit = context.read<AddEditProductCubit>();
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 16,
-        children: [
-          const Spacer(),
-          SingleImagePickerWidget(
-            initialImage: state.guidelineImage,
-            width: 300,
-            height: 300,
-            onImagePicked: cubit.addGuidelineImage,
-            onImageRemoved: cubit.removeGuidelineImage,
+      return Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 32,
+              children: [
+                Text(
+                  "Please upload a clear image of your product. This helps us categorize it accurately, ensure it meets our guidelines, and suggest similar products so you can quickly add variations.",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                SingleImagePickerWidget(
+                  initialImage: state.guidelineImage,
+                  width: 360,
+                  height: 480,
+                  onImagePicked: cubit.addGuidelineImage,
+
+                  onImageRemoved: cubit.removeGuidelineImage,
+                ),
+
+                ExtendedElevatedButton(
+                  label: 'Sell Item',
+                  onPressed: state.guidelineImage == null
+                      ? null
+                      : cubit.productExtractionListing,
+                ),
+              ],
+            ),
           ),
-          Text(
-            "Please upload a clear image of your product. This helps us categorize it accurately, ensure it meets our guidelines, and suggest similar products so you can quickly add variations.",
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const Spacer(),
-          ButtonActionBar(
-            leftLabel: 'Cancel',
-            rightLabel: 'Upload Image',
-            onLeftTap: () => Navigator.pop(context),
-            onRightTap: state.guidelineImage == null
-                ? null
-                : cubit.productExtractionListing,
-          ),
-        ],
+        ),
       );
     },
   );

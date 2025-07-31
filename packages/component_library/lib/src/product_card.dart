@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.price,
     this.onTap,
-    this.currency = '\$',
+    this.currency = 'NLE  ',
   });
 
   @override

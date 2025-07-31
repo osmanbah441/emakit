@@ -2,6 +2,7 @@ import 'package:api/src/dataconnect_gen/default.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'repositories/product_repository.dart';
 import 'repositories/user_repository.dart';
@@ -27,10 +28,12 @@ final class Api {
     required (String, int) auth,
     required (String, int) fn,
     required (String, int) firestore,
+    required (String, int) storage,
   }) async {
     DefaultConnector.instance.dataConnect.useDataConnectEmulator(db.$1, db.$2);
     await FirebaseAuth.instance.useAuthEmulator(auth.$1, auth.$2);
     FirebaseFunctions.instance.useFunctionsEmulator(fn.$1, fn.$2);
     FirebaseFirestore.instance.useFirestoreEmulator(firestore.$1, firestore.$2);
+    FirebaseStorage.instance.useStorageEmulator(storage.$1, storage.$2);
   }
 }

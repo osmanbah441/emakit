@@ -15,10 +15,12 @@ type Product @table {
   category: Category!
   status: String! @default(value: "active") @col(dataType: "VARCHAR(50)")
   specifications: Any!
-  embeddingText: Vector! @col(size: 3072)
+  # embeddingText: Vector! @col(size: 3072)
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp! @default(expr: "request.time")
 }
+
+
 
 type ProductVariation @table {
   product: Product!
@@ -41,6 +43,7 @@ type User @table(key: "uid") {
   createdAt: Timestamp! @default(expr: "request.time")
   updatedAt: Timestamp! @default(expr: "request.time")
 }
+
 
 type Store @table {
   name: String! @unique @col(dataType: "VARCHAR(255)")

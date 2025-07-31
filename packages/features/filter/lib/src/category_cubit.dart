@@ -26,9 +26,8 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
   final _service = Api.instance;
 
   void _initializeFilters(String categoryName) async {
-    final fetchSubcategory = await _service.categoryRepository.getCategoryById(
-      id,
-    );
+    final fetchSubcategory = await _service.categoryRepository
+        .getChildrenCategories(id);
 
     final initialFilters = FilterData(
       maxPriceBound: 2000,
@@ -40,7 +39,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
         mainCategoryName: categoryName,
         priceRange: (min: 0, max: 2000),
         availableBrands: availableBrands,
-        // subCategories: fetchSubcategory,
+        subCategories: fetchSubcategory,
         appliedFilters: initialFilters,
         tempFilters: initialFilters,
         showFilters: false,
@@ -50,9 +49,7 @@ class CategoryDetailsCubit extends Cubit<CategoryDetailsState> {
   }
 
   Future<List<Product>> _fetchFilteredProduct(FilterData filters) async {
-    print('selectedSubCategory: ${filters.selectedSubCategory}');
     return await _service.productRepository.getAllProducts(
-      // mainCategoryId: id,
       categoryId: filters.selectedSubCategory?.id,
     );
   }

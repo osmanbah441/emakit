@@ -1,14 +1,16 @@
 {
-  "flutter": {
-    "platforms": {
-      "dart": {
-        "lib/firebase_options.dart": {
-          "projectId": "sl-baz",
-          "configurations": {
-            "web": "1:728167467625:web:ba1c28f54ec59777d230f8"
-          }
-        }
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
-    }
+    ]
   }
 }

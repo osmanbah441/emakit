@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:api/src/dataconnect_gen/default.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:firebase_data_connect/firebase_data_connect.dart';
 
 final class CategoryRepository {
   const CategoryRepository();
@@ -26,28 +27,53 @@ final class CategoryRepository {
   }
 
   Future<List<Category>> getAllCategories() async {
-    // return await _connector.getAllCategories().execute().then((results) {
-    //   return results.data.categories.map((result) {
-    //     return Category(
-    //       name: result.name,
-    //       id: result.id,
-    //       description: result.description,
-    //       parentId: result.parentCategoryId,
-    //       imageUrl: result.imageUrl,
-    //       variationFields: _extractListOfMaps(result.variationAttributes),
-    //     );
-    //   }).toList();
-    // });
-    return [];
+    return await _connector.getAllParentCategories().execute().then((results) {
+      return results.data.categories.map((result) {
+        return Category(
+          name: result.name,
+          id: result.id,
+          description: result.description,
+          parentId: result.parentCategoryId,
+          imageUrl: result.imageUrl,
+          variationFields: _extractListOfMaps(result.variationAttributes),
+        );
+      }).toList();
+    });
   }
 
-  Future<List<Map<String, dynamic>>> getCategoryById(String id) async {
-    // return await _connector.getCategoryById(id: id).execute().then((c) {
-    //   final a = c.data.category?.variationAttributes;
-    //   return _extractListOfMaps(a);
-    // });
+  Future<List<Category>> getChildrenCategories(String id) async {
+    return await _connector.getChildrenCategories(id: id).execute().then((
+      results,
+    ) {
+      return results.data.categories.map((result) {
+        return Category(
+          name: result.name,
+          id: result.id,
+          description: result.description,
+          parentId: result.parentCategoryId,
+          imageUrl: result.imageUrl,
+          variationFields: _extractListOfMaps(result.variationAttributes),
+        );
+      }).toList();
+    });
+  }
 
-    return [];
+  // Future<List<Map<String, dynamic>>> getCategoryById(String id) async {
+  //   return await _connector.getCategoryById(id: id).execute().then((c) {
+  //     final a = c.data.category?.variationAttributes;
+  //     return _extractListOfMaps(a);
+  //   });
+  // }
+
+  List<Map<String, dynamic>> _extractListOfMaps(AnyValue? anyValue) {
+    if (anyValue == null || anyValue.value == null) return [];
+    final rawList = anyValue.value;
+    if (rawList is! List) return [];
+
+    return rawList
+        .whereType<Map>() // skip invalid entries
+        .map<Map<String, dynamic>>((e) => Map<String, dynamic>.from(e))
+        .toList();
   }
 
   Future<void> setAttributesFields(
@@ -60,15 +86,5 @@ final class CategoryRepository {
     //   if (specs != null) c.specification(specs);
     //   await c.execute();
     // }
-
-    // List<Map<String, dynamic>> _extractListOfMaps(AnyValue? anyValue) {
-    //   if (anyValue == null || anyValue.value == null) return [];
-    //   final rawList = anyValue.value;
-    //   if (rawList is! List) return [];
-
-    //   return rawList
-    //       .whereType<Map>() // skip invalid entries
-    //       .map<Map<String, dynamic>>((e) => Map<String, dynamic>.from(e))
-    //       .toList();
   }
 }

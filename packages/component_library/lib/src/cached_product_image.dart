@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CachedProductImage extends StatelessWidget {
   final String imageUrl;
   final BoxFit fit;
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
   final double? width;
   final double? height;
 
@@ -15,13 +15,13 @@ class CachedProductImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.width,
     this.height,
-    this.borderRadius = BorderRadius.zero,
+    this.borderRadius,
   });
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: borderRadius,
+      borderRadius: borderRadius ?? BorderRadius.zero,
       child: CachedNetworkImage(
         fadeInCurve: Curves.easeIn,
         width: width,
