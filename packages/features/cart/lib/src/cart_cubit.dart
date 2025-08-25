@@ -1,5 +1,4 @@
-import 'package:api/api.dart';
-
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
 
@@ -10,7 +9,7 @@ class CartCubit extends Cubit<CartState> {
     _fetchCartItems();
   }
 
-  final _repo = Api.instance.userCommerceRepository;
+  final _repo = DataConnect.instance.userCommerceRepository;
 
   void _fetchCartItems() async {
     emit(state.copyWith(status: CartStatus.loading));

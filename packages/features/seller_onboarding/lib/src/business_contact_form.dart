@@ -1,5 +1,5 @@
-import 'package:api/api.dart';
 import 'package:component_library/component_library.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 
 class BusinessContactForm extends StatefulWidget {
@@ -70,41 +70,41 @@ class _BusinessContactFormState extends State<BusinessContactForm> {
   }
 
   Future<void> _submitForm() async {
-    if (!_formKey.currentState!.validate()) return;
+    // if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
-    try {
-      await Api.instance.userRepository.applyToBecomeSeller(
-        businessName: _businessNameController.text,
-        phoneNumber: _phoneNumberController.text,
-      );
+    // try {
+    //   await DataConnect.instance.userRepository.applyToBecomeSeller(
+    //     businessName: _businessNameController.text,
+    //     phoneNumber: _phoneNumberController.text,
+    //   );
 
-      setState(() {
-        _isLoading = false;
-      });
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
 
-      if (context.mounted) {
-        _showDialog();
-        _formKey.currentState!.reset();
-        _businessNameController.clear();
-        _phoneNumberController.clear();
-      }
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      if (mounted) {
-        _showErrorDialog(
-          context: context,
-          title: 'Error',
-          message:
-              'Failed to apply to become a seller. Please try again later.',
-        );
-      }
-    }
+    //   if (context.mounted) {
+    //     _showDialog();
+    //     _formKey.currentState!.reset();
+    //     _businessNameController.clear();
+    //     _phoneNumberController.clear();
+    //   }
+    // } catch (e) {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   if (mounted) {
+    //     _showErrorDialog(
+    //       context: context,
+    //       title: 'Error',
+    //       message:
+    //           'Failed to apply to become a seller. Please try again later.',
+    //     );
+    //   }
+    // }
   }
 
   @override
@@ -129,7 +129,7 @@ class _BusinessContactFormState extends State<BusinessContactForm> {
           const SizedBox(height: 16),
           PhoneNumberInputField(
             controller: _phoneNumberController,
-            labelText: 'Business Phone Number',
+            // labelText: 'Business Phone Number',
           ),
           const SizedBox(height: 16),
           _isLoading

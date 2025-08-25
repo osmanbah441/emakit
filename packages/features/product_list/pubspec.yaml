@@ -12,11 +12,15 @@ dependencies:
     sdk: flutter
   component_library: ^0.0.0
   domain_models: ^0.0.0
-  api: ^0.0.1
+  dataconnect: ^0.0.1
 
 
   flutter_bloc: ^9.1.1
   rxdart: ^0.28.0
+  infinite_scroll_pagination: ^5.1.0
+  equatable: ^2.0.7
+  category_repository: ^1.0.0
+  product_repository: ^1.0.0
 
 dev_dependencies:
   flutter_test:

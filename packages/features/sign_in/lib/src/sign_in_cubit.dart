@@ -1,59 +1,146 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:api/api.dart';
-
+import 'dart:async';
+import 'package:bloc/bloc.dart';
+import 'package:domain_models/domain_models.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:user_repository/user_repository.dart';
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
-  final _userRepository = Api.instance.userRepository;
+  SignInCubit({UserRepository? userRepository})
+    : _userRepository = userRepository ?? UserRepository.instance,
+      super(const SignInState());
 
-  SignInCubit() : super(const SignInState());
+  final UserRepository _userRepository;
 
-  void continueWithMobile(String phoneNumber) async {
-    emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
+  Future<void> continueWithMobile(String phoneNumber) async {
+    emit(
+      state.copyWith(
+        status: SignInSubmissionStatus.inProgress,
+        method: SignInMethod.phone,
+      ),
+    );
     try {
       await _userRepository.signInwithPhoneNumberWeb(phoneNumber);
       emit(state.copyWith(status: SignInSubmissionStatus.awaitingOtp));
+    } on InvalidPhoneNumberException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.invalidPhoneNumber,
+          method: SignInMethod.none,
+        ),
+      );
+    } on NetworkErrorException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.networkError,
+          method: SignInMethod.none,
+        ),
+      );
     } catch (_) {
-      emit(state.copyWith(status: SignInSubmissionStatus.networkError));
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.unknownError,
+          method: SignInMethod.none,
+        ),
+      );
     }
   }
 
-  void verifyOtp(String otp) async {
-    emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
+  Future<void> resendOtp(String phoneNumber) async {
+    // No need to show loading, just attempt to resend in the background.
     try {
-      final isNewUser = await _userRepository.verifyOtp(otp);
+      await _userRepository.signInwithPhoneNumberWeb(phoneNumber);
+    } catch (_) {
+      // Optionally handle resend failure, e.g., with a snackbar.
+      // For now, we fail silently and the user can try again.
+    }
+  }
 
+  Future<void> verifyOtp(String otp) async {
+    emit(
+      state.copyWith(
+        status: SignInSubmissionStatus.inProgress,
+        method: SignInMethod.phone,
+      ),
+    );
+    try {
+      await _userRepository.verifyOtpWeb(otp);
       emit(
         state.copyWith(
-          status: isNewUser
-              ? SignInSubmissionStatus.newUser
-              : SignInSubmissionStatus.success,
+          status: SignInSubmissionStatus.success,
+          method: SignInMethod.none,
+        ),
+      );
+    } on InvalidOtpException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.failedOtpVerification,
+          method: SignInMethod.none,
+        ),
+      );
+    } on SessionExpiredException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.failedOtpVerification,
+          method: SignInMethod.none,
+        ),
+      );
+    } on NetworkErrorException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.networkError,
+          method: SignInMethod.none,
+        ),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.unknownError,
+          method: SignInMethod.none,
+        ),
+      );
+    }
+  }
+
+  Future<void> continueWithGoogle() async {
+    emit(
+      state.copyWith(
+        status: SignInSubmissionStatus.inProgress,
+        method: SignInMethod.google,
+      ),
+    );
+    try {
+      kIsWeb
+          ? await _userRepository.signInWithGoogleWeb()
+          : await _userRepository.signInWithGoogleMobile();
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.success,
+          method: SignInMethod.none,
+        ),
+      );
+    } on GoogleSignInAbortedException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.googleSignInError,
+          method: SignInMethod.none,
+        ),
+      );
+    } on NetworkErrorException {
+      emit(
+        state.copyWith(
+          status: SignInSubmissionStatus.networkError,
+          method: SignInMethod.none,
         ),
       );
     } catch (e) {
       emit(
-        state.copyWith(status: SignInSubmissionStatus.failedOtpVerification),
+        state.copyWith(
+          status: SignInSubmissionStatus.unknownError,
+          method: SignInMethod.none,
+        ),
       );
-    }
-  }
-
-  void continueWithGoogle() async {
-    emit(state.copyWith(status: SignInSubmissionStatus.inprogress));
-    try {
-      await _userRepository.signInWithGoogleWeb();
-      emit(state.copyWith(status: SignInSubmissionStatus.success));
-    } catch (_) {
-      emit(state.copyWith(status: SignInSubmissionStatus.networkError));
-    }
-  }
-
-  void updateDisplayName(String name) async {
-    try {
-      await _userRepository.updateDisplayName(name);
-      emit(state.copyWith(status: SignInSubmissionStatus.success));
-    } catch (e) {
-      emit(state.copyWith(status: SignInSubmissionStatus.networkError));
     }
   }
 }

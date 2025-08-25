@@ -1,34 +1,46 @@
 part of 'sign_in_cubit.dart';
 
+enum SignInMethod { none, phone, google }
+
 enum SignInSubmissionStatus {
-  idle,
-  inprogress,
+  initial,
+  inProgress,
   awaitingOtp,
   success,
   invalidPhoneNumber,
   failedOtpVerification,
+  googleSignInError,
   networkError,
-  newUser,
-  googleSignInError;
+  unknownError;
 
+  bool get isInProgress => this == SignInSubmissionStatus.inProgress;
   bool get isAwaitingOtp => this == SignInSubmissionStatus.awaitingOtp;
   bool get isSuccess => this == SignInSubmissionStatus.success;
-  bool get isInProgress => this == SignInSubmissionStatus.inprogress;
-  bool get isNewUser => this == SignInSubmissionStatus.newUser;
 
   bool get hasError =>
       this == SignInSubmissionStatus.invalidPhoneNumber ||
       this == SignInSubmissionStatus.failedOtpVerification ||
+      this == SignInSubmissionStatus.googleSignInError ||
       this == SignInSubmissionStatus.networkError ||
-      this == SignInSubmissionStatus.googleSignInError;
+      this == SignInSubmissionStatus.unknownError;
 }
 
-class SignInState {
+class SignInState extends Equatable {
+  const SignInState({
+    this.status = SignInSubmissionStatus.initial,
+    this.method = SignInMethod.none,
+  });
+
   final SignInSubmissionStatus status;
+  final SignInMethod method;
 
-  const SignInState({this.status = SignInSubmissionStatus.idle});
-
-  SignInState copyWith({SignInSubmissionStatus? status}) {
-    return SignInState(status: status ?? this.status);
+  SignInState copyWith({SignInSubmissionStatus? status, SignInMethod? method}) {
+    return SignInState(
+      status: status ?? this.status,
+      method: method ?? this.method,
+    );
   }
+
+  @override
+  List<Object> get props => [status, method];
 }

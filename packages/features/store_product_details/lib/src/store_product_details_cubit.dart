@@ -1,8 +1,8 @@
 import 'dart:typed_data';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:api/api.dart';
 
 part 'store_product_details_state.dart';
 
@@ -14,7 +14,7 @@ class StoreProductDetailsCubit extends Cubit<StoreProductDetailsState> {
 
   final String productId;
 
-  final _productRepository = Api.instance.productRepository;
+  final _productRepository = DataConnect.instance.productRepository;
 
   void _loadProductData() async {
     emit(state.copyWith(status: StoreProductDetailsStatus.loading));

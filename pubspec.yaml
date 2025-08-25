@@ -4,9 +4,19 @@ publish_to: 'none'
 version: 0.0.0
 
 workspace:
+  - apps/salone_bazaar
+
+  - packages/product_repository
+  - packages/order_repository
+  - packages/user_repository
+  - packages/store_repository
+  - packages/address_repository
+  - packages/payment_repository
+
   - packages/domain_models
-  - packages/api
+  - packages/dataconnect
   - packages/component_library
+
   - packages/features/filter
   - packages/features/cart
   - packages/features/checkout
@@ -22,7 +32,15 @@ workspace:
   - packages/features/seller_dashboard
   - packages/features/store_product_details
   - packages/features/store_product_list
-  - packages/features/buyer/home
+  - packages/features/store_order_details
+  - packages/features/store_order_list
+  - packages/features/complete_profile
+  - packages/features/home
+  - packages/features/store_info
+  - packages/features/store_discovery
+  - packages/category_repository
+
+
 
 environment:
   sdk: ^3.8.0
@@ -32,7 +50,7 @@ dependencies:
     sdk: flutter
 
   firebase_core: ^3.13.1
-  api: ^0.0.1
+  dataconnect: ^0.0.1
   domain_models: ^0.0.0
   component_library: ^0.0.0
   filter: ^0.0.0

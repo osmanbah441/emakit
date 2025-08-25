@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:api/api.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
 
@@ -10,7 +10,7 @@ part 'extension_on_product.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsState());
 
-  final _connector = Api.instance;
+  final _connector = DataConnect.instance;
 
   void loadProduct(String productId) async {
     emit(state.copyWith(status: ProductDetailsStatus.loading));

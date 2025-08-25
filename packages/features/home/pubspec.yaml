@@ -1,0 +1,22 @@
+name: home
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+resolution: workspace
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc_concurrency: ^0.3.0
+  flutter_bloc: ^9.1.1
+  product_repository: ^1.0.0
+  component_library: ^0.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0

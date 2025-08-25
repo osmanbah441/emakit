@@ -12,9 +12,9 @@ class ExtendedElevatedButton extends StatelessWidget {
   final String label;
   final Widget? icon;
 
-  ExtendedElevatedButton.isLoadingProgress({required String label, Key? key})
+  ExtendedElevatedButton.isLoadingProgress({String? label, Key? key})
     : this(
-        label: label,
+        label: label ?? 'Loading',
         icon: Transform.scale(
           scale: 0.5,
           child: const CircularProgressIndicator(),

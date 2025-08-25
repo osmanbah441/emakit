@@ -1,13 +1,13 @@
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:api/api.dart';
 
 class CategorySelectionAlertDialog extends StatelessWidget {
   const CategorySelectionAlertDialog({super.key});
 
   Future<List<Category>> _fetchCategories() async {
-    return await Api.instance.categoryRepository.getAllCategories();
+    return await DataConnect.instance.categoryRepository.getAllCategories();
   }
 
   @override
@@ -45,13 +45,14 @@ class CategorySelectionAlertDialog extends StatelessWidget {
               itemCount: categoriesData.length,
               itemBuilder: (context, index) {
                 final category = categoriesData[index];
-                return CategoryCard(
-                  title: category.name,
-                  imageUrl: category.imageUrl!,
-                  onTap: () {
-                    Navigator.of(context).pop(category);
-                  },
-                );
+                // return CategoryCard(
+                //   title: category.name,
+                //   imageUrl: category.imageUrl!,
+                //   onTap: () {
+                //     Navigator.of(context).pop(category);
+                //   },
+                // );
+                return Placeholder();
               },
             );
           },

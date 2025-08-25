@@ -1,156 +1,128 @@
 import 'package:flutter/material.dart';
 
-enum _MenuItem { profileSettings, sellManageStore, myOrdersSwitchToBuy, logOut }
-
 enum UserStoreState { noStore, pendingApproval, suspended, hasStore, managing }
 
 class ProfileAvatarPopupMenu extends StatelessWidget {
   final UserStoreState storeState;
+  final bool isSignedIn;
   final String? avatarImageUrl;
   final VoidCallback? onProfileSettingsTap;
   final VoidCallback? onApplyToSellTap;
   final VoidCallback? onManageStoreTap;
   final VoidCallback? onMyOrdersTap;
   final VoidCallback? onSwitchToBuyerTap;
+  final VoidCallback? onLogInTap;
   final VoidCallback? onLogOutTap;
   final VoidCallback? onContactSupportTap;
 
   const ProfileAvatarPopupMenu({
     super.key,
     required this.storeState,
+    required this.isSignedIn,
     this.avatarImageUrl,
+    this.onProfileSettingsTap,
     this.onApplyToSellTap,
     this.onManageStoreTap,
-    this.onProfileSettingsTap,
     this.onMyOrdersTap,
     this.onSwitchToBuyerTap,
+    this.onLogInTap,
     this.onLogOutTap,
     this.onContactSupportTap,
   });
 
+  PopupMenuEntry _buildStoreActionItem(BuildContext context) {
+    switch (storeState) {
+      case UserStoreState.noStore:
+        return PopupMenuItem(
+          onTap: onApplyToSellTap,
+          enabled: onApplyToSellTap != null,
+          child: const Text('Become a Seller'),
+        );
+      case UserStoreState.hasStore:
+        return PopupMenuItem(
+          onTap: onManageStoreTap,
+          enabled: onManageStoreTap != null,
+          child: const Text('Manage My Store'),
+        );
+      case UserStoreState.pendingApproval:
+        return const PopupMenuItem(
+          enabled: false,
+          child: Text('Application Pending'),
+        );
+      case UserStoreState.suspended:
+        return const PopupMenuItem(
+          enabled: false,
+          child: Text('Store Suspended'),
+        );
+      case UserStoreState.managing:
+        return const PopupMenuItem(height: 0, child: SizedBox.shrink());
+    }
+  }
+
+  List<PopupMenuEntry> _buildMenuItems(BuildContext context) {
+    // If user is not signed in, only show the Log In option.
+    if (!isSignedIn) {
+      return [
+        PopupMenuItem(
+          onTap: onLogInTap,
+          enabled: onLogInTap != null,
+          child: const Text('Log In'),
+        ),
+      ];
+    }
+
+    // If signed in, build the full menu.
+    final items = <PopupMenuEntry>[
+      PopupMenuItem(
+        onTap: onProfileSettingsTap,
+        enabled: onProfileSettingsTap != null,
+        child: const Text('Profile & Settings'),
+      ),
+    ];
+
+    if (storeState != UserStoreState.managing) {
+      items.add(_buildStoreActionItem(context));
+    }
+
+    if (storeState == UserStoreState.managing) {
+      items.add(
+        PopupMenuItem(
+          onTap: onSwitchToBuyerTap,
+          enabled: onSwitchToBuyerTap != null,
+          child: const Text('Switch to Buyer'),
+        ),
+      );
+    } else {
+      items.add(
+        PopupMenuItem(
+          onTap: onMyOrdersTap,
+          enabled: onMyOrdersTap != null,
+          child: const Text('My Orders'),
+        ),
+      );
+    }
+
+    items.addAll([
+      const PopupMenuDivider(),
+      PopupMenuItem(
+        onTap: onLogOutTap,
+        enabled: onLogOutTap != null,
+        child: const Text('Log Out'),
+      ),
+    ]);
+
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<_MenuItem>(
-      onSelected: (_MenuItem item) {
-        switch (item) {
-          case _MenuItem.profileSettings:
-            onProfileSettingsTap?.call();
-            break;
-          case _MenuItem.sellManageStore:
-            switch (storeState) {
-              case UserStoreState.noStore:
-                onApplyToSellTap?.call();
-                break;
-              case UserStoreState.hasStore:
-                onManageStoreTap?.call();
-                break;
-              case UserStoreState.managing:
-                // Should not appear
-                break;
-              case UserStoreState.pendingApproval:
-                // Optional: show dialog/snackbar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Your seller application is pending approval.',
-                    ),
-                  ),
-                );
-                break;
-              case UserStoreState.suspended:
-                if (onContactSupportTap != null) {
-                  onContactSupportTap!();
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Your store is suspended. Contact support.',
-                      ),
-                    ),
-                  );
-                }
-                break;
-            }
-            break;
-          case _MenuItem.myOrdersSwitchToBuy:
-            if (storeState == UserStoreState.managing) {
-              onSwitchToBuyerTap?.call();
-            } else {
-              onMyOrdersTap?.call();
-            }
-            break;
-          case _MenuItem.logOut:
-            onLogOutTap?.call();
-            break;
-        }
-      },
-      itemBuilder: (BuildContext context) {
-        final items = <PopupMenuEntry<_MenuItem>>[
-          const PopupMenuItem<_MenuItem>(
-            value: _MenuItem.profileSettings,
-            child: Text('Profile & Settings'),
-          ),
-        ];
-
-        // Add Sell/Manage Store only if NOT managing the store
-        if (storeState != UserStoreState.managing) {
-          String label;
-          bool disabled = false;
-
-          switch (storeState) {
-            case UserStoreState.noStore:
-              label = 'Become a Seller';
-              break;
-            case UserStoreState.hasStore:
-              label = 'Manage My Store';
-              break;
-            case UserStoreState.pendingApproval:
-              label = 'Application Pending';
-              disabled = true;
-              break;
-            case UserStoreState.suspended:
-              label = 'Store Suspended';
-              disabled = false; // Let user tap to contact support
-              break;
-            default:
-              label = 'Manage My Store';
-          }
-
-          items.add(
-            PopupMenuItem<_MenuItem>(
-              value: disabled ? null : _MenuItem.sellManageStore,
-              enabled: !disabled,
-              child: Text(label),
-            ),
-          );
-        }
-
-        items.add(
-          PopupMenuItem<_MenuItem>(
-            value: _MenuItem.myOrdersSwitchToBuy,
-            child: Text(
-              storeState == UserStoreState.managing
-                  ? 'Switch to Buyer'
-                  : 'My Orders',
-            ),
-          ),
-        );
-
-        items.add(const PopupMenuDivider());
-        items.add(
-          const PopupMenuItem<_MenuItem>(
-            value: _MenuItem.logOut,
-            child: Text('Log Out'),
-          ),
-        );
-
-        return items;
-      },
+    return PopupMenuButton(
+      itemBuilder: _buildMenuItems,
       icon: CircleAvatar(
         backgroundImage: avatarImageUrl != null
             ? NetworkImage(avatarImageUrl!)
             : null,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey.shade400,
         child: avatarImageUrl == null
             ? const Icon(Icons.person, color: Colors.white)
             : null,

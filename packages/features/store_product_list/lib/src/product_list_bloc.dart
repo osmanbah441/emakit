@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:api/api.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_models/domain_models.dart';
@@ -16,7 +16,7 @@ class StoreProductListBloc
     add(LoadProducts());
   }
 
-  final _api = Api.instance;
+  final _api = DataConnect.instance;
 
   void _registerHandler() async => on<ProductListEvent>(
     (event, emit) async => switch (event) {

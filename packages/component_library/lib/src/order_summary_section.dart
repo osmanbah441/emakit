@@ -1,5 +1,5 @@
 import 'package:component_library/src/section_title.dart';
-import 'package:component_library/src/summary_row.dart';
+import 'package:component_library/src/key_value_row.dart';
 import 'package:flutter/material.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -27,13 +27,11 @@ class OrderSummarySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle(title: 'Order Summary'),
-          const SizedBox(height: 16.0),
-          SummaryRow(label: 'Subtotal', value: subtotal),
-          SummaryRow(label: 'Shipping', value: shippingCost),
-          SummaryRow(label: 'Taxes', value: taxes),
-          const Divider(height: 24.0, thickness: 1.0),
-          SummaryRow(
+          Text('Order Summary', style: textTheme.titleLarge),
+          KeyValueRow(label: 'Subtotal', value: subtotal),
+          KeyValueRow(label: 'Shipping', value: shippingCost),
+          KeyValueRow(label: 'Taxes', value: taxes),
+          KeyValueRow(
             label: 'Total',
             value: total,
             valueTextStyle: textTheme.titleMedium?.copyWith(

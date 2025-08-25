@@ -1,4 +1,4 @@
-import 'package:api/api.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ class CategoryNotifier extends ChangeNotifier {
     _loadCategories();
   }
 
-  final _db = Api.instance;
+  final _db = DataConnect.instance;
 
   List<Category> _categories = [];
   String? _errorMessage;

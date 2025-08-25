@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:api/api.dart';
+import 'package:dataconnect/dataconnect.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +9,7 @@ part 'add_edit_product_state.dart';
 class AddEditProductCubit extends Cubit<AddEditProductState> {
   AddEditProductCubit() : super(const AddEditProductState());
 
-  final _productRepository = Api.instance.productRepository;
+  final _productRepository = DataConnect.instance.productRepository;
 
   void goToStep(AddEditProductStep step) => emit(
     state.copyWith(currentStep: step, status: AddEditProductStatus.initial),
@@ -77,7 +77,7 @@ class AddEditProductCubit extends Cubit<AddEditProductState> {
       await _productRepository.createNewProduct(
         name: name,
         description: description,
-        category: state.extractedProductInfo!.generatedProduct.categoryId!,
+        category: state.extractedProductInfo!.generatedProduct.category!,
         specs: specifications,
         attributes: state.variationAttributes!,
         imagesData: state.imagesData!,

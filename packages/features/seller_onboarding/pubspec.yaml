@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   component_library: ^0.0.0
-  api: ^0.0.1
+  dataconnect: ^0.0.1
 
 dev_dependencies:
   flutter_test:
