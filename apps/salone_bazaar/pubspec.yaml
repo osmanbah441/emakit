@@ -23,7 +23,6 @@ dependencies:
   dataconnect: ^0.0.1
   domain_models: ^0.0.0
   component_library: ^0.0.0
-  filter: ^0.0.0
   cart: ^0.0.0
   checkout: ^0.0.0
   profile: ^0.0.0
@@ -31,7 +30,6 @@ dependencies:
   order_details: ^0.0.0
   add_edit_product: ^0.0.1
   product_list: ^0.0.0
-  manage_categories: ^0.0.1
   sign_in: ^0.0.1
   seller_onboarding: ^0.0.1
   order_list: ^0.0.1

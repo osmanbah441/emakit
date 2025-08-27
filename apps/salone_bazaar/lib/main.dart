@@ -37,10 +37,11 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp.router(
       theme: AppThemeData.light(context),
-      // darkTheme: AppThemeData.dark(context),
-      themeMode: ThemeMode.light,
+      darkTheme: AppThemeData.dark(context),
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.router,
+
       title: 'Salone Bazaar',
     );
   }

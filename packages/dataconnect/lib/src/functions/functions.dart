@@ -35,10 +35,11 @@ final class Functions {
             similarProducts: [],
             variationDefinationData: p.variationAttributes,
             generatedProduct: Product(
-              specifications: p.categorySpecificationFields,
+              id: '',
+              basePrice: 200,
+              categoryId: 'category id',
               name: p.productName,
-              description: p.productDescription,
-              category: p.selectedChildCategoryId,
+              storeId: '',
             ),
           );
         } else {

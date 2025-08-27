@@ -1,1 +1,1 @@
-export 'src/v2/lib/product_list_screen.dart';
+export 'src/product_list_screen.dart';

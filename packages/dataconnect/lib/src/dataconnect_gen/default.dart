@@ -2,28 +2,6 @@ library default_connector;
 import 'package:firebase_data_connect/firebase_data_connect.dart';
 import 'dart:convert';
 
-part 'mock.dart';
-
-part 'create_new_category.dart';
-
-part 'set_category_attributes.dart';
-
-part 'delete_category.dart';
-
-part 'create_new_product.dart';
-
-part 'create_newproduct_variation.dart';
-
-part 'create_new_user.dart';
-
-part 'apply_for_store.dart';
-
-part 'update_display_name.dart';
-
-part 'approve_store.dart';
-
-part 'create_cart_item.dart';
-
 part 'get_user_store.dart';
 
 part 'get_all_pending_approval_stores.dart';
@@ -48,6 +26,28 @@ part 'get_category_by_id.dart';
 
 part 'get_children_categories.dart';
 
+part 'mock.dart';
+
+part 'create_new_category.dart';
+
+part 'set_category_attributes.dart';
+
+part 'delete_category.dart';
+
+part 'create_new_product.dart';
+
+part 'create_newproduct_variation.dart';
+
+part 'create_new_user.dart';
+
+part 'apply_for_store.dart';
+
+part 'update_display_name.dart';
+
+part 'approve_store.dart';
+
+part 'create_cart_item.dart';
+
 
 
 
@@ -55,61 +55,6 @@ part 'get_children_categories.dart';
 
 
 class DefaultConnector {
-  
-  
-  MockVariablesBuilder mock () {
-    return MockVariablesBuilder(dataConnect, );
-  }
-  
-  
-  CreateNewCategoryVariablesBuilder createNewCategory ({required String name, required String description, required String imageUrl, }) {
-    return CreateNewCategoryVariablesBuilder(dataConnect, name: name,description: description,imageUrl: imageUrl,);
-  }
-  
-  
-  SetCategoryAttributesVariablesBuilder setCategoryAttributes ({required String id, }) {
-    return SetCategoryAttributesVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  DeleteCategoryVariablesBuilder deleteCategory ({required String id, }) {
-    return DeleteCategoryVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  CreateNewProductVariablesBuilder createNewProduct ({required String name, required String description, required String category, required dynamic specs, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, }) {
-    return CreateNewProductVariablesBuilder(dataConnect, name: name,description: description,category: category,specs: specs,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
-  }
-  
-  
-  CreateNewproductVariationVariablesBuilder createNewproductVariation ({required String productId, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, }) {
-    return CreateNewproductVariationVariablesBuilder(dataConnect, productId: productId,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
-  }
-  
-  
-  CreateNewUserVariablesBuilder createNewUser () {
-    return CreateNewUserVariablesBuilder(dataConnect, );
-  }
-  
-  
-  ApplyForStoreVariablesBuilder applyForStore ({required String name, required String phoneNumber, }) {
-    return ApplyForStoreVariablesBuilder(dataConnect, name: name,phoneNumber: phoneNumber,);
-  }
-  
-  
-  UpdateDisplayNameVariablesBuilder updateDisplayName ({required String displayName, }) {
-    return UpdateDisplayNameVariablesBuilder(dataConnect, displayName: displayName,);
-  }
-  
-  
-  ApproveStoreVariablesBuilder approveStore ({required String storeId, }) {
-    return ApproveStoreVariablesBuilder(dataConnect, storeId: storeId,);
-  }
-  
-  
-  CreateCartItemVariablesBuilder createCartItem ({required String productVariationId, required String cartId, }) {
-    return CreateCartItemVariablesBuilder(dataConnect, productVariationId: productVariationId,cartId: cartId,);
-  }
   
   
   GetUserStoreVariablesBuilder getUserStore () {
@@ -169,6 +114,61 @@ class DefaultConnector {
   
   GetChildrenCategoriesVariablesBuilder getChildrenCategories ({required String id, }) {
     return GetChildrenCategoriesVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  MockVariablesBuilder mock () {
+    return MockVariablesBuilder(dataConnect, );
+  }
+  
+  
+  CreateNewCategoryVariablesBuilder createNewCategory ({required String name, required String description, required String imageUrl, }) {
+    return CreateNewCategoryVariablesBuilder(dataConnect, name: name,description: description,imageUrl: imageUrl,);
+  }
+  
+  
+  SetCategoryAttributesVariablesBuilder setCategoryAttributes ({required String id, }) {
+    return SetCategoryAttributesVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  DeleteCategoryVariablesBuilder deleteCategory ({required String id, }) {
+    return DeleteCategoryVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  CreateNewProductVariablesBuilder createNewProduct ({required String name, required String description, required String category, required dynamic specs, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, }) {
+    return CreateNewProductVariablesBuilder(dataConnect, name: name,description: description,category: category,specs: specs,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
+  }
+  
+  
+  CreateNewproductVariationVariablesBuilder createNewproductVariation ({required String productId, required String storeId, required dynamic attributes, required List<String> imageUrls, required double price, required int availableStock, }) {
+    return CreateNewproductVariationVariablesBuilder(dataConnect, productId: productId,storeId: storeId,attributes: attributes,imageUrls: imageUrls,price: price,availableStock: availableStock,);
+  }
+  
+  
+  CreateNewUserVariablesBuilder createNewUser () {
+    return CreateNewUserVariablesBuilder(dataConnect, );
+  }
+  
+  
+  ApplyForStoreVariablesBuilder applyForStore ({required String name, required String phoneNumber, }) {
+    return ApplyForStoreVariablesBuilder(dataConnect, name: name,phoneNumber: phoneNumber,);
+  }
+  
+  
+  UpdateDisplayNameVariablesBuilder updateDisplayName ({required String displayName, }) {
+    return UpdateDisplayNameVariablesBuilder(dataConnect, displayName: displayName,);
+  }
+  
+  
+  ApproveStoreVariablesBuilder approveStore ({required String storeId, }) {
+    return ApproveStoreVariablesBuilder(dataConnect, storeId: storeId,);
+  }
+  
+  
+  CreateCartItemVariablesBuilder createCartItem ({required String productVariationId, required String cartId, }) {
+    return CreateCartItemVariablesBuilder(dataConnect, productVariationId: productVariationId,cartId: cartId,);
   }
   
 

@@ -14,27 +14,27 @@ class StoreProductDetailsCubit extends Cubit<StoreProductDetailsState> {
 
   final String productId;
 
-  final _productRepository = DataConnect.instance.productRepository;
+  // final _productRepository = DataConnect.instance.productRepository;
 
   void _loadProductData() async {
-    emit(state.copyWith(status: StoreProductDetailsStatus.loading));
-    try {
-      final p = await _productRepository.getProductDetailsForStore(productId);
-      emit(
-        state.copyWith(
-          product: p.product,
-          status: StoreProductDetailsStatus.success,
-          variationDefinationFields: p.attributeDefinationFields,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: StoreProductDetailsStatus.error,
-          error: "Failed to load data",
-        ),
-      );
-    }
+    // emit(state.copyWith(status: StoreProductDetailsStatus.loading));
+    // try {
+    //   final p = await _productRepository.getProductDetailsForStore(productId);
+    //   emit(
+    //     state.copyWith(
+    //       product: p.product,
+    //       status: StoreProductDetailsStatus.success,
+    //       variationDefinationFields: p.attributeDefinationFields,
+    //     ),
+    //   );
+    // } catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       status: StoreProductDetailsStatus.error,
+    //       error: "Failed to load data",
+    //     ),
+    //   );
+    // }
   }
 
   void refect() async => _loadProductData();
@@ -45,25 +45,25 @@ class StoreProductDetailsCubit extends Cubit<StoreProductDetailsState> {
     required Map<String, dynamic> selectedAttributesMap,
     required List<({Uint8List bytes, String mimeType})> images,
   }) async {
-    emit(state.copyWith(status: StoreProductDetailsStatus.loading));
+    // emit(state.copyWith(status: StoreProductDetailsStatus.loading));
 
-    try {
-      await _productRepository.createNewProductVariation(
-        productId: productId,
-        price: price,
-        availableStock: stock,
-        attributes: selectedAttributesMap,
-        images: images,
-      );
-      refect();
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: StoreProductDetailsStatus.error,
-          error: "Failed to add variation",
-        ),
-      );
-    }
+    // try {
+    //   await _productRepository.createNewProductVariation(
+    //     productId: productId,
+    //     price: price,
+    //     availableStock: stock,
+    //     attributes: selectedAttributesMap,
+    //     images: images,
+    //   );
+    //   refect();
+    // } catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       status: StoreProductDetailsStatus.error,
+    //       error: "Failed to add variation",
+    //     ),
+    //   );
+    // }
   }
 
   void updateVariation({

@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
     required this.onLogOutTap,
     required this.onSeeMoreTap,
     required this.onDiscoverStoreTap,
+    required this.onCategoryCardTap,
   });
 
   final VoidCallback onProfileSettingsTap;
@@ -28,15 +29,14 @@ class HomeScreen extends StatelessWidget {
   final VoidCallback onLogOutTap;
   final VoidCallback onSeeMoreTap;
   final VoidCallback onDiscoverStoreTap;
+  final Function(String id) onCategoryCardTap;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<ProductRepository>(
       create: (context) => ProductRepository.instance,
       child: BlocProvider(
-        create: (context) =>
-            HomeBloc(productRepository: context.read<ProductRepository>())
-              ..add(HomePageDataFetched()),
+        create: (context) => HomeBloc()..add(HomePageDataFetched()),
         child: HomeView(
           onProfileSettingsTap: onProfileSettingsTap,
           onApplyToSellTap: onApplyToSellTap,
@@ -46,6 +46,7 @@ class HomeScreen extends StatelessWidget {
           onLogOutTap: onLogOutTap,
           onSeeMoreTap: onSeeMoreTap,
           onDiscoverStoreTap: onDiscoverStoreTap,
+          onCategoryCardTap: onCategoryCardTap,
         ),
       ),
     );
@@ -63,6 +64,7 @@ class HomeView extends StatelessWidget {
     required this.onLogOutTap,
     required this.onSeeMoreTap,
     required this.onDiscoverStoreTap,
+    required this.onCategoryCardTap,
   });
 
   final VoidCallback onProfileSettingsTap;
@@ -73,6 +75,7 @@ class HomeView extends StatelessWidget {
   final VoidCallback onLogOutTap;
   final VoidCallback onSeeMoreTap;
   final VoidCallback onDiscoverStoreTap;
+  final Function(String id) onCategoryCardTap;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +112,7 @@ class HomeView extends StatelessWidget {
           if (state.status == HomeStatus.success) {
             return SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -133,26 +136,13 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
 
-                  // --- Dynamic Product Sections ---
-                  ...state.productSections.entries.map((entry) {
-                    final title = entry.key;
-                    final products = entry.value;
-                    return ShowcaseGridSection(
-                      title: title,
-                      items: products,
-                      itemBuilder: (context, item) => CategoryCard(
-                        imageUrl: item.imageUrl!,
-                        name: item.name,
-                      ),
-                      onItemTap: (product) {
-                        debugPrint('Tapped on ${product.name}');
-                        // TODO: Navigate to product detail screen
-                      },
-                      onSeeMore: () {
-                        onSeeMoreTap();
-                      },
-                    );
-                  }).toList(),
+                  ShowcaseGridSection(
+                    title: 'Categories',
+                    items: state.productCategories,
+                    itemBuilder: (context, item) =>
+                        CategoryCard(imageUrl: item.imageUrl, name: item.name),
+                    onItemTap: (item) => onCategoryCardTap(item.id),
+                  ),
                 ],
               ),
             );

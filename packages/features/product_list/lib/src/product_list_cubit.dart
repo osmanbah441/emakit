@@ -20,13 +20,24 @@ class ProductListCubit extends Cubit<ProductListState> {
   Future<void> _loadInitialData() async {
     try {
       emit(ProductLoading());
-      final subCategories = await _categoryRepository.getSubcategories(
-        _parentCategoryId,
-      );
-      final listOfProductLists = await _productRepository.getAllProducts();
+
+      final categories = await Future.wait([
+        _categoryRepository.getCategoryById(_parentCategoryId),
+        _categoryRepository.getSubcategories(_parentCategoryId),
+        _categoryRepository.getAllSubCategoriesId(_parentCategoryId),
+      ]);
+
+      final listOfProductLists = await _productRepository
+          .getAllProductsFromSubCategories(categories[2] as List<String>);
       final allProducts = listOfProductLists.toList();
       allProducts.shuffle();
-      emit(ProductLoaded(allProducts: allProducts, categories: subCategories));
+      emit(
+        ProductLoaded(
+          allProducts: allProducts,
+          topLevelCategory: categories[0] as ProductCategory,
+          categories: categories[1] as List<ProductCategory>,
+        ),
+      );
     } catch (e) {
       emit(ProductError("Failed to load products: ${e.toString()}"));
     }
@@ -35,18 +46,18 @@ class ProductListCubit extends Cubit<ProductListState> {
   void selectCategory(ProductCategory category) async {
     final currentState = state;
     if (currentState is ProductLoaded) {
-      if (currentState.activeCategory?.id == category.id) {
+      if (currentState.selectedSubCategory?.id == category.id) {
         return; // don't refetch
       }
 
       final listOfProduct = await _productRepository.getAllProducts(
-        category: category.id,
+        categoryId: category.id,
       );
 
       emit(
         currentState.copyWith(
           allProducts: listOfProduct,
-          activeCategory: category,
+          selectedSubCategory: category,
         ),
       );
     }

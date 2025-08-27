@@ -21,22 +21,26 @@ class Store {
   final String id;
   final String ownerId;
   final String name;
-  final String description;
+  final String? description;
   final String? logoUrl;
   final StoreStatus status;
   final bool isVerified;
   final List<String> phones;
   final List<String> emails;
+  final double rating;
+  final int reviewCount;
 
   const Store({
     required this.id,
-    required this.ownerId,
+    this.ownerId = '',
     required this.name,
-    required this.description,
+    this.description,
     this.logoUrl,
-    required this.status,
+    this.status = StoreStatus.pending,
     this.isVerified = false,
     this.phones = const [],
     this.emails = const [],
+    this.rating = 0.0,
+    this.reviewCount = 0,
   });
 }

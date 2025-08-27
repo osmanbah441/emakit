@@ -10,16 +10,11 @@ class StoreProductListScreen extends StatelessWidget {
   const StoreProductListScreen({
     super.key,
     required this.onProductTap,
-    required this.onCategoryFilterTap,
-    required this.filterDialog,
     this.onAddNewProductTap,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
   final Function(BuildContext context)? onAddNewProductTap;
-
-  final Function(Category) onCategoryFilterTap;
-  final Widget filterDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +22,6 @@ class StoreProductListScreen extends StatelessWidget {
       create: (context) => StoreProductListBloc(),
       child: StoreProductListScreenView(
         onProductTap: onProductTap,
-        filterDialog: filterDialog,
-        onCategoryFilterTap: onCategoryFilterTap,
         onAddNewProductTap: onAddNewProductTap,
       ),
     );
@@ -40,26 +33,11 @@ class StoreProductListScreenView extends StatelessWidget {
   const StoreProductListScreenView({
     super.key,
     required this.onProductTap,
-    required this.filterDialog,
-    required this.onCategoryFilterTap,
     this.onAddNewProductTap,
   });
 
   final Function(BuildContext context, String productId) onProductTap;
   final Function(BuildContext context)? onAddNewProductTap;
-  final Function(Category) onCategoryFilterTap;
-  final Widget filterDialog;
-
-  void _showFilterDialog(BuildContext context) async {
-    final selectedCategory = await showDialog<Category>(
-      context: context,
-      builder: (BuildContext context) => filterDialog,
-    );
-
-    if (selectedCategory != null) {
-      onCategoryFilterTap(selectedCategory);
-    }
-  }
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(
@@ -94,7 +72,6 @@ class StoreProductListScreenView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AudioTextInputField(
-                  onFilterTap: () => _showFilterDialog(context),
                   isSearching: state is ProductListSearchProcessing,
                   onSendText: (text) => bloc.add(SendTextSearch(text)),
                   onSendRecording: (mimeType, bytes) => bloc.add(

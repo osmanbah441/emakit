@@ -9,14 +9,14 @@ enum _AudioInputMode { idle, typing, recording }
 class AudioTextInputField extends StatefulWidget {
   final Function(String text) onSendText;
   final Function(String mimeType, Uint8List bytes) onSendRecording;
-  final VoidCallback onFilterTap;
+  final VoidCallback? onFilterTap;
   final bool isSearching;
 
   const AudioTextInputField({
     super.key,
     required this.onSendText,
     required this.onSendRecording,
-    required this.onFilterTap,
+    this.onFilterTap,
     this.isSearching = false,
   });
 

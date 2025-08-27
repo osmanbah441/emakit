@@ -25,10 +25,10 @@ class _AddProductSpecificationStepState
     super.initState();
     final p = _cubit.state.extractedProductInfo!.generatedProduct;
     _nameController.text = p.name;
-    _descriptionController.text = p.description;
-    p.specifications.forEach((key, value) {
-      _specControllers[key] = TextEditingController(text: value.toString());
-    });
+    // _descriptionController.text = p.description;
+    // p.specifications.forEach((key, value) {
+    //   _specControllers[key] = TextEditingController(text: value.toString());
+    // });
   }
 
   @override

@@ -38,12 +38,12 @@ class StoreRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       elevation: 0,
-      color: Colors.grey.shade50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(color: theme.colorScheme.surfaceContainerHighest),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),

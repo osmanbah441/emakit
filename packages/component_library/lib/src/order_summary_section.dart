@@ -1,4 +1,3 @@
-import 'package:component_library/src/section_title.dart';
 import 'package:component_library/src/key_value_row.dart';
 import 'package:flutter/material.dart';
 

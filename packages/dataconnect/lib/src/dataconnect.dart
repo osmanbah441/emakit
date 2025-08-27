@@ -10,20 +10,20 @@ import 'repositories/category_repository.dart';
 import 'repositories/user_commerce_repository.dart';
 
 final class DataConnect {
-  const DataConnect._()
-    : productRepository = const ProductRepository(),
-      categoryRepository = const CategoryRepository(),
-      // userRepository = const UserRepository(),
-      userCommerceRepository = const UserCommerceRepository();
+  // const DataConnect._()
+  //   : productRepository = const ProductRepository(),
+  //     categoryRepository = const CategoryRepository(),
+  //     // userRepository = const UserRepository(),
+  //     userCommerceRepository = const UserCommerceRepository();
 
-  final ProductRepository productRepository;
-  final CategoryRepository categoryRepository;
-  // final UserRepository userRepository;
-  final UserCommerceRepository userCommerceRepository;
+  // final ProductRepository productRepository;
+  // final CategoryRepository categoryRepository;
+  // // final UserRepository userRepository;
+  // final UserCommerceRepository userCommerceRepository;
 
-  static get defaultConnect => DefaultConnector.instance;
+  // static get defaultConnect => DefaultConnector.instance;
 
-  static const instance = DataConnect._();
+  // static const instance = DataConnect._();
 
   static void useEmulator({
     required (String, int) db,

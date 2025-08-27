@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ShowcaseGridSection<T> extends StatelessWidget {
   final String title;
   final List<T> items;
-  final VoidCallback onSeeMore;
+  final VoidCallback? onSeeMore;
   final void Function(T) onItemTap;
 
   final Widget Function(BuildContext context, T item) itemBuilder;
@@ -13,7 +13,7 @@ class ShowcaseGridSection<T> extends StatelessWidget {
     super.key,
     required this.title,
     required this.items,
-    required this.onSeeMore,
+    this.onSeeMore,
     required this.onItemTap,
     required this.itemBuilder,
   });
@@ -43,7 +43,8 @@ class ShowcaseGridSection<T> extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: textTheme.titleMedium),
-              TextButton(onPressed: onSeeMore, child: const Text('See more')),
+              if (onSeeMore != null)
+                TextButton(onPressed: onSeeMore, child: const Text('See more')),
             ],
           ),
           const SizedBox(height: _titleBottomSpacing),

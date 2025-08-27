@@ -9,37 +9,37 @@ part 'add_edit_product_state.dart';
 class AddEditProductCubit extends Cubit<AddEditProductState> {
   AddEditProductCubit() : super(const AddEditProductState());
 
-  final _productRepository = DataConnect.instance.productRepository;
+  // final _productRepository = DataConnect.instance.productRepository;
 
   void goToStep(AddEditProductStep step) => emit(
     state.copyWith(currentStep: step, status: AddEditProductStatus.initial),
   );
 
   void productExtractionListing() async {
-    if (state.guidelineImage == null) return;
-    emit(state.copyWith(status: AddEditProductStatus.loading));
-    try {
-      final result = await _productRepository.productExtractionListing(
-        UserContentMedia(
-          state.guidelineImage!.bytes,
-          state.guidelineImage!.mimeType,
-        ),
-      );
-      emit(
-        state.copyWith(
-          extractedProductInfo: result,
-          status: AddEditProductStatus.success,
-          currentStep: AddEditProductStep.newProduct,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: AddEditProductStatus.error,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+    // if (state.guidelineImage == null) return;
+    // emit(state.copyWith(status: AddEditProductStatus.loading));
+    // try {
+    //   final result = await _productRepository.productExtractionListing(
+    //     UserContentMedia(
+    //       state.guidelineImage!.bytes,
+    //       state.guidelineImage!.mimeType,
+    //     ),
+    //   );
+    //   emit(
+    //     state.copyWith(
+    //       extractedProductInfo: result,
+    //       status: AddEditProductStatus.success,
+    //       currentStep: AddEditProductStep.newProduct,
+    //     ),
+    //   );
+    // } catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       status: AddEditProductStatus.error,
+    //       errorMessage: e.toString(),
+    //     ),
+    //   );
+    // }
   }
 
   void removeGuidelineImage() => emit(const AddEditProductState());
@@ -71,28 +71,28 @@ class AddEditProductCubit extends Cubit<AddEditProductState> {
     required String description,
     required Map<String, dynamic> specifications,
   }) async {
-    emit(state.copyWith(status: AddEditProductStatus.loading));
+    //   emit(state.copyWith(status: AddEditProductStatus.loading));
 
-    try {
-      await _productRepository.createNewProduct(
-        name: name,
-        description: description,
-        category: state.extractedProductInfo!.generatedProduct.category!,
-        specs: specifications,
-        attributes: state.variationAttributes!,
-        imagesData: state.imagesData!,
-        price: state.price!,
-        availableStock: state.availableStock!,
-      );
+    //   try {
+    //     await _productRepository.createNewProduct(
+    //       name: name,
+    //       description: description,
+    //       category: state.extractedProductInfo!.generatedProduct.category!,
+    //       specs: specifications,
+    //       attributes: state.variationAttributes!,
+    //       imagesData: state.imagesData!,
+    //       price: state.price!,
+    //       availableStock: state.availableStock!,
+    //     );
 
-      emit(state.copyWith(status: AddEditProductStatus.success));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: AddEditProductStatus.error,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+    //     emit(state.copyWith(status: AddEditProductStatus.success));
+    //   } catch (e) {
+    //     emit(
+    //       state.copyWith(
+    //         status: AddEditProductStatus.error,
+    //         errorMessage: e.toString(),
+    //       ),
+    //     );
+    //   }
   }
 }

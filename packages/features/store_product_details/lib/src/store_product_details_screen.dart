@@ -209,7 +209,7 @@ class StoreProductDetailsView extends StatelessWidget {
               // Now it's safe to use state.product! because of the checks above
               ProductCard(
                 name: state.product!.name,
-                description: state.product!.description,
+                description: '',
                 // Ensure imageUrls is not empty before accessing first
                 imageUrl: state.product!.variations.first.imageUrls.isNotEmpty
                     ? state.product!.variations.first.imageUrls.first
@@ -227,7 +227,7 @@ class StoreProductDetailsView extends StatelessWidget {
                       initialStock: variation.stockQuantity.toString(),
                       selectedOptions: variation.attributes,
                       imagesFromNetwork: variation.imageUrls,
-                      isActive: variation.status == ProductStatus.active,
+                      // isActive: variation.status == ProductStatus.active,
                       mode: ProductVariationMode.view,
                       onEdit: () {
                         _showCenteredDialog(

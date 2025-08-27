@@ -1,4 +1,3 @@
-import 'package:filter/filter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salone_bazaar/router/app_redirector.dart';
 import 'package:salone_bazaar/router/route_paths.dart';
@@ -30,16 +29,6 @@ final storeRoutes = <RouteBase>[
             RoutePaths.storeProductsDetails.name,
             pathParameters: {'productId': productId},
           ),
-          onCategoryFilterTap: (category) => context.goNamed(
-            RoutePaths.filter.name,
-            pathParameters: {
-              'id': category.id!,
-              'mainCategoryName': category.name,
-            },
-          ),
-          filterDialog: CategorySelectionAlertDialog(),
-          onAddNewProductTap: (context) =>
-              context.goNamed(RoutePaths.addEditProduct.name),
         ),
       ),
       GoRoute(

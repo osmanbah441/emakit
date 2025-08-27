@@ -6,7 +6,12 @@ import 'package:product_repository/src/product_repository_impl.dart';
 abstract class ProductRepository {
   static const ProductRepository instance = ProductRepositoryImpl();
 
-  Future<List<Product>> getAllProducts({String? searchTerm, String? category});
+  Future<List<Product>> getAllProductsFromSubCategories(List<String> ids);
+
+  Future<List<Product>> getAllProducts({
+    String? searchTerm,
+    String? categoryId,
+  });
 
   Future<Product?> getProductById(String productId);
 

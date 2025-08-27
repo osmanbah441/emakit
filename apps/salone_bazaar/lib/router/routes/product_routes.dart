@@ -1,5 +1,4 @@
 import 'package:add_edit_product/add_edit_product.dart';
-import 'package:filter/filter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_details/product_details.dart';
 import 'package:product_list/product_list.dart';
@@ -10,12 +9,17 @@ final productRoutes = [
   GoRoute(
     path: RoutePaths.productList.path,
     name: RoutePaths.productList.name,
-    builder: (context, state) => ProductListScreen(
-      onProductSelected: (productId) => context.goNamed(
-        RoutePaths.productDetails.name,
-        pathParameters: {'productId': productId},
-      ),
-    ),
+    builder: (context, state) {
+      final categoryId = state.uri.queryParameters['categoryId']!;
+      return ProductListScreen(
+        parentCategoryId: categoryId,
+        onProductSelected: (productId) => context.goNamed(
+          RoutePaths.productDetails.name,
+
+          pathParameters: {'productId': productId},
+        ),
+      );
+    },
   ),
   GoRoute(
     path: RoutePaths.productDetails.path,
@@ -43,14 +47,5 @@ final productRoutes = [
     path: RoutePaths.addEditProduct.path,
     name: RoutePaths.addEditProduct.name,
     builder: (context, state) => const AddEditProductScreen(),
-  ),
-  GoRoute(
-    path: RoutePaths.filter.path,
-    name: RoutePaths.filter.name,
-    builder: (context, state) {
-      final id = state.pathParameters['id']!;
-      final mainCategoryName = state.pathParameters['mainCategoryName']!;
-      return FilterScreen(id: id, mainCategoryName: mainCategoryName);
-    },
   ),
 ];

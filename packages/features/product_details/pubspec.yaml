@@ -16,6 +16,10 @@ dependencies:
   flutter_bloc: ^9.1.1
   dataconnect: ^0.0.1
   domain_models: ^0.0.0
+  cart_repository: ^1.0.0
+  order_repository: ^1.0.0
+  store_repository: ^0.0.1
+  product_repository: ^1.0.0
 
 
 

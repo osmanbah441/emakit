@@ -16,7 +16,7 @@ class StoreProductListBloc
     add(LoadProducts());
   }
 
-  final _api = DataConnect.instance;
+  // final _api = DataConnect.instance;
 
   void _registerHandler() async => on<ProductListEvent>(
     (event, emit) async => switch (event) {
@@ -36,16 +36,16 @@ class StoreProductListBloc
     emit(const ProductListLoading());
 
     try {
-      final fetchPage = await _api.productRepository.getProductForStore(
-        // searchTerm: event.searchTerm,
-      );
+      // final fetchPage = await _api.productRepository.getProductForStore(
+      //   // searchTerm: event.searchTerm,
+      // );
 
-      emit(
-        ProductListLoaded(
-          products: fetchPage,
-          currentSearchTerm: event.searchTerm,
-        ),
-      );
+      // emit(
+      //   ProductListLoaded(
+      //     products: fetchPage,
+      //     currentSearchTerm: event.searchTerm,
+      //   ),
+      // );
     } catch (e) {
       emit(
         ProductListError(message: 'Failed to load products: ${e.toString()}'),
@@ -67,11 +67,11 @@ class StoreProductListBloc
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _api.productRepository.productSearch(
-        UserContentMedia(event.bytes, event.mimeType),
-      );
+      // final res = await _api.productRepository.productSearch(
+      //   UserContentMedia(event.bytes, event.mimeType),
+      // );
 
-      emit(ProductListSearchSuccess(result: res));
+      // emit(ProductListSearchSuccess(result: res));
     } catch (e) {
       emit(
         ProductListSearchError(message: 'Voice search failed: ${e.toString()}'),
@@ -87,10 +87,10 @@ class StoreProductListBloc
     emit(const ProductListSearchProcessing());
 
     try {
-      final res = await _api.productRepository.productSearch(
-        UserContentText(event.text),
-      );
-      emit(ProductListSearchSuccess(result: res));
+      // final res = await _api.productRepository.productSearch(
+      //   UserContentText(event.text),
+      // );
+      // emit(ProductListSearchSuccess(result: res));
     } catch (e) {
       emit(
         ProductListSearchError(message: 'Text search failed: ${e.toString()}'),
@@ -102,13 +102,13 @@ class StoreProductListBloc
     ToggleCartStatus event,
     Emitter<StoreProductListState> emit,
   ) async {
-    await _api.userCommerceRepository.addToCart(event.product, 1);
+    // await _api.userCommerceRepository.addToCart(event.product, 1);
   }
 
   Future<void> _onToggleWishlistStatus(
     ToggleWishlistStatus event,
     Emitter<StoreProductListState> emit,
   ) async {
-    await _api.userCommerceRepository.toggleWishlistStatus(event.productId);
+    // await _api.userCommerceRepository.toggleWishlistStatus(event.productId);
   }
 }

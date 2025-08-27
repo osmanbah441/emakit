@@ -9,6 +9,4 @@ abstract class OrderRepository {
   Future<Order> getOrderById(String orderId);
 
   Future<void> createOrder(Order order);
-
-  Future<void> addItem({required String productId, int quantity = 1});
 }

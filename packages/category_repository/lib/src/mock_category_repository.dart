@@ -235,4 +235,14 @@ class MockCategoryRepository implements CategoryRepository {
     await _simulateNetworkDelay();
     _categories.removeWhere((cat) => cat.id == id);
   }
+
+  @override
+  Future<List<String>> getAllSubCategoriesId(String parentId) async {
+    await _simulateNetworkDelay();
+
+    return _categories
+        .where((c) => c.parentId == parentId)
+        .map((categories) => categories.id)
+        .toList();
+  }
 }

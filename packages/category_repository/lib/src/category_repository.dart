@@ -11,6 +11,8 @@ abstract class CategoryRepository {
 
   Future<ProductCategory?> getCategoryById(String id);
 
+  Future<List<String>> getAllSubCategoriesId(String parentId);
+
   Future<void> createCategory({
     required String name,
     required String imageUrl,

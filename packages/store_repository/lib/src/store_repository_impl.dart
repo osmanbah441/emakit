@@ -1,6 +1,27 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:store_repository/src/store_repository.dart';
 
+final _sampleStores = [
+  const Store(
+    id: 'store_001',
+    name: 'Kadi’s Kollections',
+    rating: 4.8,
+    reviewCount: 1253,
+  ),
+  const Store(
+    id: 'store_002',
+    name: 'Freetown Fashion House',
+    rating: 4.6,
+    reviewCount: 879,
+  ),
+  const Store(
+    id: 'store_003',
+    name: 'Sierra Leone Styles',
+    rating: 4.9,
+    reviewCount: 2410,
+  ),
+];
+
 class StoreRepositoryImpl implements StoreRepository {
   const StoreRepositoryImpl();
   @override
@@ -27,9 +48,9 @@ class StoreRepositoryImpl implements StoreRepository {
     String status = 'pending',
     String? lastStoreId,
     int limit = 20,
-  }) {
-    // TODO: implement getAllStores
-    throw UnimplementedError();
+  }) async {
+    await Future.delayed(Duration(milliseconds: 300));
+    return _sampleStores;
   }
 
   @override
@@ -39,9 +60,9 @@ class StoreRepositoryImpl implements StoreRepository {
   }
 
   @override
-  Future<Store?> getStoreById(String storeId) {
-    // TODO: implement getStoreById
-    throw UnimplementedError();
+  Future<Store?> getStoreById(String storeId) async {
+    await Future.delayed(Duration(milliseconds: 300));
+    return _sampleStores.firstWhere((store) => store.id == storeId);
   }
 
   @override

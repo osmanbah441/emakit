@@ -2,7 +2,6 @@ import 'package:cart/cart.dart';
 import 'package:checkout/checkout.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home/home.dart';
-import 'package:manage_categories/manage_categories.dart';
 import '../route_paths.dart';
 
 final coreRoutes = [
@@ -18,6 +17,10 @@ final coreRoutes = [
       onManageStoreTap: () => context.goNamed(RoutePaths.storeDashboard.name),
       onMyOrdersTap: () => context.goNamed(RoutePaths.orderList.name),
       onLogOutTap: () {},
+      onCategoryCardTap: (id) => context.goNamed(
+        RoutePaths.productList.name,
+        queryParameters: {'categoryId': id},
+      ),
     ),
   ),
   GoRoute(
@@ -31,10 +34,5 @@ final coreRoutes = [
     path: RoutePaths.checkout.path,
     name: RoutePaths.checkout.name,
     builder: (context, state) => const CheckoutScreen(),
-  ),
-  GoRoute(
-    path: RoutePaths.manageCategories.path,
-    name: RoutePaths.manageCategories.name,
-    builder: (context, state) => const ManageCategoryScreen(),
   ),
 ];

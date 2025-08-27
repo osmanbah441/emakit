@@ -1,47 +1,50 @@
 part of 'product_details_cubit.dart';
 
-enum ProductDetailsStatus { initial, loading, success, failure }
+enum ActionStatus { initial, loading, success, failure }
 
-class ProductDetailsState {
-  final ProductDetailsStatus status;
+class ProductDetailsState extends Equatable {
   final Product? product;
-  final ProductVariation? selectedVariation;
-  final List<ProductVariation> allVariations;
-  final LinkedHashMap<String, LinkedHashSet<dynamic>> availableAttributes;
-  final Map<String, dynamic> currentSelectedAttributes;
+  final Store? store;
+  final MeasurementUnit measurementUnit;
+  final ActionStatus status;
   final String? error;
 
-  ProductDetailsState({
-    this.status = ProductDetailsStatus.initial,
+  final ProductVariation? selectedVariation;
+
+  const ProductDetailsState({
     this.product,
-    this.selectedVariation,
-    this.allVariations = const [],
-    LinkedHashMap<String, LinkedHashSet<dynamic>>? availableAttributes,
-    this.currentSelectedAttributes = const {},
+    this.store,
+    this.measurementUnit = MeasurementUnit.inches,
+    this.status = ActionStatus.initial,
     this.error,
-  }) : availableAttributes = availableAttributes ?? LinkedHashMap.identity();
+    this.selectedVariation,
+  });
 
   ProductDetailsState copyWith({
-    ProductDetailsStatus? status,
     Product? product,
-    ProductVariation? selectedVariation,
-    List<ProductVariation>? allVariations,
-    LinkedHashMap<String, LinkedHashSet<dynamic>>? availableAttributes,
-    Map<String, dynamic>? currentSelectedAttributes,
+    MeasurementUnit? measurementUnit,
+    ActionStatus? status,
     String? error,
-    bool clearSelectedVariation = false,
+    Store? store,
+    ProductVariation? selectedVariation,
   }) {
     return ProductDetailsState(
-      status: status ?? this.status,
       product: product ?? this.product,
-      selectedVariation: clearSelectedVariation
-          ? null
-          : (selectedVariation ?? this.selectedVariation),
-      allVariations: allVariations ?? this.allVariations,
-      availableAttributes: availableAttributes ?? this.availableAttributes,
-      currentSelectedAttributes:
-          currentSelectedAttributes ?? this.currentSelectedAttributes,
-      error: error ?? this.error,
+      measurementUnit: measurementUnit ?? this.measurementUnit,
+      status: status ?? this.status,
+      error: error,
+      store: store ?? this.store,
+      selectedVariation: selectedVariation ?? this.selectedVariation,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    product,
+    measurementUnit,
+    status,
+    error,
+    store,
+    selectedVariation,
+  ];
 }

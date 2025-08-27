@@ -33,7 +33,8 @@ class ProductListView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        final imageUrl = product.imageUrl ?? "https://picsum.photos/200/300";
+        final imageUrl =
+            product.images.first ?? "https://picsum.photos/200/300";
         return ListTile(
           onTap: () => onProductTap(context, product.id!),
           leading: SizedBox(

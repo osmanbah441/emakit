@@ -21,14 +21,4 @@ final class OrderRepositoryImpl implements OrderRepository {
       throw Exception('Failed to process purchase. Please try again.');
     }
   }
-
-  @override
-  Future<void> addItem({required String productId, int quantity = 1}) async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (Random().nextBool()) {
-      print('Added item to cart: $productId, quantity: $quantity');
-    } else {
-      throw Exception('Failed to add item to cart. Please try again.');
-    }
-  }
 }

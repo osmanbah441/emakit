@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:product_repository/product_repository.dart';
+import 'package:category_repository/category_repository.dart';
 
 // Note: You will need to import your product_repository.dart file here.
 // import 'path/to/your/product_repository.dart';
@@ -31,28 +32,28 @@ enum HomeStatus { initial, loading, success, failure }
 class HomeState extends Equatable {
   const HomeState({
     this.status = HomeStatus.initial,
-    this.productSections = const {},
     this.errorMessage = '',
+    this.productCategories = const [],
   });
 
   final HomeStatus status;
-  final Map<String, List<Product>> productSections;
   final String errorMessage;
+  final List<ProductCategory> productCategories;
 
   HomeState copyWith({
     HomeStatus? status,
-    Map<String, List<Product>>? productSections,
     String? errorMessage,
+    List<ProductCategory>? productCategories,
   }) {
     return HomeState(
       status: status ?? this.status,
-      productSections: productSections ?? this.productSections,
       errorMessage: errorMessage ?? this.errorMessage,
+      productCategories: productCategories ?? this.productCategories,
     );
   }
 
   @override
-  List<Object> get props => [status, productSections, errorMessage];
+  List<Object> get props => [status, productCategories, errorMessage];
 }
 
 // =================================================================
@@ -60,13 +61,13 @@ class HomeState extends Equatable {
 // =================================================================
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final ProductRepository _productRepository;
-
-  HomeBloc({required ProductRepository productRepository})
-    : _productRepository = productRepository,
+  HomeBloc()
+    : _categoryRepository = CategoryRepository.instance,
       super(const HomeState()) {
     on<HomePageDataFetched>(_onHomePageDataFetched);
   }
+
+  final CategoryRepository _categoryRepository;
 
   /// Handles fetching all categorized product lists for the home screen.
   Future<void> _onHomePageDataFetched(
@@ -75,9 +76,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(state.copyWith(status: HomeStatus.loading));
     try {
-      final sections = await _productRepository.getProductsForAllCateggeories();
+      final fetchCategories = await _categoryRepository.getTopLevelCategories();
       emit(
-        state.copyWith(status: HomeStatus.success, productSections: sections),
+        state.copyWith(
+          status: HomeStatus.success,
+          productCategories: fetchCategories,
+        ),
       );
     } catch (e) {
       emit(

@@ -6,7 +6,6 @@ export 'src/price_display_text.dart';
 export 'src/wishlist_toggle_button.dart';
 export 'src/add_to_cart_button.dart';
 export 'src/cached_product_image.dart';
-export 'src/product_carousel_view.dart';
 export 'src/product_card.dart';
 export 'src/app_search_bar.dart';
 export 'src/voice_input_button.dart';

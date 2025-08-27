@@ -1,4 +1,33 @@
-import 'package:domain_models/domain_models.dart';
+enum ProductStatus { active, inactive, draft }
+
+enum MeasurementUnit { inches, centimeters }
+
+enum MeasurementType {
+  bust,
+  waist,
+  hip,
+  length,
+  shoulder,
+  sleeveLength,
+  neck,
+  inseam,
+  thigh,
+}
+
+class Measurement {
+  final double inches;
+
+  const Measurement({required this.inches});
+
+  double get centimeters => inches * 2.54;
+
+  String display(MeasurementUnit unit) {
+    if (unit == MeasurementUnit.centimeters) {
+      return '${centimeters.toStringAsFixed(1)} cm';
+    }
+    return '${inches.toStringAsFixed(1)}"';
+  }
+}
 
 class ProductCategory {
   final String id;
@@ -16,76 +45,70 @@ class ProductCategory {
   });
 }
 
-class Product {
-  final String? id;
-  final String name;
-  final String description;
-  final String? category;
-  final String? imageUrl;
-  final ProductStatus? status;
-  final Map<String, dynamic> specifications;
-  final List<ProductVariation> variations;
-  final double? price;
-  final String storeName;
-  final List<String> images;
-  final List<ProductMeasurement> measurements;
-  final double storeRating;
-  final int storeReviewCount;
+class ClothingDetails {
+  final bool isTailored;
+  final bool allowsPersonalization;
+  final List<MeasurementType> requiredMeasurements;
 
-  const Product({
-    this.id,
-    required this.name,
-    this.description = '',
-    this.category,
-    this.variations = const [],
-    this.status,
-    this.specifications = const {},
-    this.imageUrl,
-    this.price,
-    this.storeName = '',
-    this.images = const [],
-    this.measurements = const [],
-    this.storeRating = 0.0,
-    this.storeReviewCount = 0,
+  const ClothingDetails({
+    required this.isTailored,
+    this.allowsPersonalization = false,
+    this.requiredMeasurements = const [],
+  });
+}
+
+class ShoeDetails {
+  final String style;
+  final String material;
+  final Map<String, String> sizeChart;
+
+  const ShoeDetails({
+    required this.style,
+    required this.material,
+    this.sizeChart = const {},
   });
 }
 
 class ProductVariation {
   final String id;
-  final String? productId;
-  final ProductStatus? status;
-  final Map<String, dynamic> attributes;
-  final List<String> imageUrls;
+  final String productId;
   final double price;
   final int stockQuantity;
-  final String? storeId;
-  final String storeName;
+  final Map<String, String> attributes;
+  final List<String> imageUrls;
 
   const ProductVariation({
     required this.id,
-    required this.attributes,
-    required this.imageUrls,
+    required this.productId,
     required this.price,
-    this.productId,
-    this.status,
     required this.stockQuantity,
-    this.storeId,
-    this.storeName = '',
+    required this.attributes,
+    this.imageUrls = const [],
   });
 }
 
-enum ProductStatus {
-  active,
-  inactive,
-  draft,
-  archived,
-  outOfStock,
-  unavailable;
+class Product {
+  final String id;
+  final String name;
+  final double basePrice;
+  final String categoryId;
+  final List<String> images;
+  final ProductStatus status;
+  final List<ProductVariation> variations;
+  final String storeId;
 
-  static ProductStatus fromString(String statusString) {
-    return ProductStatus.values.firstWhere(
-      (e) => e.name == statusString,
-      orElse: () => ProductStatus.unavailable,
-    );
-  }
+  /// Holds the category-specific object (e.g., an instance of `ClothingDetails`).
+  final dynamic details;
+
+  const Product({
+    required this.id,
+    required this.name,
+    required this.basePrice,
+    required this.categoryId,
+    required this.storeId,
+    this.images = const [],
+    this.status = ProductStatus.draft,
+    this.variations = const [],
+    this.details,
+  });
 }

@@ -9,41 +9,41 @@ class CartCubit extends Cubit<CartState> {
     _fetchCartItems();
   }
 
-  final _repo = DataConnect.instance.userCommerceRepository;
+  // final _repo = DataConnect.instance.userCommerceRepository;
 
   void _fetchCartItems() async {
-    emit(state.copyWith(status: CartStatus.loading));
+    // emit(state.copyWith(status: CartStatus.loading));
 
-    final cart = await _repo.fetchUserCart();
+    // final cart = await _repo.fetchUserCart();
 
-    emit(state.copyWith(status: CartStatus.loaded, cart: cart));
+    // emit(state.copyWith(status: CartStatus.loaded, cart: cart));
   }
 
   void incrementItemQuantity(String itemId) async {
-    await _repo.incrementCartItemQuantity(itemId);
-    final updatedCart = await _repo.fetchUserCart();
-    emit(state.copyWith(cart: updatedCart));
+    // await _repo.incrementCartItemQuantity(itemId);
+    // final updatedCart = await _repo.fetchUserCart();
+    // emit(state.copyWith(cart: updatedCart));
   }
 
   void decrementItemQuantity(String itemId) async {
-    await _repo.decrementCartItemQuantity(itemId);
-    final updatedCart = await _repo.fetchUserCart();
+    // await _repo.decrementCartItemQuantity(itemId);
+    // final updatedCart = await _repo.fetchUserCart();
 
-    emit(state.copyWith(cart: updatedCart));
+    // emit(state.copyWith(cart: updatedCart));
   }
 
   void removeItem(String itemId) async {
-    await _repo.removeCartItem(itemId);
-    final updatedCart = await _repo.fetchUserCart();
+    // await _repo.removeCartItem(itemId);
+    // final updatedCart = await _repo.fetchUserCart();
 
-    emit(state.copyWith(cart: updatedCart));
+    // emit(state.copyWith(cart: updatedCart));
   }
 
   /// Clears all items from the cart.
   Future<void> clearCart() async {
-    await _repo.clearCart();
-    final updatedCart = await _repo.fetchUserCart();
+    // await _repo.clearCart();
+    // final updatedCart = await _repo.fetchUserCart();
 
-    emit(state.copyWith(cart: updatedCart));
+    // emit(state.copyWith(cart: updatedCart));
   }
 }
