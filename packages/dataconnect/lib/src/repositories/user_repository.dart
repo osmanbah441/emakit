@@ -44,7 +44,8 @@ class UserRepository {
   Future<void> updateDisplayName(String displayName) async {
     final user = _auth.currentUser;
     if (user == null) {
-      throw const domain.UserAuthenticationRequiredException();
+      // throw const domain.UserAuthenticationRequiredException();
+      throw ('error');
     }
 
     await user.updateDisplayName(displayName);
@@ -75,7 +76,7 @@ class UserRepository {
       return isNewUser;
     }
 
-    throw const domain.UserAuthenticationRequiredException();
+    throw ('error');
   }
 
   Future<void> signInWithGoogleWeb() async {

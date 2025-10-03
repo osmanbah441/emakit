@@ -13,7 +13,7 @@ final productRoutes = [
       final categoryId = state.uri.queryParameters['categoryId']!;
       return ProductListScreen(
         parentCategoryId: categoryId,
-        onProductSelected: (productId) => context.goNamed(
+        onProductSelected: (productId) => context.pushNamed(
           RoutePaths.productDetails.name,
 
           pathParameters: {'productId': productId},
@@ -28,7 +28,7 @@ final productRoutes = [
       final productId = state.pathParameters['productId']!;
       return ProductDetailsScreen(
         productId: productId,
-        onVisitStoreTap: (storeId) => context.goNamed(
+        onVisitStoreTap: (storeId) => context.pushNamed(
           RoutePaths.storeInfo.name,
           pathParameters: {'storeId': storeId},
         ),

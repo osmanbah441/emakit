@@ -1,19 +1,15 @@
 import 'package:domain_models/domain_models.dart';
 
-import 'cart_repository_impl.dart';
+part 'cart_repository_impl.dart';
 
 abstract class CartRepository {
-  const CartRepository._();
+  static final CartRepository instance = CartRepositoryImpl();
 
-  static const CartRepository instance = CartRepositoryImpl();
+  List<CartItem> getItems();
+  void incrementQuantity(String productId);
+  void decrementQuantity(String productId);
+  void removeItem(String productId);
+  void toggleItemSelection(String productId);
 
-  Future<Cart?> getCart();
-
-  Future<void> addItemToCart({required String productId, int quantity = 1});
-
-  Future<void> updateItemQuantity(String cartItemId, int newQuantity);
-
-  Future<void> removeItemFromCart(String cartItemId);
-
-  Future<void> clearCart();
+  Future<void> addItem({required String productId, int? quantity}) async {}
 }

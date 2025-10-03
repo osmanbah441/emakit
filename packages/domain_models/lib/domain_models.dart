@@ -9,5 +9,7 @@ export 'src/order.dart';
 export 'src/store.dart';
 export 'src/address.dart';
 export 'src/payment.dart';
+export 'src/country.dart';
+export 'src/auth_exceptions.dart';
 
 // export 'src/measurement.dart';

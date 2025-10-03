@@ -54,9 +54,8 @@ class StoreRepositoryImpl implements StoreRepository {
   }
 
   @override
-  Future<Store?> getOwnedStore() {
-    // TODO: implement getOwnedStore
-    throw UnimplementedError();
+  Future<Store?> getOwnedStore() async {
+    return _sampleStores[0];
   }
 
   @override
@@ -81,6 +80,11 @@ class StoreRepositoryImpl implements StoreRepository {
   @override
   Future<void> updateStoreStatus(String storeId, String newStatus) {
     // TODO: implement updateStoreStatus
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Store> toggleFollow(String storeId) {
     throw UnimplementedError();
   }
 }

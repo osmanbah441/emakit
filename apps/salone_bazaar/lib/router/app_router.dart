@@ -12,7 +12,8 @@ class AppRouter {
 
   AppRouter() {
     router = GoRouter(
-      initialLocation: RoutePaths.home.path,
+      initialLocation: RoutePaths.cart.path,
+      debugLogDiagnostics: true,
       routes: [
         ...storeRoutes,
         ...coreRoutes,

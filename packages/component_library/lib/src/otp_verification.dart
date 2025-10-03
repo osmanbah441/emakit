@@ -123,7 +123,6 @@ class _OtpVerificationState extends State<OtpVerification> {
       controller: _otpController,
       autofocus: true,
       enabled: !isLoading,
-      textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       style: textTheme.titleMedium?.copyWith(letterSpacing: 12.0),
       inputFormatters: [

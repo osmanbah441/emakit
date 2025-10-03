@@ -116,76 +116,74 @@ class ProductDetailsView extends StatelessWidget {
         );
 
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                header,
-                ProductImageCarousel(
-                  imageUrls: (selectedVariation?.imageUrls.isNotEmpty ?? false)
-                      ? selectedVariation!.imageUrls
-                      : product.images,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.favorite_border),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.share),
-                          ),
-                        ],
-                      ),
-                      const ProductVariationSelector(),
-                      const Divider(height: 8),
-                      const SizedBox(height: 8),
-                      Text.rich(
-                        TextSpan(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  header,
+                  ProductImageCarousel(imageUrls: selectedVariation!.imageUrls),
+
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextSpan(
-                              text: 'NLE ',
-                              style: textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.normal,
-                              ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite_border),
                             ),
-                            TextSpan(
-                              text:
-                                  (selectedVariation?.price ??
-                                          product.basePrice)
-                                      .toStringAsFixed(2),
-                              style: textTheme.headlineMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.share),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text('NLE 30 for delivery', style: textTheme.bodySmall),
-                      const SizedBox(height: 16),
+                        const ProductVariationSelector(),
+                        const Divider(height: 8),
+                        const SizedBox(height: 8),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'NLE ',
+                                style: textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              TextSpan(
+                                text: (selectedVariation.price).toStringAsFixed(
+                                  2,
+                                ),
+                                style: textTheme.headlineMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text('NLE 30 for delivery', style: textTheme.bodySmall),
+                        const SizedBox(height: 16),
 
-                      cartAndBuyButtonRow,
-                      const SizedBox(height: 24),
-                      StoreRating(
-                        storeName: state.store?.name ?? '',
-                        rating: state.store?.rating ?? 0,
-                        reviewCount: state.store?.reviewCount ?? 0,
-                      ),
-                      const Divider(height: 32),
-                      if (isClothingDetails) const ClothingSizeDetails(),
-                      const SizedBox(height: 24),
-                    ],
+                        cartAndBuyButtonRow,
+                        const SizedBox(height: 24),
+                        StoreRating(
+                          storeName: state.store?.name ?? '',
+                          rating: state.store?.rating ?? 0,
+                          reviewCount: state.store?.reviewCount ?? 0,
+                        ),
+                        const Divider(height: 32),
+                        if (isClothingDetails) const ClothingSizeDetails(),
+                        const SizedBox(height: 24),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

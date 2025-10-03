@@ -5,23 +5,10 @@ import 'package:store_repository/store_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AppRedirector {
-  const AppRedirector();
+  AppRedirector();
 
   final UserRepository userRepository = UserRepository.instance;
   final StoreRepository storeRepository = StoreRepository.instance;
-
-  String? handleAuthRedirect(GoRouterState state) {
-    final isLoggedIn = userRepository.currentUser != null;
-    final isLoggingIn = state.path == RoutePaths.signIn.path;
-
-    if (!isLoggedIn && !isLoggingIn) {
-      return RoutePaths.signIn.path;
-    }
-    if (isLoggedIn && isLoggingIn) {
-      return RoutePaths.home.path;
-    }
-    return null;
-  }
 
   Future<String?> handleSellerRedirect(
     BuildContext context,

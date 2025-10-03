@@ -36,7 +36,6 @@ final class Functions {
             variationDefinationData: p.variationAttributes,
             generatedProduct: Product(
               id: '',
-              basePrice: 200,
               categoryId: 'category id',
               name: p.productName,
               storeId: '',

@@ -25,7 +25,7 @@ class _ProductCardState extends State<ProductCard> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         children: [
-          CachedProductImage(imageUrl: widget.imageUrl, width: 64, height: 64),
+          AppNetworkImage(imageUrl: widget.imageUrl, width: 64, height: 64),
           const SizedBox(width: 16.0),
           Expanded(
             child: Text(
@@ -44,7 +44,7 @@ class _ProductCardState extends State<ProductCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CachedProductImage(
+          AppNetworkImage(
             imageUrl: widget.imageUrl,
             height: 200,
             width: double.infinity,

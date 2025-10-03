@@ -1,0 +1,545 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "emakit",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "emakit (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "emakit (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "salone_bazaar",
+            "cwd": "apps/salone_bazaar",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "salone_bazaar (profile mode)",
+            "cwd": "apps/salone_bazaar",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "salone_bazaar (release mode)",
+            "cwd": "apps/salone_bazaar",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "sample_app",
+            "cwd": "apps/sample_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sample_app (profile mode)",
+            "cwd": "apps/sample_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sample_app (release mode)",
+            "cwd": "apps/sample_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "address_repository",
+            "cwd": "packages/address_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "cart_repository",
+            "cwd": "packages/cart_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "category_repository",
+            "cwd": "packages/category_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "component_library",
+            "cwd": "packages/component_library",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "component_library (profile mode)",
+            "cwd": "packages/component_library",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "component_library (release mode)",
+            "cwd": "packages/component_library",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "dataconnect",
+            "cwd": "packages/dataconnect",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "domain_models",
+            "cwd": "packages/domain_models",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "order_repository",
+            "cwd": "packages/order_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "payment_repository",
+            "cwd": "packages/payment_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_repository",
+            "cwd": "packages/product_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_repository",
+            "cwd": "packages/store_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "user_repository",
+            "cwd": "packages/user_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "add_edit_product",
+            "cwd": "packages/features/add_edit_product",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "add_edit_product (profile mode)",
+            "cwd": "packages/features/add_edit_product",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "add_edit_product (release mode)",
+            "cwd": "packages/features/add_edit_product",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "cart",
+            "cwd": "packages/features/cart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "cart (profile mode)",
+            "cwd": "packages/features/cart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "cart (release mode)",
+            "cwd": "packages/features/cart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "checkout",
+            "cwd": "packages/features/checkout",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "checkout (profile mode)",
+            "cwd": "packages/features/checkout",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "checkout (release mode)",
+            "cwd": "packages/features/checkout",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "complete_profile",
+            "cwd": "packages/features/complete_profile",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "complete_profile (profile mode)",
+            "cwd": "packages/features/complete_profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "complete_profile (release mode)",
+            "cwd": "packages/features/complete_profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "home",
+            "cwd": "packages/features/home",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "home (profile mode)",
+            "cwd": "packages/features/home",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "home (release mode)",
+            "cwd": "packages/features/home",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "order_details",
+            "cwd": "packages/features/order_details",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "order_details (profile mode)",
+            "cwd": "packages/features/order_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "order_details (release mode)",
+            "cwd": "packages/features/order_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "order_list",
+            "cwd": "packages/features/order_list",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "order_list (profile mode)",
+            "cwd": "packages/features/order_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "order_list (release mode)",
+            "cwd": "packages/features/order_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "product_details",
+            "cwd": "packages/features/product_details",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_details (profile mode)",
+            "cwd": "packages/features/product_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "product_details (release mode)",
+            "cwd": "packages/features/product_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "product_list",
+            "cwd": "packages/features/product_list",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_list (profile mode)",
+            "cwd": "packages/features/product_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "product_list (release mode)",
+            "cwd": "packages/features/product_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "product_search",
+            "cwd": "packages/features/product_search",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "product_search (profile mode)",
+            "cwd": "packages/features/product_search",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "product_search (release mode)",
+            "cwd": "packages/features/product_search",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "profile",
+            "cwd": "packages/features/profile",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "profile (profile mode)",
+            "cwd": "packages/features/profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "profile (release mode)",
+            "cwd": "packages/features/profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "seller_dashboard",
+            "cwd": "packages/features/seller_dashboard",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "seller_dashboard (profile mode)",
+            "cwd": "packages/features/seller_dashboard",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "seller_dashboard (release mode)",
+            "cwd": "packages/features/seller_dashboard",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "seller_onboarding",
+            "cwd": "packages/features/seller_onboarding",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "seller_onboarding (profile mode)",
+            "cwd": "packages/features/seller_onboarding",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "seller_onboarding (release mode)",
+            "cwd": "packages/features/seller_onboarding",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "sign_in",
+            "cwd": "packages/features/sign_in",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sign_in (profile mode)",
+            "cwd": "packages/features/sign_in",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sign_in (release mode)",
+            "cwd": "packages/features/sign_in",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_discovery",
+            "cwd": "packages/features/store_discovery",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_discovery (profile mode)",
+            "cwd": "packages/features/store_discovery",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_discovery (release mode)",
+            "cwd": "packages/features/store_discovery",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_info",
+            "cwd": "packages/features/store_info",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_info (profile mode)",
+            "cwd": "packages/features/store_info",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_info (release mode)",
+            "cwd": "packages/features/store_info",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_order_details",
+            "cwd": "packages/features/store_order_details",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_order_details (profile mode)",
+            "cwd": "packages/features/store_order_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_order_details (release mode)",
+            "cwd": "packages/features/store_order_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_order_list",
+            "cwd": "packages/features/store_order_list",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_order_list (profile mode)",
+            "cwd": "packages/features/store_order_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_order_list (release mode)",
+            "cwd": "packages/features/store_order_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_product_details",
+            "cwd": "packages/features/store_product_details",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_product_details (profile mode)",
+            "cwd": "packages/features/store_product_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_product_details (release mode)",
+            "cwd": "packages/features/store_product_details",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "store_product_list",
+            "cwd": "packages/features/store_product_list",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "store_product_list (profile mode)",
+            "cwd": "packages/features/store_product_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "store_product_list (release mode)",
+            "cwd": "packages/features/store_product_list",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

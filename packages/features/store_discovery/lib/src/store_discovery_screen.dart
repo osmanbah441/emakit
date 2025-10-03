@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:component_library/component_library.dart';
 
 // --- Data Model ---
 enum SortOption { rating, followers, name }
@@ -351,103 +352,20 @@ class StoreDiscoveryView extends StatelessWidget {
       itemCount: stores.length,
       itemBuilder: (context, index) {
         final store = stores[index];
-        return StoreCard(
-          store: store,
-          onFollowToggle: () => context.read<StoreCubit>().toggleFollow(store),
-          // Pass the store's ID to the callback.
-          onTap: () => onStoreTapped(store.id),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: StoreCard(
+            name: store.name,
+            imageUrl: store.logoUrl,
+            onFollowTap: () => context.read<StoreCubit>().toggleFollow(store),
+            isFollowed: store.isFollowed,
+            rating: store.rating,
+            followers: store.followers,
+            // Pass the store's ID to the callback.
+            onTap: () => onStoreTapped(store.id),
+          ),
         );
       },
-    );
-  }
-}
-
-// Reusable Store Card Widget
-class StoreCard extends StatelessWidget {
-  final Store store;
-  final VoidCallback onFollowToggle;
-  final VoidCallback onTap;
-
-  const StoreCard({
-    super.key,
-    required this.store,
-    required this.onFollowToggle,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final numberFormat = NumberFormat.compact(locale: "en_US");
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  store.logoUrl,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 60,
-                    height: 60,
-                    color: Colors.grey[200],
-                    child: const Icon(Icons.store, color: Colors.grey),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(store.name, style: textTheme.titleLarge),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 16),
-                        const SizedBox(width: 4.0),
-                        Text(
-                          store.rating.toString(),
-                          style: textTheme.bodyMedium,
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text('•', style: textTheme.bodyMedium),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          '${numberFormat.format(store.followers)} followers',
-                          style: textTheme.bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              ElevatedButton(
-                onPressed: onFollowToggle,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: store.isFollowed
-                      ? Colors.grey.shade300
-                      : colorScheme.primary,
-                  foregroundColor: store.isFollowed
-                      ? colorScheme.onSurface
-                      : colorScheme.onPrimary,
-                ),
-                child: Text(store.isFollowed ? 'Unfollow' : 'Follow'),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

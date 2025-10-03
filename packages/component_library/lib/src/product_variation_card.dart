@@ -285,7 +285,7 @@ class _ProductVariationCardState extends State<ProductVariationCard> {
                       ]
                     : widget.imagesFromNetwork != null
                     ? widget.imagesFromNetwork!.map((e) {
-                        return CachedProductImage(
+                        return AppNetworkImage(
                           imageUrl: e,
                           height: 64,
                           width: 64,

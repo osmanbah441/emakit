@@ -5,7 +5,6 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_list/src/custom_sliver_staggered_grid.dart';
-import 'package:product_list/src/filter_header_component.dart';
 import 'package:domain_models/domain_models.dart';
 import 'product_list_cubit.dart';
 
@@ -37,37 +36,43 @@ class _ProductListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ProductListCubit>();
     return Scaffold(
-      body: BlocBuilder<ProductListCubit, ProductListState>(
-        builder: (context, state) {
-          if (state is ProductInitial || state is ProductLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ProductError) {
-            return Center(child: Text(state.message));
-          }
-          if (state is ProductLoaded) {
-            return CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  floating: true,
-                  snap: true,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  title: FilterHeaderComponent(
-                    title: state.topLevelCategory?.name ?? '',
-                    onCategoryChanged: (category) =>
-                        cubit.selectCategory(category),
-                    categories: state.categories,
-                    activeCategory: state.selectedSubCategory,
+      body: SafeArea(
+        child: BlocBuilder<ProductListCubit, ProductListState>(
+          builder: (context, state) {
+            if (state is ProductInitial || state is ProductLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is ProductError) {
+              return Center(child: Text(state.message));
+            }
+            if (state is ProductLoaded) {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    expandedHeight: 200.0,
+                    floating: true,
+                    pinned: true, // This keeps the collapsed app bar visible
+                    snap: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    elevation: 1.0,
+                    title: Text(state.topLevelCategory?.name ?? ''),
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: CircularImageSelector<ProductCategory>(
+                        items: state.categories,
+                        selectedLabel: state.selectedSubCategory?.name,
+                        onItemChanged: cubit.selectCategory,
+                        labelBuilder: (category) => category.name,
+                        imageBuilder: (category) => category.imageUrl,
+                      ),
+                    ),
                   ),
-                  toolbarHeight: 200,
-                  elevation: 1.0,
-                ),
-                _buildProductGrid(2, state.allProducts),
-              ],
-            );
-          }
-          return const Center(child: Text("Something went wrong."));
-        },
+                  _buildProductGrid(2, state.allProducts),
+                ],
+              );
+            }
+            return const Center(child: Text("Something went wrong."));
+          },
+        ),
       ),
     );
   }
@@ -91,8 +96,8 @@ class _ProductListContent extends StatelessWidget {
         children: List.generate(products.length, (index) {
           final product = products[index];
           return ProductListCard(
-            imageUrl: product.images.first,
-            price: product.basePrice,
+            imageUrl: product.primaryImageUrl!,
+            price: product.displayPrice,
             onTap: () => onProductTap(product.id),
           );
         }),

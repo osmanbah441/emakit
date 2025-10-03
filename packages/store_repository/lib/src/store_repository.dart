@@ -32,6 +32,8 @@ abstract class StoreRepository {
     int limit = 20,
   });
 
+  Future<Store> toggleFollow(String storeId);
+
   Future<void> updateStoreStatus(String storeId, String newStatus);
 
   Future<void> deleteStore(String storeId);

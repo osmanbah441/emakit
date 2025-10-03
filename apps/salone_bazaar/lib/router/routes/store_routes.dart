@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:salone_bazaar/router/app_redirector.dart';
 import 'package:salone_bazaar/router/route_paths.dart';
-import 'package:salone_bazaar/store_scaffold.dart';
+import 'package:salone_bazaar/router/store_scaffold_nav.dart';
 import 'package:seller_dashboard/seller_dashboard.dart';
 import 'package:seller_onboarding/seller_onboarding.dart';
 import 'package:store_discovery/store_discovery.dart';
@@ -10,8 +9,8 @@ import 'package:store_product_list/store_product_list.dart';
 
 final storeRoutes = <RouteBase>[
   ShellRoute(
-    redirect: (context, state) =>
-        AppRedirector().handleSellerRedirect(context, state),
+    // redirect: (context, state) =>
+    //     AppRedirector().handleSellerRedirect(context, state),
     builder: (context, state, child) {
       return StoreScaffold(child: child, onUserLogoutTap: (c) {});
     },
@@ -25,7 +24,7 @@ final storeRoutes = <RouteBase>[
         path: RoutePaths.storeProducts.path,
         name: RoutePaths.storeProducts.name,
         builder: (context, state) => StoreProductListScreen(
-          onProductTap: (context, productId) => context.goNamed(
+          onProductTap: (context, productId) => context.pushNamed(
             RoutePaths.storeProductsDetails.name,
             pathParameters: {'productId': productId},
           ),
@@ -52,7 +51,7 @@ final storeRoutes = <RouteBase>[
     path: RoutePaths.storeDiscovery.path,
     name: RoutePaths.storeDiscovery.name,
     builder: (context, state) => StoreDiscoveryScreen(
-      onStoreTapped: (storeId) => context.goNamed(
+      onStoreTapped: (storeId) => context.pushNamed(
         RoutePaths.storeInfo.name,
         pathParameters: {'storeId': storeId},
       ),

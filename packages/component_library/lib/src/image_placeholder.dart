@@ -1,4 +1,4 @@
-import 'package:component_library/src/cached_product_image.dart';
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
 class ImagePlaceholder extends StatelessWidget {
@@ -23,7 +23,7 @@ class ImagePlaceholder extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: imageUrl != null
-          ? CachedProductImage(
+          ? AppNetworkImage(
               imageUrl: imageUrl!,
               width: width,
               height: height,

@@ -8,15 +8,10 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_001',
     name: 'Cotton V-Neck T-Shirt',
-    basePrice: 250000,
+
     categoryId: 'women-tops-t-shirts',
     storeId: 'store_002',
-    images: [
-      'https://picsum.photos/seed/prod_001_white_1/800',
-      'https://picsum.photos/seed/prod_001_white_2/800',
-      'https://picsum.photos/seed/prod_001_black_1/800',
-      'https://picsum.photos/seed/prod_001_navy_1/800',
-    ],
+
     details: const ClothingDetails(isTailored: false),
     variations: [
       // White Color
@@ -140,14 +135,9 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_002',
     name: 'Custom Royal Gown',
-    basePrice: 1200000,
     categoryId: 'women-dresses',
     storeId: 'store_001',
-    images: [
-      'https://picsum.photos/seed/prod_002_ankara_1/800',
-      'https://picsum.photos/seed/prod_002_ankara_2/800',
-      'https://picsum.photos/seed/prod_002_ankara_3/800',
-    ],
+
     details: const ClothingDetails(
       isTailored: true,
       requiredMeasurements: [
@@ -199,13 +189,9 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_003',
     name: 'Sample Evening Dress',
-    basePrice: 1500000,
     categoryId: 'women-dresses',
     storeId: 'store_003',
-    images: [
-      'https://picsum.photos/seed/prod_003_1/800',
-      'https://picsum.photos/seed/prod_003_2/800',
-    ],
+
     details: const ClothingDetails(isTailored: true),
     variations: [
       ProductVariation(
@@ -226,13 +212,9 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_004',
     name: 'Lightweight Bomber Jacket',
-    basePrice: 750000,
     categoryId: 'men-outerwear-jackets',
     storeId: 'store_002',
-    images: [
-      'https://picsum.photos/seed/prod_004_black_1/800',
-      'https://picsum.photos/seed/prod_004_olive_1/800',
-    ],
+
     details: const ClothingDetails(isTailored: false),
     variations: [
       ProductVariation(
@@ -274,13 +256,9 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_011',
     name: 'Classic Leather Loafers',
-    basePrice: 950000,
     categoryId: 'men-shoes-formal',
     storeId: 'store_001',
-    images: [
-      'https://picsum.photos/seed/prod_011_black_1/800',
-      'https://picsum.photos/seed/prod_011_brown_1/800',
-    ],
+
     details: const ShoeDetails(
       style: 'Loafer',
       material: 'Genuine Leather',
@@ -317,13 +295,9 @@ final List<Product> _allProducts = [
   Product(
     id: 'prod_012',
     name: 'Reversible Leather Belt',
-    basePrice: 450000,
     categoryId: 'men-accessories-belts',
     storeId: 'store_002',
-    images: [
-      'https://picsum.photos/seed/prod_012_black_1/800',
-      'https://picsum.photos/seed/prod_012_brown_1/800',
-    ],
+
     details: null,
     variations: [
       ProductVariation(

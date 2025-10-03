@@ -1,89 +1,69 @@
-class _AppRoute {
-  final String name;
-  final String path;
-
-  const _AppRoute({required this.name, required this.path});
-}
-
 class RoutePaths {
-  static const home = _AppRoute(name: 'home', path: '/');
+  static final home = (name: 'home', path: '/');
 
-  static const addEditProduct = _AppRoute(
+  static final addEditProduct = (
     name: 'addEditProduct',
     path: '/add-edit-product',
   );
 
-  static const cart = _AppRoute(name: 'cart', path: '/cart');
+  static final cart = (name: 'cart', path: '/cart');
 
-  static const checkout = _AppRoute(name: 'checkout', path: '/checkout');
+  static final checkout = (name: 'checkout', path: '/checkout');
 
-  static const filter = _AppRoute(
-    name: 'filter',
-    path: '/filter/:id/:mainCategoryName',
-  );
+  static final filter = (name: 'filter', path: '/filter/:id/:mainCategoryName');
 
-  static const manageCategories = _AppRoute(
+  static final manageCategories = (
     name: 'manageCategories',
     path: '/manage-categories',
   );
 
-  static const productDetails = _AppRoute(
+  static final productDetails = (
     name: 'productDetails',
     path: '/product-details/:productId',
   );
 
-  static const productList = _AppRoute(
-    name: 'productList',
-    path: '/product-list',
-  );
+  static final productList = (name: 'productList', path: '/product-list');
 
-  static const profile = _AppRoute(name: 'profile', path: '/profile');
+  static final profile = (name: 'profile', path: '/profile');
 
-  static const signIn = _AppRoute(name: 'signIn', path: '/sign-in');
+  static final search = (name: 'search', path: '/search');
 
-  static const orderList = _AppRoute(name: 'orderList', path: '/order-list');
+  static final signIn = (name: 'signIn', path: '/sign-in');
 
-  static const orderDetails = _AppRoute(
+  static final orderList = (name: 'orderList', path: '/order-list');
+
+  static final orderDetails = (
     name: 'orderDetails',
     path: '/order-details/:orderId',
   );
 
-  static const sellerOnboarding = _AppRoute(
+  static final sellerOnboarding = (
     name: 'sellerOnboarding',
     path: '/seller-onboarding',
   );
 
-  static const storeDashboard = _AppRoute(
+  static final storeDashboard = (
     name: 'storeDashboard',
     path: '/store-dashboard',
   );
 
-  static const storeProducts = _AppRoute(
-    name: 'storeProducts',
-    path: '/store-products',
-  );
+  static final storeProducts = (name: 'storeProducts', path: '/store-products');
 
-  static const storeOrders = _AppRoute(
-    name: 'storeOrders',
-    path: '/store-orders',
-  );
+  static final storeOrders = (name: 'storeOrders', path: '/store-orders');
 
-  static const storeProductsDetails = _AppRoute(
+  static final storeProductsDetails = (
     name: 'store-products-details',
     path: '/store-products-details/:productId',
   );
 
-  static const completeUserProfile = _AppRoute(
+  static final completeUserProfile = (
     name: 'completeUserProfile',
     path: '/complete-user-profile',
   );
 
-  static const storeInfo = _AppRoute(
-    name: 'storeInfo',
-    path: '/store-info/:storeId',
-  );
+  static final storeInfo = (name: 'storeInfo', path: '/store-info/:storeId');
 
-  static const storeDiscovery = _AppRoute(
+  static final storeDiscovery = (
     name: 'storeDiscovery',
     path: '/store-discovery',
   );

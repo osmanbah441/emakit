@@ -17,7 +17,7 @@ class ProductListView extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return Dialog(
-            child: CachedProductImage(
+            child: AppNetworkImage(
               width: 300,
               height: 400,
               imageUrl: imageUrl,
@@ -33,8 +33,7 @@ class ProductListView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        final imageUrl =
-            product.images.first ?? "https://picsum.photos/200/300";
+        final imageUrl = product.primaryImageUrl!;
         return ListTile(
           onTap: () => onProductTap(context, product.id!),
           leading: SizedBox(
@@ -42,7 +41,7 @@ class ProductListView extends StatelessWidget {
             height: 60,
             child: InkWell(
               onTap: () => _showDailog(context, imageUrl),
-              child: CachedProductImage(
+              child: AppNetworkImage(
                 borderRadius: BorderRadius.circular(12),
                 imageUrl: imageUrl,
                 fit: BoxFit.cover,

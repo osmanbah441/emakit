@@ -1,25 +1,34 @@
+// cart_state.dart
 part of 'cart_cubit.dart';
 
-enum CartStatus { initial, loading, loaded, error }
-
-/// Represents the overall state of the cart feature.
-class CartState {
-  final CartStatus status;
-  final Cart? cart;
-  final dynamic errorMessage;
-
-  const CartState({
-    this.status = CartStatus.initial,
-    this.cart,
-    this.errorMessage,
-  });
-
-  // Helper method to create new states with updated values
-  CartState copyWith({CartStatus? status, Cart? cart, dynamic errorMessage}) {
-    return CartState(
-      status: status ?? this.status,
-      cart: cart ?? this.cart,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+sealed class CartState {
+  const CartState();
 }
+
+final class CartLoading extends CartState {}
+
+final class CartSuccess extends CartState {
+  final List<CartItem> items;
+
+  const CartSuccess(this.items);
+
+  int get totalItemsInCart => items.fold(0, (sum, item) => sum + item.quantity);
+
+  int get selectedItemsCount => items
+      .where((item) => item.isSelected)
+      .fold(0, (sum, item) => sum + item.quantity);
+
+  double get selectedItemsTotalPrice => items
+      .where((item) => item.isSelected)
+      .fold(0.0, (sum, item) => sum + (item.product.price * item.quantity));
+}
+
+final class CartFailure extends CartState {
+  final String message;
+
+  const CartFailure(this.message);
+}
+
+final class CartEmpty extends CartState {}
+
+final class NotAuthenticated extends CartState {}

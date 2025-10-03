@@ -1,177 +1,170 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home/src/home_cubit.dart';
+
 import 'package:product_repository/product_repository.dart';
-
 import 'package:component_library/component_library.dart';
-
-import 'home_bloc.dart';
-import 'search_delegate.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     super.key,
-    required this.onProfileSettingsTap,
-    required this.onApplyToSellTap,
-    required this.onManageStoreTap,
-    required this.onMyOrdersTap,
-    required this.onLogInTap,
-    required this.onLogOutTap,
-    required this.onSeeMoreTap,
-    required this.onDiscoverStoreTap,
+    required this.onSeeAllStoreTap,
     required this.onCategoryCardTap,
+    this.onStoreCardTap,
+    this.onTrendingTap,
+    this.onNewArrivalsTap,
+    this.onFeaturedProductTap,
+    this.onDealsTap,
   });
 
-  final VoidCallback onProfileSettingsTap;
-  final VoidCallback onApplyToSellTap;
-  final VoidCallback onManageStoreTap;
-  final VoidCallback onMyOrdersTap;
-  final VoidCallback onLogInTap;
-  final VoidCallback onLogOutTap;
-  final VoidCallback onSeeMoreTap;
-  final VoidCallback onDiscoverStoreTap;
+  final VoidCallback onSeeAllStoreTap;
   final Function(String id) onCategoryCardTap;
+  final Function(String id)? onStoreCardTap;
+  final VoidCallback? onTrendingTap;
+  final VoidCallback? onNewArrivalsTap;
+  final VoidCallback? onFeaturedProductTap;
+  final VoidCallback? onDealsTap;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<ProductRepository>(
-      create: (context) => ProductRepository.instance,
+      create: (_) => ProductRepository.instance,
       child: BlocProvider(
-        create: (context) => HomeBloc()..add(HomePageDataFetched()),
+        create: (_) => HomeCubit(),
         child: HomeView(
-          onProfileSettingsTap: onProfileSettingsTap,
-          onApplyToSellTap: onApplyToSellTap,
-          onManageStoreTap: onManageStoreTap,
-          onMyOrdersTap: onMyOrdersTap,
-          onLogInTap: onLogInTap,
-          onLogOutTap: onLogOutTap,
-          onSeeMoreTap: onSeeMoreTap,
-          onDiscoverStoreTap: onDiscoverStoreTap,
+          onDiscoverStoreTap: onSeeAllStoreTap,
           onCategoryCardTap: onCategoryCardTap,
+          onStoreCardTap: onStoreCardTap,
+          onTrendingTap: onTrendingTap,
+          onNewArrivalsTap: onNewArrivalsTap,
+          onFeaturedProductTap: onFeaturedProductTap,
+          onDealsTap: onDealsTap,
         ),
       ),
     );
   }
 }
 
+@visibleForTesting
 class HomeView extends StatelessWidget {
   const HomeView({
     super.key,
-    required this.onProfileSettingsTap,
-    required this.onApplyToSellTap,
-    required this.onManageStoreTap,
-    required this.onMyOrdersTap,
-    required this.onLogInTap,
-    required this.onLogOutTap,
-    required this.onSeeMoreTap,
+    this.onStoreCardTap,
     required this.onDiscoverStoreTap,
     required this.onCategoryCardTap,
+    this.onTrendingTap,
+    this.onNewArrivalsTap,
+    this.onFeaturedProductTap,
+    this.onDealsTap,
   });
 
-  final VoidCallback onProfileSettingsTap;
-  final VoidCallback onApplyToSellTap;
-  final VoidCallback onManageStoreTap;
-  final VoidCallback onMyOrdersTap;
-  final VoidCallback onLogInTap;
-  final VoidCallback onLogOutTap;
-  final VoidCallback onSeeMoreTap;
   final VoidCallback onDiscoverStoreTap;
   final Function(String id) onCategoryCardTap;
+  final Function(String id)? onStoreCardTap;
+  final VoidCallback? onTrendingTap;
+  final VoidCallback? onNewArrivalsTap;
+  final VoidCallback? onFeaturedProductTap;
+  final VoidCallback? onDealsTap;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Salone Bazaar',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: false,
-        actions: [
-          ProfileAvatarPopupMenu(
-            storeState: UserStoreState.pendingApproval, // TODO:
-            isSignedIn: true, // TODO:
-            onProfileSettingsTap: onProfileSettingsTap,
-            onApplyToSellTap: onApplyToSellTap,
-            onManageStoreTap: onManageStoreTap,
-            onMyOrdersTap: onMyOrdersTap,
-            onLogOutTap: onLogOutTap,
-            onLogInTap: onLogInTap,
-          ),
-        ],
-      ),
-      body: BlocBuilder<HomeBloc, HomeState>(
+      appBar: AppBar(title: const Text('Salone Bazaar'), centerTitle: false),
+      body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           if (state.status == HomeStatus.loading) {
             return const Center(child: CircularProgressIndicator());
           }
           if (state.status == HomeStatus.failure) {
-            return Center(
-              child: Text('Failed to load products: ${state.errorMessage}'),
+            return ExceptionIndicator(
+              message: state.errorMessage,
+              onButtonTapped: () =>
+                  context.read<HomeCubit>().fetchHomePageData(),
             );
           }
           if (state.status == HomeStatus.success) {
             return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GestureDetector(
-                      onTap: () => showSearch(
-                        context: context,
-                        delegate: ProductSearchDelegate(
-                          // productRepository: context.read<ProductRepository>(),
-                        ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 32,
+                ),
+                child: Column(
+                  spacing: 40,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 300,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        children: [
+                          PromoBannerCard(
+                            onTap: onTrendingTap,
+                            title: "Trending",
+                            imageUrl: "https://picsum.photos/id/103/800/600",
+                          ),
+                          SizedBox(width: 16),
+                          PromoBannerCard(
+                            onTap: onFeaturedProductTap,
+                            title: "Featured products",
+                            imageUrl: "https://picsum.photos/id/2032/800/600",
+                          ),
+                          SizedBox(width: 16),
+                          PromoBannerCard(
+                            onTap: onDealsTap,
+                            title: "Top Deals",
+                            imageUrl: "https://picsum.photos/id/1015/800/600",
+                          ),
+                          SizedBox(width: 16),
+                          PromoBannerCard(
+                            onTap: onNewArrivalsTap,
+                            title: "New Arrivals",
+                            imageUrl: "https://picsum.photos/id/1025/800/600",
+                          ),
+                        ],
                       ),
-                      child: const AbsorbPointer(child: SearchBarWidget()),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: CustomDressSection(
-                      title: "Have a design in mind?",
-                      subtitle:
-                          "Our expert tailors can bring your vision to life. Share your ideas with us.",
-                      onTap: onDiscoverStoreTap,
-                    ),
-                  ),
 
-                  ShowcaseGridSection(
-                    title: 'Categories',
-                    items: state.productCategories,
-                    itemBuilder: (context, item) =>
-                        CategoryCard(imageUrl: item.imageUrl, name: item.name),
-                    onItemTap: (item) => onCategoryCardTap(item.id),
-                  ),
-                ],
+                    /// Categories
+                    FeaturedGridSection(
+                      title: 'Clothing',
+                      items: state.productCategories,
+                      itemBuilder: (context, item) => CategoryCard(
+                        imageUrl: item.imageUrl,
+                        name: item.name,
+                      ),
+                      onItemTap: (item) => onCategoryCardTap(item.id),
+                    ),
+
+                    /// Featured Stores
+                    FeaturedListSection(
+                      items: state.featuredStores,
+                      onSeeAllTap: onDiscoverStoreTap,
+                      title: 'Featured Stores',
+                      itemBuilder: (context, item) => StoreCard(
+                        name: item.name,
+                        rating: item.rating,
+                        // : item.reviewCount,
+                        onFollowTap: () =>
+                            context.read<HomeCubit>().toggleFollow(item.id),
+                        followers: item.reviewCount,
+                        isFollowed: item.isVerified,
+                        imageUrl:
+                            item.logoUrl ?? 'https://picsum.photo/200/300',
+                        onTap: onStoreCardTap != null
+                            ? () => onStoreCardTap!(item.id)
+                            : null,
+                      ),
+                      itemLimit: 3,
+                    ),
+                  ],
+                ),
               ),
             );
           }
-          // Initial state
           return const SizedBox.shrink();
         },
-      ),
-    );
-  }
-}
-
-/// The main search bar widget.
-class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: 'Search for Ankara styles, Bubus, tailors...',
-        prefixIcon: const Icon(Icons.search, color: Colors.grey),
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14),
       ),
     );
   }

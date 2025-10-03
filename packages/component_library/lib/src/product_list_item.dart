@@ -19,7 +19,7 @@ class ProductListItem extends StatelessWidget {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: CachedProductImage(
+        child: AppNetworkImage(
           imageUrl: imageUrl,
           borderRadius: BorderRadius.circular(24),
         ),
@@ -42,7 +42,7 @@ class ProductListItem extends StatelessWidget {
               child: SizedBox(
                 width: 80,
                 height: 80,
-                child: CachedProductImage(
+                child: AppNetworkImage(
                   borderRadius: BorderRadius.circular(12),
                   imageUrl: imageUrl,
                   fit: BoxFit.cover,

@@ -82,7 +82,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     try {
       emit(state.copyWith(status: ActionStatus.loading));
       // Use the selected variation's ID when adding to the cart.
-      await _cartRepository.addItemToCart(
+      await _cartRepository.addItem(
         productId: state.product!.id,
         // variationId: state.selectedVariation!.id,
         quantity: 1,

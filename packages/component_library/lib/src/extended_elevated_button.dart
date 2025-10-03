@@ -6,11 +6,15 @@ class ExtendedElevatedButton extends StatelessWidget {
     this.onPressed,
     required this.label,
     this.icon,
+    this.backgroundColor,
+    this.foregroundColor,
   });
 
   final VoidCallback? onPressed;
   final String label;
   final Widget? icon;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
   ExtendedElevatedButton.isLoadingProgress({String? label, Key? key})
     : this(
@@ -24,6 +28,8 @@ class ExtendedElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       height: 40,
       width: double.infinity,
@@ -34,10 +40,10 @@ class ExtendedElevatedButton extends StatelessWidget {
             ? null
             : ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(
-                  Theme.of(context).colorScheme.secondary,
+                  backgroundColor ?? colorScheme.secondary,
                 ),
                 foregroundColor: WidgetStateProperty.all(
-                  Theme.of(context).colorScheme.onSecondary,
+                  foregroundColor ?? colorScheme.onSecondary,
                 ),
               ),
         label: Text(label),

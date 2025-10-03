@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 8,
           children: [
-            CachedProductImage(
+            AppNetworkImage(
               height: 208,
               width: double.infinity,
               imageUrl: imageUrl,

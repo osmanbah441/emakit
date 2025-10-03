@@ -8,7 +8,7 @@ final orderRoutes = [
     path: RoutePaths.orderList.path,
     name: RoutePaths.orderList.name,
     builder: (context, state) => OrderListScreen(
-      onOrderTap: (orderId) => context.goNamed(
+      onOrderTap: (orderId) => context.pushNamed(
         RoutePaths.orderDetails.name,
         pathParameters: {'orderId': orderId},
       ),

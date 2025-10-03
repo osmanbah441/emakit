@@ -71,13 +71,6 @@ class StoreProductListScreenView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AudioTextInputField(
-                  isSearching: state is ProductListSearchProcessing,
-                  onSendText: (text) => bloc.add(SendTextSearch(text)),
-                  onSendRecording: (mimeType, bytes) => bloc.add(
-                    SendRecordingSearch(bytes: bytes, mimeType: mimeType),
-                  ),
-                ),
                 const SizedBox(height: 16),
 
                 // Product display with Bloc state management

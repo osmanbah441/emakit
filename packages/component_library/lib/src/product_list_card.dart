@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:component_library/component_library.dart';
+import 'package:component_library/src/app_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductListCard extends StatelessWidget {
@@ -30,13 +31,7 @@ class ProductListCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => CenteredProgressIndicator(),
-                errorWidget: (context, error, stack) =>
-                    const Center(child: Icon(Icons.broken_image, size: 40)),
-              ),
+              child: AppNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover),
             ),
             if (price != null)
               Positioned(

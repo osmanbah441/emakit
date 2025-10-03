@@ -27,16 +27,17 @@ class UploadGuidelineImageStep extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SingleImagePickerWidget(
+                  borderRadius: BorderRadius.circular(24),
                   initialImage: state.guidelineImage,
-                  width: 360,
-                  height: 480,
+                  width: 300,
+                  height: 400,
                   onImagePicked: cubit.addGuidelineImage,
 
                   onImageRemoved: cubit.removeGuidelineImage,
                 ),
 
                 ExtendedElevatedButton(
-                  label: 'Sell Item',
+                  label: 'Continue',
                   onPressed: state.guidelineImage == null
                       ? null
                       : cubit.productExtractionListing,

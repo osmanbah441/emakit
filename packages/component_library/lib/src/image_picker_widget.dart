@@ -15,6 +15,7 @@ class SingleImagePickerWidget extends StatelessWidget {
     this.width = 300,
     this.height = 300,
     this.imageUrl,
+    this.borderRadius = BorderRadius.zero,
   });
 
   final PickedImageData? initialImage;
@@ -23,6 +24,7 @@ class SingleImagePickerWidget extends StatelessWidget {
   final double width;
   final double height;
   final String? imageUrl;
+  final BorderRadius borderRadius;
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -49,12 +51,14 @@ class SingleImagePickerWidget extends StatelessWidget {
             height: height,
             onTap: _pickImage,
             imageUrl: imageUrl,
+            borderRadius: borderRadius,
           )
         : DisplayMemoryImage(
             imageBytes: initialImage!.bytes,
             onRemove: _removeImage,
             width: width,
             height: height,
+            borderRadius: borderRadius,
           );
   }
 }

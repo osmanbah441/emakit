@@ -34,9 +34,9 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
         throw Exception('Full name is required.');
       }
 
-      await _userRepository.completeUserProfileSetup(
-        fullName: finalFullName,
-        dateOfBirth: dateOfBirth,
+      await _userRepository.updateDisplayName(
+        username: finalFullName,
+        // dateOfBirth: dateOfBirth,
       );
 
       emit(state.copyWith(status: CompleteProfileStatus.success));

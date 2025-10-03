@@ -11,24 +11,23 @@ extension FirebaseUserToDomainUserInfo on User {
 }
 
 extension FirebaseAuthExceptionToDomainException on FirebaseAuthException {
-  domain.AppException get toDomainException {
+  domain.AuthException get toDomainException {
     switch (code) {
       case 'invalid-phone-number':
         return const domain.InvalidPhoneNumberException();
       case 'invalid-verification-code':
         return const domain.InvalidOtpException();
-      case 'network-request-failed':
-        return const domain.NetworkErrorException();
       case 'too-many-requests':
         return const domain.TooManyRequestsException();
       case 'user-disabled':
         return const domain.UserDisabledException();
       case 'session-expired':
         return const domain.SessionExpiredException();
-      case 'aborted':
+      case 'popup-closed-by-user':
+      case 'cancelled': // For mobile
         return const domain.GoogleSignInAbortedException();
       default:
-        return domain.UnknownAuthException(code, message);
+        return domain.AuthException(message ?? 'something when wrong');
     }
   }
 }
