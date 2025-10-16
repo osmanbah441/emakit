@@ -2,12 +2,8 @@ import 'package:domain_models/domain_models.dart' as domain;
 import 'package:firebase_auth/firebase_auth.dart';
 
 extension FirebaseUserToDomainUserInfo on User {
-  domain.UserInfo get toDomain => domain.UserInfo(
-    email: email,
-    displayName: displayName,
-    photoURL: photoURL,
-    phoneNumber: phoneNumber,
-  );
+  domain.UserInfo get toDomain =>
+      domain.UserInfo(email: email, displayName: displayName);
 }
 
 extension FirebaseAuthExceptionToDomainException on FirebaseAuthException {

@@ -62,7 +62,7 @@ class ProductDetailsView extends StatelessWidget {
         final product = state.product!;
         final selectedVariation = state.selectedVariation;
         final textTheme = Theme.of(context).textTheme;
-        final isClothingDetails = product.details is ClothingDetails;
+        final isClothingDetails = product.specifications is ClothingDetails;
         final canInteract = state.product != null && selectedVariation != null;
 
         final colorScheme = Theme.of(context).colorScheme;

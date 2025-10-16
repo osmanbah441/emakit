@@ -57,7 +57,7 @@ class _ProductListContent extends StatelessWidget {
                     elevation: 1.0,
                     title: Text(state.topLevelCategory?.name ?? ''),
                     flexibleSpace: FlexibleSpaceBar(
-                      background: CircularImageSelector<ProductCategory>(
+                      background: CircularImageSelector<Category>(
                         items: state.categories,
                         selectedLabel: state.selectedSubCategory?.name,
                         onItemChanged: cubit.selectCategory,

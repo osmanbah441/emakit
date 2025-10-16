@@ -56,7 +56,7 @@ class ProductVariationSelector extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          final details = product.details;
+          final details = product.specifications;
           String? attributeKey;
 
           if (details is ClothingDetails) {

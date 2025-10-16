@@ -9,6 +9,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  domain_models: ^0.0.0
+  supabase_flutter: ^2.10.3
   # path: ^1.8.0
 
 dev_dependencies:

@@ -133,8 +133,8 @@ class _BusinessContactFormState extends State<BusinessContactForm> {
           // ),
           const SizedBox(height: 16),
           _isLoading
-              ? ExtendedElevatedButton.isLoadingProgress(label: 'Loading...')
-              : ExtendedElevatedButton(
+              ? PrimaryActionButton.isLoadingProgress(label: 'Loading...')
+              : PrimaryActionButton(
                   label: 'Apply to become a seller',
                   onPressed: _isLoading ? null : _submitForm,
                 ),

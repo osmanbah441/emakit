@@ -1,9 +1,8 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
+import 'package:domain_models/domain_models.dart';
 
-enum OrderStatus { pending, inProcess, delivered, accepted, rejected }
-
-class OrderListItem extends StatefulWidget {
+class OrderListItem extends StatelessWidget {
   const OrderListItem({
     super.key,
     required this.imageUrl,
@@ -30,18 +29,13 @@ class OrderListItem extends StatefulWidget {
   final void Function(bool isSellerAtFault)? onDisputeTapped;
 
   @override
-  State<OrderListItem> createState() => _OrderListItemState();
-}
-
-class _OrderListItemState extends State<OrderListItem> {
-  @override
   Widget build(BuildContext context) {
     return ItemListCard(
-      imageUrl: widget.imageUrl,
-      title: widget.title,
-      price: widget.price,
-      subtitle: Text('Quantity: ${widget.quantity}'),
-      onTap: widget.onTap,
+      imageUrl: imageUrl,
+      title: title,
+      price: price,
+      subtitle: Text('Quantity: $quantity'),
+      onTap: onTap,
       action: _buildActions(context),
     );
   }
@@ -54,7 +48,7 @@ class _OrderListItemState extends State<OrderListItem> {
         _buildStatusIndicator(),
         const Spacer(),
         // Conditionally show buttons based on order status
-        switch (widget.orderStatus) {
+        switch (orderStatus) {
           OrderStatus.delivered => Row(
             children: [
               IconButton(
@@ -68,7 +62,7 @@ class _OrderListItemState extends State<OrderListItem> {
                     confirmText: 'Accept',
                   );
                   if (confirmed == true) {
-                    widget.onConfirmTapped?.call();
+                    onConfirmTapped?.call();
                   }
                 },
                 tooltip: 'Accept order',
@@ -101,7 +95,7 @@ class _OrderListItemState extends State<OrderListItem> {
                     confirmText: 'Start Chat',
                   );
                   if (confirmed == true) {
-                    widget.onChatTapped?.call();
+                    onChatTapped?.call();
                   }
                 },
                 tooltip: 'Chat with vendor',
@@ -111,7 +105,7 @@ class _OrderListItemState extends State<OrderListItem> {
               ),
               IconButton(
                 onPressed: () async {
-                  final isPending = widget.orderStatus == OrderStatus.pending;
+                  final isPending = orderStatus == OrderStatus.pending;
                   final confirmed = await _showConfirmDialog(
                     context,
                     title: 'Cancel Order',
@@ -122,7 +116,7 @@ class _OrderListItemState extends State<OrderListItem> {
                     confirmText: 'Cancel',
                   );
                   if (confirmed == true) {
-                    widget.onCancelTapped?.call();
+                    onCancelTapped?.call();
                   }
                 },
                 tooltip: 'Cancel order',
@@ -141,7 +135,7 @@ class _OrderListItemState extends State<OrderListItem> {
   Widget _buildStatusIndicator() {
     Color statusColor;
     String statusText;
-    switch (widget.orderStatus) {
+    switch (orderStatus) {
       case OrderStatus.pending:
         statusColor = Colors.orange;
         statusText = 'Pending';
@@ -161,6 +155,10 @@ class _OrderListItemState extends State<OrderListItem> {
       case OrderStatus.rejected:
         statusColor = Colors.red;
         statusText = 'Rejected';
+        break;
+      case OrderStatus.shipped:
+        statusColor = Colors.teal;
+        statusText = 'Shipped';
         break;
     }
 
@@ -260,7 +258,7 @@ class _OrderListItemState extends State<OrderListItem> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  widget.onDisputeTapped?.call(isSellerAtFault);
+                  onDisputeTapped?.call(isSellerAtFault);
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 child: const Text('Reject Order'),

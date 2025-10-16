@@ -74,7 +74,7 @@ class SellerCallToActionCard extends StatelessWidget {
             Text(subtitle, style: textTheme.bodyMedium),
             const SizedBox(height: 16),
             if (onButtonTapped != null && buttonLabel != null)
-              ExtendedElevatedButton(
+              PrimaryActionButton(
                 onPressed: onButtonTapped,
                 icon: const Icon(Icons.storefront_outlined),
                 label: buttonLabel!,

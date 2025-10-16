@@ -1,0 +1,24 @@
+name: sl_baz_admin
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+resolution: workspace
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  category_management: ^0.0.1
+  component_library: ^0.0.0
+  flutter:
+    sdk: flutter
+  product_add_image_search: ^0.0.1
+  supabase_flutter: ^2.10.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

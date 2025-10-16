@@ -80,36 +80,43 @@ final coreRoutes = [
               context.pushNamed(RoutePaths.signIn.name),
           onOrdersTapped: () => context.pushNamed(RoutePaths.orderList.name),
           onHelpTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Help Feature coming soon!')),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('Help Feature coming soon!')),
+              );
           },
           onAboutTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('About Feature coming soon!')),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('About Feature coming soon!')),
+              );
           },
           onNotificationTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Notification Feature coming soon!')),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('Notification Feature coming soon!')),
+              );
           },
 
-          onPaymentMethodsTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Payment Methods Feature coming soon!')),
-            );
+          onMessageTapped: () {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('Message Feature coming soon!')),
+              );
           },
           onSavedAddressesTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Saved Addresses Feature coming soon!')),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('Saved Addresses Feature coming soon!')),
+              );
           },
-          onStartSellingTapped: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Start Selling Feature coming soon!')),
-            );
-          },
+          onStartSellingTapped: () =>
+              context.pushNamed(RoutePaths.sellerOnboarding.name),
         ),
       ),
     ],

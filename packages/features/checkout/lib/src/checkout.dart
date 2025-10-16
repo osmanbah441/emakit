@@ -185,7 +185,7 @@ class CheckoutScreen extends StatelessWidget {
                     balance: 150.75,
                     actionSection: Padding(
                       padding: const EdgeInsets.all(24),
-                      child: ExtendedElevatedButton(
+                      child: PrimaryActionButton(
                         label: 'Pay with Wallet',
                         onPressed: () {},
                         icon: const Icon(Icons.account_balance_wallet),

@@ -134,7 +134,7 @@ class HomeView extends StatelessWidget {
                         imageUrl: item.imageUrl,
                         name: item.name,
                       ),
-                      onItemTap: (item) => onCategoryCardTap(item.id),
+                      onItemTap: (item) => onCategoryCardTap(item.id!),
                     ),
 
                     /// Featured Stores

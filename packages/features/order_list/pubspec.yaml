@@ -13,6 +13,7 @@ dependencies:
   intl: ^0.20.2
   domain_models: ^0.0.0
   component_library: ^0.0.0
+  order_repository: ^1.0.0
 
 dev_dependencies:
   flutter_test:

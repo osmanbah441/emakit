@@ -8,9 +8,9 @@ class ProductLoading extends ProductListState {}
 
 class ProductLoaded extends ProductListState {
   final List<Product> allProducts;
-  final List<ProductCategory> categories;
-  final ProductCategory? selectedSubCategory;
-  final ProductCategory? topLevelCategory;
+  final List<Category> categories;
+  final Category? selectedSubCategory;
+  final Category? topLevelCategory;
 
   ProductLoaded({
     required this.allProducts,
@@ -21,7 +21,7 @@ class ProductLoaded extends ProductListState {
 
   ProductLoaded copyWith({
     List<Product>? allProducts,
-    ProductCategory? selectedSubCategory,
+    Category? selectedSubCategory,
   }) {
     return ProductLoaded(
       allProducts: allProducts ?? this.allProducts,

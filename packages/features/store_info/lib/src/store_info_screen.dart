@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// --- MODELS ---
+
 class Product {
   final String name;
   final String imageUrl;
@@ -8,7 +10,7 @@ class Product {
   Product({required this.name, required this.imageUrl, required this.price});
 }
 
-// --- SCREENS ---
+// --- MAIN SCREEN ---
 
 class StoreInfoScreen extends StatefulWidget {
   const StoreInfoScreen({super.key});
@@ -25,6 +27,7 @@ class _StoreInfoScreenState extends State<StoreInfoScreen> {
   final int _reviews = 320;
   final int _followers = 1234;
   final int _productsCount = 150;
+  final String _storeName = 'Kansas City Store';
 
   final List<Product> _products = List.generate(
     20,
@@ -49,339 +52,29 @@ class _StoreInfoScreenState extends State<StoreInfoScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          StoreHeader(title: 'Kansas City Store'),
-
-          StoreInfoAndActions(
-            isFollowed: _isFollowed,
-            onFollowPressed: _toggleFollow,
-            storeName: 'Kansas City Store',
-            rating: _rating,
-            reviews: _reviews,
-            followers: _followers,
-            productsCount: _productsCount,
-          ),
-
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
-              child: Text(
-                'All Products',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 0.75,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => ProductCard(product: _products[index]),
-                childCount: _products.length,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// --- WIDGETS ---
-
-class StoreHeader extends StatelessWidget {
-  final String title;
-  const StoreHeader({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 200,
-      pinned: true,
-      backgroundColor: Colors.white,
-      flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 12),
-        title: const _CollapsingTitle(),
-        background: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.network(
-              'https://picsum.photos/seed/storebanner/1200/600',
-              fit: BoxFit.cover,
-            ),
-            const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.center,
-                  colors: [Colors.black45, Colors.transparent],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CollapsingTitle extends StatelessWidget {
-  const _CollapsingTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    // Keep the title minimal when collapsed; banner already shows visual identity.
-    return const Text(
-      'Kansas City Store',
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-    );
-  }
-}
-
-class StoreInfoAndActions extends StatelessWidget {
-  final bool isFollowed;
-  final VoidCallback onFollowPressed;
-
-  final String storeName;
-  final double rating;
-  final int reviews;
-  final int followers;
-  final int productsCount;
-
-  const StoreInfoAndActions({
-    super.key,
-    required this.isFollowed,
-    required this.onFollowPressed,
-    required this.storeName,
-    required this.rating,
-    required this.reviews,
-    required this.followers,
-    required this.productsCount,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return SliverToBoxAdapter(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 6,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Row 1: Logo + Name + Actions
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Store Logo
-                const CircleAvatar(
-                  radius: 35,
-                  backgroundImage: NetworkImage(
-                    'https://picsum.photos/seed/storelogo/100',
-                  ),
-                ),
-                const SizedBox(width: 14),
-
-                // Name, Rating, Stats
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              storeName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Icon(Icons.verified, size: 18, color: scheme.primary),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-
-                      // Rating
-                      Row(
-                        children: [
-                          StarRating(rating: rating, size: 18),
-                          const SizedBox(width: 6),
-                          Text(
-                            '$rating (${_formatCount(reviews)} reviews)',
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 6),
-
-                      // Followers / Products
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.group,
-                            size: 16,
-                            color: Colors.black54,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '${_formatCount(followers)} Followers',
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const Icon(
-                            Icons.inventory_2,
-                            size: 16,
-                            color: Colors.black54,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '$productsCount Products',
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Action buttons
-                IconButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Share button tapped!')),
-                    );
-                  },
-                  icon: const Icon(Icons.share_outlined, color: Colors.black87),
-                  tooltip: 'Share',
-                ),
-                IconButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('WhatsApp button tapped!')),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.chat_bubble_outline,
-                    color: Color(0xFF25D366),
-                  ),
-                  tooltip: 'WhatsApp',
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 12),
-
-            // Row 2: Follow (full width)
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: onFollowPressed,
-                icon: Icon(isFollowed ? Icons.check : Icons.add, size: 18),
-                label: Text(isFollowed ? 'Following' : 'Follow'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: isFollowed
-                      ? Colors.white
-                      : Theme.of(context).primaryColor,
-                  backgroundColor: isFollowed
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent,
-                  side: BorderSide(color: Theme.of(context).primaryColor),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   static String _formatCount(int n) {
     if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(1)}M';
     if (n >= 1000) return '${(n / 1000).toStringAsFixed(1)}K';
     return '$n';
   }
-}
-
-class StarRating extends StatelessWidget {
-  final double rating; // e.g., 4.8
-  final double size;
-
-  const StarRating({super.key, required this.rating, this.size = 16});
 
   @override
   Widget build(BuildContext context) {
-    final fullStars = rating.floor();
-    final hasHalf = (rating - fullStars) >= 0.25 && (rating - fullStars) < 0.75;
-    final showFullForHalfUp = (rating - fullStars) >= 0.75;
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(5, (i) {
-        IconData icon;
-        if (i < fullStars) {
-          icon = Icons.star;
-        } else if (i == fullStars && !showFullForHalfUp && hasHalf) {
-          icon = Icons.star_half;
-        } else if (i == fullStars && showFullForHalfUp) {
-          icon = Icons.star;
-        } else {
-          icon = Icons.star_border;
-        }
-        return Padding(
-          padding: const EdgeInsets.only(right: 2),
-          child: Icon(icon, size: size, color: Colors.amber),
-        );
-      }),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          _buildStoreHeader(),
+          _buildStoreInfoAndActions(context),
+          _buildProductHeader(),
+          _buildProductGrid(),
+        ],
+      ),
     );
   }
-}
 
-class ProductCard extends StatelessWidget {
-  final Product product;
-  const ProductCard({super.key, required this.product});
+  // --- WIDGET BUILDERS (Consolidated Logic) ---
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildProductCard(Product product) {
     final priceStyle = TextStyle(
       color: Theme.of(context).colorScheme.primary,
       fontWeight: FontWeight.bold,
@@ -396,16 +89,15 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Image
           Expanded(
             child: Image.network(
               product.imageUrl,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, prog) {
                 if (prog == null) return child;
-                final expected = prog.expectedTotalBytes;
-                final loaded = prog.cumulativeBytesLoaded;
-                final value = expected != null ? loaded / expected : null;
+                final value = prog.expectedTotalBytes != null
+                    ? prog.cumulativeBytesLoaded / prog.expectedTotalBytes!
+                    : null;
                 return Center(
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
@@ -418,8 +110,6 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-
-          // Details
           Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -444,6 +134,240 @@ class ProductCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  SliverAppBar _buildStoreHeader() => SliverAppBar(
+    expandedHeight: 200,
+    pinned: true,
+    flexibleSpace: FlexibleSpaceBar(
+      titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 12),
+      title: const Text(
+        'Kansas City Store',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      background: Image.network(
+        'https://picsum.photos/seed/storebanner/1200/600',
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+
+  Widget _buildProductHeader() => const SliverToBoxAdapter(
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
+      child: Text(
+        'All Products',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
+
+  Widget _buildProductGrid() => SliverPadding(
+    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+    sliver: SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        childAspectRatio: 0.75,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => _buildProductCard(_products[index]),
+        childCount: _products.length,
+      ),
+    ),
+  );
+
+  Widget _buildStoreInfoAndActions(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final primaryColor = Theme.of(context).primaryColor;
+
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Row 1: Logo + Name + Actions
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 35,
+                  backgroundImage: NetworkImage(
+                    'https://picsum.photos/seed/storelogo/100',
+                  ),
+                ),
+                const SizedBox(width: 14),
+
+                // Name, Rating, Stats
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              _storeName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Icon(Icons.verified, size: 18, color: scheme.primary),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+
+                      // Rating
+                      Row(
+                        children: [
+                          _StarRating(rating: _rating, size: 18),
+                          const SizedBox(width: 6),
+                          Text(
+                            '$_rating (${_formatCount(_reviews)} reviews)',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      // Followers / Products
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.group,
+                            size: 16,
+                            color: Colors.black54,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${_formatCount(_followers)} Followers',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          const Icon(
+                            Icons.inventory_2,
+                            size: 16,
+                            color: Colors.black54,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '$_productsCount Products',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Action buttons
+                IconButton(
+                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Share button tapped!')),
+                  ),
+                  icon: const Icon(Icons.share_outlined, color: Colors.black87),
+                  tooltip: 'Share',
+                ),
+                IconButton(
+                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('WhatsApp button tapped!')),
+                  ),
+                  icon: const Icon(
+                    Icons.chat_bubble_outline,
+                    color: Color(0xFF25D366),
+                  ),
+                  tooltip: 'WhatsApp',
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            // Row 2: Follow (full width)
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _toggleFollow,
+                icon: Icon(_isFollowed ? Icons.check : Icons.add, size: 18),
+                label: Text(_isFollowed ? 'Following' : 'Follow'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: _isFollowed ? Colors.white : primaryColor,
+                  backgroundColor: _isFollowed
+                      ? primaryColor
+                      : Colors.transparent,
+                  side: BorderSide(color: primaryColor),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// --- HELPER WIDGET (Kept for complex reusable logic) ---
+
+class _StarRating extends StatelessWidget {
+  final double rating;
+  final double size;
+
+  const _StarRating({required this.rating, this.size = 16});
+
+  @override
+  Widget build(BuildContext context) {
+    final fullStars = rating.floor();
+    final fractional = rating - fullStars;
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (i) {
+        IconData icon;
+        if (i < fullStars) {
+          icon = Icons.star;
+        } else if (i == fullStars && fractional >= 0.25) {
+          // Use star_half for 0.25 to 0.74, and star for 0.75+
+          icon = fractional < 0.75 ? Icons.star_half : Icons.star;
+        } else {
+          icon = Icons.star_border;
+        }
+        return Padding(
+          padding: const EdgeInsets.only(right: 2),
+          child: Icon(icon, size: size, color: Colors.amber),
+        );
+      }),
     );
   }
 }

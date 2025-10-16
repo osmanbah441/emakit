@@ -22,7 +22,7 @@ class WishlistToggleButton extends StatelessWidget {
           return ScaleTransition(scale: animation, child: child);
         },
         child: IconButton(
-          key: ValueKey<bool>(isFavorite), // Key for AnimatedSwitcher
+          key: ValueKey<bool>(isFavorite),
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,
             color: isFavorite ? colorScheme.error : null,

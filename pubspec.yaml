@@ -1,10 +1,11 @@
 name: emakit
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.0.0
 
 workspace:
   - apps/salone_bazaar
+  - apps/sl_baz_admin
 
   - packages/product_repository
   - packages/order_repository
@@ -32,15 +33,15 @@ workspace:
   - packages/features/store_product_list
   - packages/features/store_order_details
   - packages/features/store_order_list
-  - packages/features/complete_profile
   - packages/features/home
   - packages/features/store_info
   - packages/features/store_discovery
   - packages/category_repository
   - packages/cart_repository
   - packages/features/product_search
-
-
+  - packages/features/category_management
+  - packages/features/product_add_image_search
+  - packages/features/product_add_or_edit
 
 environment:
   sdk: ^3.8.0

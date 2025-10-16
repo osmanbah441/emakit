@@ -36,7 +36,7 @@ class UploadGuidelineImageStep extends StatelessWidget {
                   onImageRemoved: cubit.removeGuidelineImage,
                 ),
 
-                ExtendedElevatedButton(
+                PrimaryActionButton(
                   label: 'Continue',
                   onPressed: state.guidelineImage == null
                       ? null

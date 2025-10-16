@@ -98,12 +98,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     if (state.product == null || state.selectedVariation == null) return;
     try {
       emit(state.copyWith(status: ActionStatus.loading));
-      final order = Order(
-        id: 'order_${DateTime.now().millisecondsSinceEpoch}',
-        date: DateTime.now(),
-        // You would add order line items here using state.selectedVariation
-      );
-      await _orderRepository.createOrder(order);
+      // final order = Order(
+      //   id: 'order_${DateTime.now().millisecondsSinceEpoch}',
+      //   date: DateTime.now(),
+      //   // You would add order line items here using state.selectedVariation
+      // );
+      // await _orderRepository.createOrder(order);
       emit(state.copyWith(status: ActionStatus.success));
     } catch (e) {
       emit(state.copyWith(error: e.toString(), status: ActionStatus.failure));

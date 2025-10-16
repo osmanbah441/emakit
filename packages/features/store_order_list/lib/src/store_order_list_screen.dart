@@ -15,29 +15,29 @@ class _OrderListScreenState extends State<OrderListScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
-  final List<Order> allOrders = [
-    Order(
-      id: '1001',
-      date: DateTime(2025, 8, 04),
-      total: 75.50,
-      totalItems: 10,
-      completedItems: 7,
-    ),
-    Order(
-      id: '1002',
-      date: DateTime(2025, 7, 28),
-      total: 120.00,
-      totalItems: 5,
-      completedItems: 5,
-    ),
-    Order(
-      id: '1003',
-      date: DateTime(2025, 8, 1),
-      total: 45.20,
-      totalItems: 1,
-      completedItems: 0,
-    ),
-  ];
+  // final List<Order> allOrders = [
+  //   Order(
+  //     id: '1001',
+  //     date: DateTime(2025, 8, 04),
+  //     total: 75.50,
+  //     totalItems: 10,
+  //     completedItems: 7,
+  //   ),
+  //   Order(
+  //     id: '1002',
+  //     date: DateTime(2025, 7, 28),
+  //     total: 120.00,
+  //     totalItems: 5,
+  //     completedItems: 5,
+  //   ),
+  //   Order(
+  //     id: '1003',
+  //     date: DateTime(2025, 8, 1),
+  //     total: 45.20,
+  //     totalItems: 1,
+  //     completedItems: 0,
+  //   ),
+  // ];
 
   @override
   void initState() {
@@ -45,11 +45,11 @@ class _OrderListScreenState extends State<OrderListScreen>
     super.initState();
   }
 
-  List<Order> get completedOrders =>
-      allOrders.where((o) => o.completedItems == o.totalItems).toList();
+  // List<Order> get completedOrders =>
+  //     allOrders.where((o) => o.completedItems == o.totalItems).toList();
 
-  List<Order> get uncompletedOrders =>
-      allOrders.where((o) => o.completedItems != o.totalItems).toList();
+  // List<Order> get uncompletedOrders =>
+  //     allOrders.where((o) => o.completedItems != o.totalItems).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +71,25 @@ class _OrderListScreenState extends State<OrderListScreen>
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            OrderListView(
-              orders: uncompletedOrders,
-              onOrderTap: widget.onOrderTap,
-            ),
-            OrderListView(
-              orders: completedOrders,
-              onOrderTap: widget.onOrderTap,
-            ),
-          ],
+        body: Center(
+          child: Text(
+            'Order list functionality is currently disabled.',
+            style: theme.textTheme.bodyLarge,
+          ),
         ),
+        // body: TabBarView(
+        //   controller: _tabController,
+        //   children: [
+        //     OrderListView(
+        //       orders: uncompletedOrders,
+        //       onOrderTap: widget.onOrderTap,
+        //     ),
+        //     OrderListView(
+        //       orders: completedOrders,
+        //       onOrderTap: widget.onOrderTap,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
@@ -115,14 +121,15 @@ class OrderListView extends StatelessWidget {
       itemCount: orders.length,
       itemBuilder: (context, index) {
         final order = orders[index];
-        return OrderListCard(
-          totalItems: order.totalItems,
-          completedItems: order.completedItems,
-          onTap: () => onOrderTap(order.id),
-          orderId: order.id,
-          formattedDate: order.getFormattedDate(),
-          amount: 'NLE ${order.total.toStringAsFixed(2)}',
-        );
+        return Placeholder();
+        // return OrderListCard(
+        //   totalItems: order.totalItems,
+        //   completedItems: order.completedItems,
+        //   onTap: () => onOrderTap(order.id),
+        //   orderId: order.id,
+        //   formattedDate: order.getFormattedDate(),
+        //   amount: 'NLE ${order.total.toStringAsFixed(2)}',
+        // );
       },
     );
   }

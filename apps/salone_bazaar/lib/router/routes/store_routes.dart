@@ -40,7 +40,7 @@ final storeRoutes = <RouteBase>[
   GoRoute(
     path: RoutePaths.sellerOnboarding.path,
     name: RoutePaths.sellerOnboarding.name,
-    builder: (context, state) => const BecomeSellerScreen(),
+    builder: (context, state) => const SellerSignUpScreen(),
   ),
   GoRoute(
     path: RoutePaths.storeInfo.path,

@@ -4,7 +4,6 @@ import 'package:domain_models/domain_models.dart' as domain;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'auth_status.dart';
 import 'extensions.dart';
 
 part 'user_repository_impl.dart';
@@ -33,24 +32,5 @@ abstract class UserRepository {
   /// Signs in the user with their Google account.
   Future<void> signInWithGoogle();
 
-  /// A stream of events for the phone authentication flow.
-  Stream<PhoneAuthStatus> get onPhoneAuthStatusChanged;
-
-  /// Initiates the phone number sign-in process by sending an OTP to the user.
-  Future<void> signInWithPhoneNumber({required String phoneNumber});
-
-  /// Verifies the OTP code to complete the phone number sign-in process.
-  Future<void> verifyPhoneNumberOtp({required String otpCode});
-
-  // --- User Profile and Account Management ---
-
-  /// Saves additional user profile data after the initial sign-up.
-  Future<void> updateDisplayName({required String username});
-
-  // Future<void> linkWithGoogle();
-
-  // Future<void> linkWithPhoneNumber({required String phoneNumber});
-
-  /// Permanently deletes the user's account and associated data.
-  Future<void> deleteUserAccount();
+  Future<void> signInWithApple();
 }

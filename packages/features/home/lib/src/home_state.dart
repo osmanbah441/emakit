@@ -12,14 +12,14 @@ class HomeState extends Equatable {
 
   final HomeStatus status;
   final String errorMessage;
-  final List<ProductCategory> productCategories;
+  final List<Category> productCategories;
 
   final List<Store> featuredStores;
 
   HomeState copyWith({
     HomeStatus? status,
     String? errorMessage,
-    List<ProductCategory>? productCategories,
+    List<Category>? productCategories,
     List<Store>? featuredStores,
   }) {
     return HomeState(

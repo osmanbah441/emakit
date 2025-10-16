@@ -55,7 +55,7 @@ class ExceptionIndicator extends StatelessWidget {
             ),
             if (onButtonTapped != null) const SizedBox(height: 24),
             if (onButtonTapped != null)
-              ExtendedElevatedButton(
+              PrimaryActionButton(
                 onPressed: onButtonTapped,
                 icon: buttonIcon ?? const Icon(Icons.refresh),
                 label: buttonLabel ?? 'Try Again',

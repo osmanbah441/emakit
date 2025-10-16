@@ -12,7 +12,7 @@ final List<Product> _allProducts = [
     categoryId: 'women-tops-t-shirts',
     storeId: 'store_002',
 
-    details: const ClothingDetails(isTailored: false),
+    specifications: const ClothingDetails(isTailored: false),
     variations: [
       // White Color
       ProductVariation(
@@ -138,7 +138,7 @@ final List<Product> _allProducts = [
     categoryId: 'women-dresses',
     storeId: 'store_001',
 
-    details: const ClothingDetails(
+    specifications: const ClothingDetails(
       isTailored: true,
       requiredMeasurements: [
         MeasurementType.bust,
@@ -192,7 +192,7 @@ final List<Product> _allProducts = [
     categoryId: 'women-dresses',
     storeId: 'store_003',
 
-    details: const ClothingDetails(isTailored: true),
+    specifications: const ClothingDetails(isTailored: true),
     variations: [
       ProductVariation(
         id: 'var_003a',
@@ -215,7 +215,7 @@ final List<Product> _allProducts = [
     categoryId: 'men-outerwear-jackets',
     storeId: 'store_002',
 
-    details: const ClothingDetails(isTailored: false),
+    specifications: const ClothingDetails(isTailored: false),
     variations: [
       ProductVariation(
         id: 'var_004a',
@@ -259,7 +259,7 @@ final List<Product> _allProducts = [
     categoryId: 'men-shoes-formal',
     storeId: 'store_001',
 
-    details: const ShoeDetails(
+    specifications: const ShoeDetails(
       style: 'Loafer',
       material: 'Genuine Leather',
       sizeChart: {'EU': '42', 'US': '9', 'UK': '8'},
@@ -298,7 +298,7 @@ final List<Product> _allProducts = [
     categoryId: 'men-accessories-belts',
     storeId: 'store_002',
 
-    details: null,
+    specifications: null,
     variations: [
       ProductVariation(
         id: 'var_012a',

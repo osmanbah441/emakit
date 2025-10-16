@@ -22,7 +22,7 @@ class ProductListCubit extends Cubit<ProductListState> {
       emit(ProductLoading());
 
       final categories = await Future.wait([
-        _categoryRepository.getCategoryById(_parentCategoryId),
+        _categoryRepository.getById(_parentCategoryId),
         _categoryRepository.getSubcategories(_parentCategoryId),
         _categoryRepository.getAllSubCategoriesId(_parentCategoryId),
       ]);
@@ -34,8 +34,8 @@ class ProductListCubit extends Cubit<ProductListState> {
       emit(
         ProductLoaded(
           allProducts: allProducts,
-          topLevelCategory: categories[0] as ProductCategory,
-          categories: categories[1] as List<ProductCategory>,
+          topLevelCategory: categories[0] as Category,
+          categories: categories[1] as List<Category>,
         ),
       );
     } catch (e) {
@@ -43,7 +43,7 @@ class ProductListCubit extends Cubit<ProductListState> {
     }
   }
 
-  void selectCategory(ProductCategory category) async {
+  void selectCategory(Category category) async {
     final currentState = state;
     if (currentState is ProductLoaded) {
       if (currentState.selectedSubCategory?.id == category.id) {

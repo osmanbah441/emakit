@@ -1,3 +1,4 @@
+import 'package:component_library/src/order_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 class OrderListCard extends StatelessWidget {
@@ -22,7 +23,6 @@ class OrderListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cardBorderRadius = BorderRadius.circular(12);
-    final progress = totalItems == 0 ? 0.0 : completedItems / totalItems;
 
     return Card(
       elevation: 0,
@@ -63,28 +63,9 @@ class OrderListCard extends StatelessWidget {
                 ],
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '$completedItems of $totalItems items completed',
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 100,
-                    child: LinearProgressIndicator(
-                      borderRadius: BorderRadius.circular(8),
-                      semanticsLabel: 'Progress',
-                      value: progress,
-                      backgroundColor: theme.colorScheme.primaryContainer,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        theme.colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ],
+              OrderProgressIndicator(
+                completedItems: completedItems,
+                totalItems: totalItems,
               ),
             ],
           ),

@@ -1,0 +1,23 @@
+name: product_add_image_search
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+resolution: workspace
+
+environment:
+  sdk: ^3.9.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  category_repository: ^1.0.0
+  component_library: ^0.0.0
+  domain_models: ^0.0.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  image_picker: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

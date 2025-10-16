@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:component_library/component_library.dart';
@@ -19,137 +20,121 @@ class SignInScreen extends StatelessWidget {
 }
 
 @visibleForTesting
-class SignInView extends StatefulWidget {
+class SignInView extends StatelessWidget {
   const SignInView({super.key, required this.onSignInSucessful});
 
   final VoidCallback onSignInSucessful;
 
-  @override
-  State<SignInView> createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
-  void _showOtpDialog(BuildContext context, String phoneNumber) {
-    final cubit = context.read<SignInCubit>();
-    showAdaptiveDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: OtpVerification(
-          mobileNumber: phoneNumber,
-          onVerify: (smsCode) => cubit.verifyOtp(smsCode),
-          onResend: () => cubit.sendOtp(phoneNumber),
-        ),
-      ),
-    );
-  }
-
-  void _showUsernameDialog(BuildContext context) {
-    final cubit = context.read<SignInCubit>();
-    final usernameController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
-
-    showAdaptiveDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text('Tell us you full name'),
-          content: Form(
-            key: formKey,
-            child: TextFormField(
-              controller: usernameController,
-              autofocus: true,
-              decoration: const InputDecoration(labelText: 'full name'),
-              autovalidateMode: AutovalidateMode.onUnfocus,
-              validator: (value) {
-                if (value == null ||
-                    value.trim().isEmpty ||
-                    value.trim().length < 3) {
-                  return 'full name must be at least 3 characters';
-                }
-                return null;
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  cubit.setUsername(usernameController.text.trim());
-                }
-              },
-              child: const Text('Save and Continue'),
-            ),
-          ],
-        );
-      },
-    );
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
-        switch (state.status) {
-          case SignInSubmissionStatus.codeSent:
-            return _showOtpDialog(context, state.phoneNumber!);
-          case SignInSubmissionStatus.success:
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-            return widget.onSignInSucessful();
-          case SignInSubmissionStatus.failure:
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text(state.error ?? 'Something went wrong')),
-              );
-            return;
-          case SignInSubmissionStatus.usernameRequired:
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-            return _showUsernameDialog(context);
-
-          case SignInSubmissionStatus.initial:
-          case SignInSubmissionStatus.loading:
+        if (state.status == SignInSubmissionStatus.success) {
+          onSignInSucessful();
         }
       },
       builder: (context, state) {
         final cubit = context.read<SignInCubit>();
-        final textTheme = Theme.of(context).textTheme;
-        final isLoading = state.status == SignInSubmissionStatus.loading;
+        final googleLoading =
+            state.status == SignInSubmissionStatus.googleSignInLoading;
+        final appleLoading =
+            state.status == SignInSubmissionStatus.appleSignInLoading;
+
+        final isLoading = googleLoading || appleLoading;
+        final primaryColor = Theme.of(context).colorScheme.primary;
 
         return Scaffold(
           appBar: AppBar(),
           body: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PhoneNumberInput(
-                  onContinue: cubit.sendOtp,
-                  lockedCountry: Country.sierraLeone,
-                  isLoadingProgress: isLoading,
-                ),
+                // Placeholder logo
+                const Icon(Icons.storefront, size: 64, color: Colors.green),
+
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    const Expanded(child: Divider(endIndent: 16, indent: 32)),
-                    Text('or', style: textTheme.titleMedium),
-                    const Expanded(child: Divider(endIndent: 32, indent: 16)),
-                  ],
+
+                // Welcome message
+                Text(
+                  'Welcome to Salone Bazaar',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 16),
-                ExtendedOutlineButton(
+                const SizedBox(height: 8),
+                Text(
+                  'Sign in to continue shopping and selling with us.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+
+                const SizedBox(height: 40),
+
+                // Sign in buttons
+                SignInWithGoogleButton(
                   onPressed: isLoading ? null : cubit.signInWithGoogle,
-                  label: 'Sign in with Google',
-                  icon: Image.asset(
-                    'assets/images/google_icon.png',
-                    height: 32,
-                    package: 'component_library',
+                  isLoading: googleLoading,
+                ),
+                const SizedBox(height: 16),
+                SignInWithAppleButton(
+                  onPressed: isLoading ? null : cubit.signInWithApple,
+                  isLoading: appleLoading,
+                ),
+
+                const SizedBox(height: 32),
+
+                // Terms & Conditions (RichText with links)
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                    children: [
+                      const TextSpan(text: 'By continuing, you agree to our '),
+                      TextSpan(
+                        text: 'Terms & Conditions',
+                        style: TextStyle(
+                          color: isLoading ? Colors.grey : primaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: isLoading
+                            ? null
+                            : (TapGestureRecognizer()
+                                ..onTap = () {
+                                  _showSnackBar(
+                                    context,
+                                    'Terms & Conditions tapped',
+                                  );
+                                }),
+                      ),
+                      const TextSpan(text: ' and '),
+                      TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(
+                          color: isLoading ? Colors.grey : primaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: isLoading
+                            ? null
+                            : (TapGestureRecognizer()
+                                ..onTap = () {
+                                  _showSnackBar(
+                                    context,
+                                    'Privacy Policy tapped',
+                                  );
+                                }),
+                      ),
+                      const TextSpan(text: '.'),
+                    ],
                   ),
                 ),
               ],

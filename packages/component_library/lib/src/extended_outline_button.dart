@@ -27,6 +27,7 @@ class ExtendedOutlineButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 40,
+
       child: OutlinedButton.icon(
         icon: icon,
         onPressed: onPressed,

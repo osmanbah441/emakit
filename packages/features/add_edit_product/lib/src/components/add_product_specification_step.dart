@@ -126,7 +126,7 @@ class _AddProductSpecificationStepState
                       optionalFields:
                           state.extractedProductInfo!.variationDefinationData,
                     ),
-                    ExtendedElevatedButton(
+                    PrimaryActionButton(
                       label: 'Add Product',
                       onPressed:
                           (state.isVariationValid != null &&

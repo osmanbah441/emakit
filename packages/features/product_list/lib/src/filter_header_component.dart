@@ -6,9 +6,9 @@ import 'package:domain_models/domain_models.dart';
 
 class FilterHeaderComponent extends StatelessWidget {
   // final String title;
-  final ValueChanged<ProductCategory> onCategoryChanged;
-  final List<ProductCategory> categories;
-  final ProductCategory? activeCategory;
+  final ValueChanged<Category> onCategoryChanged;
+  final List<Category> categories;
+  final Category? activeCategory;
 
   const FilterHeaderComponent({
     super.key,
@@ -20,7 +20,7 @@ class FilterHeaderComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularImageSelector<ProductCategory>(
+    return CircularImageSelector<Category>(
       items: categories,
       selectedLabel: activeCategory?.name,
       onItemChanged: (category) {

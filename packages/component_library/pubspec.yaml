@@ -19,7 +19,6 @@ dependencies:
   http: ^1.4.0
   image_picker: ^1.1.2
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -27,7 +26,7 @@ dev_dependencies:
 
 flutter:
   assets:
-    - 'assets/images/google_icon.png'
-    - 'assets/images/become_a_seller.png'
-    - 'assets/images/custom_design.png'
-    - 'assets/images/sign-in-required.png'
+    - "assets/images/google_icon.png"
+    - "assets/images/become_a_seller.png"
+    - "assets/images/custom_design.png"
+    - "assets/images/sign-in-required.png"

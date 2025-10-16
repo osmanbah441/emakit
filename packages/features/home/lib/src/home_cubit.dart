@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         state.copyWith(
           status: HomeStatus.success,
-          productCategories: data[0] as List<ProductCategory>,
+          productCategories: data[0] as List<Category>,
           featuredStores: data[1] as List<Store>,
         ),
       );

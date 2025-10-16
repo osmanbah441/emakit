@@ -6,12 +6,14 @@ class WalletCard extends StatelessWidget {
     required this.balance,
     required this.ownerName,
     this.ownerEmail = '',
+    this.currency = '🇸🇱 SLE.',
     required this.actionSection,
   });
 
   final double balance;
   final String ownerName;
   final String ownerEmail;
+  final String currency;
   final Widget actionSection;
 
   @override
@@ -20,13 +22,26 @@ class WalletCard extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     const iconSize = 32.0;
 
+    final String displayedEmail = ownerEmail.length > 48
+        ? '${ownerEmail.substring(0, 48)}...'
+        : ownerEmail;
+
     final balanceSection = Column(
-      spacing: 4,
       children: [
         Text('Current Balance', style: textTheme.labelSmall),
-        Text(
-          '🇸🇱 SLE. ${balance.toStringAsFixed(2)}',
-          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(currency),
+            const SizedBox(width: 8),
+            Text(
+              balance.toStringAsFixed(2),
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -46,7 +61,6 @@ class WalletCard extends StatelessWidget {
         ),
       ),
       child: Column(
-        spacing: 12,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -58,11 +72,11 @@ class WalletCard extends StatelessWidget {
             ],
           ),
           actionSection,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(ownerName, style: textTheme.labelSmall),
-              Text(ownerEmail, style: textTheme.labelSmall),
+              Text(displayedEmail, style: textTheme.labelSmall),
             ],
           ),
         ],

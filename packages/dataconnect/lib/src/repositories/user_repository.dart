@@ -4,12 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../dataconnect_gen/default.dart';
 
 extension on User {
-  domain.UserInfo get toDomain => domain.UserInfo(
-    email: email,
-    displayName: displayName!,
-    photoURL: photoURL,
-    phoneNumber: phoneNumber,
-  );
+  domain.UserInfo get toDomain =>
+      domain.UserInfo(email: email, displayName: displayName!);
 }
 
 class UserRepository {

@@ -1,32 +1,44 @@
-import 'package:category_repository/src/mock_category_repository.dart';
+import 'package:category_repository/src/category_repository_impl.dart';
 import 'package:domain_models/domain_models.dart';
 
 abstract class CategoryRepository {
   const CategoryRepository._();
 
-  static CategoryRepository instance = MockCategoryRepository();
-  Future<List<ProductCategory>> getTopLevelCategories();
+  static CategoryRepository instance = CategoryRepositoryImpl();
 
-  Future<List<ProductCategory>> getSubcategories(String parentId);
+  Future<List<Category>> getTopLevelCategories();
 
-  Future<ProductCategory?> getCategoryById(String id);
+  Future<List<Category>> getSubcategories(String parentId);
+
+  Future<Category?> getById(String id);
 
   Future<List<String>> getAllSubCategoriesId(String parentId);
 
-  Future<void> createCategory({
+  Future<List<Category>> getAll();
+
+  Future<void> upsert({
+    String? id,
+    String? parentId,
+
     required String name,
     required String imageUrl,
-    String? description,
-    String? parentId,
+    required String description,
   });
 
-  Future<void> updateCategory({
-    required String id,
-    String? name,
-    String? imageUrl,
-    String? description,
-    String? parentId,
+  Future<void> upsertAttribute({
+    required String name,
+    required String dataType,
+    String? unit,
+    List<String>? options,
+    String? id,
   });
 
-  Future<void> deleteCategory(String id);
+  Future<void> linkCategoryToAttributes(
+    String catId,
+    List<LinkCategoryToAtrributes> items,
+  );
+
+  Future<List<Category>> getCategoryWithAttributes();
+
+  Future<List<AttributeDefinition>> getAllAttributes();
 }

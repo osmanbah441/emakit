@@ -10,6 +10,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  supabase_flutter: ^2.10.3
   # path: ^1.8.0
 
 dev_dependencies:

@@ -1,1 +1,1 @@
-export 'src/become_a_seller_screen.dart';
+export 'src/seller_sign_up_screen.dart';

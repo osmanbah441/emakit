@@ -174,7 +174,7 @@ class _CheckoutSection extends StatelessWidget {
                 ),
               ],
             ),
-            ExtendedElevatedButton(
+            PrimaryActionButton(
               onPressed: itemCount > 0 ? onCheckoutTap : null,
               label: 'Proceed to checkout ($itemCount items)',
             ),
