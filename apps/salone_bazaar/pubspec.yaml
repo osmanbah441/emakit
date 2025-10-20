@@ -13,7 +13,6 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   firebase_core: ^4.1.0
-  dataconnect: ^0.0.1
   domain_models: ^0.0.0
   component_library: ^0.0.0
   cart: ^0.0.0
@@ -21,7 +20,6 @@ dependencies:
   profile: ^0.0.0
   product_details: ^0.0.0
   order_details: ^0.0.0
-  add_edit_product: ^0.0.1
   product_list: ^0.0.0
   sign_in: ^0.0.1
   seller_onboarding: ^0.0.1

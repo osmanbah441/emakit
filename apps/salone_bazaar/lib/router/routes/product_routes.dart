@@ -1,4 +1,3 @@
-import 'package:add_edit_product/add_edit_product.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_details/product_details.dart';
 import 'package:product_list/product_list.dart';
@@ -11,7 +10,7 @@ final productRoutes = [
     name: RoutePaths.productList.name,
     builder: (context, state) {
       final categoryId = state.uri.queryParameters['categoryId']!;
-      return ProductListScreen(
+      return BuyerProductListScreen(
         parentCategoryId: categoryId,
         onProductSelected: (productId) => context.pushNamed(
           RoutePaths.productDetails.name,
@@ -42,10 +41,5 @@ final productRoutes = [
       final productId = state.pathParameters['productId']!;
       return StoreProductDetailsScreen(productId: productId);
     },
-  ),
-  GoRoute(
-    path: RoutePaths.addEditProduct.path,
-    name: RoutePaths.addEditProduct.name,
-    builder: (context, state) => const AddEditProductScreen(),
   ),
 ];

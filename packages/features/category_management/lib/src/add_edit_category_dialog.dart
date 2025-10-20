@@ -122,7 +122,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
               BlocBuilder<CategoryManagementCubit, CategoryManagementState>(
                 builder: (context, state) {
                   return DropdownButtonFormField<String?>(
-                    value: _parentId, // Set the initial/current parent ID
+                    initialValue: _parentId, // Set the initial/current parent ID
                     decoration: const InputDecoration(
                       labelText: 'Parent Category (Optional)',
                     ),

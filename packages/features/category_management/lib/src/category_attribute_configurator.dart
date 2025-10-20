@@ -63,6 +63,7 @@ class _CategoryAttributeConfigurationDialogState
       _configuredAttributes.add(
         LinkCategoryToAtrributes(
           attributeId: '',
+          attributeName: '',
           isRequired: false,
           isVariant: false,
         ),
@@ -79,6 +80,8 @@ class _CategoryAttributeConfigurationDialogState
     setState(() {
       _configuredAttributes[index] = LinkCategoryToAtrributes(
         attributeId: attributeId ?? old.attributeId,
+        attributeName: old.attributeName,
+        dataType: old.dataType,
         isRequired: old.isRequired,
         isVariant: old.isVariant,
       );
@@ -90,6 +93,8 @@ class _CategoryAttributeConfigurationDialogState
     setState(() {
       _configuredAttributes[index] = LinkCategoryToAtrributes(
         attributeId: old.attributeId,
+        attributeName: old.attributeName,
+        dataType: old.dataType,
         isRequired: required ?? old.isRequired,
         isVariant: variant ?? old.isVariant,
       );
@@ -168,7 +173,9 @@ class _CategoryAttributeConfigurationDialogState
           Expanded(
             child: DropdownButtonFormField<String>(
               // use the stored attributeId (or null) as the value
-              value: config.attributeId.isNotEmpty ? config.attributeId : null,
+              initialValue: config.attributeId.isNotEmpty
+                  ? config.attributeId
+                  : null,
               decoration: const InputDecoration(
                 labelText: 'Attribute',
                 border: OutlineInputBorder(),
@@ -216,8 +223,6 @@ class _CategoryAttributeConfigurationDialogState
 
   @override
   Widget build(BuildContext context) {
-    print(_configuredAttributes);
-
     final isMax =
         _configuredAttributes.length >= widget.availableAttributes.length;
     final changesMade = _hasChanges();

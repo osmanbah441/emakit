@@ -122,7 +122,7 @@ class _ProductVariationCardState extends State<ProductVariationCard> {
 
   Widget _buildDropdownField(String fieldName, List<String> options) {
     return DropdownButtonFormField<String>(
-      value: _selectedVariationAttributes[fieldName],
+      initialValue: _selectedVariationAttributes[fieldName],
       items: options
           .map((opt) => DropdownMenuItem<String>(value: opt, child: Text(opt)))
           .toList(),

@@ -179,7 +179,7 @@ class _AddAttributeDialogState extends State<AddAttributeDialog> {
 
               DropdownButtonFormField<AttributeDataType>(
                 isExpanded: true,
-                value: _dataType,
+                initialValue: _dataType,
                 decoration: InputDecoration(
                   labelText: 'Data Type',
                   border: OutlineInputBorder(

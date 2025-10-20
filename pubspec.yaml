@@ -6,24 +6,25 @@ version: 0.0.0
 workspace:
   - apps/salone_bazaar
   - apps/sl_baz_admin
-
-  - packages/product_repository
-  - packages/order_repository
-  - packages/user_repository
-  - packages/store_repository
-  - packages/address_repository
-  - packages/payment_repository
+  - apps/bazaar
 
   - packages/domain_models
-  - packages/dataconnect
   - packages/component_library
+
+  - packages/repositories/product_repository
+  - packages/repositories/order_repository
+  - packages/repositories/user_repository
+  - packages/repositories/store_repository
+  - packages/repositories/address_repository
+  - packages/repositories/payment_repository
+  - packages/repositories/category_repository
+  - packages/repositories/cart_repository
 
   - packages/features/cart
   - packages/features/checkout
   - packages/features/profile
   - packages/features/product_details
   - packages/features/order_details
-  - packages/features/add_edit_product
   - packages/features/product_list
   - packages/features/sign_in
   - packages/features/order_list
@@ -36,12 +37,11 @@ workspace:
   - packages/features/home
   - packages/features/store_info
   - packages/features/store_discovery
-  - packages/category_repository
-  - packages/cart_repository
   - packages/features/product_search
   - packages/features/category_management
   - packages/features/product_add_image_search
   - packages/features/product_add_or_edit
+  - packages/features/product_variation
 
 environment:
   sdk: ^3.8.0

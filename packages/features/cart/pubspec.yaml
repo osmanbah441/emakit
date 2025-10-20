@@ -14,11 +14,9 @@ dependencies:
 
   component_library: ^0.0.0
   flutter_bloc: ^9.1.1
-  dataconnect: ^0.0.1
   domain_models: ^0.0.0
   cart_repository: ^1.0.0
   user_repository: ^0.0.1
-
 
 dev_dependencies:
   flutter_test:

@@ -27,7 +27,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   Future<void> _loadProduct() async {
     try {
       emit(state.copyWith(status: ActionStatus.loading));
-      final product = await _productRepository.getProductById(productId);
+      final product = await _productRepository.getById(productId);
       if (product == null) {
         emit(
           state.copyWith(
@@ -38,12 +38,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         return;
       }
 
-      final store = await _storeRepository.getStoreById(product.storeId);
+      final store = await _storeRepository.getStoreById('');
 
       // Set an initial variation when the product loads.
-      final initialVariation = product.variations.isNotEmpty
-          ? product.variations.first
-          : null;
+      final initialVariation = null;
 
       emit(
         state.copyWith(

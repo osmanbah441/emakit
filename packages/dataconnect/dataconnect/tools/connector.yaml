@@ -1,4 +1,0 @@
-connectorId: tools
-generate:
-  llmTools:
-    outputFile: ../../functions/tools.json

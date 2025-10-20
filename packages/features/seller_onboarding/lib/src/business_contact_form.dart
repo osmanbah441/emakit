@@ -1,5 +1,4 @@
 import 'package:component_library/component_library.dart';
-import 'package:dataconnect/dataconnect.dart';
 import 'package:flutter/material.dart';
 
 class BusinessContactForm extends StatefulWidget {
@@ -14,7 +13,7 @@ class _BusinessContactFormState extends State<BusinessContactForm> {
   final TextEditingController _businessNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
 
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   @override
   void dispose() {

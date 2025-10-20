@@ -6,9 +6,10 @@ import 'package:domain_models/domain_models.dart';
 part 'product_list_state.dart';
 
 class ProductListCubit extends Cubit<ProductListState> {
-  ProductListCubit(this._parentCategoryId)
+  ProductListCubit({String parentCategoryId = 'root'})
     : _productRepository = ProductRepository.instance,
       _categoryRepository = CategoryRepository.instance,
+      _parentCategoryId = parentCategoryId,
       super(ProductInitial()) {
     _loadInitialData();
   }
@@ -17,7 +18,7 @@ class ProductListCubit extends Cubit<ProductListState> {
   final CategoryRepository _categoryRepository;
   final String _parentCategoryId;
 
-  Future<void> _loadInitialData() async {
+  void _loadInitialData() async {
     try {
       emit(ProductLoading());
 
@@ -50,7 +51,7 @@ class ProductListCubit extends Cubit<ProductListState> {
         return; // don't refetch
       }
 
-      final listOfProduct = await _productRepository.getAllProducts(
+      final listOfProduct = await _productRepository.getAll(
         categoryId: category.id,
       );
 
@@ -61,5 +62,9 @@ class ProductListCubit extends Cubit<ProductListState> {
         ),
       );
     }
+  }
+
+  void refresh() {
+    _loadInitialData();
   }
 }

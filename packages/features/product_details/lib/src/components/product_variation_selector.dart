@@ -1,4 +1,3 @@
-import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,46 +46,48 @@ class ProductVariationSelector extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-        builder: (context, state) {
-          final product = state.product;
-          final selectedVariation = state.selectedVariation;
-          if (product == null || product.variations.length < 2) {
-            return const SizedBox.shrink();
-          }
+  Widget build(
+    BuildContext context,
+  ) => BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+    builder: (context, state) {
+      return Placeholder();
+      // final product = state.product;
+      // final selectedVariation = state.selectedVariation;
+      // if (product == null || product.variations.length < 2) {
+      //   return const SizedBox.shrink();
+      // }
 
-          final details = product.specifications;
-          String? attributeKey;
+      // final details = product.specifications;
+      // String? attributeKey;
 
-          if (details is ClothingDetails) {
-            attributeKey = details.isTailored ? 'fabric' : 'size';
-          } else if (details is ShoeDetails) {
-            attributeKey = 'size';
-          } else {
-            attributeKey = null;
-          }
+      // if (details is ClothingDetails) {
+      //   attributeKey = details.isTailored ? 'fabric' : 'size';
+      // } else if (details is ShoeDetails) {
+      //   attributeKey = 'size';
+      // } else {
+      //   attributeKey = null;
+      // }
 
-          final sortedVariations = attributeKey != null
-              ? _sortVariations(product.variations, attributeKey)
-              : product.variations;
+      // final sortedVariations = attributeKey != null
+      //     ? _sortVariations(product.variations, attributeKey)
+      //     : product.variations;
 
-          return CircularImageSelector<ProductVariation>(
-            items: sortedVariations,
-            selectedItemId: selectedVariation?.id,
-            idBuilder: (item) => item.id,
-            onItemChanged: (selectedItem) {
-              context.read<ProductDetailsCubit>().selectVariation(selectedItem);
-            },
-            labelBuilder: (item) {
-              return item.attributes[attributeKey] ?? '';
-            },
-            imageBuilder: (item) {
-              return item.imageUrls.isNotEmpty
-                  ? item.imageUrls.first
-                  : 'https://i.imgur.com/sN3d5tI.png';
-            },
-          );
-        },
-      );
+      // return CircularImageSelector<ProductVariation>(
+      //   items: sortedVariations,
+      //   selectedItemId: selectedVariation?.id,
+      //   idBuilder: (item) => item.id,
+      //   onItemChanged: (selectedItem) {
+      //     context.read<ProductDetailsCubit>().selectVariation(selectedItem);
+      //   },
+      //   labelBuilder: (item) {
+      //     return item.attributes[attributeKey] ?? '';
+      //   },
+      //   imageBuilder: (item) {
+      //     return item.imageUrls.isNotEmpty
+      //         ? item.imageUrls.first
+      //         : 'https://i.imgur.com/sN3d5tI.png';
+      //   },
+      // );
+    },
+  );
 }

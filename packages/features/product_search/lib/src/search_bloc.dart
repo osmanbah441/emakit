@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:domain_models/domain_models.dart';
-import 'package:product_repository/product_repository.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';

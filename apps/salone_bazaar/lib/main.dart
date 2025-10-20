@@ -1,4 +1,3 @@
-import 'package:dataconnect/dataconnect.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,13 +15,6 @@ void main() async {
 
   if (_debugging) {
     UserRepository.useEmulator();
-    DataConnect.useEmulator(
-      db: ('localhost', 9399),
-      auth: ('localhost', 9099),
-      fn: ('localhost', 5001),
-      firestore: ('localhost', 8080),
-      storage: ('localhost', 9199),
-    );
   }
 
   runApp(const MainApp());

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:component_library/component_library.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:category_management/category_management.dart';
-import 'package:product_add_image_search/product_add_image_search.dart';
 import 'package:product_add_or_edit/product_add_or_edit.dart';
+import 'package:product_list/product_list.dart';
 
 const _supabaseUrl = String.fromEnvironment(
   'SUPABASE_URL',
@@ -46,9 +46,35 @@ class AdminDashboard extends StatefulWidget {
 class _AdminDashboardState extends State<AdminDashboard> {
   int _selectedIndex = 0;
 
-  final _pages = const [
+  List<Widget> _pages() => [
     DashboardPage(),
-    ProductsPage(),
+    AdminProductListScreen(
+      onAddProduct: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (c) => ProductAddOrEditScreen(
+              onSaveSuccess: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        );
+      },
+      onEditProduct: (id) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (c) => ProductAddOrEditScreen(
+              productIdToEdit: id,
+              onSaveSuccess: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        );
+      },
+    ),
     CategoryManagementScreen(),
     StoresPage(),
     OrdersPage(),
@@ -113,7 +139,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
-              child: _pages[_selectedIndex],
+              child: _pages()[_selectedIndex],
             ),
           ),
         ],
@@ -133,47 +159,6 @@ class DashboardPage extends StatelessWidget {
       child: Text(
         '📊 Dashboard Overview',
         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-}
-
-class ProductsPage extends StatelessWidget {
-  const ProductsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            '🛍 Products Management',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 16),
-          FilledButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductAddImageSearchScreen(
-                  onAddNewProduct: (image, category) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductAddOrEditScreen(
-                          image: image,
-                          category: category,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            child: const Text('Add New Product'),
-          ),
-        ],
       ),
     );
   }

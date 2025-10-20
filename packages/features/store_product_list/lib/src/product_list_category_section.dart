@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:component_library/component_library.dart'; // for ProductCard
+// for ProductCard
 
 class ProductListCategorySection extends StatelessWidget {
   final String categoryTitle;
@@ -50,15 +50,16 @@ class ProductListCategorySection extends StatelessWidget {
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final product = products[index];
-              return SizedBox(
-                width: 220, // fixed width to align cards
-                child: ProductCard(
-                  imageUrl: product.variations.first.imageUrls.first,
-                  title: product.name,
-                  price: product.variations.first.price,
-                  onTap: () => onProductTap(product),
-                ),
-              );
+              return Placeholder();
+              // return SizedBox(
+              //   width: 220, // fixed width to align cards
+              //   child: ProductCard(
+              //     imageUrl: product.variations.first.imageUrls.first,
+              //     title: product.name,
+              //     price: product.variations.first.price,
+              //     onTap: () => onProductTap(product),
+              //   ),
+              // );
             },
           ),
         ),

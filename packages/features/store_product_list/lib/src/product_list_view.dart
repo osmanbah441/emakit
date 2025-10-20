@@ -33,23 +33,24 @@ class ProductListView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        final imageUrl = product.primaryImageUrl!;
-        return ListTile(
-          onTap: () => onProductTap(context, product.id!),
-          leading: SizedBox(
-            width: 60,
-            height: 60,
-            child: InkWell(
-              onTap: () => _showDailog(context, imageUrl),
-              child: AppNetworkImage(
-                borderRadius: BorderRadius.circular(12),
-                imageUrl: imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          title: Text(product.name),
-        );
+        return null;
+        // final imageUrl = product.primaryImageUrl!;
+        // return ListTile(
+        //   onTap: () => onProductTap(context, product.id!),
+        //   leading: SizedBox(
+        //     width: 60,
+        //     height: 60,
+        //     child: InkWell(
+        //       onTap: () => _showDailog(context, imageUrl),
+        //       child: AppNetworkImage(
+        //         borderRadius: BorderRadius.circular(12),
+        //         imageUrl: imageUrl,
+        //         fit: BoxFit.cover,
+        //       ),
+        //     ),
+        //   ),
+        //   title: Text(product.name),
+        // );
       },
     );
   }

@@ -1,5 +1,3 @@
-enum ProductStatus { active, inactive, draft }
-
 enum MeasurementUnit { inches, centimeters }
 
 enum MeasurementType {
@@ -85,36 +83,79 @@ class ProductVariation {
   }
 }
 
+enum ProductStatus {
+  draft,
+  active,
+  archived;
+
+  static ProductStatus fromString(String? status) {
+    if (status != null && status.isNotEmpty) {
+      try {
+        return ProductStatus.values.byName(status.toLowerCase());
+      } catch (_) {
+        return ProductStatus.draft;
+      }
+    }
+    return ProductStatus.draft;
+  }
+}
+
 class Product {
   final String id;
   final String name;
   final String categoryId;
+  final String? description;
   final ProductStatus status;
-  final List<ProductVariation> variations;
-  final String storeId;
-  final dynamic specifications;
+  final Map<String, dynamic>? specifications;
+  final String? imageUrl;
 
   const Product({
     required this.id,
     required this.name,
     required this.categoryId,
-    required this.storeId,
-    this.status = ProductStatus.draft,
-    this.variations = const [],
+    this.description,
+    this.status = ProductStatus.archived,
     this.specifications,
+    this.imageUrl,
   });
+}
 
-  String? get primaryImageUrl =>
-      variations.isNotEmpty && variations.first.imageUrls.isNotEmpty
-      ? variations.first.imageUrls.first
-      : null;
+class ProductMedia {
+  final String? id;
+  final String? productId;
+  final String url;
+  final String? altText;
+  final String? role;
 
-  double get displayPrice =>
-      variations.isNotEmpty ? variations.first.price : 0.0;
+  ProductMedia({
+    this.id,
+    this.productId,
+    required this.url,
+    this.altText,
+    this.role,
+  });
+}
 
-  ProductVariation getVariationById({String? id}) {
-    if (variations.isEmpty) throw Exception('No variations available');
-    if (id == null) return variations.first;
-    return variations.firstWhere((v) => v.id == id);
-  }
+class ProductWithAttributes {
+  final String productId;
+  final String productName;
+  final List<ProductVariantAttribute> attributes;
+
+  const ProductWithAttributes({
+    required this.productId,
+    required this.productName,
+    required this.attributes,
+  });
+}
+
+class ProductVariantAttribute {
+  final String attributeId;
+  final String attributeName;
+  final List<String> options;
+
+  const ProductVariantAttribute({
+    required this.attributeId,
+    required this.attributeName,
+    required this.options,
+  });
 }
