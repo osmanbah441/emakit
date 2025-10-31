@@ -1,12 +1,13 @@
 import 'package:domain_models/domain_models.dart';
-import 'product_repository_impl.dart';
 
 abstract class ProductRepository {
-  static const ProductRepository instance = ProductRepositoryImpl();
+  // static const ProductRepository instance = ProductRepositoryImpl();
 
-  Future<List<Product>> getAllProductsFromSubCategories(List<String> ids);
-
-  Future<List<Product>> getAll({String? searchTerm, String? categoryId});
+  Future<List<Product>> getAll(
+    ApplicationRole role, {
+    String? searchTerm,
+    String? categoryId,
+  });
 
   Future<Product?> getById(String productId);
 
@@ -31,4 +32,6 @@ abstract class ProductRepository {
     required Map<String, String> attributes,
     required List<String> imageUrls,
   });
+
+  Future<Product> getProductDetails({String? productId, String? variantId});
 }

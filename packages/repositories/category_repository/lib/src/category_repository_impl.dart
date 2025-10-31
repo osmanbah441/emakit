@@ -5,18 +5,11 @@ import 'category_repository.dart';
 import 'extension.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
+  const CategoryRepositoryImpl({required this.role});
+
+  final ApplicationRole role;
   static final _supabase = Supabase.instance.client;
   static const _table = 'category';
-
-  @override
-  Future<List<Category>> getTopLevelCategories() async {
-    return [];
-  }
-
-  @override
-  Future<List<Category>> getSubcategories(String parentId) async {
-    return [];
-  }
 
   @override
   Future<Category?> getById(String id) async {
@@ -42,11 +35,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
     } catch (e) {
       rethrow;
     }
-  }
-
-  @override
-  Future<List<String>> getAllSubCategoriesId(String parentId) async {
-    return [];
   }
 
   @override

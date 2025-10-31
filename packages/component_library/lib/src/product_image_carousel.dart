@@ -154,13 +154,6 @@ class _FullScreenCarouselViewState extends State<_FullScreenCarouselView> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: colorScheme.onSurface),
-        title: Text(
-          '${_currentPage + 1} of ${widget.imageUrls.length}',
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
         centerTitle: true,
       ),
       body: Column(

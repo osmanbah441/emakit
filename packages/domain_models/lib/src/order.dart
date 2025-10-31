@@ -12,7 +12,7 @@ enum OrderStatus {
 
 class OrderItem {
   final String id;
-  final ProductVariation variantSnapshot;
+  final StoreVariation variantSnapshot;
   final int quantity;
   final OrderStatus status;
   final double unitPrice;

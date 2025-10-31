@@ -4,32 +4,37 @@ import 'package:product_repository/product_repository.dart';
 import 'components/product_list_card.dart';
 
 class StoreProductListScreen extends StatelessWidget {
-  final VoidCallback? onProductRequest;
+  final VoidCallback onAddProduct;
   final ValueChanged<String> onProductTap;
+  final ProductRepository productRepository;
 
   const StoreProductListScreen({
     super.key,
-    this.onProductRequest,
+    required this.onAddProduct,
     required this.onProductTap,
+    required this.productRepository,
   });
 
   @override
   Widget build(BuildContext context) {
     return StoreProductListView(
-      onAddProduct: onProductRequest,
+      onAddProduct: onAddProduct,
       onProductTap: onProductTap,
+      productRepository: productRepository,
     );
   }
 }
 
 class StoreProductListView extends StatefulWidget {
-  final VoidCallback? onAddProduct;
+  final VoidCallback onAddProduct;
   final ValueChanged<String> onProductTap;
+  final ProductRepository productRepository;
 
   const StoreProductListView({
     super.key,
-    this.onAddProduct,
+    required this.onAddProduct,
     required this.onProductTap,
+    required this.productRepository,
   });
 
   @override
@@ -38,7 +43,6 @@ class StoreProductListView extends StatefulWidget {
 
 class _StoreProductListViewState extends State<StoreProductListView> {
   final TextEditingController _searchController = TextEditingController();
-  final ProductRepository _productRepository = ProductRepository.instance;
 
   List<Product> _allProducts = [];
   String _listTitle = 'All Products';
@@ -65,9 +69,13 @@ class _StoreProductListViewState extends State<StoreProductListView> {
     });
 
     try {
-      final allProducts = await _productRepository.getAll();
+      final allProducts = await widget.productRepository.getAll(
+        ApplicationRole.store,
+      );
 
-      allProducts.shuffle();
+      if (allProducts.isNotEmpty) {
+        allProducts.shuffle();
+      }
 
       setState(() {
         _allProducts = allProducts;
@@ -98,26 +106,19 @@ class _StoreProductListViewState extends State<StoreProductListView> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
+        backgroundColor: colorScheme.surface,
         title: Text(
           _listTitle,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: widget.onAddProduct,
-          ),
-        ],
+
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
           child: Padding(
@@ -137,10 +138,8 @@ class _StoreProductListViewState extends State<StoreProductListView> {
                     : null,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: const Color(0xFFEBEFF4),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
               ),
             ),
@@ -148,6 +147,11 @@ class _StoreProductListViewState extends State<StoreProductListView> {
         ),
       ),
       body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: widget.onAddProduct,
+        tooltip: 'Discover New Product',
+        child: const Icon(Icons.explore),
+      ),
     );
   }
 
@@ -161,7 +165,7 @@ class _StoreProductListViewState extends State<StoreProductListView> {
     }
 
     if (_filteredProducts.isEmpty) {
-      return Center(child: Text('No products found.'));
+      return const Center(child: Text('No products found.'));
     }
 
     return ListView.builder(
@@ -171,7 +175,7 @@ class _StoreProductListViewState extends State<StoreProductListView> {
         final product = _filteredProducts[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
-          child: ProductListCard(
+          child: StoreProductListCard(
             product: product,
             onTap: () => widget.onProductTap.call(product.id),
           ),

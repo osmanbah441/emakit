@@ -1,7 +1,6 @@
-// cart_cubit.dart
 import 'dart:async';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:cart_repository/cart_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -10,7 +9,10 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   final CartRepository _cartRepository;
   final UserRepository _userRepository;
-  late StreamSubscription<UserInfo?> _userSubscription;
+  late final StreamSubscription<UserInfo?> _userSubscription;
+
+  // Track which items are currently being updated
+  final Set<String> _updatingItems = {};
 
   CartCubit({
     required CartRepository cartRepository,
@@ -22,83 +24,98 @@ class CartCubit extends Cubit<CartState> {
       if (user == null) {
         emit(NotAuthenticated());
       } else {
-        loadCart();
+        _loadCart();
       }
     });
   }
 
   @override
-  Future<void> close() {
-    _userSubscription.cancel();
+  Future<void> close() async {
+    await _userSubscription.cancel();
     return super.close();
   }
 
-  Future<void> loadCart() async {
-    emit(CartLoading());
+  Future<void> _loadCart() async {
     try {
-      final items = _cartRepository.getItems();
+      final items = await _cartRepository.getItems();
       if (items.isEmpty) {
         emit(CartEmpty());
       } else {
-        emit(CartSuccess(items));
+        emit(CartSuccess(items, updatingItems: _updatingItems));
       }
     } catch (e) {
       emit(CartFailure('Failed to load cart: $e'));
     }
   }
 
-  Future<void> toggleItemSelection(String productId) async {
+  /// Update an item (quantity and/or selection) — optimistic update + background sync.
+  Future<void> updateItem(String id, {int? quantity, bool? isSelected}) async {
     final currentState = state;
     if (currentState is! CartSuccess) return;
+    if (_updatingItems.contains(id)) return;
+    _updatingItems.add(id);
+
+    // Emit optimistic update: replace item locally using state helper and include updatingItems set
+    final optimisticState = currentState.replaceItem(
+      id: id,
+      quantity: quantity,
+      isSelected: isSelected,
+      updatingItems: _updatingItems,
+    );
+    emit(optimisticState);
 
     try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      if (productId == 'fail') {
-        throw Exception('Failed to update selection.');
+      // perform backend update (don't await reloading unless failure)
+      await _cartRepository.update(
+        id,
+        quantity: quantity,
+        isSelected: isSelected,
+      );
+
+      // After backend success, refresh authoritative list
+      final items = await _cartRepository.getItems();
+      emit(CartSuccess(items, updatingItems: _updatingItems));
+    } catch (e) {
+      // on failure, emit failure and reload clean state
+      emit(CartFailure('Failed to update cart: $e'));
+      await _loadCart();
+    } finally {
+      // remove updating flag and re-emit current success state with updated updatingItems
+      _updatingItems.remove(id);
+      if (state is CartSuccess) {
+        emit(
+          CartSuccess(
+            (state as CartSuccess).items,
+            updatingItems: _updatingItems,
+          ),
+        );
       }
-      _cartRepository.toggleItemSelection(productId);
-      loadCart();
-    } catch (e) {
-      emit(CartFailure('Failed to update selection: $e'));
     }
   }
 
-  Future<void> incrementQuantity(String productId) async {
+  /// Remove an item (calls repository and reloads)
+  Future<void> removeItem(String id) async {
     final currentState = state;
     if (currentState is! CartSuccess) return;
 
-    try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      _cartRepository.incrementQuantity(productId);
-      loadCart();
-    } catch (e) {
-      emit(CartFailure('Failed to increment quantity: $e'));
-    }
-  }
-
-  Future<void> decrementQuantity(String productId) async {
-    final currentState = state;
-    if (currentState is! CartSuccess) return;
+    final optimistic = currentState.removeItemById(
+      id,
+      updatingItems: _updatingItems,
+    );
+    emit(optimistic);
 
     try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      _cartRepository.decrementQuantity(productId);
-      loadCart();
+      await _cartRepository.removeItem(id);
+      final items = await _cartRepository.getItems();
+      emit(
+        items.isEmpty
+            ? CartEmpty()
+            : CartSuccess(items, updatingItems: _updatingItems),
+      );
     } catch (e) {
-      emit(CartFailure('Failed to decrement quantity: $e'));
-    }
-  }
-
-  Future<void> removeItem(String productId) async {
-    final currentState = state;
-    if (currentState is! CartSuccess) return;
-
-    try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      _cartRepository.removeItem(productId);
-      loadCart();
-    } catch (e) {
+      print(e);
       emit(CartFailure('Failed to remove item: $e'));
+      // await _loadCart();
     }
   }
 }

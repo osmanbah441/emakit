@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:component_library/component_library.dart';
-import 'package:order_details/src/order_list_item.dart';
 import 'package:equatable/equatable.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:order_repository/order_repository.dart';
@@ -104,21 +103,21 @@ class _OrderDetailsView extends StatelessWidget {
                       completedItems: completedItems,
                       totalItems: totalItems,
                     ),
-                    ...state.order.items.map(
-                      (item) => OrderListItem(
-                        imageUrl: item.variantSnapshot.imageUrls.first,
-                        title: item.variantSnapshot.getDisplayName(
-                          'product name',
-                        ),
-                        price: item.variantSnapshot.price,
-                        quantity: item.quantity,
-                        orderStatus: item.status,
-                        onTap: () {},
-                        onConfirmTapped: () {},
-                        onChatTapped: () {},
-                        onCancelTapped: () {},
-                      ),
-                    ),
+                    // ...state.order.items.map(
+                    //   (item) => OrderListItem(
+                    //     imageUrl: item.variantSnapshot.imageUrls.first,
+                    //     title: item.variantSnapshot.getDisplayName(
+                    //       'product name',
+                    //     ),
+                    //     price: item.variantSnapshot.price,
+                    //     quantity: item.quantity,
+                    //     orderStatus: item.status,
+                    //     onTap: () {},
+                    //     onConfirmTapped: () {},
+                    //     onChatTapped: () {},
+                    //     onCancelTapped: () {},
+                    //   ),
+                    // );
                     OrderSummarySection(
                       subtotal: state.order.subtotal.toStringAsFixed(2),
                       shippingCost: state.order.shippingCost.toStringAsFixed(2),

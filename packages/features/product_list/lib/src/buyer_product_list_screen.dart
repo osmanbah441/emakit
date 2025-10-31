@@ -1,104 +1,92 @@
-import 'dart:math' as math;
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_list/src/custom_sliver_staggered_grid.dart';
-import 'package:domain_models/domain_models.dart';
+import 'package:product_repository/product_repository.dart';
+
 import 'product_list_cubit.dart';
+import 'components/components.dart';
 
 class BuyerProductListScreen extends StatelessWidget {
-  final Function(String productId) onProductSelected;
-  final String parentCategoryId;
-
   const BuyerProductListScreen({
     super.key,
-    required this.onProductSelected,
     required this.parentCategoryId,
+    required this.onProductTap,
+    required this.productRepository,
   });
+  final Function(String productId, String variantId) onProductTap;
+  final ProductRepository productRepository;
+  final String parentCategoryId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductListCubit(parentCategoryId: parentCategoryId),
-      child: _ProductListContent(onProductTap: onProductSelected),
+      create: (context) => ProductListCubit(
+        ApplicationRole.buyer,
+        parentCategoryId: parentCategoryId,
+        productRepository: productRepository,
+      ),
+      child: _BuyerProductListScreenContent(onProductTap: onProductTap),
     );
   }
 }
 
-class _ProductListContent extends StatelessWidget {
-  final Function(String productId) onProductTap;
-
-  const _ProductListContent({required this.onProductTap});
+class _BuyerProductListScreenContent extends StatelessWidget {
+  const _BuyerProductListScreenContent({required this.onProductTap});
+  final Function(String productId, String variantId) onProductTap;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProductListCubit>();
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<ProductListCubit, ProductListState>(
-          builder: (context, state) {
-            if (state is ProductInitial || state is ProductLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is ProductError) {
-              return Center(child: Text(state.message));
-            }
-            if (state is ProductLoaded) {
-              return CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: 200.0,
-                    floating: true,
-                    pinned: true, // This keeps the collapsed app bar visible
-                    snap: true,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    elevation: 1.0,
-                    title: Text(state.topLevelCategory?.name ?? ''),
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: CircularImageSelector<Category>(
-                        items: state.categories,
-                        selectedLabel: state.selectedSubCategory?.name,
-                        onItemChanged: cubit.selectCategory,
-                        labelBuilder: (category) => category.name,
-                        imageBuilder: (category) => category.imageUrl,
-                      ),
-                    ),
+      appBar: AppBar(title: Text('Products'), centerTitle: false, elevation: 0),
+      body: BlocBuilder<ProductListCubit, ProductListState>(
+        builder: (context, state) {
+          if (state is ProductLoading || state is ProductInitial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is ProductError) {
+            return Center(child: Text(state.message));
+          }
+          if (state is ProductLoaded) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (state.categories.isNotEmpty) ...[
+                  CircularImageSelector(
+                    height: 130,
+                    items: state.categories,
+                    onItemChanged: (category) {
+                      context.read<ProductListCubit>().selectCategory(category);
+                    },
+                    // This is now safe as selectedSubCategory is guaranteed non-null
+                    selectedLabel: state.selectedSubCategory!.name,
+                    selectedItemId: state.selectedSubCategory!.id,
+                    labelBuilder: (category) => category.name,
+                    imageBuilder: (category) => category.imageUrl,
                   ),
-                  _buildProductGrid(2, state.allProducts),
+
+                  if (state.isProductLoading) const LinearProgressIndicator(),
                 ],
-              );
-            }
-            return const Center(child: Text("Something went wrong."));
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductGrid(int crossAxisCount, List<Product> products) {
-    if (products.isEmpty) {
-      return const SliverFillRemaining(
-        child: Center(child: Text("No products match your criteria.")),
-      );
-    }
-
-    final childAspectRatios = products
-        .map((p) => 400 / (math.Random(p.id.hashCode).nextInt(300) + 400))
-        .toList();
-
-    return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      sliver: CustomSliverStaggeredGrid(
-        crossAxisCount: crossAxisCount,
-        childAspectRatios: childAspectRatios,
-        children: List.generate(products.length, (index) {
-          final product = products[index];
-          return ProductListCard(
-            imageUrl: ' product.primaryImageUrl!',
-            price: 0.00,
-            onTap: () => onProductTap(product.id),
-          );
-        }),
+                Expanded(
+                  child: state.isProductLoading
+                      ? const Center(child: Text('Filtering products...'))
+                      : ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          itemCount: state.allProducts.length,
+                          itemBuilder: (context, index) {
+                            return BuyerProductListCard(
+                              product:
+                                  state.allProducts[index] as BuyerProductsList,
+                              onProductTap: onProductTap,
+                            );
+                          },
+                        ),
+                ),
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

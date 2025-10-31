@@ -26,11 +26,7 @@ class BuyerScaffoldNav extends StatelessWidget {
               icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.search),
-              icon: Icon(Icons.search_outlined),
-              label: 'Search',
-            ),
+
             NavigationDestination(
               selectedIcon: Icon(Icons.shopping_cart),
               icon: Icon(Icons.shopping_cart_outlined),
@@ -54,9 +50,8 @@ class BuyerScaffoldNav extends StatelessWidget {
 
     // Compare the location with your defined route paths.
     if (location == RoutePaths.home.path) return 0;
-    if (location == RoutePaths.search.path) return 1;
-    if (location == RoutePaths.cart.path) return 2;
-    if (location == RoutePaths.profile.path) return 3;
+    if (location == RoutePaths.cart.path) return 1;
+    if (location == RoutePaths.profile.path) return 2;
 
     // Default to the first index (Home) if no match is found.
     return 0;
@@ -68,13 +63,11 @@ class BuyerScaffoldNav extends StatelessWidget {
       case 0:
         context.goNamed(RoutePaths.home.name);
         break;
+
       case 1:
-        context.goNamed(RoutePaths.search.name);
-        break;
-      case 2:
         context.goNamed(RoutePaths.cart.name);
         break;
-      case 3:
+      case 2:
         context.goNamed(RoutePaths.profile.name);
         break;
     }

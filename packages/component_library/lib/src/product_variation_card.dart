@@ -70,7 +70,7 @@ class _ProductVariationCardState extends State<ProductVariationCard> {
   final Map<String, String?> _selectedVariationAttributes = {};
 
   static const int _maxImages = 6;
-  static const int _minImages = 4;
+  // static const int _minImages = 4;
 
   @override
   void initState() {

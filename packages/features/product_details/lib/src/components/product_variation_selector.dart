@@ -1,93 +1,194 @@
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_details/src/product_details_cubit.dart';
+import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 
 class ProductVariationSelector extends StatelessWidget {
-  const ProductVariationSelector({super.key});
+  const ProductVariationSelector({
+    super.key,
+    required this.variants,
+    required this.selectedVariant,
+    required this.onVariantSelected,
+  });
 
-  List<ProductVariation> _sortVariations(
-    List<ProductVariation> variations,
-    String attributeKey,
-  ) {
-    final sortedList = List<ProductVariation>.from(variations);
-
-    sortedList.sort((a, b) {
-      final valueA = a.attributes[attributeKey];
-      final valueB = b.attributes[attributeKey];
-
-      if (attributeKey == 'size') {
-        const sizeOrder = {
-          'XS': 0,
-          'S': 1,
-          'M': 2,
-          'L': 3,
-          'XL': 4,
-          'XXL': 5,
-          'XXXL': 6,
-        };
-        final orderA = sizeOrder[valueA] ?? 99;
-        final orderB = sizeOrder[valueB] ?? 99;
-        if (orderA != 99 || orderB != 99) {
-          return orderA.compareTo(orderB);
-        }
-      }
-
-      final numA = double.tryParse(valueA ?? '');
-      final numB = double.tryParse(valueB ?? '');
-      if (numA != null && numB != null) {
-        return numA.compareTo(numB);
-      }
-
-      return (valueA ?? '').compareTo(valueB ?? '');
-    });
-
-    return sortedList;
-  }
+  final List<ProductVariation> variants;
+  final ProductVariation? selectedVariant;
+  final ValueChanged<ProductVariation> onVariantSelected;
 
   @override
-  Widget build(
+  Widget build(BuildContext context) {
+    if (variants.isEmpty) return const SizedBox.shrink();
+
+    final attributeKeys = <String>{};
+    for (final v in variants) {
+      attributeKeys.addAll(v.attributes.keys);
+    }
+
+    final sortedKeys = attributeKeys.toList()
+      ..sort((a, b) {
+        if (a == 'Color') return -1;
+        if (b == 'Color') return 1;
+        return 0;
+      });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: sortedKeys.map((key) {
+        final options = <String>{};
+        for (final v in variants) {
+          final val = v.attributes[key];
+          if (val is String && val.isNotEmpty) options.add(val);
+        }
+
+        final selectedValue = selectedVariant?.attributes[key];
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  key,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              key == 'Color'
+                  ? _buildColorSelector(
+                      context,
+                      options.toList(),
+                      selectedValue,
+                    )
+                  : _buildChoiceSelector(
+                      context,
+                      key,
+                      options.toList(),
+                      selectedValue,
+                    ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildColorSelector(
     BuildContext context,
-  ) => BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-    builder: (context, state) {
-      return Placeholder();
-      // final product = state.product;
-      // final selectedVariation = state.selectedVariation;
-      // if (product == null || product.variations.length < 2) {
-      //   return const SizedBox.shrink();
-      // }
+    List<String> options,
+    String? selected,
+  ) {
+    // Get color swatches from variants
+    final colorOptions = variants
+        .map((v) => v.attributes['Color'] as String?)
+        .whereType<String>()
+        .toSet()
+        .map((colorName) {
+          final variant = variants.firstWhere(
+            (v) => v.attributes['Color'] == colorName,
+            orElse: () => variants.first,
+          );
+          final swatchUrl = variant.media.isNotEmpty
+              ? variant.media.first.url
+              : 'https://placehold.co/70x70/CCCCCC/000000?text=$colorName';
+          return ColorOption(name: colorName, swatchImageUrl: swatchUrl);
+        })
+        .toList();
 
-      // final details = product.specifications;
-      // String? attributeKey;
+    return CircularImageSelector<ColorOption>(
+      items: colorOptions,
+      labelBuilder: (c) => c.name,
+      imageBuilder: (c) => c.swatchImageUrl,
+      selectedLabel: selected,
+      onItemChanged: (c) {
+        _updateVariant('Color', c.name);
+      },
+      isItemDisabled: (c) => !_isOptionAvailable('Color', c.name),
+    );
+  }
 
-      // if (details is ClothingDetails) {
-      //   attributeKey = details.isTailored ? 'fabric' : 'size';
-      // } else if (details is ShoeDetails) {
-      //   attributeKey = 'size';
-      // } else {
-      //   attributeKey = null;
-      // }
+  Widget _buildChoiceSelector(
+    BuildContext context,
+    String key,
+    List<String> options,
+    String? selected,
+  ) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: options.map((option) {
+          final isSelected = option == selected;
+          // Uses the less strict check
+          final isDisabled = !_isOptionAvailable(key, option);
 
-      // final sortedVariations = attributeKey != null
-      //     ? _sortVariations(product.variations, attributeKey)
-      //     : product.variations;
+          return GestureDetector(
+            onTap: isDisabled ? null : () => _updateVariant(key, option),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : (isDisabled
+                          ? theme.colorScheme.surfaceContainerHighest
+                          : theme.colorScheme.surface),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: isSelected
+                      ? theme.colorScheme.primary
+                      : (isDisabled
+                            ? Colors.grey.shade300
+                            : Colors.grey.shade400),
+                  width: isSelected ? 2 : 1,
+                ),
+              ),
+              child: Text(
+                option,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: isDisabled
+                      ? theme.colorScheme.onSurface.withOpacity(0.5)
+                      : (isSelected
+                            ? theme.colorScheme.onPrimary
+                            : theme.colorScheme.onSurface),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 
-      // return CircularImageSelector<ProductVariation>(
-      //   items: sortedVariations,
-      //   selectedItemId: selectedVariation?.id,
-      //   idBuilder: (item) => item.id,
-      //   onItemChanged: (selectedItem) {
-      //     context.read<ProductDetailsCubit>().selectVariation(selectedItem);
-      //   },
-      //   labelBuilder: (item) {
-      //     return item.attributes[attributeKey] ?? '';
-      //   },
-      //   imageBuilder: (item) {
-      //     return item.imageUrls.isNotEmpty
-      //         ? item.imageUrls.first
-      //         : 'https://i.imgur.com/sN3d5tI.png';
-      //   },
-      // );
-    },
-  );
+  void _updateVariant(String key, String value) {
+    final currentAttrs = selectedVariant?.attributes ?? {};
+
+    final newAttrs = Map<String, String>.from(currentAttrs)..[key] = value;
+
+    ProductVariation? matchedVariant = variants.firstWhere(
+      (v) {
+        for (final attr in newAttrs.entries) {
+          if (v.attributes[attr.key] != attr.value) return false;
+        }
+        return true;
+      },
+      orElse: () {
+        return variants.firstWhere(
+          (v) => v.attributes[key] == value,
+          orElse: () => selectedVariant ?? variants.first,
+        );
+      },
+    );
+
+    onVariantSelected(matchedVariant);
+  }
+
+  bool _isOptionAvailable(String key, String value) {
+    return variants.any((v) => v.attributes[key] == value);
+  }
 }

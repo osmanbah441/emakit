@@ -52,129 +52,129 @@ const _mockAddress2 = Address(
 );
 
 // --- Mock Product Variations ---
-const _mockVariantTShirt = ProductVariation(
-  id: 'V-101-L-B',
-  productId: 'P-101',
-  price: 25.00,
-  stockQuantity: 50,
-  attributes: {'Color': 'Black', 'Size': 'L'},
-  listPrice: 30.00,
-  imageUrls: [
-    'https://picsum.photos/id/100/200/200',
-    'https://picsum.photos/id/100/200/201',
-    'https://picsum.photos/id/100/200/202',
-  ],
-);
+// const _mockVariantTShirt = ProductVariation(
+//   id: 'V-101-L-B',
+//   productId: 'P-101',
+//   price: 25.00,
+//   stockQuantity: 50,
+//   attributes: {'Color': 'Black', 'Size': 'L'},
+//   discountedPrice: 30.00,
+//   imageUrls: [
+//     'https://picsum.photos/id/100/200/200',
+//     'https://picsum.photos/id/100/200/201',
+//     'https://picsum.photos/id/100/200/202',
+//   ],
+// );
 
-const _mockVariantCoffee = ProductVariation(
-  id: 'V-205-M-G',
-  productId: 'P-205',
-  price: 18.50,
-  stockQuantity: 100,
-  attributes: {'Roast': 'Medium', 'Weight': '1kg'},
-  imageUrls: [
-    'https://picsum.photos/id/100/200/200',
-    'https://picsum.photos/id/100/200/201',
-    'https://picsum.photos/id/100/200/202',
-  ],
-);
+// const _mockVariantCoffee = ProductVariation(
+//   id: 'V-205-M-G',
+//   productId: 'P-205',
+//   price: 18.50,
+//   stockQuantity: 100,
+//   attributes: {'Roast': 'Medium', 'Weight': '1kg'},
+//   imageUrls: [
+//     'https://picsum.photos/id/100/200/200',
+//     'https://picsum.photos/id/100/200/201',
+//     'https://picsum.photos/id/100/200/202',
+//   ],
+// );
 
-const _mockVariantLaptop = ProductVariation(
-  id: 'V-330-S-16',
-  productId: 'P-330',
-  price: 1299.99,
-  stockQuantity: 5,
-  attributes: {'CPU': 'M1 Pro', 'Storage': '512GB'},
-  imageUrls: [
-    'https://picsum.photos/id/100/200/200',
-    'https://picsum.photos/id/100/200/201',
-    'https://picsum.photos/id/100/200/202',
-  ],
-);
+// const _mockVariantLaptop = ProductVariation(
+//   id: 'V-330-S-16',
+//   productId: 'P-330',
+//   price: 1299.99,
+//   stockQuantity: 5,
+//   attributes: {'CPU': 'M1 Pro', 'Storage': '512GB'},
+//   imageUrls: [
+//     'https://picsum.photos/id/100/200/200',
+//     'https://picsum.photos/id/100/200/201',
+//     'https://picsum.photos/id/100/200/202',
+//   ],
+// );
 
 // --- Mock Orders List ---
-final List<Order> _initialMockOrders = [
-  // Order 1: Delivered (Completed Order)
-  Order(
-    id: 'ORD-001',
-    userId: 'user-abc',
-    date: DateTime.now().subtract(const Duration(days: 10)),
-    deliveryAddress: _mockAddress1,
-    shippingCost: 10.00,
-    taxRate: 0.05,
-    status: OrderStatus.delivered,
-    items: [
-      OrderItem(
-        id: 'OI-001-A',
-        variantSnapshot: _mockVariantTShirt,
-        quantity: 3,
-        unitPrice: 25.00,
-        status: OrderStatus.delivered,
-      ),
-      OrderItem(
-        id: 'OI-001-B',
-        variantSnapshot: _mockVariantCoffee,
-        quantity: 2,
-        unitPrice: 18.50,
-        status: OrderStatus.delivered,
-      ),
-    ],
-  ),
+// final List<Order> _initialMockOrders = [
+//   // Order 1: Delivered (Completed Order)
+//   Order(
+//     id: 'ORD-001',
+//     userId: 'user-abc',
+//     date: DateTime.now().subtract(const Duration(days: 10)),
+//     deliveryAddress: _mockAddress1,
+//     shippingCost: 10.00,
+//     taxRate: 0.05,
+//     status: OrderStatus.delivered,
+//     items: [
+//       OrderItem(
+//         id: 'OI-001-A',
+//         variantSnapshot: _mockVariantTShirt,
+//         quantity: 3,
+//         unitPrice: 25.00,
+//         status: OrderStatus.delivered,
+//       ),
+//       OrderItem(
+//         id: 'OI-001-B',
+//         variantSnapshot: _mockVariantCoffee,
+//         quantity: 2,
+//         unitPrice: 18.50,
+//         status: OrderStatus.delivered,
+//       ),
+//     ],
+//   ),
 
-  // Order 2: In Process (Recent Order)
-  Order(
-    id: 'ORD-002',
-    userId: 'user-abc',
-    date: DateTime.now().subtract(const Duration(hours: 5)),
-    deliveryAddress: _mockAddress1,
-    shippingCost: 0.00,
-    taxRate: 0.08,
-    status: OrderStatus.inProcess,
-    items: [
-      OrderItem(
-        id: 'OI-002-A',
-        variantSnapshot: _mockVariantLaptop,
-        quantity: 1,
-        unitPrice: 1299.99,
-        status: OrderStatus.inProcess,
-      ),
-    ],
-  ),
+//   // Order 2: In Process (Recent Order)
+//   Order(
+//     id: 'ORD-002',
+//     userId: 'user-abc',
+//     date: DateTime.now().subtract(const Duration(hours: 5)),
+//     deliveryAddress: _mockAddress1,
+//     shippingCost: 0.00,
+//     taxRate: 0.08,
+//     status: OrderStatus.inProcess,
+//     items: [
+//       OrderItem(
+//         id: 'OI-002-A',
+//         variantSnapshot: _mockVariantLaptop,
+//         quantity: 1,
+//         unitPrice: 1299.99,
+//         status: OrderStatus.inProcess,
+//       ),
+//     ],
+//   ),
 
-  // Order 3: Partially Shipped/Rejected
-  Order(
-    id: 'ORD-003',
-    userId: 'user-xyz',
-    date: DateTime.now().subtract(const Duration(days: 3)),
-    deliveryAddress: _mockAddress2,
-    shippingCost: 7.50,
-    taxRate: 0.06,
-    status: OrderStatus.inProcess,
-    items: [
-      OrderItem(
-        id: 'OI-003-A',
-        variantSnapshot: _mockVariantTShirt,
-        quantity: 1,
-        unitPrice: 25.00,
-        status: OrderStatus.shipped,
-      ),
-      OrderItem(
-        id: 'OI-003-B',
-        variantSnapshot: _mockVariantCoffee,
-        quantity: 5,
-        unitPrice: 18.50,
-        status: OrderStatus.inProcess,
-      ),
-      OrderItem(
-        id: 'OI-003-C',
-        variantSnapshot: _mockVariantTShirt,
-        quantity: 1,
-        unitPrice: 25.00,
-        status: OrderStatus.rejected,
-      ),
-    ],
-  ),
-];
+//   // Order 3: Partially Shipped/Rejected
+//   Order(
+//     id: 'ORD-003',
+//     userId: 'user-xyz',
+//     date: DateTime.now().subtract(const Duration(days: 3)),
+//     deliveryAddress: _mockAddress2,
+//     shippingCost: 7.50,
+//     taxRate: 0.06,
+//     status: OrderStatus.inProcess,
+//     items: [
+//       OrderItem(
+//         id: 'OI-003-A',
+//         variantSnapshot: _mockVariantTShirt,
+//         quantity: 1,
+//         unitPrice: 25.00,
+//         status: OrderStatus.shipped,
+//       ),
+//       OrderItem(
+//         id: 'OI-003-B',
+//         variantSnapshot: _mockVariantCoffee,
+//         quantity: 5,
+//         unitPrice: 18.50,
+//         status: OrderStatus.inProcess,
+//       ),
+//       OrderItem(
+//         id: 'OI-003-C',
+//         variantSnapshot: _mockVariantTShirt,
+//         quantity: 1,
+//         unitPrice: 25.00,
+//         status: OrderStatus.rejected,
+//       ),
+//     ],
+//   ),
+// ];
 
 // --------------------------------------------------------------------------
 // 4. MOCK REPOSITORY IMPLEMENTATION
@@ -186,7 +186,7 @@ class MockOrderRepository implements OrderRepository {
 
   // Use a factory constructor for Singleton-like access with initial data
   static final MockOrderRepository instance = MockOrderRepository._({
-    for (var order in _initialMockOrders) order.id: order,
+    for (var order in []) order.id: order,
   });
 
   const MockOrderRepository._(this._orders);

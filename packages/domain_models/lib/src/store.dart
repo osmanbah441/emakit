@@ -44,3 +44,29 @@ class Store {
     this.reviewCount = 0,
   });
 }
+
+class StoreOffer {
+  final String id;
+  final double price;
+  final String storeId;
+  final String storeName;
+  final int stockQuantity;
+
+  const StoreOffer({
+    required this.id,
+    required this.price,
+    required this.storeId,
+    required this.storeName,
+    required this.stockQuantity,
+  });
+
+  factory StoreOffer.fromJson(Map<String, dynamic> json) {
+    return StoreOffer(
+      id: json['store_offer_id'] as String? ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      storeId: json['store_id'] as String? ?? '',
+      storeName: json['store_name'] as String? ?? '',
+      stockQuantity: json['stock_quantity'] as int? ?? 0,
+    );
+  }
+}

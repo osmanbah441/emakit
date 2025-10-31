@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class QuantitySelector extends StatelessWidget {
   final int quantity;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
+  final VoidCallback? onIncrement;
+  final VoidCallback? onDecrement;
 
   const QuantitySelector({
     super.key,

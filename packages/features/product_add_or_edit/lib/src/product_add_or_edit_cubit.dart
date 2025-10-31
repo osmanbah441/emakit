@@ -5,14 +5,19 @@ import 'package:product_add_or_edit/src/product_add_or_edit_state.dart';
 import 'package:product_repository/product_repository.dart';
 
 class ProductAddOrEditCubit extends Cubit<ProductAddOrEditState> {
-  ProductAddOrEditCubit({this.productIdToEdit})
-    : super(ProductAddOrEditLoading()) {
+  ProductAddOrEditCubit({
+    this.productIdToEdit,
+    required ProductRepository productRepository,
+    required CategoryRepository categoryRepository,
+  }) : _productRepository = productRepository,
+       _categoryRepository = categoryRepository,
+       super(ProductAddOrEditLoading()) {
     _fetchInitialData(productIdToEdit);
   }
 
   final String? productIdToEdit;
-  final _productRepository = ProductRepository.instance;
-  final _categoryRepository = CategoryRepository.instance;
+  final ProductRepository _productRepository;
+  final CategoryRepository _categoryRepository;
 
   Future<void> _fetchInitialData(String? id) async {
     try {

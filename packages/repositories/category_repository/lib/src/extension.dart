@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/src/attribute_data_type.dart';
 
 extension ProductCategoryToDomain on Map<String, dynamic> {
   Category get toDomainCategory {

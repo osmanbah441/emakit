@@ -1,11 +1,14 @@
 import 'package:cart/cart.dart';
 import 'package:checkout/checkout.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home/home.dart';
 import 'package:product_search/product_search.dart';
 import 'package:profile/profile.dart';
 import 'package:salone_bazaar/router/buyer_scaffold_nav.dart';
+import 'package:category_repository/category_repository.dart';
+import 'package:store_repository/store_repository.dart';
 
 import '../route_paths.dart';
 
@@ -19,39 +22,50 @@ final coreRoutes = [
       GoRoute(
         path: RoutePaths.home.path,
         name: RoutePaths.home.name,
-        builder: (context, state) => HomeScreen(
-          onSeeAllStoreTap: () =>
-              context.pushNamed(RoutePaths.storeDiscovery.name),
-          onDealsTap: () => ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text('Deals Feature coming soon!')),
-            ),
-          onFeaturedProductTap: () => ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text('Featured Product Feature coming soon!')),
-            ),
-          onNewArrivalsTap: () => ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(' New Arrivals Feature coming soon!')),
-            ),
-          onTrendingTap: () => ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text('Trending Products Feature coming soon!')),
-            ),
-
-          onStoreCardTap: (storeId) => context.pushNamed(
-            RoutePaths.storeInfo.name,
-            pathParameters: {'storeId': storeId},
+        builder: (context, state) => BuyerHomeScreen(
+          categoryRepository: CategoryRepositoryImpl(
+            role: ApplicationRole.buyer,
           ),
-          onCategoryCardTap: (id) => context.pushNamed(
+          storeRepository: StoreRepository.instance,
+          onCategoryTap: (id) => context.pushNamed(
             RoutePaths.productList.name,
             queryParameters: {'categoryId': id},
           ),
         ),
+
+        // HomeScreen(
+        //   onSeeAllStoreTap: () =>
+        //       context.pushNamed(RoutePaths.storeDiscovery.name),
+        //   onDealsTap: () => ScaffoldMessenger.of(context)
+        //     ..hideCurrentSnackBar()
+        //     ..showSnackBar(
+        //       SnackBar(content: Text('Deals Feature coming soon!')),
+        //     ),
+        //   onFeaturedProductTap: () => ScaffoldMessenger.of(context)
+        //     ..hideCurrentSnackBar()
+        //     ..showSnackBar(
+        //       SnackBar(content: Text('Featured Product Feature coming soon!')),
+        //     ),
+        //   onNewArrivalsTap: () => ScaffoldMessenger.of(context)
+        //     ..hideCurrentSnackBar()
+        //     ..showSnackBar(
+        //       SnackBar(content: Text(' New Arrivals Feature coming soon!')),
+        //     ),
+        //   onTrendingTap: () => ScaffoldMessenger.of(context)
+        //     ..hideCurrentSnackBar()
+        //     ..showSnackBar(
+        //       SnackBar(content: Text('Trending Products Feature coming soon!')),
+        //     ),
+
+        //   onStoreCardTap: (storeId) => context.pushNamed(
+        //     RoutePaths.storeInfo.name,
+        //     pathParameters: {'storeId': storeId},
+        //   ),
+        //   onCategoryCardTap: (id) => context.pushNamed(
+        //     RoutePaths.productList.name,
+        //     queryParameters: {'categoryId': id},
+        //   ),
+        // ),
       ),
 
       // search

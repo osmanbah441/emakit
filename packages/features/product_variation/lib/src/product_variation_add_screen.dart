@@ -5,15 +5,20 @@ import 'package:product_repository/product_repository.dart';
 
 class ProductVariationAddScreen extends StatelessWidget {
   final String productId;
+  final ProductRepository productRepository;
 
-  const ProductVariationAddScreen({super.key, required this.productId});
+  const ProductVariationAddScreen({
+    super.key,
+    required this.productId,
+    required this.productRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Add Variation'), centerTitle: false),
       body: FutureBuilder<ProductWithAttributes>(
-        future: ProductRepository.instance.getProductWithAttributes(productId),
+        future: productRepository.getProductWithAttributes(productId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CenteredProgressIndicator();
@@ -26,7 +31,10 @@ class ProductVariationAddScreen extends StatelessWidget {
           }
 
           final product = snapshot.data!;
-          return VariationForm(product: product);
+          return VariationForm(
+            product: product,
+            productRepository: productRepository,
+          );
         },
       ),
     );
@@ -35,8 +43,13 @@ class ProductVariationAddScreen extends StatelessWidget {
 
 class VariationForm extends StatefulWidget {
   final ProductWithAttributes product;
+  final ProductRepository productRepository;
 
-  const VariationForm({super.key, required this.product});
+  const VariationForm({
+    super.key,
+    required this.product,
+    required this.productRepository,
+  });
 
   @override
   State<VariationForm> createState() => _VariationFormState();
@@ -77,8 +90,8 @@ class _VariationFormState extends State<VariationForm> {
 
     if (!_formKey.currentState!.validate()) return;
 
-    await ProductRepository.instance.insertProductVariant(
-      storeId: "ec10554c-065d-4c7d-aa4d-93656cedc10a",
+    await widget.productRepository.insertProductVariant(
+      storeId: "b6a74a2b-4e00-4c54-a54e-8941c3668142",
       productId: widget.product.productId,
       stock: int.parse(_stockController.text),
       price: int.parse(_priceController.text),

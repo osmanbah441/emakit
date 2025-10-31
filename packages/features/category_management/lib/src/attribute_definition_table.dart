@@ -2,6 +2,8 @@ import 'package:category_management/src/add_edit_attribute_dialog.dart';
 import 'package:category_management/src/category_management_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/src/attribute_data_type.dart';
+import 'package:domain_models/src/attribute_definition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

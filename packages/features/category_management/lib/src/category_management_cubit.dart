@@ -7,17 +7,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'category_management_state.dart';
 
 class CategoryManagementCubit extends Cubit<CategoryManagementState> {
-  CategoryManagementCubit() : super(const CategoryManagementState()) {
+  CategoryManagementCubit({required CategoryRepository categoryRepository})
+    : _categoryRepository = categoryRepository,
+      super(const CategoryManagementState()) {
     _fetch();
   }
 
-  final CategoryRepository _repo = CategoryRepository.instance;
+  final CategoryRepository _categoryRepository;
 
   void _fetch() async {
     try {
       final data = await Future.wait([
-        _repo.getCategoryWithAttributes(),
-        _repo.getAllAttributes(),
+        _categoryRepository.getCategoryWithAttributes(),
+        _categoryRepository.getAllAttributes(),
       ]);
       emit(
         state.copyWith(
@@ -39,7 +41,7 @@ class CategoryManagementCubit extends Cubit<CategoryManagementState> {
 
   void upsertCategory(Category category) async {
     try {
-      await _repo.upsert(
+      await _categoryRepository.upsert(
         id: category.id,
         parentId: category.parentId,
         name: category.name,
@@ -61,14 +63,14 @@ class CategoryManagementCubit extends Cubit<CategoryManagementState> {
     List<String>? options,
   }) async {
     try {
-      await _repo.upsertAttribute(
+      await _categoryRepository.upsertAttribute(
         id: id,
         name: name,
         dataType: dataType,
         unit: unit,
         options: options,
       );
-      final updatedAttributes = await _repo.getAllAttributes();
+      final updatedAttributes = await _categoryRepository.getAllAttributes();
       emit(
         state.copyWith(
           attributes: updatedAttributes,
@@ -86,7 +88,7 @@ class CategoryManagementCubit extends Cubit<CategoryManagementState> {
   ) async {
     print('id: $catId, items: $items');
     try {
-      await _repo.linkCategoryToAttributes(catId, items);
+      await _categoryRepository.linkCategoryToAttributes(catId, items);
       _fetch();
     } catch (e) {
       emit(

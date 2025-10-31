@@ -40,3 +40,4 @@ export 'src/wallet_card.dart';
 export 'src/sign_in_buttons.dart';
 export 'src/order_progress_indicator.dart';
 export 'src/image_picker_component.dart';
+export 'src/star_rating_component.dart';

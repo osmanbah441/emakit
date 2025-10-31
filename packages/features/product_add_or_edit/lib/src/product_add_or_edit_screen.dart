@@ -1,9 +1,12 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/src/product_media.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:component_library/component_library.dart';
 import 'package:product_add_or_edit/src/product_add_or_edit_cubit.dart';
 import 'package:product_add_or_edit/src/product_add_or_edit_state.dart';
+import 'package:product_repository/product_repository.dart';
+import 'package:category_repository/category_repository.dart';
 
 import 'components/components.dart';
 
@@ -12,15 +15,23 @@ class ProductAddOrEditScreen extends StatelessWidget {
     super.key,
     this.productIdToEdit,
     required this.onSaveSuccess,
+    required this.productRepository,
+    required this.categoryRepository,
   });
 
   final String? productIdToEdit;
   final VoidCallback onSaveSuccess;
+  final ProductRepository productRepository;
+  final CategoryRepository categoryRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProductAddOrEditCubit(productIdToEdit: productIdToEdit),
+      create: (_) => ProductAddOrEditCubit(
+        productIdToEdit: productIdToEdit,
+        categoryRepository: categoryRepository,
+        productRepository: productRepository,
+      ),
       child: ProductAddOrEditView(onSaveSuccess: onSaveSuccess),
     );
   }

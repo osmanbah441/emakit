@@ -4,6 +4,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:category_management/category_management.dart';
 import 'package:product_add_or_edit/product_add_or_edit.dart';
 import 'package:product_list/product_list.dart';
+import 'package:product_repository/product_repository.dart';
+import 'package:domain_models/domain_models.dart';
+import 'package:category_repository/category_repository.dart';
 
 const _supabaseUrl = String.fromEnvironment(
   'SUPABASE_URL',
@@ -45,15 +48,22 @@ class AdminDashboard extends StatefulWidget {
 
 class _AdminDashboardState extends State<AdminDashboard> {
   int _selectedIndex = 0;
+  final _productRepository = ProductRepositoryImpl(role: ApplicationRole.admin);
+  final _categoryRepository = CategoryRepositoryImpl(
+    role: ApplicationRole.admin,
+  );
 
   List<Widget> _pages() => [
     DashboardPage(),
     AdminProductListScreen(
+      productRepository: _productRepository,
       onAddProduct: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (c) => ProductAddOrEditScreen(
+              productRepository: _productRepository,
+              categoryRepository: _categoryRepository,
               onSaveSuccess: () {
                 Navigator.pop(context);
               },
@@ -66,6 +76,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
           context,
           MaterialPageRoute(
             builder: (c) => ProductAddOrEditScreen(
+              productRepository: _productRepository,
+              categoryRepository: _categoryRepository,
               productIdToEdit: id,
               onSaveSuccess: () {
                 Navigator.pop(context);
@@ -75,7 +87,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
         );
       },
     ),
-    CategoryManagementScreen(),
+    CategoryManagementScreen(categoryRepository: _categoryRepository),
     StoresPage(),
     OrdersPage(),
     UsersPage(),

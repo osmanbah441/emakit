@@ -5,16 +5,16 @@ enum ActionStatus { initial, loading, success, failure }
 class ProductDetailsState extends Equatable {
   final Product? product;
   final Store? store;
-  final MeasurementUnit measurementUnit;
+  // final MeasurementUnit measurementUnit;
   final ActionStatus status;
   final String? error;
 
-  final ProductVariation? selectedVariation;
+  final StoreVariation? selectedVariation;
 
   const ProductDetailsState({
     this.product,
     this.store,
-    this.measurementUnit = MeasurementUnit.inches,
+    // this.measurementUnit = MeasurementUnit.inches,
     this.status = ActionStatus.initial,
     this.error,
     this.selectedVariation,
@@ -22,15 +22,15 @@ class ProductDetailsState extends Equatable {
 
   ProductDetailsState copyWith({
     Product? product,
-    MeasurementUnit? measurementUnit,
+    // MeasurementUnit? measurementUnit,
     ActionStatus? status,
     String? error,
     Store? store,
-    ProductVariation? selectedVariation,
+    StoreVariation? selectedVariation,
   }) {
     return ProductDetailsState(
       product: product ?? this.product,
-      measurementUnit: measurementUnit ?? this.measurementUnit,
+      // measurementUnit: measurementUnit ?? this.measurementUnit,
       status: status ?? this.status,
       error: error,
       store: store ?? this.store,
@@ -39,12 +39,5 @@ class ProductDetailsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-    product,
-    measurementUnit,
-    status,
-    error,
-    store,
-    selectedVariation,
-  ];
+  List<Object?> get props => [product, status, error, store, selectedVariation];
 }

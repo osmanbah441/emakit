@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/src/product_media.dart';
 import 'package:flutter/material.dart';
 
 class ProductMediaInput extends StatefulWidget {
@@ -30,9 +31,7 @@ class _ProductMediaInputState extends State<ProductMediaInput> {
 
     final newMedia = ProductMedia(
       url: _urlController.text.trim(),
-      altText: _altTextController.text.trim().isEmpty
-          ? null
-          : _altTextController.text.trim(),
+      altText: _altTextController.text.trim(),
     );
 
     setState(() {

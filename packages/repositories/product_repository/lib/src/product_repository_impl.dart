@@ -3,16 +3,32 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  const ProductRepositoryImpl();
+  const ProductRepositoryImpl({required this.role});
 
   static final _client = Supabase.instance.client;
   static const _table = "catalog_product";
+  final ApplicationRole role;
 
   @override
-  Future<List<Product>> getAll({String? searchTerm, String? categoryId}) async {
-    final res = await _client.from(_table).select();
-    final products = res.map((e) => e.toDomainProduct).toList();
-    return products;
+  Future<List<Product>> getAll(
+    ApplicationRole role, {
+    String? searchTerm,
+    String? categoryId,
+  }) async {
+    switch (role) {
+      case ApplicationRole.buyer:
+        final req = await _client
+            .from('v_list_buyer_products_in_stock')
+            .select();
+
+        return req.map((e) => BuyerProductsList.fromJson(e)).toList();
+
+      case ApplicationRole.store:
+      case ApplicationRole.admin:
+        final res = await _client.from(_table).select();
+        final products = res.map((e) => e.toDomainProduct).toList();
+        return products;
+    }
   }
 
   @override
@@ -57,19 +73,6 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<List<Product>> getAllProductsFromSubCategories(
-    List<String> ids,
-  ) async {
-    final products = <Product>[];
-    for (var id in ids) {
-      final p = await getAll(categoryId: id);
-      products.addAll(p);
-    }
-
-    return products;
-  }
-
-  @override
   Future<ProductWithAttributes> getProductWithAttributes(
     String productId,
   ) async => await _client
@@ -110,6 +113,28 @@ class ProductRepositoryImpl implements ProductRepository {
       params: data,
     );
   }
+
+  @override
+  Future<Product> getProductDetails({
+    String? productId,
+    String? variantId,
+  }) async {
+    switch (role) {
+      case ApplicationRole.buyer:
+        final res = await _client.rpc(
+          'fn_get_buyer_product_details',
+          params: {'p_variant_id': variantId},
+        );
+
+        return BuyerProductDetails.fromJson(res);
+      case ApplicationRole.admin:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ApplicationRole.store:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
+  }
 }
 
 extension on Map<String, dynamic> {
@@ -145,12 +170,4 @@ extension on Map<String, dynamic> {
       attributes: attrs,
     );
   }
-
-  // ProductMedia get toDomainProductMedia => ProductMedia(
-  //   id: this['id'],
-  //   productId: this['product_id'] as String,
-  //   url: this['url'] as String,
-  //   altText: this['alt_text'] as String?,
-  //   role: this['role'] as String?,
-  // );
 }

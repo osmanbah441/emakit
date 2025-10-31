@@ -1,8 +1,7 @@
 export 'src/product.dart';
-export 'src/cart.dart';
+export 'src/cart_item.dart';
 export 'src/category.dart';
 export 'src/exceptions.dart';
-export 'src/extracted_product_info.dart';
 export 'src/user_info.dart';
 export 'src/variation_field.dart';
 export 'src/order.dart';
@@ -11,5 +10,12 @@ export 'src/address.dart';
 export 'src/payment.dart';
 export 'src/country.dart';
 export 'src/auth_exceptions.dart';
-
-// export 'src/measurement.dart';
+export 'src/role.dart';
+export 'src/buyer_product.dart';
+export 'src/product_media.dart';
+export 'src/store_variation.dart';
+export 'src/attribute_definition.dart';
+export 'src/link_category_to_atrributes.dart';
+export 'src/color_option.dart';
+export 'src/product_variation.dart';
+export 'src/buyer_product_details.dart';

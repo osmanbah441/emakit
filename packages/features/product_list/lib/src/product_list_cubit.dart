@@ -1,45 +1,54 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:category_repository/category_repository.dart';
 import 'package:product_repository/product_repository.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:equatable/equatable.dart';
+import 'category_manager.dart';
 
 part 'product_list_state.dart';
 
 class ProductListCubit extends Cubit<ProductListState> {
-  ProductListCubit({String parentCategoryId = 'root'})
-    : _productRepository = ProductRepository.instance,
-      _categoryRepository = CategoryRepository.instance,
-      _parentCategoryId = parentCategoryId,
-      super(ProductInitial()) {
+  ProductListCubit(
+    this.role, {
+    required String parentCategoryId,
+    required ProductRepository productRepository,
+  }) : _productRepository = productRepository,
+       _categoryManager = CategoryManager.instance,
+       _parentCategoryId = parentCategoryId,
+       super(ProductInitial()) {
     _loadInitialData();
   }
 
+  final ApplicationRole role;
   final ProductRepository _productRepository;
-  final CategoryRepository _categoryRepository;
+  final CategoryManager _categoryManager;
   final String _parentCategoryId;
 
   void _loadInitialData() async {
     try {
       emit(ProductLoading());
 
-      final categories = await Future.wait([
-        _categoryRepository.getById(_parentCategoryId),
-        _categoryRepository.getSubcategories(_parentCategoryId),
-        _categoryRepository.getAllSubCategoriesId(_parentCategoryId),
-      ]);
+      await _categoryManager.loadAllCategories();
 
-      final listOfProductLists = await _productRepository
-          .getAllProductsFromSubCategories(categories[2] as List<String>);
+      final topLevelCategory = _categoryManager.getById(_parentCategoryId);
+
+      final initialSubcategories = _categoryManager.getSubcategories(
+        _parentCategoryId,
+      );
+
+      final listOfProductLists = await _productRepository.getAll(role);
+
       final allProducts = listOfProductLists.toList();
-      allProducts.shuffle();
+
       emit(
         ProductLoaded(
           allProducts: allProducts,
-          topLevelCategory: categories[0] as Category,
-          categories: categories[1] as List<Category>,
+          topLevelCategory: topLevelCategory,
+          categories: initialSubcategories,
+          selectedSubCategory: topLevelCategory,
         ),
       );
-    } catch (e) {
+    } catch (e, trac) {
+      print(trac);
       emit(ProductError("Failed to load products: ${e.toString()}"));
     }
   }
@@ -48,17 +57,40 @@ class ProductListCubit extends Cubit<ProductListState> {
     final currentState = state;
     if (currentState is ProductLoaded) {
       if (currentState.selectedSubCategory?.id == category.id) {
-        return; // don't refetch
+        if (category.id != _parentCategoryId) {
+          _loadInitialData();
+        }
+        return;
       }
 
-      final listOfProduct = await _productRepository.getAll(
+      emit(
+        currentState.copyWith(
+          isProductLoading: true,
+          selectedSubCategory: category,
+        ),
+      );
+
+      List<Category> newCategoriesForDisplay;
+      final subcategories = _categoryManager.getSubcategories(category.id!);
+
+      if (subcategories.isEmpty) {
+        newCategoriesForDisplay = currentState.categories;
+      } else {
+        newCategoriesForDisplay = subcategories;
+      }
+
+      final listOfProducts = await _productRepository.getAll(
+        role,
         categoryId: category.id,
       );
 
       emit(
-        currentState.copyWith(
-          allProducts: listOfProduct,
+        ProductLoaded(
+          allProducts: listOfProducts,
+          topLevelCategory: currentState.topLevelCategory,
+          categories: newCategoriesForDisplay,
           selectedSubCategory: category,
+          isProductLoading: false,
         ),
       );
     }

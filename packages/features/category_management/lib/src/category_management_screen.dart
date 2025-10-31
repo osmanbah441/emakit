@@ -1,18 +1,33 @@
 import 'package:category_management/src/attribute_definition_table.dart';
 import 'package:category_management/src/category_definition_table.dart';
 import 'package:category_management/src/category_management_cubit.dart';
+import 'package:category_repository/category_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryManagementScreen extends StatefulWidget {
-  const CategoryManagementScreen({super.key});
+class CategoryManagementScreen extends StatelessWidget {
+  const CategoryManagementScreen({super.key, required this.categoryRepository});
+
+  final CategoryRepository categoryRepository;
 
   @override
-  State<CategoryManagementScreen> createState() =>
-      _CategoryManagementScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          CategoryManagementCubit(categoryRepository: categoryRepository),
+      child: const CategoryManagementView(),
+    );
+  }
 }
 
-class _CategoryManagementScreenState extends State<CategoryManagementScreen>
+class CategoryManagementView extends StatefulWidget {
+  const CategoryManagementView({super.key});
+
+  @override
+  State<CategoryManagementView> createState() => _CategoryManagementViewState();
+}
+
+class _CategoryManagementViewState extends State<CategoryManagementView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -42,57 +57,54 @@ class _CategoryManagementScreenState extends State<CategoryManagementScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CategoryManagementCubit(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Category & Attribute Management'),
-          centerTitle: false,
-        ),
-        body: BlocConsumer<CategoryManagementCubit, CategoryManagementState>(
-          listener: (context, state) {
-            if (state.snackBarMessage != null) {
-              _showSnackbar(context, state.snackBarMessage!);
-            }
-          },
-          builder: (context, state) {
-            switch (state.status) {
-              case CategoryManagementStatus.loading:
-                return const Center(child: CircularProgressIndicator());
-              case CategoryManagementStatus.failure:
-                return const Center(
-                  child: Text('Failed to load data. Please try again.'),
-                );
-              case CategoryManagementStatus.success:
-                return Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TabBar(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Category & Attribute Management'),
+        centerTitle: false,
+      ),
+      body: BlocConsumer<CategoryManagementCubit, CategoryManagementState>(
+        listener: (context, state) {
+          if (state.snackBarMessage != null) {
+            _showSnackbar(context, state.snackBarMessage!);
+          }
+        },
+        builder: (context, state) {
+          switch (state.status) {
+            case CategoryManagementStatus.loading:
+              return const Center(child: CircularProgressIndicator());
+            case CategoryManagementStatus.failure:
+              return const Center(
+                child: Text('Failed to load data. Please try again.'),
+              );
+            case CategoryManagementStatus.success:
+              return Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TabBar(
+                      controller: _tabController,
+                      isScrollable: true,
+                      tabs: const [
+                        Tab(text: 'Categories'),
+                        Tab(text: 'Attribute Definitions'),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Expanded(
+                      child: TabBarView(
                         controller: _tabController,
-                        isScrollable: true,
-                        tabs: const [
-                          Tab(text: 'Categories'),
-                          Tab(text: 'Attribute Definitions'),
+                        children: [
+                          CategoryDefinitionTable(),
+                          AttributeDefinitionTable(),
                         ],
                       ),
-                      const SizedBox(height: 24),
-                      Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            CategoryDefinitionTable(),
-                            AttributeDefinitionTable(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-            }
-          },
-        ),
+                    ),
+                  ],
+                ),
+              );
+          }
+        },
       ),
     );
   }

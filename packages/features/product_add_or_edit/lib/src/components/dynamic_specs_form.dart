@@ -1,4 +1,6 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/src/attribute_data_type.dart';
+import 'package:domain_models/src/link_category_to_atrributes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_add_or_edit/src/product_add_or_edit_cubit.dart';
@@ -100,7 +102,7 @@ class _DynamicSpecFormState extends State<DynamicSpecForm> {
     final current = _values[id];
 
     return DropdownButtonFormField<String>(
-      value: (current is String && link.options.contains(current))
+      initialValue: (current is String && link.options.contains(current))
           ? current
           : null,
       decoration: InputDecoration(

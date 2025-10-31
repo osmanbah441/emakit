@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:component_library/component_library.dart';
 
-/// --- MODEL ---
+import 'components/contact_and_delivery.dart';
+
 class Address extends Equatable {
   final String id;
   final String label;
@@ -15,7 +16,6 @@ class Address extends Equatable {
   List<Object?> get props => [id, label, details];
 }
 
-/// --- STATE ---
 class CheckoutState extends Equatable {
   final List<Address> addresses;
   final Address? selectedAddress;
@@ -33,7 +33,6 @@ class CheckoutState extends Equatable {
   List<Object?> get props => [addresses, selectedAddress ?? ""];
 }
 
-/// --- CUBIT ---
 class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit()
     : super(
@@ -67,7 +66,6 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 }
 
-/// --- UI ---
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
@@ -79,98 +77,12 @@ class CheckoutScreen extends StatelessWidget {
         appBar: AppBar(title: const Text('Checkout'), centerTitle: true),
         body: BlocBuilder<CheckoutCubit, CheckoutState>(
           builder: (context, state) {
-            final cubit = context.read<CheckoutCubit>();
-            final theme = Theme.of(context);
-
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 spacing: 16,
                 children: [
-                  // --- Delivery Contact ---
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Delivery Contact",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          TextField(
-                            decoration: const InputDecoration(
-                              labelText: 'Phone Number for Delivery',
-                              hintText: '+1 (555) 123-4567',
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.phone,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "We will use this number to contact you for delivery updates.",
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  // --- Delivery Address ---
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            "Delivery Address",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          DropdownButtonFormField<Address>(
-                            isExpanded: true,
-                            hint: const Text("Select an address"),
-                            items: state.addresses
-                                .map(
-                                  (address) => DropdownMenuItem<Address>(
-                                    value: address,
-                                    child: Text(
-                                      "${address.label} - ${address.details}",
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (address) {
-                              cubit.selectAddress(address);
-                            },
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          OutlinedButton.icon(
-                            onPressed: cubit.useCurrentLocation,
-                            icon: const Icon(Icons.my_location),
-                            label: const Text(
-                              "Add Address via Current Location",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const ContactAndDelivery(),
 
                   OrderSummarySection(
                     subtotal: '\$128.00',
@@ -181,7 +93,7 @@ class CheckoutScreen extends StatelessWidget {
                   ),
 
                   WalletCard(
-                    ownerName: 'John Doe',
+                    ownerName: '',
                     balance: 150.75,
                     actionSection: Padding(
                       padding: const EdgeInsets.all(24),

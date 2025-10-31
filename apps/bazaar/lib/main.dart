@@ -3,6 +3,8 @@ import 'package:product_list/product_list.dart';
 import 'package:product_variation/product_variation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:component_library/component_library.dart';
+import 'package:product_repository/product_repository.dart';
+import 'package:domain_models/domain_models.dart';
 
 const _supabaseUrl = String.fromEnvironment(
   'SUPABASE_URL',
@@ -50,22 +52,30 @@ class SellerAppHome extends StatefulWidget {
 class _SellerAppHomeState extends State<SellerAppHome> {
   int _selectedIndex = 0; // The currently selected tab index
 
+  final productRepository = ProductRepositoryImpl(role: ApplicationRole.store);
+
   // List of all the screens in the bottom navigation
   List<Widget> _screens() => [
     HomeScreen(),
     StoreProductListScreen(
+      productRepository: productRepository,
+      onAddProduct: () {},
       onProductTap: (id) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProductVariationListScreen(
+              onProductTap: () {},
+              productRepository: productRepository,
               productId: id,
               onAddVariation: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        ProductVariationAddScreen(productId: id),
+                    builder: (context) => ProductVariationAddScreen(
+                      productId: id,
+                      productRepository: productRepository,
+                    ),
                   ),
                 );
               },
@@ -73,7 +83,6 @@ class _SellerAppHomeState extends State<SellerAppHome> {
           ),
         );
       },
-      onProductRequest: () {},
     ),
     OrdersScreen(),
     ProfileScreen(),

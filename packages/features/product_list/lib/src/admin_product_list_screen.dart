@@ -5,11 +5,12 @@ import 'package:product_repository/product_repository.dart';
 class AdminProductListScreen extends StatefulWidget {
   final VoidCallback onAddProduct;
   final Function(String) onEditProduct;
-
+  final ProductRepository productRepository;
   const AdminProductListScreen({
     super.key,
     required this.onAddProduct,
     required this.onEditProduct,
+    required this.productRepository,
   });
 
   @override
@@ -22,12 +23,16 @@ class _AdminProductListScreenState extends State<AdminProductListScreen> {
   @override
   void initState() {
     super.initState();
-    _productsFuture = ProductRepository.instance.getAll();
+    _fetch();
+  }
+
+  void _fetch() async {
+    _productsFuture = widget.productRepository.getAll(ApplicationRole.admin);
   }
 
   void _refreshProducts() {
     setState(() {
-      _productsFuture = ProductRepository.instance.getAll();
+      _fetch();
     });
   }
 

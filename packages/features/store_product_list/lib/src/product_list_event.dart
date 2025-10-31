@@ -27,7 +27,7 @@ class SendTextSearch extends ProductListEvent {
 }
 
 class ToggleCartStatus extends ProductListEvent {
-  final ProductVariation product;
+  final StoreVariation product;
 
   const ToggleCartStatus(this.product);
 }
