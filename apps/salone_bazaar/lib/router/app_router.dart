@@ -1,10 +1,10 @@
+import 'package:checkout/checkout.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salone_bazaar/router/route_paths.dart';
 import 'package:domain_models/domain_models.dart';
 
 import 'routes/core_routes.dart';
 import 'routes/order_routes.dart';
-import 'routes/store_routes.dart';
 import 'routes/user_routes.dart';
 
 import 'package:product_repository/product_repository.dart';
@@ -24,7 +24,7 @@ class AppRouter {
 
   AppRouter() {
     router = GoRouter(
-      initialLocation: RoutePaths.checkout.path,
+      initialLocation: RoutePaths.home.path,
       debugLogDiagnostics: true,
       routes: [
         GoRoute(
@@ -61,8 +61,13 @@ class AppRouter {
             );
           },
         ),
-
-        ...storeRoutes,
+        GoRoute(
+          path: RoutePaths.checkout.path,
+          name: RoutePaths.checkout.name,
+          builder: (context, state) =>
+              CheckoutScreen(cartRepository: cartRepository),
+        ),
+        // ...storeRoutes,
         ...coreRoutes,
         ...orderRoutes,
         ...userRoutes,

@@ -7,11 +7,21 @@ class CartRepositoryImpl implements CartRepository {
   final _table = 'cart_item';
 
   @override
-  Future<List<CartItem>> getItems() async {
-    final res = await _client
-        .from('v_user_cart_details')
-        .select()
-        .filter('user_id', 'eq', userId);
+  Future<List<CartItem>> getItems({bool onlySelected = false}) async {
+    List<Map<String, dynamic>> res;
+
+    if (onlySelected) {
+      res = await _client
+          .from('v_user_cart_details')
+          .select()
+          .filter('user_id', 'eq', userId)
+          .filter('is_selected', 'eq', true);
+    } else {
+      res = await _client
+          .from('v_user_cart_details')
+          .select()
+          .filter('user_id', 'eq', userId);
+    }
 
     return res.map((e) => CartItem.fromJson(e)).toList();
   }

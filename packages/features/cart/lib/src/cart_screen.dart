@@ -104,7 +104,7 @@ class _CartList extends StatelessWidget {
                   child: IgnorePointer(
                     ignoring: false,
                     child: CartItemCard(
-                      imageUrl: item.variantImageUrl,
+                      imageUrl: item.imageUrl,
                       title: item.productName,
                       lineTotalPrice: item.lineTotal,
                       unitPrice: item.unitPrice,

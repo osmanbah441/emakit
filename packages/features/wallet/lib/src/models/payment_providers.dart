@@ -1,0 +1,1 @@
+enum MobileMoneyProvider { orange, africell }

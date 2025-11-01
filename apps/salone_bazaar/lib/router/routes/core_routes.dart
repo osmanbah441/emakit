@@ -135,9 +135,4 @@ final coreRoutes = [
       ),
     ],
   ),
-  GoRoute(
-    path: RoutePaths.checkout.path,
-    name: RoutePaths.checkout.name,
-    builder: (context, state) => const CheckoutScreen(),
-  ),
 ];

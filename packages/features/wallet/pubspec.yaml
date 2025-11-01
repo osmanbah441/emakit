@@ -1,0 +1,17 @@
+name: wallet
+description: "A new Flutter package project."
+version: 0.0.1
+resolution: workspace
+environment:
+  sdk: ^3.9.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  component_library: ^0.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

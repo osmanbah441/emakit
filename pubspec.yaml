@@ -30,10 +30,6 @@ workspace:
   - packages/features/order_list
   - packages/features/seller_onboarding
   - packages/features/seller_dashboard
-  - packages/features/store_product_details
-  - packages/features/store_product_list
-  - packages/features/store_order_details
-  - packages/features/store_order_list
   - packages/features/home
   - packages/features/store_info
   - packages/features/store_discovery
@@ -42,6 +38,7 @@ workspace:
   - packages/features/product_add_image_search
   - packages/features/product_add_or_edit
   - packages/features/product_variation
+  - packages/features/wallet
 
 environment:
   sdk: ^3.8.0

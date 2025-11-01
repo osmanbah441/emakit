@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:store_repository/store_repository.dart';
+import 'package:wallet/wallet.dart';
 
 import 'profile_cubit.dart';
 
@@ -86,31 +87,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        WalletCard(
-                          balance: 100,
-                          ownerName: state.user!.displayName!,
-                          ownerEmail: state.user!.email!,
-                          actionSection: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 24),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: () {},
-
-                                  icon: const Icon(Icons.phone_android),
-                                  label: const Text('Add Money'),
-                                ),
-                                ElevatedButton.icon(
-                                  onPressed: () {},
-
-                                  icon: const Icon(Icons.swap_horiz),
-                                  label: const Text('Cash out'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const GenericWalletCard(),
 
                         const SizedBox(height: 40),
 
