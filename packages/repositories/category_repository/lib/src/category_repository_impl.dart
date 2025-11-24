@@ -2,12 +2,10 @@ import 'package:domain_models/domain_models.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'category_repository.dart';
-import 'extension.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
-  const CategoryRepositoryImpl({required this.role});
+  const CategoryRepositoryImpl();
 
-  final ApplicationRole role;
   static final _supabase = Supabase.instance.client;
   static const _table = 'category';
 
@@ -40,7 +38,19 @@ class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<List<Category>> getAll() async {
     final res = await _supabase.from(_table).select();
-    return res.map((e) => (e).toDomainCategory).toList();
+    return res
+        .map(
+          (e) => Category(
+            id: e['id'] as String,
+            name: e['name'] as String,
+            description: e['description'] as String?,
+            imageUrl:
+                e['image_url'] as String? ??
+                'https://placehold.co/600x337?text=New+Category',
+            parentId: e['parent_id'] as String?,
+          ),
+        )
+        .toList();
   }
 
   @override
@@ -69,25 +79,25 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<List<AttributeDefinition>> getAllAttributes() async {
-    final res = await _supabase.from('v_attribute_with_options').select();
+    // final res = await _supabase.from('v_attribute_with_options').select();
 
-    final attrs = res.map((e) => (e).toDomainAttribute).toList();
+    // final attrs = res.map((e) => (e).toDomainAttribute).toList();
 
-    for (final attr in attrs) {
-      if (attr.options != null && attr.options!.isNotEmpty) {
-        print(' found');
-      }
-    }
+    // for (final attr in attrs) {
+    //   if (attr.options != null && attr.options!.isNotEmpty) {
+    //     print(' found');
+    //   }
+    // }
 
-    return attrs;
+    // return attrs;
+    return [];
   }
 
   @override
-  Future<List<Category>> getCategoryWithAttributes() async {
-    final res = await _supabase.from('v_category_with_attributes').select();
-    final cats = res.map((e) => e.toDomainCategory).toList();
-
-    return cats;
+  Future<List<ProductCategory>> productCategory({String? id}) async {
+    final query = _supabase.from('v_category_product_listing').select();
+    final res = id != null ? await query.eq('category_id', id) : await query;
+    return (res as List).map((e) => ProductCategory.fromJson(e)).toList();
   }
 
   @override

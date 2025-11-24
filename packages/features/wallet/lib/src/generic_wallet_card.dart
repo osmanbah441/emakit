@@ -4,14 +4,16 @@ import 'components/components.dart';
 import 'models/models.dart';
 
 class GenericWalletCard extends StatefulWidget {
-  const GenericWalletCard({super.key});
+  const GenericWalletCard({super.key, required this.walletId});
+  final String walletId;
 
   @override
   State<GenericWalletCard> createState() => _GenericWalletCardState();
 }
 
 class _GenericWalletCardState extends State<GenericWalletCard> {
-  double _balance = 0.0;
+  // 1. Updated state variable to use the Balance object.
+  Balance? _balance;
   bool _isLoading = true;
   bool _isCashingOut = false;
   final _repo = WalletRepository.instance;
@@ -35,7 +37,7 @@ class _GenericWalletCardState extends State<GenericWalletCard> {
     });
 
     try {
-      final newBalance = await _repo.getBalance();
+      final newBalance = await _repo.getBalance(widget.walletId);
       setState(() {
         _balance = newBalance;
       });
@@ -59,16 +61,14 @@ class _GenericWalletCardState extends State<GenericWalletCard> {
       builder: (context) {
         return AddMoneyModal(
           onAddMoney: (amount) async {
-            final details = await _repo.addMoney(amount);
+            final details = await _repo.mobileCashIn(amount, widget.walletId);
             return details;
           },
           onSuccess: (details) async {
             await Navigator.push<void>(
               context,
               MaterialPageRoute(
-                builder: (_) => USSDTransactionCompletion(
-                  details: details as DepositDetails,
-                ),
+                builder: (_) => USSDTransactionCompletion(details: details),
               ),
             );
 
@@ -94,16 +94,17 @@ class _GenericWalletCardState extends State<GenericWalletCard> {
       ),
       builder: (context) {
         return CashoutModal(
-          availableBalance: _balance,
+          availableBalance: _balance!.amount,
           onCashoutConfirm: (details) async {
             setState(() {
               _isCashingOut = true;
             });
 
             try {
-              await _repo.processCashout(
+              await _repo.mobileCashOut(
+                walletId: widget.walletId,
                 phoneNumber: details.phoneNumber,
-                provider: details.provider.name,
+                provider: details.provider,
                 amount: details.total,
               );
 
@@ -145,7 +146,7 @@ class _GenericWalletCardState extends State<GenericWalletCard> {
 
   @override
   Widget build(BuildContext context) {
-    final cashoutDisabled = _isLoading || _isCashingOut;
+    final cashoutDisabled = _isLoading || _isCashingOut || _balance == null;
 
     return WalletCard(
       balance: _balance,

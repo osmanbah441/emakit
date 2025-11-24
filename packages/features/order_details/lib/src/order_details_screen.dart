@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:order_repository/order_repository.dart';
 
+import '../components/order_list_item.dart';
+
 abstract class OrderDetailsState extends Equatable {
   const OrderDetailsState();
 
@@ -35,34 +37,46 @@ class OrderDetailsError extends OrderDetailsState {
 }
 
 class OrderDetailsCubit extends Cubit<OrderDetailsState> {
-  OrderDetailsCubit({required this.repository, required this.orderId})
-    : super(OrderDetailsInitial());
+  OrderDetailsCubit({
+    required OrderRepository orderRepository,
+    required this.orderId,
+  }) : _orderRepository = orderRepository,
+       super(OrderDetailsInitial());
 
-  final OrderRepository repository;
+  final OrderRepository _orderRepository;
   final String orderId;
 
-  Future<void> fetchOrderDetails() async {
+  void fetchOrderDetails() async {
     emit(OrderDetailsLoading());
     try {
-      final order = await repository.getOrderById(orderId);
+      final order = await _orderRepository.getOrderById(orderId);
       emit(OrderDetailsSuccess(order: order));
     } catch (e) {
       emit(OrderDetailsError(message: e.toString()));
     }
   }
+
+  void updateStatus(String id, OrderItemStatus s) async {
+    await _orderRepository.updateOrderItemStatus(id, s);
+    fetchOrderDetails();
+  }
 }
 
-// --- UI: The Main Screen Widget ---
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key, required this.id});
+  const OrderDetailsScreen({
+    super.key,
+    required this.id,
+    required this.orderRepository,
+  });
 
   final String id;
+  final OrderRepository orderRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          OrderDetailsCubit(repository: OrderRepository.instance, orderId: id)
+          OrderDetailsCubit(orderRepository: orderRepository, orderId: id)
             ..fetchOrderDetails(),
       child: _OrderDetailsView(id: id),
     );
@@ -85,11 +99,12 @@ class _OrderDetailsView extends StatelessWidget {
             final completedItems = state.order.items
                 .where(
                   (item) =>
-                      item.status == OrderStatus.delivered ||
-                      item.status == OrderStatus.accepted,
+                      item.status == OrderItemStatus.rejected ||
+                      item.status == OrderItemStatus.approved,
                 )
                 .length;
             final totalItems = state.order.items.length;
+            final cubit = context.read<OrderDetailsCubit>();
 
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -103,30 +118,31 @@ class _OrderDetailsView extends StatelessWidget {
                       completedItems: completedItems,
                       totalItems: totalItems,
                     ),
-                    // ...state.order.items.map(
-                    //   (item) => OrderListItem(
-                    //     imageUrl: item.variantSnapshot.imageUrls.first,
-                    //     title: item.variantSnapshot.getDisplayName(
-                    //       'product name',
-                    //     ),
-                    //     price: item.variantSnapshot.price,
-                    //     quantity: item.quantity,
-                    //     orderStatus: item.status,
-                    //     onTap: () {},
-                    //     onConfirmTapped: () {},
-                    //     onChatTapped: () {},
-                    //     onCancelTapped: () {},
-                    //   ),
-                    // );
+                    ...state.order.items.map(
+                      (item) => OrderListItem(
+                        imageUrl: item.media.first.url,
+                        title: item.productName,
+                        price: item.priceAtPurchase,
+                        quantity: item.quantity,
+                        itemStatus: item.status,
+                        onTap: () {},
+                        onConfirmTapped: () => cubit.updateStatus(
+                          item.itemId,
+                          OrderItemStatus.approved,
+                        ),
+                        onCancelTapped: () => cubit.updateStatus(
+                          item.itemId,
+                          OrderItemStatus.rejected,
+                        ),
+                      ),
+                    ),
                     OrderSummarySection(
-                      subtotal: state.order.subtotal.toStringAsFixed(2),
-                      shippingCost: state.order.shippingCost.toStringAsFixed(2),
-                      taxes: state.order.taxAmount.toStringAsFixed(2),
-                      total: state.order.total.toStringAsFixed(2),
+                      subtotal: state.order.totalAmountPaid.toStringAsFixed(2),
+
+                      total: state.order.totalAmountPaid.toStringAsFixed(2),
                       orderId: id,
-                      shippingAddress:
-                          state.order.deliveryAddress.streetAddress,
-                      date: state.order.getFormattedDate(),
+
+                      date: state.order.formattedCreateAt,
                     ),
                   ],
                 ),

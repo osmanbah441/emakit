@@ -87,7 +87,9 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const GenericWalletCard(),
+                        const GenericWalletCard(
+                          walletId: 'fac-k6HN5o5gSDgMnwWnoM8GJwqGZua',
+                        ), // TODO:
 
                         const SizedBox(height: 40),
 

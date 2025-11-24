@@ -4,6 +4,8 @@ import 'store_repository_impl.dart';
 abstract class StoreRepository {
   static const StoreRepository instance = StoreRepositoryImpl();
 
+  Future<StoreMetricModel> getStoreDashboardMetric(String id);
+
   Future<void> createStore({
     required String ownerId,
     required String name,

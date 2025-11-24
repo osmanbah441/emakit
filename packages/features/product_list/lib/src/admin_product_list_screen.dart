@@ -27,7 +27,7 @@ class _AdminProductListScreenState extends State<AdminProductListScreen> {
   }
 
   void _fetch() async {
-    _productsFuture = widget.productRepository.getAll(ApplicationRole.admin);
+    _productsFuture = widget.productRepository.getBuyerProducts();
   }
 
   void _refreshProducts() {

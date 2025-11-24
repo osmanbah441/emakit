@@ -3,11 +3,13 @@ import 'package:domain_models/src/product_media.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:component_library/component_library.dart';
+import 'package:product_add_or_edit/src/components/multi_image_picker.dart';
 import 'package:product_add_or_edit/src/product_add_or_edit_cubit.dart';
 import 'package:product_add_or_edit/src/product_add_or_edit_state.dart';
 import 'package:product_repository/product_repository.dart';
 import 'package:category_repository/category_repository.dart';
 
+import 'package:image_picker/image_picker.dart';
 import 'components/components.dart';
 
 class ProductAddOrEditScreen extends StatelessWidget {
@@ -158,6 +160,8 @@ class _SuccessState extends State<_Success> {
     );
   }
 
+  List<XFile> images = [];
+
   @override
   Widget build(BuildContext context) {
     final state = widget.state;
@@ -210,9 +214,15 @@ class _SuccessState extends State<_Success> {
               ],
             ),
             const SizedBox(height: 24),
-            ProductMediaInput(
-              onMediaAdded: _onMediaAdded,
-              onMediaRemoved: _onMediaRemoved,
+            // ProductMediaInput(
+            //   onMediaAdded: _onMediaAdded,
+            //   onMediaRemoved: _onMediaRemoved,
+            // ),
+            MultiImagePicker(
+              maxImages: 4,
+              onChanged: (files) {
+                setState(() => images = files);
+              },
             ),
           ],
         ),

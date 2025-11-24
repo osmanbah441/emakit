@@ -62,7 +62,7 @@ class _PickImageViewState extends State<_PickImageView> {
     final theme = Theme.of(context);
 
     return FutureBuilder(
-      future: CategoryRepositoryImpl(role: ApplicationRole.buyer).getAll(),
+      future: CategoryRepositoryImpl().getAll(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:

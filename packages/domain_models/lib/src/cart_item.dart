@@ -1,5 +1,6 @@
 class CartItem {
   final String id;
+  final String userId;
   final int quantity;
   final double unitPrice;
   final int availableStock;
@@ -15,6 +16,7 @@ class CartItem {
 
   const CartItem({
     required this.id,
+    required this.userId,
     required this.quantity,
     required this.productName,
     required this.imageUrl,
@@ -38,6 +40,7 @@ class CartItem {
 
     return CartItem(
       id: json['cart_item_id'] as String,
+      userId: json['user_id'] as String,
       quantity: json['cart_quantity'] as int,
       storeOfferId: json['store_offer_id'] as String,
       unitPrice: parseDouble(json['unit_price']),

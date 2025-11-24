@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet/src/components/info_text.dart';
 import 'package:component_library/component_library.dart';
-
-typedef DepositResult = dynamic;
+import 'package:wallet/src/models/models.dart';
 
 class AddMoneyModal extends StatefulWidget {
   const AddMoneyModal({required this.onAddMoney, this.onSuccess, super.key});
 
-  final Future<DepositResult> Function(double amount) onAddMoney;
+  final Future<UssdFundTransferRequest> Function(double amount) onAddMoney;
 
-  final void Function(DepositResult result)? onSuccess;
+  final void Function(UssdFundTransferRequest result)? onSuccess;
 
   @override
   State<AddMoneyModal> createState() => _AddMoneyModalState();

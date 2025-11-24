@@ -13,11 +13,13 @@ class BuyerHomeScreen extends StatelessWidget {
     required this.onCategoryTap,
     required this.categoryRepository,
     required this.storeRepository,
+    required this.onStoreTap,
   });
 
   final Function(String id) onCategoryTap;
   final CategoryRepository categoryRepository;
   final StoreRepository storeRepository;
+  final VoidCallback onStoreTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,13 @@ class BuyerHomeScreen extends StatelessWidget {
         storeRepository: storeRepository,
       ),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Salone Bazaar'), centerTitle: false),
+        appBar: AppBar(
+          title: const Text('Salone Bazaar'),
+          centerTitle: false,
+          actions: [
+            IconButton(onPressed: onStoreTap, icon: const Icon(Icons.store)),
+          ],
+        ),
         body: BlocBuilder<BuyerHomeCubit, BuyerHomeState>(
           builder: (context, state) {
             if (state.isLoading) {

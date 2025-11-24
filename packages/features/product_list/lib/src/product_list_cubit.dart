@@ -35,7 +35,7 @@ class ProductListCubit extends Cubit<ProductListState> {
         _parentCategoryId,
       );
 
-      final listOfProductLists = await _productRepository.getAll(role);
+      final listOfProductLists = await _productRepository.getBuyerProducts();
 
       final allProducts = listOfProductLists.toList();
 
@@ -79,8 +79,7 @@ class ProductListCubit extends Cubit<ProductListState> {
         newCategoriesForDisplay = subcategories;
       }
 
-      final listOfProducts = await _productRepository.getAll(
-        role,
+      final listOfProducts = await _productRepository.getBuyerProducts(
         categoryId: category.id,
       );
 

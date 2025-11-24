@@ -75,6 +75,18 @@ class StoreRepositoryImpl implements StoreRepository {
   Future<Store> toggleFollow(String storeId) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<StoreMetricModel> getStoreDashboardMetric(String id) async {
+    return await _client
+        .from('v_store_dashboard_metrics')
+        .select()
+        .eq('store_id', id)
+        .single()
+        .then((res) {
+          return StoreMetricModel.fromJson(res);
+        });
+  }
 }
 
 extension on Map<String, dynamic> {

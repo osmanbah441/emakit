@@ -19,3 +19,7 @@ export 'src/link_category_to_atrributes.dart';
 export 'src/color_option.dart';
 export 'src/product_variation.dart';
 export 'src/buyer_product_details.dart';
+export 'src/store_order_item_fulfillment.dart';
+export 'src/store_metric.dart';
+export 'src/store_product.dart';
+export 'src/product_category.dart';

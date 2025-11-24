@@ -1,5 +1,6 @@
 class RoutePaths {
   static final home = (name: 'home', path: '/');
+  static final storeHome = (name: 'storeHome', path: '/store-home');
 
   static final addEditProduct = (
     name: 'addEditProduct',
@@ -66,5 +67,15 @@ class RoutePaths {
   static final storeDiscovery = (
     name: 'storeDiscovery',
     path: '/store-discovery',
+  );
+
+  static final createOfferForVariant = (
+    name: 'createOfferForVariant',
+    path: '/create-offer/:variantId',
+  );
+
+  static final createVariationAndOffer = (
+    name: 'createVariationAndOffer',
+    path: '/create-variation-and-offer/:productId',
   );
 }

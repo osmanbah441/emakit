@@ -18,7 +18,7 @@ class ProductVariationListScreen extends StatelessWidget {
   });
 
   Future<Product> _fetchProductData() async {
-    return await productRepository.getProductDetails(productId: productId);
+    return await productRepository.getBuyerProductDetails(productId: productId);
   }
 
   @override

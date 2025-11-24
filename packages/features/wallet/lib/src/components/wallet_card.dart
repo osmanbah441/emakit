@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:wallet/src/models/models.dart';
 
 class WalletCard extends StatelessWidget {
   const WalletCard({
     super.key,
-    required this.balance,
-    this.currency = '🇸🇱 SLE.',
+    this.balance,
     required this.actionSection,
     this.isFetchBalance = false,
   });
 
-  final double balance;
-  final String currency;
+  final Balance? balance;
+
   final bool isFetchBalance;
   final Widget actionSection;
 
@@ -23,20 +23,23 @@ class WalletCard extends StatelessWidget {
     final balanceSection = Column(
       children: [
         Text('Current Balance', style: textTheme.labelSmall),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(currency),
-            const SizedBox(width: 8),
-            Text(
-              balance.toStringAsFixed(2),
-              style: textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+        if (balance != null)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(balance!.currency),
+              const SizedBox(width: 8),
+              Text(
+                balance!.amount.toStringAsFixed(2),
+                style: textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          )
+        else
+          Text('Failed check internet connection'),
       ],
     );
 

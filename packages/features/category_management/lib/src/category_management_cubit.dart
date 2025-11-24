@@ -18,7 +18,7 @@ class CategoryManagementCubit extends Cubit<CategoryManagementState> {
   void _fetch() async {
     try {
       final data = await Future.wait([
-        _categoryRepository.getCategoryWithAttributes(),
+        _categoryRepository.productCategory(),
         _categoryRepository.getAllAttributes(),
       ]);
       emit(

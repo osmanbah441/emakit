@@ -3,10 +3,10 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet/src/components/info_text.dart';
-import 'package:wallet/src/models/deposit_details.dart';
+import 'package:wallet/src/models/models.dart';
 
 class USSDTransactionCompletion extends StatefulWidget {
-  final DepositDetails details;
+  final UssdFundTransferRequest details;
   const USSDTransactionCompletion({super.key, required this.details});
 
   @override
@@ -21,8 +21,18 @@ class _USSDTransactionCompletionState extends State<USSDTransactionCompletion> {
   @override
   void initState() {
     super.initState();
-    _countdown = widget.details.initialCountdownSeconds;
+    // Calculate initial countdown from the expireTime string
+    _calculateInitialCountdown();
     _startTimer();
+  }
+
+  void _calculateInitialCountdown() {
+    // Since widget.details.expireTime is now a DateTime, we use it directly.
+    final expiryTime = widget.details.expireTime;
+    final duration = expiryTime.difference(DateTime.now());
+
+    // Clamp to 0 just in case the time is already past or negative
+    _countdown = duration.inSeconds.clamp(0, duration.inSeconds);
   }
 
   @override
@@ -81,7 +91,9 @@ class _USSDTransactionCompletionState extends State<USSDTransactionCompletion> {
     final theme = Theme.of(context);
     final isExpired = _countdown <= 0;
     final ussdCode = widget.details.ussdCode;
-    final depositAmount = widget.details.depositAmount;
+    // Access amount and currency from the nested Balance object
+    final depositAmount = widget.details.amount.amount;
+    final currency = widget.details.amount.currency;
 
     var codeSection = Column(
       spacing: 4,
@@ -165,7 +177,8 @@ class _USSDTransactionCompletionState extends State<USSDTransactionCompletion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Amount to Receive: NLe ${depositAmount.toStringAsFixed(2)}',
+                  // Updated to use currency and depositAmount from the new model structure
+                  'Amount to Receive: $currency ${depositAmount.toStringAsFixed(2)}',
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: theme.colorScheme.primary,
@@ -173,7 +186,8 @@ class _USSDTransactionCompletionState extends State<USSDTransactionCompletion> {
                   textAlign: TextAlign.center,
                 ),
 
-                InfoText(amount: widget.details.depositAmount),
+                // Updated InfoText to receive the correct double amount
+                InfoText(amount: depositAmount),
 
                 codeSection,
 

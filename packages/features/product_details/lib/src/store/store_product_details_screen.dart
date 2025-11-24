@@ -1,18 +1,39 @@
+import 'package:cart_repository/cart_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:order_repository/order_repository.dart';
 import 'package:product_details/src/product_details_cubit.dart';
 import 'package:component_library/component_library.dart';
+import 'package:product_repository/product_repository.dart';
+import 'package:store_repository/store_repository.dart';
 
 class StoreProductDetailsScreen extends StatelessWidget {
-  const StoreProductDetailsScreen({super.key, required this.productId});
+  const StoreProductDetailsScreen({
+    super.key,
+    required this.productId,
+    required this.productRepository,
+    required this.orderRepository,
+    required this.storeRepository,
+    required this.cartRepository,
+  });
 
   final String productId;
+  final ProductRepository productRepository;
+  final OrderRepository orderRepository;
+  final StoreRepository storeRepository;
+  final CartRepository cartRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductDetailsCubit(productId),
+      create: (context) => ProductDetailsCubit(
+        productId: productId,
+        productRepository: productRepository,
+        orderRepository: orderRepository,
+        storeRepository: storeRepository,
+        cartRepository: cartRepository,
+      ),
       child: const StoreProductDetailView(),
     );
   }

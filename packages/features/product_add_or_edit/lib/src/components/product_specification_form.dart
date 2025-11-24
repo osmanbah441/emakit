@@ -38,19 +38,19 @@ class ProductSpecificationForm extends StatelessWidget {
                   style: theme.textTheme.titleLarge,
                 ),
                 const Divider(height: 30),
-                if (showDynamicForm)
-                  DynamicSpecForm(formKey: specFormKey, onChanged: onChanged)
-                else
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Text(
-                        'Select a category to load its specifications.',
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                    ),
-                  ),
+                // if (showDynamicForm)
+                //   DynamicSpecForm(formKey: specFormKey, onChanged: onChanged)
+                // else
+                //   Center(
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(24.0),
+                //       child: Text(
+                //         'Select a category to load its specifications.',
+                //         textAlign: TextAlign.center,
+                //         style: theme.textTheme.bodyMedium,
+                //       ),
+                //     ),
+                //   ),
                 const SizedBox(height: 30),
                 Text('Category Variations', style: theme.textTheme.titleMedium),
                 const Divider(),

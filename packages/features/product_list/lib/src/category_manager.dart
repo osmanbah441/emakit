@@ -9,9 +9,7 @@ class CategoryManager {
   factory CategoryManager() => instance;
   CategoryManager._internal();
 
-  final CategoryRepository _repository = CategoryRepositoryImpl(
-    role: ApplicationRole.buyer,
-  );
+  final CategoryRepository _repository = CategoryRepositoryImpl();
 
   Map<String, Category> _allCategoriesMap = {};
   bool _isLoaded = false;

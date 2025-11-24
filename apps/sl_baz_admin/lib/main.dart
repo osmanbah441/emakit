@@ -48,10 +48,8 @@ class AdminDashboard extends StatefulWidget {
 
 class _AdminDashboardState extends State<AdminDashboard> {
   int _selectedIndex = 0;
-  final _productRepository = ProductRepositoryImpl(role: ApplicationRole.admin);
-  final _categoryRepository = CategoryRepositoryImpl(
-    role: ApplicationRole.admin,
-  );
+  final _productRepository = ProductRepositoryImpl();
+  final _categoryRepository = CategoryRepositoryImpl();
 
   List<Widget> _pages() => [
     DashboardPage(),

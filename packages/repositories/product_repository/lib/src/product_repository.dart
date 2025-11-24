@@ -1,10 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 
 abstract class ProductRepository {
-  // static const ProductRepository instance = ProductRepositoryImpl();
-
-  Future<List<Product>> getAll(
-    ApplicationRole role, {
+  Future<List<Product>> getBuyerProducts({
     String? searchTerm,
     String? categoryId,
   });
@@ -33,5 +30,42 @@ abstract class ProductRepository {
     required List<String> imageUrls,
   });
 
-  Future<Product> getProductDetails({String? productId, String? variantId});
+  Future<Product> getBuyerProductDetails({
+    String? productId,
+    String? variantId,
+  });
+
+  Future<List<StoreProduct>> getStoreProductWithOffer();
+
+  Future<void> createProductWithVariationAndOffer({
+    required String name,
+    required String manufacturer,
+    required String categoryId,
+    required String description,
+    required Map<String, String> specs,
+    required double price,
+    required int stock,
+    required List<String> imageUrls,
+    required Map<String, String> variationAttributes,
+  });
+
+  Future<void> createVariationAndOffer({
+    required String productId,
+    required String storeId,
+    required double price,
+    required int stock,
+    required Map<String, String> attributes,
+    required List<String> imageUrls,
+  });
+
+  Future<void> createOffer({
+    required String variantId,
+    required String storeId,
+    required double price,
+    required int stock,
+  });
+
+  Future<StoreProduct?>? getStoreProductVariantById(String id);
+
+  Future<StoreProduct?>? getStoreProductById(String id);
 }

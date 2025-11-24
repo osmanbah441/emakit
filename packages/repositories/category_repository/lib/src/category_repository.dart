@@ -29,7 +29,7 @@ abstract class CategoryRepository {
     List<LinkCategoryToAtrributes> items,
   );
 
-  Future<List<Category>> getCategoryWithAttributes();
+  Future<List<ProductCategory>> productCategory({String? id});
 
   Future<List<AttributeDefinition>> getAllAttributes();
 }

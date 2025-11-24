@@ -4,7 +4,25 @@ import 'package:flutter/material.dart';
 
 class ProductImageCarousel extends StatefulWidget {
   final List<String> imageUrls;
-  const ProductImageCarousel({super.key, required this.imageUrls});
+  final BorderRadius borderRadius;
+  final double aspectRatio;
+
+  /// If false, the user cannot swipe between images, and indicators are hidden.
+  /// Defaults to true.
+  final bool isScrollable;
+
+  /// If false, tapping the image will not open the full-screen view.
+  /// Defaults to true.
+  final bool enableFullScreen;
+
+  const ProductImageCarousel({
+    super.key,
+    required this.imageUrls,
+    this.borderRadius = BorderRadius.zero,
+    this.aspectRatio = 1 / 1,
+    this.isScrollable = true,
+    this.enableFullScreen = true,
+  });
 
   @override
   State<ProductImageCarousel> createState() => _ProductImageCarouselState();
@@ -27,43 +45,60 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
     }
 
     return AspectRatio(
-      aspectRatio: 1,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          PageView.builder(
-            itemCount: widget.imageUrls.length,
-            onPageChanged: (value) => setState(() => _currentPage = value),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => _FullScreenCarouselView(
-                      imageUrls: widget.imageUrls,
-                      initialPage: _currentPage,
+      aspectRatio: widget.aspectRatio,
+      child: ClipRRect(
+        borderRadius: widget.borderRadius,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            PageView.builder(
+              // 1. Disable scrolling physics if isScrollable is false
+              physics: widget.isScrollable
+                  ? const PageScrollPhysics()
+                  : const NeverScrollableScrollPhysics(),
+              itemCount: widget.imageUrls.length,
+              onPageChanged: (value) => setState(() => _currentPage = value),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  // 2. Disable Tap if enableFullScreen is false
+                  onTap: widget.enableFullScreen
+                      ? () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => _FullScreenCarouselView(
+                              imageUrls: widget.imageUrls,
+                              initialPage: _currentPage,
+                            ),
+                          ),
+                        )
+                      : null,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.imageUrls[index],
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => CenteredProgressIndicator(),
+                    errorWidget: (context, url, error) => Center(
+                      child: Icon(
+                        Icons.error_outline,
+                        color: colorScheme.error,
+                      ),
                     ),
                   ),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: widget.imageUrls[index],
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => CenteredProgressIndicator(),
-                  errorWidget: (context, url, error) => Center(
-                    child: Icon(Icons.error_outline, color: colorScheme.error),
-                  ),
-                ),
-              );
-            },
-          ),
-          _PageIndicator(
-            imageCount: widget.imageUrls.length,
-            currentPage: _currentPage,
-          ),
-        ],
+                );
+              },
+            ),
+            // 3. Only show indicator if scrollable is true
+            if (widget.isScrollable)
+              _PageIndicator(
+                imageCount: widget.imageUrls.length,
+                currentPage: _currentPage,
+              ),
+          ],
+        ),
       ),
     );
   }
 }
+
+// --- Helper classes (Unchanged) ---
 
 class _PageIndicator extends StatelessWidget {
   const _PageIndicator({required this.imageCount, required this.currentPage});

@@ -69,6 +69,7 @@ final class CartSuccess extends CartState {
     // create new CartItem manually (no copyWith)
     final newItem = CartItem(
       id: old.id,
+      userId: old.userId,
       quantity: newQty,
       unitPrice: old.unitPrice,
       availableStock: old.availableStock,

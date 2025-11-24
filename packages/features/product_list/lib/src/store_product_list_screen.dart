@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:product_repository/product_repository.dart';
@@ -45,7 +46,7 @@ class _StoreProductListViewState extends State<StoreProductListView> {
   final TextEditingController _searchController = TextEditingController();
 
   List<Product> _allProducts = [];
-  String _listTitle = 'All Products';
+
   bool _isLoading = true;
   String? _errorMessage;
 
@@ -69,17 +70,11 @@ class _StoreProductListViewState extends State<StoreProductListView> {
     });
 
     try {
-      final allProducts = await widget.productRepository.getAll(
-        ApplicationRole.store,
-      );
-
-      if (allProducts.isNotEmpty) {
-        allProducts.shuffle();
-      }
+      final allProducts = await widget.productRepository.getBuyerProducts();
 
       setState(() {
         _allProducts = allProducts;
-        _listTitle = 'All Products';
+
         _isLoading = false;
       });
     } catch (e) {
@@ -106,19 +101,19 @@ class _StoreProductListViewState extends State<StoreProductListView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorScheme.surface,
-        title: Text(
-          _listTitle,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-        ),
+        title: Text('My Products'),
         centerTitle: false,
-
+        actions: [
+          PrimaryActionButton(
+            buttonHeight: 32,
+            label: 'New Product',
+            isExtended: false,
+            onPressed: widget.onAddProduct,
+          ),
+          const SizedBox(width: 8),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
           child: Padding(
@@ -147,11 +142,6 @@ class _StoreProductListViewState extends State<StoreProductListView> {
         ),
       ),
       body: _buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: widget.onAddProduct,
-        tooltip: 'Discover New Product',
-        child: const Icon(Icons.explore),
-      ),
     );
   }
 
@@ -169,16 +159,13 @@ class _StoreProductListViewState extends State<StoreProductListView> {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       itemCount: _filteredProducts.length,
       itemBuilder: (context, index) {
         final product = _filteredProducts[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: StoreProductListCard(
-            product: product,
-            onTap: () => widget.onProductTap.call(product.id),
-          ),
+        return StoreProductListCard(
+          product: product,
+          onTap: () => widget.onProductTap.call(product.id),
         );
       },
     );

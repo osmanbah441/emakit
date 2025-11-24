@@ -10,19 +10,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AttributeDefinitionTable extends StatelessWidget {
   const AttributeDefinitionTable({super.key});
 
-  void _showAddAttributeDialog(
-    BuildContext context, [
-    AttributeDefinition? attr,
-  ]) {
-    showDialog(
-      context: context,
-      builder: (_) => BlocProvider.value(
-        value: context.read<CategoryManagementCubit>(),
+  // void _showAddAttributeDialog(
+  //   BuildContext context, [
+  //   AttributeDefinition? attr,
+  // ]) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (_) => BlocProvider.value(
+  //       value: context.read<CategoryManagementCubit>(),
 
-        child: AddAttributeDialog(initialAttribute: attr),
-      ),
-    );
-  }
+  //       child: AddAttributeDialog(initialAttribute: attr),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,12 @@ class AttributeDefinitionTable extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            PrimaryActionButton(
-              isExtended: false,
-              onPressed: () => _showAddAttributeDialog(context),
-              icon: const Icon(Icons.add),
-              label: 'Add New Attribute',
-            ),
+            // PrimaryActionButton(
+            //   isExtended: false,
+            //   onPressed: () => _showAddAttributeDialog(context),
+            //   icon: const Icon(Icons.add),
+            //   label: 'Add New Attribute',
+            // ),
             const SizedBox(height: 16),
             Expanded(
               child: Card(
@@ -91,24 +91,24 @@ class AttributeDefinitionTable extends StatelessWidget {
                                     : attr.unit!,
                               ),
                             ),
-                            DataCell(
-                              attr.dataType == AttributeDataType.dropdown
-                                  ? Text('(${attr.options?.length ?? 0})')
-                                  : const Text('-'),
-                            ),
-                            DataCell(
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(Icons.edit, size: 20),
-                                    onPressed: () =>
-                                        _showAddAttributeDialog(context, attr),
-                                    tooltip: 'Edit',
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // DataCell(
+                            //   attr.dataType == AttributeDataType.dropdown
+                            //       ? Text('(${attr.options?.length ?? 0})')
+                            //       : const Text('-'),
+                            // ),
+                            // DataCell(
+                            //   Row(
+                            //     mainAxisSize: MainAxisSize.min,
+                            //     children: [
+                            //       IconButton(
+                            //         icon: Icon(Icons.edit, size: 20),
+                            //         onPressed: () =>
+                            //             _showAddAttributeDialog(context, attr),
+                            //         tooltip: 'Edit',
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         );
                       }).toList(),

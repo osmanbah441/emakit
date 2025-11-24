@@ -1,54 +1,80 @@
 import 'dart:async';
-import 'package:wallet/src/models/deposit_details.dart';
+import 'dart:convert';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wallet/src/models/models.dart';
 
 class WalletRepository {
-  const WalletRepository._();
+  WalletRepository._();
 
-  static const instance = WalletRepository._();
+  static final instance = WalletRepository._();
+  final _client = Supabase.instance.client;
 
-  static double _balance = 0.0;
+  Future<Balance> getBalance(String walletId) async => await _client.functions
+      .invoke('baz-wallet/wallet/$walletId', method: HttpMethod.get)
+      .then((res) {
+        final data = jsonDecode(res.data) as Map<String, dynamic>;
+        return Balance.fromJson(data);
+      });
 
-  Future<double> getBalance() async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    return _balance;
-  }
-
-  Future<void> pay({required double amount}) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (_balance < amount) {
-      throw ('Insufficient funds');
-    }
-
-    _balance -= amount;
-  }
-
-  Future<DepositDetails> addMoney(double amount) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    _balance += amount;
-
-    return DepositDetails(
-      transactionId: 'TXN-${DateTime.now().millisecondsSinceEpoch}',
-      ussdCode: '*123*456*789#', // Simulated USSD code
-      providerName: 'Orange Money',
-      initialCountdownSeconds: 10, // *** CHANGED TO 10 SECONDS FOR TESTING ***
-      depositAmount: amount, // Amount passed through
-    );
-  }
-
-  Future<void> processCashout({
-    required String phoneNumber,
-    required String provider,
-    required double amount,
+  Future<void> checkout({
+    required String userId,
+    required String userWalletId,
+    required String userPhoneNumber,
+    required String? cartItemId,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (_balance < amount) {
-      throw ('Insufficient funds');
+    try {
+      await _client.functions.invoke(
+        'baz-wallet/checkout',
+        body: {
+          "userId": userId,
+          "userWalletId": userWalletId,
+          "userPhoneNumber": userPhoneNumber,
+          if (cartItemId != null) "cartItemId": cartItemId,
+        },
+      );
+    } catch (e) {
+      print(e);
+      rethrow;
     }
+  }
 
-    _balance -= amount;
+  Future<UssdFundTransferRequest> mobileCashIn(
+    double amount,
+    String walletId,
+  ) async {
+    try {
+      return await _client.functions
+          .invoke(
+            'baz-wallet/mobile-money-payin',
+            body: {'amount': amount, 'walletId': walletId},
+          )
+          .then((res) {
+            final data = res.data as Map<String, dynamic>;
+            return UssdFundTransferRequest.fromJson(data);
+          });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> mobileCashOut({
+    required String phoneNumber,
+    required MobileMoneyProvider provider,
+    required double amount,
+    required String walletId,
+  }) async {
+    try {
+      await _client.functions.invoke(
+        'baz-wallet/mobile-money-cashout',
+        body: {
+          'phoneNumber': phoneNumber,
+          'providerId': provider.providerId,
+          'walletId': walletId,
+          'amount': amount,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 }

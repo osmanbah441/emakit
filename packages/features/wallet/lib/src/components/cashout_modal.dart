@@ -95,8 +95,8 @@ class _CashoutModalState extends State<CashoutModal> {
                 }),
                 validator: (v) {
                   final amount = double.tryParse(v ?? '');
-                  if (amount == null || amount <= 0) {
-                    return 'Enter a valid amount';
+                  if (amount == null || amount < 10) {
+                    return 'Amount must be at least NLe 10';
                   }
                   if (_exceedsBalance) {
                     return 'Exceeds available balance';

@@ -20,31 +20,31 @@ class ProductAddOrEditCubit extends Cubit<ProductAddOrEditState> {
   final CategoryRepository _categoryRepository;
 
   Future<void> _fetchInitialData(String? id) async {
-    try {
-      final categories = await _categoryRepository.getCategoryWithAttributes();
+    // try {
+    //   final categories = await _categoryRepository.productCategory();
 
-      Product? product;
-      if (id != null) {
-        product = await _productRepository.getById(id);
-      }
+    //   Product? product;
+    //   if (id != null) {
+    //     product = await _productRepository.getById(id);
+    //   }
 
-      Category? initialCategory = product != null
-          ? categories.firstWhere(
-              (c) => c.id == product?.categoryId,
-              orElse: () => categories.first,
-            )
-          : null;
+    //   Category? initialCategory = product != null
+    //       ? categories.firstWhere(
+    //           (c) => c.id == product?.categoryId,
+    //           orElse: () => categories.first,
+    //         )
+    //       : null;
 
-      emit(
-        ProductAddOrEditSuccess(
-          allCategories: categories,
-          productToEdit: product,
-          selectedCategory: initialCategory,
-        ),
-      );
-    } catch (e) {
-      emit(ProductAddOrEditError('Failed to load data: ${e.toString()}'));
-    }
+    //   emit(
+    //     ProductAddOrEditSuccess(
+    //       allCategories: categories,
+    //       productToEdit: product,
+    //       selectedCategory: initialCategory,
+    //     ),
+    //   );
+    // } catch (e) {
+    //   emit(ProductAddOrEditError('Failed to load data: ${e.toString()}'));
+    // }
   }
 
   void onCategorySelected(Category? category) {

@@ -3,32 +3,20 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  const ProductRepositoryImpl({required this.role});
+  const ProductRepositoryImpl();
 
   static final _client = Supabase.instance.client;
   static const _table = "catalog_product";
-  final ApplicationRole role;
+  // final ApplicationRole role;
 
   @override
-  Future<List<Product>> getAll(
-    ApplicationRole role, {
+  Future<List<Product>> getBuyerProducts({
     String? searchTerm,
     String? categoryId,
   }) async {
-    switch (role) {
-      case ApplicationRole.buyer:
-        final req = await _client
-            .from('v_list_buyer_products_in_stock')
-            .select();
+    final req = await _client.from('v_list_buyer_products_in_stock').select();
 
-        return req.map((e) => BuyerProductsList.fromJson(e)).toList();
-
-      case ApplicationRole.store:
-      case ApplicationRole.admin:
-        final res = await _client.from(_table).select();
-        final products = res.map((e) => e.toDomainProduct).toList();
-        return products;
-    }
+    return req.map((e) => BuyerProductsList.fromJson(e)).toList();
   }
 
   @override
@@ -115,26 +103,101 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Product> getProductDetails({
+  Future<Product> getBuyerProductDetails({
     String? productId,
     String? variantId,
   }) async {
-    switch (role) {
-      case ApplicationRole.buyer:
-        final res = await _client.rpc(
-          'fn_get_buyer_product_details',
-          params: {'p_variant_id': variantId},
-        );
+    final res = await _client.rpc(
+      'fn_get_buyer_product_details',
+      params: {'p_variant_id': variantId},
+    );
 
-        return BuyerProductDetails.fromJson(res);
-      case ApplicationRole.admin:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ApplicationRole.store:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-    }
+    return BuyerProductDetails.fromJson(res);
   }
+
+  @override
+  Future<List<StoreProduct>> getStoreProductWithOffer() async {
+    final res = await _client.from('v_product_variant_with_offer').select();
+    return res.map((e) => StoreProduct.fromJson(e)).toList();
+  }
+
+  @override
+  Future<void> createOffer({
+    required String variantId,
+    required String storeId,
+    required double price,
+    required int stock,
+  }) async {
+    print('''
+productId: $variantId
+storeId: $storeId
+price: $price
+stock: $stock
+    ''');
+  }
+
+  @override
+  Future<void> createProductWithVariationAndOffer({
+    required String name,
+    required String manufacturer,
+    required String categoryId,
+    required String description,
+    required Map<String, String> specs,
+    required double price,
+    required int stock,
+    required List<String> imageUrls,
+    required Map<String, String> variationAttributes,
+  }) async {
+    print('''
+name: $name
+manufacturer: $manufacturer
+categoryId: $categoryId
+description: $description
+specs: $specs
+price: $price''');
+  }
+
+  @override
+  Future<void> createVariationAndOffer({
+    required String productId,
+    required String storeId,
+    required double price,
+    required int stock,
+    required Map<String, String> attributes,
+    required List<String> imageUrls,
+  }) async {
+    print('''
+productId: $productId
+storeId: $storeId
+attriibutes: $attributes''');
+  }
+
+  @override
+  Future<StoreProduct?>? getStoreProductVariantById(String id) => _client
+      .from('v_product_variant_with_offer')
+      .select()
+      .eq('variant_id', id)
+      .single()
+      .then((data) {
+        if (data.isEmpty) {
+          return null;
+        }
+        return StoreProduct.fromJson(data);
+      });
+
+  @override
+  Future<StoreProduct?>? getStoreProductById(String id) => _client
+      .from('v_product_variant_with_offer')
+      .select()
+      .eq('product_id', id)
+      .limit(1)
+      .single()
+      .then((data) {
+        if (data.isEmpty) {
+          return null;
+        }
+        return StoreProduct.fromJson(data);
+      });
 }
 
 extension on Map<String, dynamic> {

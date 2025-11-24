@@ -29,7 +29,7 @@ class BuyerProductDetailsCubit extends Cubit<BuyerProductDetailsState> {
   Future<void> _loadProductDetails() async {
     emit(const BuyerProductDetailsLoading());
     try {
-      final product = await _productRepository.getProductDetails(
+      final product = await _productRepository.getBuyerProductDetails(
         variantId: _variantId,
       );
 

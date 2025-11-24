@@ -14,6 +14,7 @@ dependencies:
   domain_models: ^0.0.0
   component_library: ^0.0.0
   order_repository: ^1.0.0
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

@@ -34,7 +34,6 @@ export 'src/featured_list_section.dart';
 export 'src/promo_banner_card.dart';
 export 'src/feature_grid_section.dart';
 export 'src/exception_indicator.dart';
-export 'src/item_list_card.dart';
 export 'src/quantity_selector.dart';
 export 'src/sign_in_buttons.dart';
 export 'src/order_progress_indicator.dart';

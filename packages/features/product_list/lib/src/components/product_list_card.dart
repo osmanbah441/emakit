@@ -19,7 +19,6 @@ class StoreProductListCard extends StatelessWidget {
       case ProductStatus.draft:
         return colorScheme.tertiary;
       case ProductStatus.archived:
-      default:
         return colorScheme.error;
     }
   }
@@ -39,7 +38,7 @@ class StoreProductListCard extends StatelessWidget {
         product.status.name.substring(1);
 
     return Card(
-      elevation: 2,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: colorScheme.outlineVariant, width: 0.5),

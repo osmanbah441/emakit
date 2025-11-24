@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class OrderSummarySection extends StatelessWidget {
   final String subtotal;
-  final String shippingCost;
-  final String taxes;
+  final String? shippingCost;
+  final String? taxes;
   final String total;
   final String? discount;
   final String? orderId;
@@ -13,8 +13,8 @@ class OrderSummarySection extends StatelessWidget {
   const OrderSummarySection({
     super.key,
     required this.subtotal,
-    required this.shippingCost,
-    required this.taxes,
+    this.shippingCost,
+    this.taxes,
     required this.total,
     this.discount,
     this.orderId,
@@ -48,8 +48,9 @@ class OrderSummarySection extends StatelessWidget {
             if (shippingAddress != null)
               _KeyValueRow(label: 'Delivery Address', value: shippingAddress!),
             _KeyValueRow(label: 'Subtotal', value: subtotal),
-            _KeyValueRow(label: 'Shipping', value: shippingCost),
-            _KeyValueRow(label: 'Taxes', value: taxes),
+            if (shippingCost != null)
+              _KeyValueRow(label: 'Shipping', value: shippingCost!),
+            if (taxes != null) _KeyValueRow(label: 'Taxes', value: taxes!),
             if (discount != null)
               _KeyValueRow(
                 label: 'Discount',

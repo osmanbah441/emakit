@@ -9,6 +9,7 @@ class PrimaryActionButton extends StatelessWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.isExtended = true,
+    this.buttonHeight = 40,
   });
 
   final VoidCallback? onPressed;
@@ -17,6 +18,7 @@ class PrimaryActionButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? foregroundColor;
   final bool? isExtended;
+  final double buttonHeight;
 
   PrimaryActionButton.isLoadingProgress({String? label, Key? key})
     : this(
@@ -33,7 +35,7 @@ class PrimaryActionButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
-      height: 40,
+      height: buttonHeight,
       width: isExtended! ? double.infinity : null,
       child: ElevatedButton.icon(
         icon: icon,

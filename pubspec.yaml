@@ -39,6 +39,7 @@ workspace:
   - packages/features/product_add_or_edit
   - packages/features/product_variation
   - packages/features/wallet
+  - packages/features/product_and_variation_manager
 
 environment:
   sdk: ^3.8.0

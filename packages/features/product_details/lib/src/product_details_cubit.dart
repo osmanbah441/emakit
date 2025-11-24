@@ -9,12 +9,17 @@ import 'package:equatable/equatable.dart';
 part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
-  ProductDetailsCubit(this.productId)
-    : _productRepository = ProductRepositoryImpl(role: ApplicationRole.buyer),
-      _orderRepository = OrderRepository.instance,
-      _storeRepository = StoreRepository.instance,
-      _cartRepository = CartRepository.instance,
-      super(const ProductDetailsState()) {
+  ProductDetailsCubit({
+    required this.productId,
+    required ProductRepository productRepository,
+    required OrderRepository orderRepository,
+    required StoreRepository storeRepository,
+    required CartRepository cartRepository,
+  }) : _productRepository = productRepository,
+       _orderRepository = orderRepository,
+       _storeRepository = storeRepository,
+       _cartRepository = cartRepository,
+       super(const ProductDetailsState()) {
     _loadProduct();
   }
 
