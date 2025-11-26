@@ -1,11 +1,12 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:component_library/component_library.dart';
+import 'package:product_and_variation_manager/src/components/product_form.dart';
 import 'package:product_and_variation_manager/src/components/product_info_card.dart';
 import 'package:product_repository/product_repository.dart';
 import 'package:category_repository/category_repository.dart';
 import 'package:product_and_variation_manager/src/components/image_upload_box.dart';
-import 'product_info_form.dart';
 import 'cubit.dart';
 
 class ProductAndVariationManagerScreen extends StatelessWidget {
@@ -14,13 +15,14 @@ class ProductAndVariationManagerScreen extends StatelessWidget {
     required this.productRepository,
     required this.categoryRepository,
     required this.onCreateOffer,
-    required this.onCreateVariation,
+    required this.onCreateVariation, required this.onCreateProduct,
   });
 
   final ProductRepository productRepository;
   final CategoryRepository categoryRepository;
 
   final Function(String) onCreateOffer;
+  final Function(ProductFormData) onCreateProduct;
   final Function({required String productId, required String categoryId})
   onCreateVariation;
 
@@ -34,6 +36,7 @@ class ProductAndVariationManagerScreen extends StatelessWidget {
       child: ProductAndVariationManagerView(
         onCreateOffer: onCreateOffer,
         onCreateVariation: onCreateVariation,
+        onCreateProduct: onCreateProduct,
       ),
     );
   }
@@ -44,9 +47,10 @@ class ProductAndVariationManagerView extends StatelessWidget {
   const ProductAndVariationManagerView({
     super.key,
     required this.onCreateOffer,
-    required this.onCreateVariation,
+    required this.onCreateVariation, required this.onCreateProduct,
   });
   final Function(String) onCreateOffer;
+  final Function(ProductFormData) onCreateProduct;
   final Function({required String productId, required String categoryId})
   onCreateVariation;
 
@@ -68,6 +72,7 @@ class ProductAndVariationManagerView extends StatelessWidget {
             ProductAddVariationSearchSuccess() => _ProductList(
               onCreateOffer: onCreateOffer,
               onCreateVariation: onCreateVariation,
+              onCreateProduct: onCreateProduct,
             ),
           },
         ),
@@ -80,11 +85,14 @@ class _ProductList extends StatefulWidget {
   const _ProductList({
     required this.onCreateOffer,
     required this.onCreateVariation,
+    required this.onCreateProduct
   });
 
   final Function(String) onCreateOffer;
+  final Function(ProductFormData) onCreateProduct;
   final Function({required String productId, required String categoryId})
   onCreateVariation;
+  
 
   @override
   State<_ProductList> createState() => _ProductListState();
@@ -173,10 +181,12 @@ class _ProductListState extends State<_ProductList> {
                 Expanded(
                   child: _selectedSegment == 0
                       ? existingBody
-                      : ProductInfoForm(
-                          // Data Connection: Use actual categories
-                          availableCategories: categories,
-                        ),
+                      // : ProductInfoForm(
+                      //     // Data Connection: Use actual categories
+                      //     availableCategories: categories,
+                      //   ),
+
+                      : ProductForm(availableCategories: categories, onSubmit:  widget.onCreateProduct)
                 ),
               ],
             ),

@@ -23,3 +23,4 @@ export 'src/store_order_item_fulfillment.dart';
 export 'src/store_metric.dart';
 export 'src/store_product.dart';
 export 'src/product_category.dart';
+export 'src/product_form_data.dart';

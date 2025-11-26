@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:domain_models/domain_models.dart' as domain;
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'extensions.dart';
@@ -16,9 +16,9 @@ abstract class UserRepository {
   /// The singleton instance of the repository.
   static UserRepository instance = UserRepositoryImpl();
 
-  static void useEmulator({String host = 'localhost', int port = 9099}) async {
-    await FirebaseAuth.instance.useAuthEmulator(host, port);
-  }
+  // static void useEmulator({String host = 'localhost', int port = 9099}) async {
+  //   await FirebaseAuth.instance.useAuthEmulator(host, port);
+  // }
 
   /// A stream that notifies listeners of changes to the user's sign-in state.
   Stream<domain.UserInfo?> get onUserChanges;

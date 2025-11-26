@@ -128,12 +128,18 @@ class ProductRepositoryImpl implements ProductRepository {
     required double price,
     required int stock,
   }) async {
-    print('''
-productId: $variantId
-storeId: $storeId
-price: $price
-stock: $stock
-    ''');
+    try {
+      final data = {
+        'variant_id': variantId,
+        'store_id': storeId,
+        'price': price,
+        'stock_quantity': stock,
+      };
+      await _client.from('store_offer').insert(data);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 
   @override
@@ -148,13 +154,26 @@ stock: $stock
     required List<String> imageUrls,
     required Map<String, String> variationAttributes,
   }) async {
-    print('''
-name: $name
-manufacturer: $manufacturer
-categoryId: $categoryId
-description: $description
-specs: $specs
-price: $price''');
+    print('creating product $name');
+    final params = {
+      'p_product_name': name,
+      'p_manufacturer': manufacturer,
+      'p_specifications': specs,
+      'p_category_id': categoryId,
+      'p_variant_attributes': variationAttributes,
+      'p_variant_media': imageUrls,
+      'p_store_id': '9d7c0f1e-3a7b-40f0-8c5d-672e391b4c5a',
+      'p_price': price,
+      'p_stock_quantity': stock,
+      'p_description': description,
+    };
+
+    try {
+      await _client.rpc('create_new_product_variant_and_offer', params: params);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 
   @override
@@ -166,10 +185,21 @@ price: $price''');
     required Map<String, String> attributes,
     required List<String> imageUrls,
   }) async {
-    print('''
-productId: $productId
-storeId: $storeId
-attriibutes: $attributes''');
+    final params = {
+      'p_catalog_product_id': productId,
+      'p_store_id': storeId,
+      'p_price': price,
+      'p_stock_quantity': stock,
+      'p_attributes': attributes,
+      'p_media': imageUrls,
+    };
+
+    try {
+      await _client.rpc('create_product_variant_with_offer', params: params);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 
   @override

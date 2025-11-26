@@ -40,3 +40,4 @@ export 'src/order_progress_indicator.dart';
 export 'src/image_picker_component.dart';
 export 'src/star_rating_component.dart';
 export 'src/text_row_component.dart';
+export 'src/app_success_view.dart';

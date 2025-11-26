@@ -141,79 +141,87 @@ class _AddVariationFormState extends State<AddVariationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          VariationImagesPicker(
-            imageUrls: _variationImageUrls,
-            onAddImage: _onAddImage,
-            onRemoveImage: _onRemoveImage,
-          ),
-
-          const SizedBox(height: 32),
-
-          // 💥 CHANGED: Mapping over the new list and using the builder
-          ...widget.attributeFields.map((field) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _buildAttributeField(field),
-            );
-          }),
-          const SizedBox(height: 16),
-
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _priceController,
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                      RegExp(r'^\d*\.?\d{0,2}'),
+    return Scaffold(
+        appBar: AppBar(title: const Text('Create Variation and Offer')),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                VariationImagesPicker(
+                  imageUrls: _variationImageUrls,
+                  onAddImage: _onAddImage,
+                  onRemoveImage: _onRemoveImage,
+                ),
+                  
+                const SizedBox(height: 32),
+                  
+                // 💥 CHANGED: Mapping over the new list and using the builder
+                ...widget.attributeFields.map((field) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildAttributeField(field),
+                  );
+                }),
+                const SizedBox(height: 16),
+                  
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _priceController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d*\.?\d{0,2}'),
+                          ),
+                        ],
+                        decoration: const InputDecoration(labelText: "Price"),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Required";
+                          }
+                          final p = double.tryParse(value);
+                          if (p == null || p <= 0) return "Invalid";
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _stockController,
+                        keyboardType: TextInputType.number,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        decoration: const InputDecoration(
+                          labelText: "Stock Quantity",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return "Required";
+                          }
+                          final s = int.tryParse(value);
+                          if (s == null || s < 0) return "Invalid";
+                          return null;
+                        },
+                      ),
                     ),
                   ],
-                  decoration: const InputDecoration(labelText: "Price"),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Required";
-                    }
-                    final p = double.tryParse(value);
-                    if (p == null || p <= 0) return "Invalid";
-                    return null;
-                  },
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: TextFormField(
-                  controller: _stockController,
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: const InputDecoration(
-                    labelText: "Stock Quantity",
-                  ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Required";
-                    }
-                    final s = int.tryParse(value);
-                    if (s == null || s < 0) return "Invalid";
-                    return null;
-                  },
-                ),
-              ),
-            ],
+                  
+                const SizedBox(height: 24),
+                PrimaryActionButton(label: "Create Variation", onPressed: _submit),
+              ],
+            ),
           ),
-
-          const SizedBox(height: 24),
-          PrimaryActionButton(label: "Create Variation", onPressed: _submit),
-        ],
+        ),
       ),
     );
   }

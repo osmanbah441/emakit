@@ -244,6 +244,10 @@ class AppRouter {
           builder: (context, state) => ProductAndVariationManagerScreen(
             productRepository: productRepository,
             categoryRepository: categoryRepository,
+            onCreateProduct: (p) => context.pushNamed(
+              RoutePaths.createProductWithVariationAndOffer.name,
+              extra: p,
+            ),
             onCreateOffer: (id) {
               context.pushNamed(
                 RoutePaths.createOfferForVariant.name,
@@ -267,6 +271,7 @@ class AppRouter {
           builder: (context, state) {
             final variantId = state.pathParameters['variantId']!;
             return CreateOfferScreen(
+              onManageOffers: () => context.push(RoutePaths.storeProducts.path),
               variantId: variantId,
               productRepository: productRepository,
             );
@@ -282,8 +287,21 @@ class AppRouter {
             return CreateVariationAndOfferScreen(
               productId: productId,
               categoryId: categoryId,
+               onManageOffer: () => context.push(RoutePaths.storeProducts.path),
               productRepository: productRepository,
               categoryRepository: categoryRepository,
+            );
+          },
+        ),
+
+        GoRoute(
+          path: RoutePaths.createProductWithVariationAndOffer.path,
+          name: RoutePaths.createProductWithVariationAndOffer.name,
+          builder: (context, state) {
+            final data = state.extra as ProductFormData;
+            return CreateNewProductWithVariationAndOffer(productFormData: data, productRepository: productRepository,
+               onManageOffer: () => context.push(RoutePaths.storeProducts.path),
+            
             );
           },
         ),

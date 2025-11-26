@@ -78,4 +78,9 @@ class RoutePaths {
     name: 'createVariationAndOffer',
     path: '/create-variation-and-offer/:productId',
   );
+
+    static final createProductWithVariationAndOffer = (
+    name: 'createProductWithVariationAndOffer',
+    path: '/create-product-with-variation-and-offer',
+  );
 }

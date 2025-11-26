@@ -47,17 +47,25 @@ class StoreProduct {
     // Safely parse numbers that might be int or double into double
     final num? priceNum = json['offer_price'] as num?;
 
+    // Helper function to safely cast dynamic value to Map<String, dynamic>
+    Map<String, dynamic>? safeMapCast(dynamic value) {
+      if (value is Map<String, dynamic>) {
+        return value;
+      }
+      // If it's a List<dynamic> or any other unexpected type, return null
+      return null;
+    }
+
     return StoreProduct(
       productId: json['product_id'] as String?,
       variantId: json['variant_id'] as String?,
       offerId: json['offer_id'] as String?,
       productName: json['product_name'] as String?,
       manufacturer: json['manufacturer'] as String?,
-      productSpecifications:
-          json['product_specifications'] as Map<String, dynamic>?,
+      productSpecifications: safeMapCast(json['product_specifications']),
       productMedia: mediaList,
       variantSignature: json['variant_signature'] as String?,
-      variantAttributes: json['variant_attributes'] as Map<String, dynamic>?,
+      variantAttributes: safeMapCast(json['variant_attributes']),
       categoryId: json['category_id'] as String?,
       productStatus: json['product_status'] as String?,
       storeId: json['store_id'] as String?,
