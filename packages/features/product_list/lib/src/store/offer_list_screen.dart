@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_repository/product_repository.dart';
 
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-
-
-
 enum OfferFilter { active, paused, outOfStock, all }
 
 // Extension to map the enum to the displayed text
@@ -172,11 +167,9 @@ class ProductCardComponent extends StatelessWidget {
 
   const ProductCardComponent({super.key, required this.product});
 
-
   @override
   Widget build(BuildContext context) {
     final status = product.offerIsActive!;
-    
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -193,7 +186,7 @@ class ProductCardComponent extends StatelessWidget {
             ),
             child: Icon(
               // Using an icon as a placeholder for the image
-             Icons.headset,
+              Icons.headset,
               color: Colors.white70,
             ),
           ),
@@ -213,10 +206,7 @@ class ProductCardComponent extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   product.productName!,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
                 const SizedBox(height: 4),
                 Row(
@@ -239,8 +229,6 @@ class ProductCardComponent extends StatelessWidget {
               ],
             ),
           ),
-         
-        
         ],
       ),
     );
@@ -283,17 +271,26 @@ class SearchBarComponent extends StatelessWidget {
   }
 }
 
-
 /// --- SCREEN WIDGET ---
 
-class ManageOffersScreen extends StatefulWidget {
-  const ManageOffersScreen({super.key});
+class OfferListScreen extends StatefulWidget {
+  const OfferListScreen({
+    super.key,
+    required this. productRepository,
+    required this. onAddProduct,
+    required this. onProductTap,
+  });
+
+  final ProductRepository productRepository;
+  final VoidCallback onAddProduct;
+  final Function(String) onProductTap;
+
 
   @override
-  State<ManageOffersScreen> createState() => _ManageOffersScreenState();
+  State<OfferListScreen> createState() => _OfferListScreenState();
 }
 
-class _ManageOffersScreenState extends State<ManageOffersScreen> {
+class _OfferListScreenState extends State<OfferListScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -312,17 +309,18 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0xFF121212),
           foregroundColor: Colors.white,
-          title: const Text('Manage Offers', style: TextStyle(color: Colors.white)),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
+          title: const Text(
+            'Manage Offers',
+            style: TextStyle(color: Colors.white),
           ),
+       
         ),
         body: Column(
           children: [
             // Search Bar Component
             BlocBuilder<ManageOffersCubit, ManageOffersState>(
-              buildWhen: (previous, current) => previous.searchQuery != current.searchQuery,
+              buildWhen: (previous, current) =>
+                  previous.searchQuery != current.searchQuery,
               builder: (context, state) {
                 return SearchBarComponent(
                   controller: _searchController,
@@ -335,41 +333,48 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
 
             // Filter Chips (Horizontal List)
             BlocBuilder<ManageOffersCubit, ManageOffersState>(
-              buildWhen: (previous, current) => previous.currentFilter != current.currentFilter,
+              buildWhen: (previous, current) =>
+                  previous.currentFilter != current.currentFilter,
               builder: (context, state) {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
-                    children: OfferFilter.values.map((filter) {
-                      // Skip 'All Offers' for this UI, as it uses the custom '+ Custom' button for alternatives
-                      if (filter == OfferFilter.all) return const SizedBox.shrink();
+                    children:
+                        OfferFilter.values.map((filter) {
+                          // Skip 'All Offers' for this UI, as it uses the custom '+ Custom' button for alternatives
+                          if (filter == OfferFilter.all)
+                            return const SizedBox.shrink();
 
-                      return FilterChipComponent(
-                        filter: filter,
-                        selectedFilter: state.currentFilter,
-                        onSelected: (newFilter) {
-                          context.read<ManageOffersCubit>().filterProducts(newFilter);
-                        },
-                      );
-                    }).toList()
-                      ..add(
-                        // Simulate the "+ Custom" button from the image
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white54),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Text(
-                              '+ Custom',
-                              style: TextStyle(color: Colors.white),
+                          return FilterChipComponent(
+                            filter: filter,
+                            selectedFilter: state.currentFilter,
+                            onSelected: (newFilter) {
+                              context.read<ManageOffersCubit>().filterProducts(
+                                newFilter,
+                              );
+                            },
+                          );
+                        }).toList()..add(
+                          // Simulate the "+ Custom" button from the image
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white54),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Text(
+                                '+ Custom',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
-                      ),
                   ),
                 );
               },
@@ -381,20 +386,32 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
               child: BlocBuilder<ManageOffersCubit, ManageOffersState>(
                 builder: (context, state) {
                   if (state.isLoading) {
-                    return const Center(child: CircularProgressIndicator(color: Colors.green));
+                    return const Center(
+                      child: CircularProgressIndicator(color: Colors.green),
+                    );
                   }
 
                   final productsToDisplay = state.filteredProducts;
 
                   if (productsToDisplay.isEmpty) {
-                    return const Center(child: Text('No offers found.', style: TextStyle(color: Colors.white70)));
+                    return const Center(
+                      child: Text(
+                        'No offers found.',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    );
                   }
 
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
                     itemCount: productsToDisplay.length,
                     itemBuilder: (context, index) {
-                      return ProductCardComponent(product: productsToDisplay[index]);
+                      return ProductCardComponent(
+                        product: productsToDisplay[index],
+                      );
                     },
                   );
                 },
@@ -403,53 +420,11 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Handle Add Offer
-          },
+          onPressed: widget.onAddProduct,
           backgroundColor: Colors.green,
           child: const Icon(Icons.add, color: Colors.black),
         ),
       ),
-    );
-  }
-}
-
-const _supabaseUrl = String.fromEnvironment(
-  'SUPABASE_URL',
-  defaultValue: 'http://127.0.0.1:54321',
-);
-const _supabaseAnonKey = String.fromEnvironment(
-  'SUPABASE_ANON_KEY',
-  defaultValue: 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH',
-);
-
-void main() async{
-  await Supabase.initialize(url: _supabaseUrl, anonKey: _supabaseAnonKey);
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Manage Offers Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: const Color(0xFF121212),
-        appBarTheme: const AppBarTheme(
-          color: Color(0xFF121212),
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
-        ),
-      ),
-      home: const ManageOffersScreen(),
     );
   }
 }

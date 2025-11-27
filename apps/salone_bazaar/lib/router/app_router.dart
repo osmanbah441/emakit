@@ -36,7 +36,7 @@ class AppRouter {
 
   AppRouter() {
     router = GoRouter(
-      initialLocation: RoutePaths.addEditProduct.path,
+      initialLocation: RoutePaths.home.path,
       debugLogDiagnostics: true,
       routes: [
         ShellRoute(
@@ -218,7 +218,7 @@ class AppRouter {
         GoRoute(
           path: RoutePaths.storeProducts.path,
           name: RoutePaths.storeProducts.name,
-          builder: (context, state) => StoreProductListScreen(
+          builder: (context, state) => OfferListScreen(
             onProductTap: (productId) => context.pushNamed(
               RoutePaths.storeProductsDetails.name,
               pathParameters: {'productId': productId},
