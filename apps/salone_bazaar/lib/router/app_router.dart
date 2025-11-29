@@ -36,7 +36,7 @@ class AppRouter {
 
   AppRouter() {
     router = GoRouter(
-      initialLocation: RoutePaths.home.path,
+      initialLocation: RoutePaths.storeProducts.path,
       debugLogDiagnostics: true,
       routes: [
         ShellRoute(
@@ -218,13 +218,12 @@ class AppRouter {
         GoRoute(
           path: RoutePaths.storeProducts.path,
           name: RoutePaths.storeProducts.name,
-          builder: (context, state) => OfferListScreen(
-            onProductTap: (productId) => context.pushNamed(
+          builder: (context, state) => ManageOffersScreen(
+            onOfferTapped: (productId) => context.pushNamed(
               RoutePaths.storeProductsDetails.name,
               pathParameters: {'productId': productId},
             ),
-            onAddProduct: () =>
-                context.pushNamed(RoutePaths.addEditProduct.name),
+            onAddOffer: () => context.pushNamed(RoutePaths.addEditProduct.name),
             productRepository: productRepository,
           ),
         ),
@@ -287,7 +286,7 @@ class AppRouter {
             return CreateVariationAndOfferScreen(
               productId: productId,
               categoryId: categoryId,
-               onManageOffer: () => context.push(RoutePaths.storeProducts.path),
+              onManageOffer: () => context.push(RoutePaths.storeProducts.path),
               productRepository: productRepository,
               categoryRepository: categoryRepository,
             );
@@ -299,9 +298,10 @@ class AppRouter {
           name: RoutePaths.createProductWithVariationAndOffer.name,
           builder: (context, state) {
             final data = state.extra as ProductFormData;
-            return CreateNewProductWithVariationAndOffer(productFormData: data, productRepository: productRepository,
-               onManageOffer: () => context.push(RoutePaths.storeProducts.path),
-            
+            return CreateNewProductWithVariationAndOffer(
+              productFormData: data,
+              productRepository: productRepository,
+              onManageOffer: () => context.push(RoutePaths.storeProducts.path),
             );
           },
         ),
