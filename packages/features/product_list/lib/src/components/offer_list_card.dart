@@ -1,9 +1,9 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-import 'package:product_list/src/store/manage_offer_screen.dart';
 
 class OfferListCard extends StatelessWidget {
-  final ProductOffer offer;
+  final StoreProduct offer;
   final VoidCallback onTap;
 
   const OfferListCard({super.key, required this.offer, required this.onTap});
@@ -27,7 +27,7 @@ class OfferListCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppNetworkImage(
-                imageUrl: offer.imageUrl,
+                imageUrl: offer.productMedia!.first.url,
                 width: 104,
                 height: 104,
                 borderRadius: BorderRadius.circular(12),
@@ -42,7 +42,7 @@ class OfferListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      offer.name,
+                      offer.productName!,
                       style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -50,10 +50,10 @@ class OfferListCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    Text(offer.variant, style: textTheme.bodySmall),
+                    Text(offer.variantSignature!, style: textTheme.bodySmall),
                     const SizedBox(height: 4),
                     Text(
-                      'NLE ${offer.price.toStringAsFixed(2)}',
+                      'NLE ${offer.offerPrice!.toStringAsFixed(2)}',
                       style: textTheme.titleMedium?.copyWith(
                         color: colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -64,10 +64,10 @@ class OfferListCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Stock: ${offer.stock}',
+                          'Stock: ${offer.offerStockQuantity!}',
                           style: textTheme.labelMedium,
                         ),
-                        StatusBadge(status: offer.status),
+                        StatusBadge(status: OfferStatus.active),
                       ],
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_list/src/components/offer_list_card.dart';
 import 'package:product_repository/product_repository.dart';
+import 'package:component_library/component_library.dart';
 
 class ProductOffer {
   final String id;
@@ -100,10 +101,7 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-        title: const Text('Manage Offers'),
-      ),
+      appBar: AppBar(title: const Text('Manage Offers')),
       body: Column(
         children: [
           // Search Bar
@@ -150,13 +148,30 @@ class _ManageOffersScreenState extends State<ManageOffersScreen> {
 
           // Offer List
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(4.0),
-              itemCount: mockOffers.length,
-              itemBuilder: (context, index) {
-                return OfferListCard(
-                  offer: mockOffers[index],
-                  onTap: () => widget.onOfferTapped(mockOffers[index].id),
+            child: FutureBuilder(
+              future: widget.productRepository.getStoreProductWithOffer(),
+              builder: (context, asyncSnapshot) {
+                if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+                  return const CenteredProgressIndicator();
+                } else if (asyncSnapshot.hasError) {
+                  return Center(child: Text('Error: ${asyncSnapshot.error}'));
+                }
+
+                final data = asyncSnapshot.data;
+                if (data == null || data.isEmpty) {
+                  return const Center(child: Text('No offers found.'));
+                }
+
+                return ListView.builder(
+                  padding: const EdgeInsets.all(4.0),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final offer = data[index];
+                    return OfferListCard(
+                      offer: offer,
+                      onTap: () => widget.onOfferTapped(offer.offerId!),
+                    );
+                  },
                 );
               },
             ),
